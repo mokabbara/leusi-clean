@@ -960,6 +960,8 @@ async function askSafetyCoach(prompt) {
 
   } catch (error) {
 
+    console.error(error);
+
     return "Connection error with LEUSI AI.";
 
   }
