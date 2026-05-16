@@ -893,6 +893,50 @@ footer {
   </div>
 </footer>
 <script>
+  async function askLeusiAI() {
+
+  const input = document.getElementById('leusi-input');
+
+  const output = document.getElementById('leusi-output');
+
+  const message = input.value.trim();
+
+  if (!message) return;
+
+  output.innerHTML = "Leusi AI is analysing your request...";
+
+  try {
+
+    const response = await fetch('/api/chat', {
+
+      method: 'POST',
+
+      headers: {
+
+        'Content-Type': 'application/json'
+
+      },
+
+      body: JSON.stringify({
+
+        message: message
+
+      })
+
+    });
+
+    const data = await response.json();
+
+    output.innerHTML = data.reply;
+
+  } catch (error) {
+
+    output.innerHTML = "Unable to connect to Leusi AI.";
+
+  }
+
+}
+  
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobileNav');
 hamburger.addEventListener('click', () => {
