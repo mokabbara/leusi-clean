@@ -929,7 +929,9 @@ document.getElementById('industry').addEventListener('change', e => {
 // ============================================================
 // Backend endpoint for production deployments (e.g. leusi.org/leusi-ai.php).
 // Set to null/empty to skip and fall through to static expert responses.
-const AI_BACKEND_URL = './leusi-ai.php';
+const AI_BACKEND_URL =
+
+  'https://leusi-ai.moekab.workers.dev';
 
 async function askAI(prompt, fallback) {
   // 1) Try Cowork sidebar (development / artifact view)
