@@ -154,6 +154,164 @@ h1 {
   backdrop-filter: blur(16px);
 }
 .hero-panel-image {
+  .ai-panel{
+  background:
+    radial-gradient(circle at center, rgba(34,197,94,0.18), transparent 60%),
+    linear-gradient(135deg,#061018,#0b1f2a);
+  border-radius:25px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  height:auto;
+  min-height:420px;
+  position:relative;
+  overflow:hidden;
+}
+
+.ai-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(34,197,94,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,197,94,0.08) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+
+.ai-topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+.ai-brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.ai-brand img{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:3px solid rgba(34,197,94,0.5);
+  box-shadow:0 0 20px rgba(34,197,94,0.4);
+}
+
+.ai-brand strong{
+  display:block;
+  color:white;
+  font-size:18px;
+}
+
+.ai-brand span{
+  color:#86efac;
+  font-size:12px;
+}
+
+.lang-switch{
+  display:flex;
+  gap:8px;
+}
+
+.lang-switch button{
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:#cbd5e1;
+  padding:8px 12px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.lang-switch .active{
+  background:#22c55e;
+  color:#061018;
+  font-weight:700;
+}
+
+.ai-screen{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.ai-message{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(34,197,94,0.18);
+  border-radius:18px;
+  padding:18px;
+  backdrop-filter:blur(10px);
+}
+
+.ai-message strong{
+  color:#86efac;
+  display:block;
+  margin-bottom:8px;
+}
+
+.ai-message p{
+  color:#e2e8f0;
+  margin:0;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.ai-screen textarea{
+  width:100%;
+  min-height:120px;
+  border:none;
+  resize:none;
+  border-radius:18px;
+  padding:18px;
+  background:rgba(255,255,255,0.06);
+  color:white;
+  font-family:inherit;
+}
+
+.ai-screen textarea::placeholder{
+  color:#94a3b8;
+}
+
+.quick-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.quick-actions button{
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:#cbd5e1;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+.quick-actions button:hover{
+  background:rgba(34,197,94,0.18);
+}
+
+.analyze-btn{
+  border:none;
+  background:#22c55e;
+  color:#061018;
+  font-weight:800;
+  padding:16px;
+  border-radius:18px;
+  cursor:pointer;
+  font-size:16px;
+  box-shadow:0 0 30px rgba(34,197,94,0.35);
+}
+
+.analyze-btn:hover{
+  transform:translateY(-1px);
+}
   height: 230px;
   border-radius: 25px;
   overflow: hidden;
@@ -568,7 +726,52 @@ footer {
           <a class="button secondary" href="#governance">View Governance</a>
         </div>
       </div>
-      <div class="hero-panel">
+    <div class="hero-panel-image ai-panel">
+
+  <div class="ai-topbar">
+    <div class="ai-brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="AI Worker">
+      <div>
+        <strong>LEUSI Safety AI</strong>
+        <span>VCA aligned operational assistant</span>
+      </div>
+    </div>
+
+    <div class="lang-switch">
+      <button>AR</button>
+      <button class="active">EN</button>
+      <button>NL</button>
+    </div>
+  </div>
+
+  <div class="ai-screen">
+
+    <div class="ai-message">
+      <strong>LEUSI AI</strong>
+      <p>
+        Describe the task or operational scenario to analyze hazards,
+        PPE requirements, and mitigation measures.
+      </p>
+    </div>
+
+    <textarea
+      placeholder="Example: Workers replacing roof panels at 12m height during rain."
+    ></textarea>
+
+    <div class="quick-actions">
+      <button>Working at Height</button>
+      <button>Confined Space</button>
+      <button>Excavation</button>
+      <button>Heavy Lifting</button>
+    </div>
+
+    <button class="analyze-btn">
+      Analyze Risk
+    </button>
+
+  </div>
+
+</div>
         <div class="hero-panel-image" aria-label="Workers and safety training visual">
           <svg viewBox="0 0 540 230" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
             <!-- Background gradient -->
