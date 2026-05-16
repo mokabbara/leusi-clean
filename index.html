@@ -513,7 +513,63 @@ footer {
   .brand-subtitle { display: none; }
   .image-frame { min-height: 320px; }
 }
+@media (max-width: 768px) {
 
+  .hero-grid,
+  .two-col,
+  .ai-grid,
+  .hero-content {
+    grid-template-columns: 1fr !important;
+    display: grid;
+    gap: 32px;
+  }
+
+  .hero-panel,
+  .ai-panel,
+  .contact-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero h1,
+  .ai-panel h1,
+  .hero-copy h1 {
+    font-size: 42px !important;
+    line-height: 1.1 !important;
+    text-align: center;
+  }
+
+  .hero p,
+  .ai-panel p,
+  .hero-copy p {
+    text-align: center;
+  }
+
+  .hero-actions,
+  .language-switcher,
+  .hero-buttons {
+    justify-content: center !important;
+    flex-wrap: wrap;
+  }
+
+  .hero-image,
+  .hero-panel-image,
+  .ai-character {
+    margin: 0 auto;
+    display: block;
+    max-width: 90%;
+  }
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
 </style>
 </head>
 <body>
