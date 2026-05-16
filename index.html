@@ -909,13 +909,21 @@ footer {
 
     const response = await fetch('/api/chat', {
 
-      method: 'POST',
+  method: 'POST',
 
-      headers: {
+  headers: {
 
-        'Content-Type': 'application/json'
+    'Content-Type': 'application/json'
 
-      },
+  },
+
+  body: JSON.stringify({
+
+    message: input.value
+
+  })
+
+});
 
       body: JSON.stringify({
 
