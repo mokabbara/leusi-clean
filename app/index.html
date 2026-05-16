@@ -1780,7 +1780,7 @@ document.getElementById('generateLessonBtn').addEventListener('click', async () 
 **3.** ...
 
 No preamble.`;
-  const fallback = t('aiOffline');
+const fallback = "";
   out.innerHTML = renderMarkdownLite(await askAI(prompt, fallback));
   setBusy(btn, false, t('learn.custom.btn'));
 });
