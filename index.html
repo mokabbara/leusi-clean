@@ -1271,14 +1271,4 @@ quiz_code = '''
   document.addEventListener('DOMContentLoaded', render);
 })();
 </script>
-'''
-
-# Insert before the existing closing script tag
-content = content.replace('<script>\nconst hamburger', quiz_code + '<script>\nconst hamburger')
-
-with open('/home/claude/index_5.html', 'w', encoding='utf-8') as f:
-    f.write(content)
-print('Quiz JS/CSS inserted:', 'QUESTIONS' in content)
-EOF
-  
 </html>
