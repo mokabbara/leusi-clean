@@ -933,19 +933,38 @@ const AI_BACKEND_URL =
 
   'https://leusi-ai.moekab.workers.dev';
 
-async function askAI(prompt, fallback) {
-  // 1) Try Cowork sidebar (development / artifact view)
-  if (window.cowork && window.cowork.askClaude) {
-    try {
-      const res = await window.cowork.askClaude(prompt, []);
-      if (typeof res === 'string' && res.trim()) return res;
-      if (res && typeof res.text === 'string') return res.text;
-      if (res && typeof res.content === 'string') return res.content;
-      if (Array.isArray(res) && res[0]) return typeof res[0] === 'string' ? res[0] : JSON.stringify(res[0]);
-    } catch (err) {
-      console.warn('Cowork AI unavailable:', err);
+async function askSafetyCoach(prompt) {
+
+  try {
+
+    const response = await fetch(
+      "https://leusi-ai.moekab.workers.dev",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: prompt
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.reply) {
+      return data.reply;
     }
+
+    return "No response from LEUSI AI.";
+
+  } catch (error) {
+
+    return "Connection error with LEUSI AI.";
+
   }
+
+}
 
   // 2) Try production backend (leusi.org deployment)
   if (AI_BACKEND_URL) {
