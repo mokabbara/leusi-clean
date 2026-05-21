@@ -620,9 +620,16 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     const targetPanel = document.getElementById(targetId);
     if (targetPanel) {
       targetPanel.classList.add('active');
+      targetPanel.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+      });
     }
   });
 });
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, {threshold:.12});
