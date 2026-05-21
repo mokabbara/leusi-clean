@@ -63,11 +63,24 @@ header{
 }
 .brand{display:flex;align-items:center;gap:14px}
 .logo{
-  width:54px;height:54px;border-radius:16px;
-  background:linear-gradient(145deg,#5effaa,#173f2d);
-  display:flex;align-items:center;justify-content:center;
-  color:#04111d;font-size:24px;font-weight:900;
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  background:radial-gradient(circle,#0b3b28,#061018);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
   box-shadow:0 0 40px rgba(94,255,170,.35);
+  border:1px solid rgba(94,255,170,.28);
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.28);
+}
 }
 .brand h1{font-size:24px;font-weight:900;letter-spacing:.5px}
 .brand p{color:var(--muted);font-size:13px}
@@ -322,8 +335,18 @@ footer{padding:44px 24px;text-align:center;background:#031018;color:#94a3b8}
 
 <header>
   <div class="nav">
-    <div class="brand">
-      <div class="logo">✓</div>
+   <a class="brand" href="https://leusi.org" style="text-decoration:none;color:inherit;">
+  <div class="logo">
+    <img src="Leusi avatar.png" alt="LEUSI Safety Assistant">
+  </div>
+  <div>
+    <h1>LEUSI</h1>
+    <p>Levant European Safety Initiative</p>
+  </div>
+</a>
+    <div class="logo">
+  <img src="Leusi avatar.png" alt="LEUSI Safety Assistant">
+</div>
       <div>
         <h1>LEUSI</h1>
         <p>Levant European Safety Initiative</p>
