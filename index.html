@@ -17,6 +17,11 @@
 <meta name="twitter:title" content="LEUSI | Levant European Safety Initiative" />
 <meta name="twitter:description" content="HSSE awareness, training, certification readiness, and safety culture for frontline workers in Lebanon and the region." />
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80" />
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="leusi-icon-192.png">
+<meta name="theme-color" content="#061018">
+
 <style>
 :root {
   --ink: #102027;
@@ -603,131 +608,320 @@ footer {
   }
 }
 
-/* LEUSI Strategic Organizing Framework preview */
-.framework-nav-link {
-  color:#04111d !important;
-  font-weight:900 !important;
-  background:linear-gradient(135deg,#f59e0b,#facc15);
-  padding:10px 16px;
-  border-radius:999px;
-  box-shadow:0 0 24px rgba(245,158,11,0.25);
-  text-decoration:none;
+
+/* LEUSI interactive layer */
+#leusiScrollProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green), #f59e0b, #86efac);
+  z-index: 9999;
+  box-shadow: 0 0 18px rgba(34, 197, 94, 0.75);
+  transition: width 0.08s linear;
 }
-.framework-nav-link:hover {
-  transform:translateY(-1px);
-  box-shadow:0 0 34px rgba(245,158,11,0.38);
+
+#backToTop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(134, 239, 172, 0.28);
+  background: rgba(6, 16, 24, 0.88);
+  color: #86efac;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  z-index: 60;
+  opacity: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+  transition: 0.25s ease;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
 }
-.framework-preview {
-  padding:34px 20px;
-  background:#06111f;
+#backToTop.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#backToTop:hover {
+  background: var(--green);
+  color: var(--navy);
+  transform: translateY(-3px);
+}
+
+.nav-links a,
+.mobile-nav a {
+  position: relative;
+  transition: 0.25s ease;
+}
+.nav-links a.active-section {
+  color: white;
+}
+.nav-links a.active-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), #f59e0b);
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.55);
+}
+
+.nav-framework-link {
+  color: #f59e0b !important;
+  font-weight: 900 !important;
+}
+.nav-links .nav-framework-link {
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.14), rgba(250,204,21,0.08));
+  border: 1px solid rgba(245,158,11,0.28);
+  box-shadow: 0 0 26px rgba(245,158,11,0.08);
+}
+.nav-links .nav-framework-link:hover {
+  color: #061018 !important;
+  background: linear-gradient(135deg,#f59e0b,#facc15);
+}
+
+.button,
+.card,
+.program-card,
+.policy-card,
+.audience-card,
+.profile-card,
+.contact-card,
+.impact-card,
+.stat,
+.advisor,
+.hero-panel {
+  will-change: transform;
+}
+
+.card,
+.policy-card,
+.audience-card,
+.profile-card,
+.contact-card,
+.impact-card,
+.advisor,
+.stat {
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+}
+
+.card:hover,
+.policy-card:hover,
+.audience-card:hover,
+.profile-card:hover,
+.contact-card:hover,
+.impact-card:hover,
+.advisor:hover,
+.stat:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.14);
+  border-color: rgba(34, 197, 94, 0.38);
+}
+
+.dark .card:hover,
+.contact-card:hover,
+.impact-card:hover,
+.advisor:hover,
+.stat:hover {
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.34), 0 0 34px rgba(34, 197, 94, 0.08);
+}
+
+.program-card {
+  cursor: pointer;
+}
+.program-card .program-content {
+  transition: transform 0.28s ease;
+}
+.program-card:hover .program-content {
+  transform: translateY(-6px);
+}
+.program-card.is-selected::after {
+  background: linear-gradient(to top, rgba(6, 16, 24, 0.96), rgba(34, 197, 94, 0.28));
+}
+.program-card.is-selected {
+  outline: 2px solid rgba(134, 239, 172, 0.58);
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-item:nth-child(2) { transition-delay: 0.06s; }
+.reveal-item:nth-child(3) { transition-delay: 0.12s; }
+.reveal-item:nth-child(4) { transition-delay: 0.18s; }
+
+.hero-panel {
+  transition: transform 0.25s ease;
+}
+.hero-panel:hover {
+  transform: translateY(-4px) rotateX(1deg) rotateY(-1deg);
+}
+
+.logo-mark {
+  animation: leusiPulse 4s ease-in-out infinite;
+}
+@keyframes leusiPulse {
+  0%, 100% { box-shadow: 0 18px 40px rgba(34, 197, 94, 0.25); }
+  50% { box-shadow: 0 18px 55px rgba(34, 197, 94, 0.48); }
+}
+
+.framework-preview-section {
+  padding: 38px 20px;
+  background: #061018;
 }
 .framework-preview-link {
-  display:block;
-  max-width:1250px;
-  margin:0 auto;
-  text-decoration:none;
-  color:inherit;
+  display: block;
+  max-width: 1180px;
+  margin: 0 auto;
+  text-decoration: none;
+  color: inherit;
 }
 .framework-preview-card {
-  position:relative;
-  overflow:hidden;
-  border-radius:34px;
-  min-height:270px;
-  border:1px solid rgba(245,158,11,0.34);
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  min-height: 280px;
+  border: 1px solid rgba(245, 158, 11, 0.28);
   background:
-    linear-gradient(90deg,rgba(3,13,25,0.96),rgba(3,13,25,0.78),rgba(3,13,25,0.48)),
-    url('ganz-quote.jpg') center center / cover no-repeat;
-  box-shadow:0 0 70px rgba(245,158,11,0.10);
+    linear-gradient(90deg,rgba(6,16,24,0.96),rgba(6,16,24,0.78),rgba(6,16,24,0.45)),
+    url("ganz-quote.jpg") center center / cover no-repeat;
+  box-shadow: 0 0 70px rgba(245, 158, 11, 0.08);
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
 }
-.framework-preview-card::before {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 18% 48%,rgba(94,255,170,0.18),transparent 45%);
+.framework-preview-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(250, 204, 21, 0.55);
+  box-shadow: 0 36px 90px rgba(0, 0, 0, 0.28), 0 0 45px rgba(245, 158, 11, 0.14);
 }
-.framework-preview-card::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,rgba(245,158,11,0.14),transparent 36%,rgba(94,255,170,0.08));
+.framework-preview-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.24), transparent 38%),
+    radial-gradient(circle at 70% 20%, rgba(34, 197, 94, 0.18), transparent 32%);
 }
-.framework-preview-inner {
-  position:relative;
-  z-index:2;
-  padding:42px;
-  max-width:790px;
+.framework-preview-content {
+  position: relative;
+  z-index: 2;
+  padding: 42px;
+  max-width: 820px;
 }
-.framework-preview-label {
-  color:#facc15;
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:4px;
-  margin-bottom:16px;
-  text-transform:uppercase;
+.framework-label {
+  color: #facc15 !important;
 }
-.framework-preview h2 {
-  color:#ffffff;
-  font-size:38px;
-  line-height:1.08;
-  font-weight:900;
-  margin-bottom:18px;
+.framework-preview-content h2 {
+  color: white;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.05;
+  margin-bottom: 18px;
 }
-.framework-preview p {
-  color:#dbeafe;
-  font-size:18px;
-  line-height:1.7;
-  max-width:720px;
-  margin-bottom:26px;
+.framework-preview-content p {
+  color: #dbeafe;
+  font-size: 17px;
+  max-width: 700px;
+  margin-bottom: 26px;
 }
 .framework-preview-button {
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  padding:15px 24px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#f59e0b,#facc15);
-  color:#031018;
-  font-size:16px;
-  font-weight:900;
-  box-shadow:0 0 30px rgba(245,158,11,0.28);
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,#f59e0b,#facc15);
+  color: #061018;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(245,158,11,0.28);
 }
-.framework-preview-link:hover .framework-preview-card {
-  transform:translateY(-4px);
-  box-shadow:0 0 90px rgba(245,158,11,0.18);
+
+.leusi-ai-launch {
+  font-size: 18px;
+  min-height: 62px;
+  padding: 0 34px;
+  border-radius: 18px;
+  background: linear-gradient(135deg,#00ff88,#7dffb9);
+  box-shadow: 0 0 35px rgba(0,255,140,0.45);
 }
-@media (max-width: 768px) {
-  .framework-nav-link {
-    display:block;
-    text-align:center;
-    margin:6px 0;
+.leusi-ai-avatar {
+  transition: transform .35s ease, filter .35s ease;
+}
+.leusi-ai-avatar:hover {
+  transform: translateY(-8px) scale(1.02);
+  filter: drop-shadow(0 0 55px rgba(34,197,94,0.42));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item,
+  .button,
+  .card,
+  .program-card,
+  .policy-card,
+  .audience-card,
+  .profile-card,
+  .contact-card,
+  .impact-card,
+  .stat,
+  .advisor,
+  .logo-mark {
+    animation: none !important;
+    transition: none !important;
   }
-  .framework-preview {
-    padding:24px 14px !important;
+}
+
+@media (max-width: 768px) {
+  #backToTop {
+    right: 16px;
+    bottom: 16px;
+  }
+  .framework-preview-section {
+    padding: 28px 14px;
   }
   .framework-preview-card {
-    min-height:390px !important;
-    background-position:center center !important;
+    min-height: 390px;
+    background-position: center center;
   }
-  .framework-preview-inner {
-    padding:30px 24px !important;
+  .framework-preview-content {
+    padding: 30px 24px;
   }
-  .framework-preview h2 {
-    font-size:28px !important;
-    line-height:1.14 !important;
+  .framework-preview-content p {
+    font-size: 15px;
   }
-  .framework-preview p {
-    font-size:16px !important;
+  .nav-framework-link {
+    color: #facc15 !important;
+  }
+  .card:hover,
+  .policy-card:hover,
+  .audience-card:hover,
+  .profile-card:hover,
+  .contact-card:hover,
+  .impact-card:hover,
+  .advisor:hover,
+  .stat:hover,
+  .program-card:hover,
+  .hero-panel:hover,
+  .leusi-ai-avatar:hover {
+    transform: none;
   }
 }
 
 </style>
-
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="leusi-icon-192.png">
-<meta name="theme-color" content="#04111d">
 </head>
 <body>
+<div id="leusiScrollProgress"></div>
+<button id="backToTop" aria-label="Back to top">↑</button>
 <header>
   <div class="container nav">
     <a href="#top" class="brand" aria-label="LEUSI home">
@@ -746,7 +940,7 @@ footer {
       <a href="#mission">Mission</a>
       <a href="#programs">Programs</a>
       <a href="#governance">Governance</a>
-      <a href="leusi-framework.html" class="framework-nav-link">Organizational Framework</a>
+      <a class="nav-framework-link" href="leusi-framework.html">Organizational Framework</a>
       <a href="#partners">Partners</a>
       <a href="#status">Status</a>
       <a href="#contact">Contact</a>
@@ -762,7 +956,7 @@ footer {
   <a href="#mission" onclick="closeMobileNav()">Mission</a>
   <a href="#programs" onclick="closeMobileNav()">Programs</a>
   <a href="#governance" onclick="closeMobileNav()">Governance</a>
-  <a href="leusi-framework.html" onclick="closeMobileNav()" class="framework-nav-link">Organizational Framework</a>
+  <a class="nav-framework-link" href="leusi-framework.html" onclick="closeMobileNav()">Organizational Framework</a>
   <a href="#partners" onclick="closeMobileNav()">Partners</a>
   <a href="#status" onclick="closeMobileNav()">Status</a>
   <a href="#contact" onclick="closeMobileNav()">Contact</a>
@@ -984,17 +1178,7 @@ gap:30px;
 
         </div>
 
-        <a href="https://leusi.org/app/" style="
-          display:inline-block;
-          padding:20px 38px;
-          border-radius:18px;
-          background:linear-gradient(135deg,#00ff88,#7dffb9);
-          color:#04120a;
-          font-size:18px;
-          font-weight:800;
-          text-decoration:none;
-          box-shadow:0 0 35px rgba(0,255,140,0.45);
-       <a class="button" href="https://leusi.org/app/">Open LEUSI AI →</a>
+        <a href="https://leusi.org/app/" class="button leusi-ai-launch">Open LEUSI AI →</a>
 
       </div>
 
@@ -1006,6 +1190,7 @@ gap:30px;
 
         <img src="Leusi avatar.png"
 alt="LEUSI AI Assistant"
+class="leusi-ai-avatar"
 style="
 display:block;
 margin:0 auto;
@@ -1013,25 +1198,9 @@ width:100%;
 max-width:520px;
 height:auto;
 object-fit:contain;
+filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
 ">
 
-style="
-
-width:100%;
-
-max-width:460px;
-
-position:relative;
-
-z-index:2;
-
-object-fit:contain;
-
-filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
-
-"
-
-/>
 
       </div>
 
@@ -1191,14 +1360,15 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
   </section>
 
 
-  <section id="organizing-framework-preview" class="framework-preview">
+  <section id="organizing-framework-preview" class="framework-preview-section">
     <a href="leusi-framework.html" class="framework-preview-link">
       <div class="framework-preview-card">
-        <div class="framework-preview-inner">
-          <div class="framework-preview-label">LEUSI Strategic Organizing Framework</div>
+        <div class="framework-preview-glow"></div>
+        <div class="framework-preview-content">
+          <div class="section-label framework-label">Strategic Organizing Framework</div>
           <h2>Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership</h2>
-          <p>A practical organizing framework for building safety leadership, constituency power, institutional trust, and measurable HSSE transformation across the Levant and MENA region.</p>
-          <div class="framework-preview-button">Open Framework →</div>
+          <p>A practical framework for building safety leadership, constituency power, institutional trust, and measurable HSSE transformation across the Levant and the region.</p>
+          <span class="framework-preview-button">Open Framework →</span>
         </div>
       </div>
     </a>
@@ -1255,17 +1425,136 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
 <script>
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobileNav');
-hamburger.addEventListener('click', () => {
-  const open = mobileNav.classList.toggle('open');
-  hamburger.classList.toggle('open', open);
-  hamburger.setAttribute('aria-expanded', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
+
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+}
+
 function closeMobileNav() {
+  if (!mobileNav || !hamburger) return;
   mobileNav.classList.remove('open');
   hamburger.classList.remove('open');
   hamburger.setAttribute('aria-expanded', false);
   document.body.style.overflow = '';
+}
+
+const progressBar = document.getElementById('leusiScrollProgress');
+const backToTop = document.getElementById('backToTop');
+
+function updateScrollExperience() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  if (progressBar) progressBar.style.width = progress + '%';
+  if (backToTop) backToTop.classList.toggle('show', window.scrollY > 620);
+}
+
+window.addEventListener('scroll', updateScrollExperience, { passive: true });
+updateScrollExperience();
+
+if (backToTop) {
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+const revealTargets = document.querySelectorAll(
+  'section .container, .card, .program-card, .policy-card, .audience-card, .impact-card, .advisor, .contact-card, .framework-preview-card'
+);
+
+revealTargets.forEach(el => el.classList.add('reveal-item'));
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+revealTargets.forEach(el => revealObserver.observe(el));
+
+const sectionLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+const linkedSections = sectionLinks
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      sectionLinks.forEach(link => link.classList.toggle(
+        'active-section',
+        link.getAttribute('href') === '#' + entry.target.id
+      ));
+    }
+  });
+}, { threshold: 0.45 });
+
+linkedSections.forEach(section => navObserver.observe(section));
+
+document.querySelectorAll('.program-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.program-card').forEach(c => c.classList.remove('is-selected'));
+    card.classList.add('is-selected');
+  });
+});
+
+document.querySelectorAll('.card, .policy-card, .audience-card, .impact-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('is-selected');
+  });
+});
+
+document.querySelectorAll('.stat strong').forEach(stat => {
+  const finalText = stat.textContent.trim();
+  const number = parseInt(finalText.replace(/\D/g, ''), 10);
+  if (!number || finalText.includes('EU')) return;
+
+  stat.textContent = '0';
+  const animate = () => {
+    let current = 0;
+    const step = Math.max(1, Math.ceil(number / 36));
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= number) {
+        stat.textContent = finalText;
+        clearInterval(timer);
+      } else {
+        stat.textContent = current;
+      }
+    }, 28);
+  };
+
+  const statObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animate();
+        statObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.8 });
+
+  statObserver.observe(stat);
+});
+
+document.querySelectorAll('.button').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    btn.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    btn.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  });
+});
+
+const heroPanel = document.querySelector('.hero-panel');
+if (heroPanel && window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 8;
+    const y = (e.clientY / window.innerHeight - 0.5) * 8;
+    heroPanel.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  });
 }
 </script>
 </body>
