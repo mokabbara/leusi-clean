@@ -602,7 +602,130 @@ footer {
     gap: 12px;
   }
 }
+
+/* LEUSI Strategic Organizing Framework preview */
+.framework-nav-link {
+  color:#04111d !important;
+  font-weight:900 !important;
+  background:linear-gradient(135deg,#f59e0b,#facc15);
+  padding:10px 16px;
+  border-radius:999px;
+  box-shadow:0 0 24px rgba(245,158,11,0.25);
+  text-decoration:none;
+}
+.framework-nav-link:hover {
+  transform:translateY(-1px);
+  box-shadow:0 0 34px rgba(245,158,11,0.38);
+}
+.framework-preview {
+  padding:34px 20px;
+  background:#06111f;
+}
+.framework-preview-link {
+  display:block;
+  max-width:1250px;
+  margin:0 auto;
+  text-decoration:none;
+  color:inherit;
+}
+.framework-preview-card {
+  position:relative;
+  overflow:hidden;
+  border-radius:34px;
+  min-height:270px;
+  border:1px solid rgba(245,158,11,0.34);
+  background:
+    linear-gradient(90deg,rgba(3,13,25,0.96),rgba(3,13,25,0.78),rgba(3,13,25,0.48)),
+    url('ganz-quote.jpg') center center / cover no-repeat;
+  box-shadow:0 0 70px rgba(245,158,11,0.10);
+}
+.framework-preview-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 18% 48%,rgba(94,255,170,0.18),transparent 45%);
+}
+.framework-preview-card::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(245,158,11,0.14),transparent 36%,rgba(94,255,170,0.08));
+}
+.framework-preview-inner {
+  position:relative;
+  z-index:2;
+  padding:42px;
+  max-width:790px;
+}
+.framework-preview-label {
+  color:#facc15;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:4px;
+  margin-bottom:16px;
+  text-transform:uppercase;
+}
+.framework-preview h2 {
+  color:#ffffff;
+  font-size:38px;
+  line-height:1.08;
+  font-weight:900;
+  margin-bottom:18px;
+}
+.framework-preview p {
+  color:#dbeafe;
+  font-size:18px;
+  line-height:1.7;
+  max-width:720px;
+  margin-bottom:26px;
+}
+.framework-preview-button {
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:15px 24px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#f59e0b,#facc15);
+  color:#031018;
+  font-size:16px;
+  font-weight:900;
+  box-shadow:0 0 30px rgba(245,158,11,0.28);
+}
+.framework-preview-link:hover .framework-preview-card {
+  transform:translateY(-4px);
+  box-shadow:0 0 90px rgba(245,158,11,0.18);
+}
+@media (max-width: 768px) {
+  .framework-nav-link {
+    display:block;
+    text-align:center;
+    margin:6px 0;
+  }
+  .framework-preview {
+    padding:24px 14px !important;
+  }
+  .framework-preview-card {
+    min-height:390px !important;
+    background-position:center center !important;
+  }
+  .framework-preview-inner {
+    padding:30px 24px !important;
+  }
+  .framework-preview h2 {
+    font-size:28px !important;
+    line-height:1.14 !important;
+  }
+  .framework-preview p {
+    font-size:16px !important;
+  }
+}
+
 </style>
+
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="leusi-icon-192.png">
+<meta name="theme-color" content="#04111d">
 </head>
 <body>
 <header>
@@ -623,6 +746,7 @@ footer {
       <a href="#mission">Mission</a>
       <a href="#programs">Programs</a>
       <a href="#governance">Governance</a>
+      <a href="leusi-framework.html" class="framework-nav-link">Organizational Framework</a>
       <a href="#partners">Partners</a>
       <a href="#status">Status</a>
       <a href="#contact">Contact</a>
@@ -638,6 +762,7 @@ footer {
   <a href="#mission" onclick="closeMobileNav()">Mission</a>
   <a href="#programs" onclick="closeMobileNav()">Programs</a>
   <a href="#governance" onclick="closeMobileNav()">Governance</a>
+  <a href="leusi-framework.html" onclick="closeMobileNav()" class="framework-nav-link">Organizational Framework</a>
   <a href="#partners" onclick="closeMobileNav()">Partners</a>
   <a href="#status" onclick="closeMobileNav()">Status</a>
   <a href="#contact" onclick="closeMobileNav()">Contact</a>
@@ -1063,6 +1188,20 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
         <div class="card"><div class="icon">Q4</div><h3>Impact reporting</h3><p>First annual report on trained participants, pilot outcomes, safety culture indicators, and next phase planning.</p></div>
       </div>
     </div>
+  </section>
+
+
+  <section id="organizing-framework-preview" class="framework-preview">
+    <a href="leusi-framework.html" class="framework-preview-link">
+      <div class="framework-preview-card">
+        <div class="framework-preview-inner">
+          <div class="framework-preview-label">LEUSI Strategic Organizing Framework</div>
+          <h2>Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership</h2>
+          <p>A practical organizing framework for building safety leadership, constituency power, institutional trust, and measurable HSSE transformation across the Levant and MENA region.</p>
+          <div class="framework-preview-button">Open Framework →</div>
+        </div>
+      </div>
+    </a>
   </section>
 
   <section class="cta">
