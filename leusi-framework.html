@@ -280,16 +280,47 @@ ol,ul{padding-left:22px;margin-top:12px}
 .tabs{margin-top:32px}
 .tab-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
 .tab-btn{
-  padding:12px 18px;border-radius:999px;border:1px solid rgba(94,255,170,.24);
-  background:rgba(255,255,255,.04);color:#d1fae5;font-weight:800;cursor:pointer;
+
+  padding:14px 34px;
+
+  border-radius:999px;
+
+  border:1px solid rgba(245,158,11,0.35);
+
+  background:rgba(245,158,11,0.08);
+
+  color:#b45309;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+  box-shadow:0 10px 24px rgba(245,158,11,0.08);
+
+  transition:0.25s ease;
+
 }
-.tab-btn.active{background:linear-gradient(135deg,#22c55e,#5effaa);color:#031018}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.accordion{margin-top:28px;display:grid;gap:14px}
-details{
-  background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:22px;padding:20px 22px;
-  box-shadow:0 18px 40px rgba(15,23,42,.06);
+
+.tab-btn:hover{
+
+  background:rgba(245,158,11,0.16);
+
+  color:#92400e;
+
+  transform:translateY(-2px);
+
+}
+
+.tab-btn.active{
+
+  background:linear-gradient(135deg,#f59e0b,#facc15);
+
+  color:#061018;
+
+  border-color:#facc15;
+
+  box-shadow:0 0 28px rgba(245,158,11,0.35);
+
 }
 summary{cursor:pointer;font-weight:900;color:#052e16;font-size:20px}
 details p,details li{margin-top:10px}
