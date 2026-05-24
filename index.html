@@ -926,7 +926,28 @@ footer {
     transform: none;
   }
 }
+.founder-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
 
+.founder-link:hover {
+  transform: translateY(-6px);
+}
+
+.profile-photo {
+  overflow: hidden;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+  
 </style>
 </head>
 <body>
@@ -1265,17 +1286,18 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
         <h2>Led by infrastructure, energy transition, and HSSE delivery experience.</h2>
         <p class="lead">LEUSI is founded by Mohamad Kabbara and is based in The Hague, with experience across architecture, urban strategy, energy transition, EV infrastructure, project delivery, and HSSE governance in European and international environments.</p>
       </div>
-      <div class="profile-card">
+      <a class="profile-card founder-link" href="https://www.mokabbara.com" target="_blank" rel="noopener">
         <div class="profile-top">
-          <div class="profile-photo">MK</div>
+<div class="profile-photo">
+  <img src="mo-profile.jpg" alt="Mo Kabbara">
+</div>
           <div>
             <h3>Mo Kabbara</h3>
             <p>Founder, Levant European Safety Initiative</p>
           </div>
         </div>
-        <p>Mo’s background spans senior roles at BP and AECOM across EV infrastructure, HSE governance, and programme delivery in Europe, the GCC, and Africa. He holds an MSc in Architecture, an MBA, and credentials from LSE and Harvard Kennedy School. LEUSI builds on this experience to create practical safety pathways for workers, employers, NGOs, and institutions operating in fragile and high-risk environments.</p>
-      </div>
-    </div>
+        <p>Mo’s background spans senior roles at BP and AECOM across EV infrastructure, HSE governance, and program delivery in Europe, the GCC, and Africa. He holds an MSc in Architecture, an MBA, and credentials from LSE and Harvard Kennedy School. LEUSI builds on this experience to create practical safety pathways for workers, employers, NGOs, and institutions operating in fragile and high-risk environments.</p>
+    </a>
   </section>
 
   <section id="governance" class="soft">
