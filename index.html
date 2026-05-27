@@ -169,14 +169,25 @@ h1 {
   backdrop-filter: blur(16px);
 }
 .hero-panel-image {
+
   height: 230px;
+
   border-radius: 25px;
+
   overflow: hidden;
-  background:
+
+  background-image:
+
     linear-gradient(rgba(6, 16, 24, 0.20), rgba(6, 16, 24, 0.20)),
-   url("hero-photo.jpg");
-  background-size: cover;
-  background-position: center;
+
+    url("hero-photo.jpg") !important;
+
+  background-size: cover !important;
+
+  background-position: center !important;
+
+  background-repeat: no-repeat !important;
+
   margin-bottom: 18px;
 }
 .focus-inner { background: rgba(6, 16, 24, 0.88); border-radius: 26px; padding: 26px; }
