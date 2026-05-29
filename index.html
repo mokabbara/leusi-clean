@@ -948,6 +948,496 @@ footer {
   object-position: center;
 }
   
+
+/* LEUSI SDG center reveal section with official card icons */
+.leusi-sdg-section {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: clamp(48px, 7vw, 92px) clamp(18px, 5vw, 72px);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(92, 136, 84, 0.30), transparent 30%),
+    radial-gradient(circle at 86% 76%, rgba(13, 68, 46, 0.55), transparent 40%),
+    linear-gradient(135deg, #06120d 0%, #0d2118 52%, #111712 100%);
+  color: #f7f4ea;
+  overflow: hidden;
+}
+
+.sdg-soft-orb {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 999px;
+  filter: blur(38px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.sdg-soft-orb.one {
+  left: -120px;
+  top: 80px;
+  background: #8fcf79;
+}
+
+.sdg-soft-orb.two {
+  right: -140px;
+  bottom: 40px;
+  background: #164c32;
+}
+
+.leusi-sdg-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.sdg-hero-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 270px);
+  gap: clamp(26px, 5vw, 70px);
+  align-items: end;
+  margin-bottom: clamp(30px, 5vw, 58px);
+}
+
+.sdg-text-header {
+  max-width: 830px;
+}
+
+.sdg-text-header .label {
+  display: inline-flex;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 241, 232, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+  color: #c7d8b5;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.sdg-text-header h2 {
+  margin: 22px 0 14px;
+  font-weight: 300;
+  font-size: clamp(40px, 6.5vw, 88px);
+  line-height: 0.95;
+  letter-spacing: -0.065em;
+  color: #f7f4ea;
+}
+
+.sdg-text-header p {
+  max-width: 760px;
+  color: rgba(247, 244, 234, 0.68);
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.45;
+  font-weight: 300;
+}
+
+.sdg-logo-side {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.sdg-logo-side img {
+  display: block;
+  width: min(220px, 30vw);
+  height: auto;
+  opacity: 0.96;
+  filter: drop-shadow(0 18px 42px rgba(0,0,0,0.34));
+}
+
+.sdg-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(135px, 1fr));
+  gap: 13px;
+}
+
+.sdg-goal-card {
+  position: relative;
+  min-height: 166px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    0 18px 45px rgba(0,0,0,0.16);
+  transition: transform 0.26s ease, box-shadow 0.26s ease, filter 0.26s ease;
+}
+
+.sdg-goal-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -35% -44% -35%;
+  height: 86px;
+  background: radial-gradient(circle, rgba(255,255,255,0.50), transparent 70%);
+  opacity: 0.26;
+}
+
+.sdg-goal-card:hover,
+.sdg-goal-card:focus {
+  transform: translateY(-7px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.20),
+    0 28px 80px rgba(0,0,0,0.34);
+  outline: none;
+}
+
+.sdg-mini-label {
+  display: block;
+  color: rgba(255,255,255,0.66);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.sdg-goal-card strong {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  font-size: clamp(34px, 3.6vw, 54px);
+  line-height: 0.88;
+  font-weight: 500;
+  letter-spacing: -0.07em;
+}
+
+.sdg-card-title {
+  position: absolute;
+  z-index: 3;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  color: rgba(255,255,255,0.88);
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 300;
+}
+
+.sdg-card-icon {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  top: 16px;
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  opacity: 0.92;
+}
+
+.sdg-card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 12px 22px rgba(0,0,0,0.18));
+}
+
+.sdg-fallback-icon {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.sdg-reveal-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(3, 13, 9, 0.58);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  transition: opacity 0.24s ease;
+}
+
+.sdg-reveal-layer.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sdg-reveal-card {
+  width: min(890px, calc(100vw - 42px));
+  min-height: 360px;
+  display: grid;
+  grid-template-columns: minmax(160px, 250px) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 44px);
+  padding: clamp(22px, 4vw, 44px);
+  border-radius: 38px;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    0 50px 130px rgba(0,0,0,0.54);
+  transform: translateY(18px) scale(0.96) rotateX(8deg);
+  opacity: 0;
+  transition: transform 0.34s cubic-bezier(.2,.8,.2,1), opacity 0.28s ease;
+}
+
+.sdg-reveal-layer.active .sdg-reveal-card {
+  transform: translateY(0) scale(1) rotateX(0);
+  opacity: 1;
+}
+
+.sdg-reveal-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.sdg-reveal-main-logo {
+  width: min(190px, 100%);
+  height: auto;
+  filter: drop-shadow(0 18px 34px rgba(0,0,0,0.28));
+}
+
+.sdg-reveal-goal-icon {
+  width: 116px;
+  height: 116px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 18px 34px rgba(0,0,0,0.22));
+}
+
+.sdg-reveal-kicker {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: rgba(255,255,255,0.72);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sdg-reveal-kicker b {
+  font-size: 18px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  font-weight: 500;
+}
+
+.sdg-reveal-content h3 {
+  margin: 0 0 18px;
+  color: #fffaf0;
+  font-weight: 300;
+  font-size: clamp(34px, 5vw, 70px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.sdg-reveal-content p {
+  margin: 0;
+  max-width: 590px;
+  color: rgba(255,255,255,0.82);
+  font-size: clamp(16px, 1.45vw, 21px);
+  line-height: 1.46;
+  font-weight: 300;
+}
+
+/* SDG colours */
+.goal-1 { background: linear-gradient(135deg, rgba(229,36,59,0.96), rgba(229,36,59,0.58)); }
+.goal-2 { background: linear-gradient(135deg, rgba(221,166,58,0.96), rgba(221,166,58,0.58)); }
+.goal-3 { background: linear-gradient(135deg, rgba(76,159,56,0.96), rgba(76,159,56,0.58)); }
+.goal-4 { background: linear-gradient(135deg, rgba(197,25,45,0.96), rgba(197,25,45,0.58)); }
+.goal-5 { background: linear-gradient(135deg, rgba(255,58,33,0.94), rgba(255,58,33,0.56)); }
+.goal-6 { background: linear-gradient(135deg, rgba(38,189,226,0.92), rgba(38,189,226,0.54)); }
+.goal-7 { background: linear-gradient(135deg, rgba(252,195,11,0.92), rgba(252,195,11,0.54)); }
+.goal-8 { background: linear-gradient(135deg, rgba(162,25,66,0.96), rgba(162,25,66,0.58)); }
+.goal-9 { background: linear-gradient(135deg, rgba(253,105,37,0.94), rgba(253,105,37,0.56)); }
+.goal-10 { background: linear-gradient(135deg, rgba(221,19,103,0.94), rgba(221,19,103,0.56)); }
+.goal-11 { background: linear-gradient(135deg, rgba(253,157,36,0.94), rgba(253,157,36,0.56)); }
+.goal-12 { background: linear-gradient(135deg, rgba(191,139,46,0.96), rgba(191,139,46,0.58)); }
+.goal-13 { background: linear-gradient(135deg, rgba(63,126,68,0.96), rgba(63,126,68,0.58)); }
+.goal-14 { background: linear-gradient(135deg, rgba(10,151,217,0.94), rgba(10,151,217,0.56)); }
+.goal-15 { background: linear-gradient(135deg, rgba(86,192,43,0.94), rgba(86,192,43,0.56)); }
+.goal-16 { background: linear-gradient(135deg, rgba(0,104,157,0.96), rgba(0,104,157,0.58)); }
+.goal-17 { background: linear-gradient(135deg, rgba(25,72,106,0.98), rgba(25,72,106,0.60)); }
+
+@media (max-width: 1180px) {
+  .sdg-goal-grid {
+    grid-template-columns: repeat(4, minmax(135px, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .leusi-sdg-section {
+    padding: 44px 16px;
+  }
+
+  .sdg-hero-row {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .sdg-logo-side {
+    justify-content: flex-start;
+    order: -1;
+  }
+
+  .sdg-logo-side img {
+    width: min(210px, 68vw);
+  }
+
+  .sdg-goal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .sdg-goal-card {
+    min-height: 154px;
+  }
+
+  .sdg-card-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .sdg-reveal-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 28px;
+  }
+
+  .sdg-reveal-brand {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .sdg-reveal-main-logo {
+    width: 150px;
+  }
+
+  .sdg-reveal-goal-icon {
+    width: 82px;
+    height: 82px;
+  }
+}
+
+
+/* Final requested fixes */
+.sdg-mini-label {
+  display: none !important;
+}
+
+.sdg-goal-card strong {
+  font-size: clamp(26px, 2.8vw, 42px) !important;
+  font-weight: 400 !important;
+  opacity: 0.92 !important;
+  margin-top: 0 !important;
+  letter-spacing: -0.06em !important;
+}
+
+.sdg-card-title {
+  font-weight: 300 !important;
+  color: rgba(255,255,255,0.82) !important;
+}
+
+.sdg-logo-side img,
+.sdg-reveal-main-logo {
+  content: url("assets/sdg-logo-header.png");
+}
+
+.sdg-logo-side img {
+  width: min(240px, 28vw) !important;
+  max-width: 240px !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.sdg-reveal-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255,255,255,0.24);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.88);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.sdg-reveal-close:hover {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+.sdg-reveal-card {
+  position: relative;
+}
+
+@media (max-width: 760px) {
+  .sdg-logo-side img {
+    width: min(210px, 64vw) !important;
+    max-width: 210px !important;
+  }
+
+  .sdg-goal-card strong {
+    font-size: clamp(28px, 9vw, 42px) !important;
+  }
+}
+
+
+/* Final clean SDG behavior and back-card branding */
+.sdg-reveal-main-logo {
+  display: none !important;
+}
+
+.sdg-reveal-brand {
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.sdg-reveal-goal-icon {
+  width: clamp(120px, 15vw, 190px) !important;
+  height: clamp(120px, 15vw, 190px) !important;
+  object-fit: contain !important;
+  filter: brightness(0) invert(1) drop-shadow(0 18px 34px rgba(0,0,0,0.22)) !important;
+}
+
+/* Keep UN logo only in the title area */
+.sdg-logo-side img {
+  display: block !important;
+}
+
+/* Do not show repeated SDG label on card fronts */
+.sdg-mini-label {
+  display: none !important;
+}
+
+/* Smaller front numbers */
+.sdg-goal-card strong {
+  font-size: clamp(24px, 2.4vw, 38px) !important;
+  font-weight: 350 !important;
+  margin-top: 0 !important;
+  opacity: 0.92 !important;
+}
+
+/* Remove accidental credit text if rendered somewhere in markup */
+.sdg-goal-card small,
+.sdg-card-icon small,
+.sdg-reveal-brand small {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -1402,6 +1892,286 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
       </div>
     </a>
   </section>
+
+<!-- LEUSI SDG center reveal section with official card icons -->
+<section class="leusi-sdg-section" id="leusi-sdgs">
+  <div class="sdg-soft-orb one"></div>
+  <div class="sdg-soft-orb two"></div>
+
+  <div class="leusi-sdg-wrap">
+    <div class="sdg-hero-row">
+      <div class="sdg-text-header">
+        <span class="label">LEUSI · Sustainable Development Goals</span>
+        <h2>HSSE as a chain of human protection.</h2>
+        <p>
+          The cards keep the recognizable SDG colour identity. Hover or tap each goal to bring its impact logic
+          into the centre of the screen.
+        </p>
+      </div>
+
+      <div class="sdg-logo-side">
+        <img src="assets/sdg-logo-header.png" alt="United Nations Sustainable Development Goals" />
+      </div>
+    </div>
+
+    <div class="sdg-goal-grid" aria-label="Interactive LEUSI SDG cards">
+      <button class="sdg-goal-card goal-1" type="button"
+        data-sdg="1"
+        data-title="No Poverty"
+        data-body="LEUSI contributes to reducing poverty risk by protecting workers from preventable accidents that can remove their income overnight. When HSSE standards are applied properly, fewer workers face fatal injuries, long term disability, or sudden job loss. Safer workplaces also make insurance coverage more realistic for workers and employers, helping families remain financially protected when incidents occur."
+        data-icon="sdg-01.svg">
+        <strong>1</strong>
+        <span class="sdg-card-title">No Poverty</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-01.svg" alt="SDG 1 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-2" type="button"
+        data-sdg="2"
+        data-title="Zero Hunger"
+        data-body="Workplace safety is connected to household stability. When a worker is injured or unable to continue working, the impact often reaches the family table first. LEUSI supports Zero Hunger by helping protect the income continuity of frontline workers, allowing families to maintain food security through safer, more stable employment conditions."
+        data-icon="sdg-02.svg">
+        <strong>2</strong>
+        <span class="sdg-card-title">Zero Hunger</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-02.svg" alt="SDG 2 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-3" type="button"
+        data-sdg="3"
+        data-title="Good Health and Well Being"
+        data-body="LEUSI directly supports worker health by promoting practical HSSE awareness, safer site behaviour, accident prevention, emergency readiness, and stronger workplace protection. The goal is not only to avoid injuries, but to build a culture where physical health, mental safety, and human dignity are treated as part of everyday work."
+        data-icon="sdg-03.svg">
+        <strong>3</strong>
+        <span class="sdg-card-title">Good Health and Well Being</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-03.svg" alt="SDG 3 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-4" type="button"
+        data-sdg="4"
+        data-title="Quality Education"
+        data-body="LEUSI turns safety knowledge into accessible education. Through training, awareness, certification pathways, and practical site based learning, workers, supervisors, and contractors gain the skills needed to operate safely and professionally. This creates a bridge between international standards and local work realities."
+        data-icon="sdg-04.svg">
+        <strong>4</strong>
+        <span class="sdg-card-title">Quality Education</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-04.svg" alt="SDG 4 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-5" type="button"
+        data-sdg="5"
+        data-title="Gender Equality"
+        data-body="Safer workplaces create more inclusive workplaces. When sites have clear HSSE rules, reporting mechanisms, protective equipment, safe access, welfare standards, and safety committees, women can participate with greater protection and confidence. LEUSI supports gender equality by helping create site environments where safety enables broader participation."
+        data-icon="sdg-05.svg">
+        <strong>5</strong>
+        <span class="sdg-card-title">Gender Equality</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-05.svg" alt="SDG 5 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-6" type="button"
+        data-sdg="6"
+        data-title="Clean Water and Sanitation"
+        data-body="HSSE standards include hygiene, sanitation, safe welfare facilities, and the prevention of contamination on worksites. LEUSI can support cleaner and safer work environments by promoting proper site facilities, responsible handling of materials, and awareness of how unsafe practices can affect water, sanitation, and public health."
+        data-icon="sdg-06.svg">
+        <strong>6</strong>
+        <span class="sdg-card-title">Clean Water and Sanitation</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-06.svg" alt="SDG 6 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-7" type="button"
+        data-sdg="7"
+        data-title="Affordable and Clean Energy"
+        data-body="Energy infrastructure cannot be truly sustainable if the people building and maintaining it are exposed to unsafe conditions. LEUSI supports clean energy development by strengthening the safety capacity of workers involved in energy, mobility, infrastructure, and future low carbon projects, helping the energy transition become safer on the ground."
+        data-icon="sdg-07.svg">
+        <strong>7</strong>
+        <span class="sdg-card-title">Affordable and Clean Energy</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-07.svg" alt="SDG 7 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-8" type="button"
+        data-sdg="8"
+        data-title="Decent Work and Economic Growth"
+        data-body="Decent work means more than employment. It means safe employment, protected workers, fairer site conditions, and the ability to grow professionally. LEUSI supports decent work by improving safety culture, employability, certification readiness, and the professional dignity of frontline workers in construction, infrastructure, logistics, and energy related sectors."
+        data-icon="sdg-08.svg">
+        <strong>8</strong>
+        <span class="sdg-card-title">Decent Work and Economic Growth</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-08.svg" alt="SDG 8 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-9" type="button"
+        data-sdg="9"
+        data-title="Industry, Innovation and Infrastructure"
+        data-body="Infrastructure depends on people, not only materials and capital. LEUSI supports responsible infrastructure delivery by building the human safety capacity required to execute projects safely, reliably, and professionally. Better trained workers and stronger HSSE systems reduce delays, accidents, insurance risk, and delivery failure."
+        data-icon="sdg-09.svg">
+        <strong>9</strong>
+        <span class="sdg-card-title">Industry, Innovation and Infrastructure</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-09.svg" alt="SDG 9 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-10" type="button"
+        data-sdg="10"
+        data-title="Reduced Inequalities"
+        data-body="Many frontline workers are excluded from formal training, certification, and international employment pathways. LEUSI helps reduce this gap by making HSSE knowledge more accessible and by preparing workers to meet recognized safety expectations. This creates a fairer bridge between local labour markets and international standards."
+        data-icon="sdg-10.svg">
+        <strong>10</strong>
+        <span class="sdg-card-title">Reduced Inequalities</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-10.svg" alt="SDG 10 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-11" type="button"
+        data-sdg="11"
+        data-title="Sustainable Cities and Communities"
+        data-body="Cities are shaped by the safety of the people who build them. LEUSI supports safer urban development by promoting responsible construction practices, stronger site discipline, reduced public risk, and better protection for workers and communities around active work zones. Safer sites contribute to safer cities."
+        data-icon="sdg-11.svg">
+        <strong>11</strong>
+        <span class="sdg-card-title">Sustainable Cities and Communities</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-11.svg" alt="SDG 11 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-12" type="button"
+        data-sdg="12"
+        data-title="Responsible Consumption and Production"
+        data-body="Responsible production includes how materials are handled, how waste is managed, how risks are controlled, and how safely work is executed. LEUSI supports responsible practices by promoting awareness around site housekeeping, hazardous materials, environmental protection, safe storage, and disciplined operational behaviour."
+        data-icon="sdg-12.svg">
+        <strong>12</strong>
+        <span class="sdg-card-title">Responsible Consumption and Production</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-12.svg" alt="SDG 12 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-13" type="button"
+        data-sdg="13"
+        data-title="Climate Action"
+        data-body="Climate infrastructure requires safe implementation capacity. Solar, EV charging, energy efficiency, resilient buildings, and low carbon infrastructure all depend on trained workers who can deliver safely. LEUSI supports climate action by helping prepare workers and organizations to execute climate related projects without transferring risk to the most vulnerable people on site."
+        data-icon="sdg-13.svg">
+        <strong>13</strong>
+        <span class="sdg-card-title">Climate Action</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-13.svg" alt="SDG 13 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-14" type="button"
+        data-sdg="14"
+        data-title="Life Below Water"
+        data-body="Unsafe construction and poor site practices can lead to pollution, runoff, chemical leakage, and waste reaching waterways. LEUSI can support protection of water systems by raising awareness around environmental controls, spill prevention, waste discipline, and safe handling practices near drainage, rivers, ports, and coastal environments."
+        data-icon="sdg-14.svg">
+        <strong>14</strong>
+        <span class="sdg-card-title">Life Below Water</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-14.svg" alt="SDG 14 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-15" type="button"
+        data-sdg="15"
+        data-title="Life on Land"
+        data-body="Construction and infrastructure work can affect land, soil, vegetation, and surrounding ecosystems when safety and environmental controls are weak. LEUSI supports better protection of land based environments by promoting responsible site behaviour, controlled work zones, waste management, and awareness of environmental risk during project execution."
+        data-icon="sdg-15.svg">
+        <strong>15</strong>
+        <span class="sdg-card-title">Life on Land</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-15.svg" alt="SDG 15 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-16" type="button"
+        data-sdg="16"
+        data-title="Peace, Justice and Strong Institutions"
+        data-body="A strong safety culture is also a culture of accountability. LEUSI supports institutional trust by promoting compliance, reporting, responsibility, and transparent safety behaviour between workers, employers, contractors, insurers, and public actors. Safer systems help build stronger institutions because rules become visible in daily practice."
+        data-icon="sdg-16.svg">
+        <strong>16</strong>
+        <span class="sdg-card-title">Peace, Justice and Strong Institutions</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-16.svg" alt="SDG 16 icon" /></span>
+      </button>
+      <button class="sdg-goal-card goal-17" type="button"
+        data-sdg="17"
+        data-title="Partnerships for the Goals"
+        data-body="LEUSI is built on partnership. It connects European safety standards with local workers, companies, trainers, institutions, insurers, contractors, and communities in the Levant. Its impact depends on collaboration between sectors, countries, and institutions that share one practical goal: making work safer, more dignified, and more future ready."
+        data-icon="sdg-17.svg">
+        <strong>17</strong>
+        <span class="sdg-card-title">Partnerships for the Goals</span>
+        <span class="sdg-card-icon"><img src="assets/sdg-17.svg" alt="SDG 17 icon" /></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="sdg-reveal-layer" aria-hidden="true">
+    <div class="sdg-reveal-card">
+      <button class="sdg-reveal-close" type="button" aria-label="Close SDG card">×</button>
+      <div class="sdg-reveal-brand">
+        <img class="sdg-reveal-goal-icon" id="sdgRevealIcon" src="" alt="" />
+      </div>
+      <div class="sdg-reveal-content">
+        <span class="sdg-reveal-kicker">SDG <b id="sdgRevealNumber">1</b></span>
+        <h3 id="sdgRevealTitle">No Poverty</h3>
+        <p id="sdgRevealText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector(".leusi-sdg-section");
+  if (!section) return;
+
+  const layer = section.querySelector(".sdg-reveal-layer");
+  const revealCard = section.querySelector(".sdg-reveal-card");
+  const number = section.querySelector("#sdgRevealNumber");
+  const title = section.querySelector("#sdgRevealTitle");
+  const text = section.querySelector("#sdgRevealText");
+  const icon = section.querySelector("#sdgRevealIcon");
+  const cards = section.querySelectorAll(".sdg-goal-card");
+  const closeButton = section.querySelector(".sdg-reveal-close");
+
+  function closeReveal() {
+    layer.classList.remove("active");
+    layer.setAttribute("aria-hidden", "true");
+  }
+
+  function openCard(card) {
+    const sdg = card.dataset.sdg || "";
+    number.textContent = sdg;
+    title.textContent = card.dataset.title || "";
+    text.textContent = card.dataset.body || "";
+    revealCard.className = "sdg-reveal-card goal-" + sdg;
+
+    if (card.dataset.icon) {
+      icon.src = "assets/" + card.dataset.icon;
+      icon.alt = "SDG " + sdg + " icon";
+      icon.style.display = "block";
+    } else {
+      icon.removeAttribute("src");
+      icon.style.display = "none";
+    }
+
+    layer.classList.add("active");
+    layer.setAttribute("aria-hidden", "false");
+  }
+
+  cards.forEach(function (card) {
+    card.addEventListener("mouseenter", function () {
+      openCard(card);
+    });
+
+    card.addEventListener("focus", function () {
+      openCard(card);
+    });
+
+    card.addEventListener("click", function () {
+      openCard(card);
+    });
+
+    card.addEventListener("touchstart", function (event) {
+      event.preventDefault();
+      openCard(card);
+    }, { passive: false });
+  });
+
+  // Close immediately when the cursor is no longer on the overlay/card area.
+  layer.addEventListener("mouseleave", closeReveal);
+  revealCard.addEventListener("mouseleave", closeReveal);
+  section.addEventListener("mouseleave", closeReveal);
+
+  // On desktop, if the user moves from a card and not into the reveal overlay, close.
+  cards.forEach(function (card) {
+    card.addEventListener("mouseleave", function (event) {
+      const next = event.relatedTarget;
+      if (!next || (!layer.contains(next) && !card.contains(next))) {
+        closeReveal();
+      }
+    });
+  });
+
+  if (closeButton) {
+    closeButton.addEventListener("click", closeReveal);
+  }
+
+  layer.addEventListener("click", function (event) {
+    if (event.target === layer) closeReveal();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeReveal();
+  });
+});
+</script>
 
   <section class="cta">
     <div class="container cta-wrap">
