@@ -1733,6 +1733,205 @@ border-color: rgba(94,255,170,0.22);
   display: block;
 
 }
+  .audience-bg-section {
+
+  position: relative;
+
+  background:
+
+    linear-gradient(
+
+      90deg,
+
+      rgba(246,249,247,0.95) 0%,
+
+      rgba(246,249,247,0.86) 42%,
+
+      rgba(246,249,247,0.68) 100%
+
+    ),
+
+    url("audience-bg.jpg") center center / cover no-repeat !important;
+
+  overflow: hidden;
+
+}
+
+.audience-bg-section::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+
+    radial-gradient(circle at 16% 26%, rgba(34,197,94,0.16), transparent 34%),
+
+    radial-gradient(circle at 84% 58%, rgba(245,158,11,0.12), transparent 38%);
+
+  pointer-events: none;
+
+}
+
+.audience-bg-section .container {
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+.audience-one-card {
+
+  margin-top: 42px;
+
+  max-width: 920px;
+
+  padding: 38px;
+
+  border-radius: 34px;
+
+  background: rgba(255,255,255,0.62);
+
+  border: 1px solid rgba(255,255,255,0.55);
+
+  box-shadow: 0 34px 100px rgba(15,23,42,0.14);
+
+  backdrop-filter: blur(18px);
+
+}
+
+.audience-one-card-header {
+
+  margin-bottom: 28px;
+
+}
+
+.audience-one-card-header span {
+
+  display: inline-flex;
+
+  margin-bottom: 14px;
+
+  color: #047857;
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+
+}
+
+.audience-one-card-header h3 {
+
+  max-width: 760px;
+
+  font-size: clamp(28px, 3vw, 42px);
+
+  line-height: 1.08;
+
+  margin: 0;
+
+  color: #061018;
+
+}
+
+.audience-list {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+
+}
+
+.audience-row {
+
+  display: flex;
+
+  gap: 16px;
+
+  align-items: flex-start;
+
+  padding: 18px 20px;
+
+  border-radius: 22px;
+
+  background: rgba(255,255,255,0.56);
+
+  border: 1px solid rgba(255,255,255,0.52);
+
+  box-shadow: 0 16px 40px rgba(15,23,42,0.07);
+
+  transition: transform 0.25s ease, background 0.25s ease;
+
+}
+
+.audience-row:hover {
+
+  transform: translateY(-4px);
+
+  background: rgba(255,255,255,0.78);
+
+}
+
+.audience-row strong {
+
+  width: 34px;
+
+  height: 34px;
+
+  border-radius: 13px;
+
+  background: linear-gradient(135deg, rgba(34,197,94,0.28), rgba(134,239,172,0.42));
+
+  color: #047857;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-weight: 900;
+
+  flex-shrink: 0;
+
+}
+
+.audience-row p {
+
+  margin: 0;
+
+  color: #334155;
+
+  font-size: 17px;
+
+  line-height: 1.5;
+
+}
+
+@media (max-width: 760px) {
+
+  .audience-one-card {
+
+    padding: 28px;
+
+  }
+
+  .audience-list {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
 </style>
 </head>
 <body>
@@ -2179,21 +2378,76 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
     </div>
   </section>
 
-  <section id="partners" class="soft">
+ <section id="partners" class="soft audience-bg-section">
     <div class="container partners-layout">
       <div>
         <div class="section-label">Who we serve</div>
         <h2>Designed for workers and the institutions that protect them.</h2>
         <p class="lead">LEUSI works at the intersection of safety, social enterprise, workforce development, ESG, and responsible market entry.</p>
       </div>
-      <div class="audience-grid">
-        <div class="audience-card"><span>01</span><p>Frontline workers in Lebanon and Syria</p></div>
-        <div class="audience-card"><span>02</span><p>Refugees and vulnerable workers active in high risk sectors</p></div>
-        <div class="audience-card"><span>03</span><p>Local employers, contractors, and training centers</p></div>
-        <div class="audience-card"><span>04</span><p>Dutch and European companies entering Levant markets</p></div>
-        <div class="audience-card"><span>05</span><p>NGOs, municipalities, donors, and development partners</p></div>
-        <div class="audience-card"><span>06</span><p>Diaspora professionals seeking measurable social impact</p></div>
-      </div>
+      <div class="audience-one-card">
+
+  <div class="audience-one-card-header">
+
+    <span>Who LEUSI is built for</span>
+
+    <h3>Connecting workers, institutions, and partners across high-risk environments.</h3>
+
+  </div>
+
+  <div class="audience-list">
+
+    <div class="audience-row">
+
+      <strong>1</strong>
+
+      <p>Frontline workers in Lebanon and Syria and potentially the GCC</p>
+
+    </div>
+
+    <div class="audience-row">
+
+      <strong>2</strong>
+
+      <p>Refugees and vulnerable workers active in high-risk sectors</p>
+
+    </div>
+
+    <div class="audience-row">
+
+      <strong>3</strong>
+
+      <p>Local employers, contractors, and training centers</p>
+
+    </div>
+
+    <div class="audience-row">
+
+      <strong>4</strong>
+
+      <p>Dutch and European companies entering Levant and regional markets</p>
+
+    </div>
+
+    <div class="audience-row">
+
+      <strong>5</strong>
+
+      <p>NGOs, municipalities, donors, and development partners</p>
+
+    </div>
+
+    <div class="audience-row">
+
+      <strong>6</strong>
+
+      <p>Diaspora professionals seeking measurable social impact</p>
+
+    </div>
+
+  </div>
+
+</div>
     </div>
   </section>
 
