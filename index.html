@@ -1648,8 +1648,42 @@ border-color: rgba(94,255,170,0.22);
 }
 .ngo-card .advisor-visual-content {
 
-  transform: translateY(50px) !important;
+  transform: translateY(20px) !important;
 
+}
+  .status-framework-note {
+  max-width: 860px;
+  margin-top: 42px;
+  padding: 34px 38px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(34,197,94,0.20);
+  box-shadow: 0 24px 70px rgba(15,23,42,0.08);
+  backdrop-filter: blur(14px);
+}
+
+.status-framework-note p {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.status-framework-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,#22c55e,#86efac);
+  color: #061018;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 0 28px rgba(34,197,94,0.22);
+}
+
+.status-framework-button:hover {
+  transform: translateY(-2px);
 }
 </style>
 </head>
@@ -2114,13 +2148,15 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
       <div class="section-label">Current status</div>
       <h2>Where we are right now.</h2>
       <p class="lead">LEUSI is in active development. Formal registration as a Netherlands-based foundation is underway. Pilot programs are planned for Q3 2026. We are currently building our advisory network and welcoming conversations with potential partners, donors, and institutional allies.</p>
-      <div class="cards" style="margin-top:40px;">
-        <div class="card"><div class="icon">Q1</div><h3>Foundation registration</h3><p>Formal registration as a social initiative in the Netherlands, with governance and policy plan in place.</p></div>
-        <div class="card"><div class="icon">Q2</div><h3>Partnership development</h3><p>Confirming advisory roles, institutional relationships, and first employer and NGO partnerships.</p></div>
-        <div class="card"><div class="icon">Q3</div><h3>Pilot launch</h3><p>First HSSE training pilots begin in selected locations in Lebanon, with measurable outcomes tracked.</p></div>
-        <div class="card"><div class="icon">Q4</div><h3>Impact reporting</h3><p>First annual report on trained participants, pilot outcomes, safety culture indicators, and next phase planning.</p></div>
-      </div>
-    </div>
+      <div class="status-framework-note">
+  <p>
+    LEUSI is currently moving from foundation building into structured organizing, partnership development, and pilot preparation. For the detailed implementation pathway, please visit the step by step organizing strategy in the LEUSI Strategic Organizing Framework.
+  </p>
+
+  <a href="leusi-framework.html#strategy" class="status-framework-button">
+    View Step by Step Strategy →
+  </a>
+</div>
   </section>
 
 
