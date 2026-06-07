@@ -1685,6 +1685,31 @@ border-color: rgba(94,255,170,0.22);
 .status-framework-button:hover {
   transform: translateY(-2px);
 }
+  .profile-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.visit-symbol {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #22c55e, #86efac);
+  color: #061018;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 10px 26px rgba(34,197,94,0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-card:hover .visit-symbol {
+  transform: translate(3px, -3px);
+  box-shadow: 0 14px 34px rgba(34,197,94,0.42);
+}
 </style>
 </head>
 <body>
@@ -1974,6 +1999,12 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
   </div>
 
 </section>
+ <section class="mandela-breaker">
+  <div class="mandela-breaker-overlay"></div>
+
+  <div class="mandela-breaker-content">
+    <blockquote>
+      “Safety and security don’t just happen, they are the result of collective consensus and public investment. We owe |oai:code-citation|
   <section id="mission" class="white">
     <div class="container intro-grid">
       <div>
@@ -2024,7 +2055,10 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
   <img src="mo-profile.jpg" alt="Mo Kabbara">
 </div>
           <div>
-            <h3>Mo Kabbara</h3>
+          <h3 class="profile-name">
+  Mo Kabbara
+  <span class="visit-symbol">↗</span>
+</h3>
             <p>Founder, Levant European Safety Initiative</p>
           </div>
         </div>
