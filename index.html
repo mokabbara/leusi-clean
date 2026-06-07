@@ -1646,9 +1646,21 @@ border-color: rgba(94,255,170,0.22);
 .advisor-visual-card {
   background-clip: padding-box !important;
 }
-.ngo-card .advisor-visual-content {
+.ngo-card .advisor-visual-content h3 {
 
-  transform: translateY(50px) !important;
+  opacity: 0 !important;
+
+  transform: translateY(120px) !important;
+
+  pointer-events: none !important;
+
+}
+
+.ngo-card:hover .advisor-visual-content h3 {
+
+  opacity: 0 !important;
+
+  transform: translateY(120px) !important;
 
 }
 </style>
