@@ -1528,12 +1528,19 @@ border-color: rgba(94,255,170,0.22);
 }
 
 .advisor-visual-content {
+
   position: absolute;
+
   inset: auto 0 0 0;
+
   z-index: 3;
+
   padding: 26px;
-  transform: translateY(58px);
+
+  transform: translateY(128px);
+
   transition: transform 0.35s ease;
+
 }
 
 .advisor-visual-card:hover .advisor-visual-content {
@@ -1555,12 +1562,16 @@ border-color: rgba(94,255,170,0.22);
 }
 
 .advisor-visual-content h3 {
-  color: white;
-  font-size: 23px;
-  line-height: 1.12;
-  margin-bottom: 12px;
-}
 
+  color: white;
+
+  font-size: 23px;
+
+  line-height: 1.12;
+
+  margin-bottom: 12px;
+
+}
 .advisor-visual-content p {
   color: #dbeafe;
   font-size: 15px;
@@ -1615,6 +1626,25 @@ border-color: rgba(94,255,170,0.22);
     opacity: 1;
     max-height: 260px;
   }
+}
+  .advisor-visual-card,
+.advisor-visual-card:hover,
+.advisor-visual-card:focus,
+.advisor-visual-card:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.advisor-visual-card::before,
+.advisor-visual-card::after {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.advisor-visual-card {
+  background-clip: padding-box !important;
 }
 </style>
 </head>
