@@ -1,0 +1,69 @@
+{
+  "name": "Leusi — VCA & EU Safety Agent",
+  "short_name": "Leusi",
+  "description": "VCA & EU-aligned workplace safety agent. Hazard analysis, coaching, learning, incident reporting. English, Dutch, Arabic.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f5f1",
+  "theme_color": "#1f5043",
+  "lang": "en",
+  "dir": "auto",
+  "categories": ["productivity", "education", "business"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Hazard Analyzer",
+      "short_name": "Analyze",
+      "description": "Run a Task Risk Analysis",
+      "url": "./?tab=analyzer",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Safety Coach",
+      "short_name": "Coach",
+      "description": "Ask Leusi a question",
+      "url": "./?tab=coach",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Learn",
+      "short_name": "Learn",
+      "description": "VCA Basic training",
+      "url": "./?tab=learn",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
