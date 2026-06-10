@@ -643,6 +643,118 @@
       padding-top: max(16px, env(safe-area-inset-top));
     }
   }
+
+  /* ============================================================
+     PHASE 2 — Photo Risk panel (additive)
+     ============================================================ */
+  .photo-helper {
+    font-size: 13px;
+    color: var(--text-soft);
+    background: var(--primary-light);
+    border-left: 3px solid var(--primary);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+
+  .photo-dropzone {
+    display: block;
+    border: 2px dashed var(--border-strong);
+    border-radius: 12px;
+    background: var(--bg);
+    padding: 28px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.05s;
+    margin-bottom: 14px;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-dropzone:hover { border-color: var(--primary); background: var(--primary-light); }
+  .photo-dropzone:active { transform: scale(0.99); }
+  .photo-dropzone.dragging { border-color: var(--accent); background: var(--accent-light); }
+  .photo-dropzone-inner { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .photo-dropzone-icon { font-size: 38px; line-height: 1; }
+  .photo-dropzone-text { font-weight: 600; color: var(--primary-dark); font-size: 15px; }
+  .photo-dropzone-hint { font-size: 12px; color: var(--text-soft); }
+
+  .photo-preview-wrap {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 14px;
+  }
+  .photo-preview-wrap img {
+    width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    background: #000;
+    border-radius: 8px;
+    display: block;
+  }
+  .photo-preview-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 8px; font-size: 12px; color: var(--text-soft);
+    flex-wrap: wrap; gap: 6px;
+  }
+  .photo-size-warning {
+    margin-top: 8px;
+    background: var(--med-bg);
+    color: var(--med);
+    border: 1px solid var(--med);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .btn-link {
+    background: transparent;
+    border: none;
+    color: var(--high);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: underline;
+    padding: 4px 8px;
+    min-height: 32px;
+  }
+  .btn-link:hover { color: var(--primary-dark); }
+
+  /* VERIFY: temporary visible debug line — remove after Phase 2 verified */
+  .photo-debug-line {
+    margin: 10px 0;
+    padding: 8px 12px;
+    background: #fff8e1;
+    border: 1px dashed #b88944;
+    color: #5a3a0a;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 12px;
+    border-radius: 6px;
+    word-break: break-all;
+  }
+  .photo-debug-line.ok { background: #ecf3ef; border-color: var(--low); color: var(--low); }
+  .photo-debug-line.bad { background: #fbf0ee; border-color: var(--high); color: var(--high); }
+
+  .photo-disclaimer {
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text-soft);
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+
+  @media (max-width: 720px) {
+    .photo-dropzone { padding: 24px 14px; min-height: 120px; }
+    .photo-dropzone-icon { font-size: 32px; }
+    .photo-dropzone-text { font-size: 14px; }
+    .photo-preview-wrap img { max-height: 50vh; }
+  }
 </style>
 </head>
 <body>
@@ -709,6 +821,7 @@
 
 <div class="tabs">
   <div class="tab active" data-tab="analyzer" data-i18n="tab.analyzer">⚠️ Hazard Analyzer</div>
+  <div class="tab" data-tab="photo" data-i18n="tab.photo">📸 Photo Risk</div>
   <div class="tab" data-tab="coach" data-i18n="tab.coach">💬 Safety Coach</div>
   <div class="tab" data-tab="learn" data-i18n="tab.learn">🎓 Learn</div>
   <div class="tab" data-tab="alerts" data-i18n="tab.alerts">🔔 Alerts &amp; Briefing</div>
@@ -739,6 +852,53 @@
       </div>
       <button class="btn" id="analyzeBtn" data-i18n="analyzer.btn">Analyze Hazards</button>
       <div class="result empty" id="analyzeResult" data-i18n="analyzer.empty">Results will appear here.</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 2 — Photo Risk panel (Claude Vision)
+       Sends an optional "image" field alongside the existing prompt.
+       Worker handles vision when image present, text-only otherwise.
+       ============================================================ -->
+  <div class="panel" id="panel-photo">
+    <div class="card">
+      <h2 data-i18n="photo.title">📸 Photo Risk Assessment</h2>
+      <p class="subtitle" data-i18n="photo.subtitle">Upload or capture a worksite photo. Leusi identifies visible HSSE hazards: missing PPE, fall risks, unsafe scaffolding, poor housekeeping, electrical and lifting risks, traffic/pedestrian interface, fire, chemical, and more.</p>
+
+      <div class="photo-helper" data-i18n="photo.helper">Upload a clear worksite photo. Avoid faces or personal data where possible.</div>
+
+      <!-- Drop zone / file input -->
+      <label for="photoInput" class="photo-dropzone" id="photoDropzone">
+        <div class="photo-dropzone-inner">
+          <div class="photo-dropzone-icon">📷</div>
+          <div class="photo-dropzone-text" data-i18n="photo.cta">Tap to choose a photo or take one with your camera</div>
+          <div class="photo-dropzone-hint" data-i18n="photo.formats">JPEG · PNG · WEBP · max 8 MB</div>
+        </div>
+      </label>
+      <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden />
+
+      <!-- Preview area -->
+      <div class="photo-preview-wrap" id="photoPreviewWrap" style="display:none;">
+        <img id="photoPreview" alt="Selected worksite photo preview" />
+        <div class="photo-preview-meta">
+          <span id="photoMeta"></span>
+          <button class="btn-link" id="photoRemoveBtn" type="button" data-i18n="photo.remove">Remove</button>
+        </div>
+        <div class="photo-size-warning" id="photoSizeWarning" style="display:none;"></div>
+      </div>
+
+      <!-- Optional context -->
+      <label for="photoContext" data-i18n="photo.contextLabel">Optional context (location, task, time of day)</label>
+      <input id="photoContext" data-i18n-ph="photo.contextPh" placeholder="e.g., Scaffolding outside warehouse, mid-shift, light rain" />
+
+      <!-- VERIFY: visible debug line — remove after verification -->
+      <div id="photoDebugLine" class="photo-debug-line" aria-live="polite">⏳ no image selected yet · base64 length: 0</div>
+
+      <button class="btn" id="analyzePhotoBtn" disabled data-i18n="photo.analyze">Analyze Photo Risk</button>
+
+      <div class="result empty" id="photoResult" data-i18n="photo.empty">Choose a photo and tap Analyze.</div>
+
+      <div class="photo-disclaimer" data-i18n="photo.disclaimer">⚠️ AI visual assessment supports awareness and coaching. It does not replace a competent site inspection, employer risk assessment, or legal compliance review.</div>
     </div>
   </div>
 
@@ -868,7 +1028,22 @@ const I18N = {
     'ind.maritime': 'Maritime', 'ind.transport': 'Transportation', 'ind.agri': 'Agriculture',
     'ind.oilgas': 'Oil & Gas', 'ind.services': 'Industrial Services',
     'tab.analyzer': '⚠️ Hazard Analyzer', 'tab.coach': '💬 Safety Coach', 'tab.learn': '🎓 Learn',
-    'tab.alerts': '🔔 Alerts & Briefing', 'tab.report': '📝 Report Incident',
+    'tab.alerts': '🔔 Alerts & Briefing', 'tab.report': '📝 Report Incident', 'tab.photo': '📸 Photo Risk',
+    'photo.title': '📸 Photo Risk Assessment',
+    'photo.subtitle': 'Upload or capture a worksite photo. Leusi identifies visible HSSE hazards: missing PPE, fall risks, unsafe scaffolding, poor housekeeping, electrical and lifting risks, traffic/pedestrian interface, fire, chemical, and more.',
+    'photo.helper': 'Upload a clear worksite photo. Avoid faces or personal data where possible.',
+    'photo.cta': 'Tap to choose a photo or take one with your camera',
+    'photo.formats': 'JPEG · PNG · WEBP · max 8 MB',
+    'photo.contextLabel': 'Optional context (location, task, time of day)',
+    'photo.contextPh': 'e.g., Scaffolding outside warehouse, mid-shift, light rain',
+    'photo.analyze': 'Analyze Photo Risk',
+    'photo.analyzing': 'Analyzing the photo…',
+    'photo.empty': 'Choose a photo and tap Analyze.',
+    'photo.remove': 'Remove',
+    'photo.disclaimer': '⚠️ AI visual assessment supports awareness and coaching. It does not replace a competent site inspection, employer risk assessment, or legal compliance review.',
+    'photo.errBadType': 'Unsupported file type. Use JPEG, PNG, or WEBP.',
+    'photo.errTooBig': 'Image is larger than 8 MB. Please choose a smaller photo or it will be auto-compressed before sending.',
+    'photo.resizing': 'Compressing for upload…',
     'welcome.title': "Hoi, I'm Leusi 👋",
     'welcome.body': "Your VCA-aligned safety agent. I help you spot hazards before they bite, coach your crew, and write up incidents properly. Describe a task below and let's start with a Taak-Risico Analyse.",
     'analyzer.title': 'Task Risk Analysis (TRA / LMRA)',
@@ -939,6 +1114,22 @@ const I18N = {
     'ind.construction': 'Bouw', 'ind.civil': 'Civiele Techniek', 'ind.energy': 'Energie / Nutsbedrijven',
     'ind.maritime': 'Maritiem', 'ind.transport': 'Transport', 'ind.agri': 'Landbouw',
     'ind.oilgas': 'Olie & Gas', 'ind.services': 'Industriële Diensten',
+    'tab.photo': '📸 Foto Risico',
+    'photo.title': '📸 Foto Risico-Analyse',
+    'photo.subtitle': 'Upload of maak een foto van de werkplek. Leusi identificeert zichtbare HSSE-risico\'s: ontbrekende PBM, valgevaar, onveilige steiger, slechte huishouding, elektrische en hijsrisico\'s, verkeer/voetgangerinterface, brand, chemie, en meer.',
+    'photo.helper': 'Upload een duidelijke werkplek-foto. Vermijd gezichten of persoonsgegevens waar mogelijk.',
+    'photo.cta': 'Tik om foto te kiezen of met camera te maken',
+    'photo.formats': 'JPEG · PNG · WEBP · max 8 MB',
+    'photo.contextLabel': 'Optionele context (locatie, taak, tijdstip)',
+    'photo.contextPh': 'bijv. Steiger buiten loods, halverwege dienst, lichte regen',
+    'photo.analyze': 'Analyseer Foto Risico',
+    'photo.analyzing': 'Foto wordt geanalyseerd…',
+    'photo.empty': 'Kies een foto en tik op Analyseer.',
+    'photo.remove': 'Verwijder',
+    'photo.disclaimer': '⚠️ AI-beeldanalyse ondersteunt bewustwording en coaching. Het vervangt geen bevoegde site-inspectie, werkgever-risicobeoordeling of wettelijke compliance.',
+    'photo.errBadType': 'Niet ondersteund bestandstype. Gebruik JPEG, PNG of WEBP.',
+    'photo.errTooBig': 'Afbeelding is groter dan 8 MB. Kies een kleinere foto of de afbeelding wordt automatisch verkleind.',
+    'photo.resizing': 'Comprimeren voor upload…',
     'tab.analyzer': '⚠️ Risico-Analyse', 'tab.coach': '💬 Veiligheidscoach', 'tab.learn': '🎓 Leren',
     'tab.alerts': '🔔 Meldingen & Briefing', 'tab.report': '📝 Incident Melden',
     'welcome.title': "Hoi, ik ben Leusi 👋",
@@ -1011,6 +1202,22 @@ const I18N = {
     'ind.construction': 'البناء', 'ind.civil': 'الأشغال المدنية', 'ind.energy': 'الطاقة / المرافق',
     'ind.maritime': 'البحري', 'ind.transport': 'النقل', 'ind.agri': 'الزراعة',
     'ind.oilgas': 'النفط والغاز', 'ind.services': 'الخدمات الصناعية',
+    'tab.photo': '📸 تقييم الصورة',
+    'photo.title': '📸 تقييم مخاطر الصورة',
+    'photo.subtitle': 'حمّل أو التقط صورة لموقع العمل. تحدد Leusi المخاطر المرئية: PBM المفقودة، خطر السقوط، السقالات غير الآمنة، سوء الترتيب، المخاطر الكهربائية والرفع، تداخل المرور والمشاة، الحريق، الكيمياء، وأكثر.',
+    'photo.helper': 'حمّل صورة واضحة لموقع العمل. تجنب الوجوه أو البيانات الشخصية قدر الإمكان.',
+    'photo.cta': 'انقر لاختيار صورة أو التقاطها بالكاميرا',
+    'photo.formats': 'JPEG · PNG · WEBP · بحد أقصى 8 ميجابايت',
+    'photo.contextLabel': 'سياق اختياري (الموقع، المهمة، الوقت)',
+    'photo.contextPh': 'مثال: سقالة خارج المستودع، منتصف الوردية، مطر خفيف',
+    'photo.analyze': 'تحليل مخاطر الصورة',
+    'photo.analyzing': 'جاري تحليل الصورة…',
+    'photo.empty': 'اختر صورة ثم انقر تحليل.',
+    'photo.remove': 'إزالة',
+    'photo.disclaimer': '⚠️ التقييم البصري بالذكاء الاصطناعي يدعم الوعي والتدريب. لا يحل محل تفتيش الموقع المختص أو تقييم المخاطر من قبل صاحب العمل أو مراجعة الامتثال القانوني.',
+    'photo.errBadType': 'نوع الملف غير مدعوم. استخدم JPEG أو PNG أو WEBP.',
+    'photo.errTooBig': 'الصورة أكبر من 8 ميجابايت. اختر صورة أصغر وإلا سيتم ضغطها تلقائيًا.',
+    'photo.resizing': 'جاري الضغط للرفع…',
     'tab.analyzer': '⚠️ محلل المخاطر', 'tab.coach': '💬 مدرب السلامة', 'tab.learn': '🎓 تعلَّم',
     'tab.alerts': '🔔 التنبيهات', 'tab.report': '📝 الإبلاغ عن حادث',
     'welcome.title': "مرحبًا، أنا Leusi 👋",
@@ -2322,6 +2529,289 @@ document.getElementById('clearLogBtn').addEventListener('click', () => {
     out.classList.add('empty');
   }
 });
+
+// ============================================================
+// PHASE 2 — Photo Risk Assessment (Claude Vision via Worker)
+// Sends an optional "image" field alongside the existing
+// {prompt, lang, industry} payload. Worker handles routing.
+// ============================================================
+
+const PHOTO_MAX_BYTES   = 8 * 1024 * 1024;     // 8 MB hard cap before resize
+const PHOTO_RESIZE_DIM  = 1568;                // Claude Vision recommended max edge
+const PHOTO_JPEG_QUALITY = 0.85;
+const PHOTO_ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+let pendingPhoto = null; // { dataUrl, mediaType, name, size }
+
+function bytesHuman(n) {
+  if (n < 1024) return n + ' B';
+  if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+  return (n / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+async function resizeImageFile(file, maxDim, quality) {
+  // Use createImageBitmap when available (fast, handles EXIF orientation),
+  // fall back to <img> + canvas. Returns { dataUrl, mediaType, blob }
+  const objectUrl = URL.createObjectURL(file);
+  let bitmap;
+  try {
+    bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+  } catch (e) {
+    bitmap = await new Promise((res, rej) => {
+      const img = new Image();
+      img.onload = () => res(img);
+      img.onerror = rej;
+      img.src = objectUrl;
+    });
+  }
+  const w0 = bitmap.width || bitmap.naturalWidth;
+  const h0 = bitmap.height || bitmap.naturalHeight;
+  const scale = Math.min(1, maxDim / Math.max(w0, h0));
+  const w = Math.round(w0 * scale);
+  const h = Math.round(h0 * scale);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  URL.revokeObjectURL(objectUrl);
+
+  // Always re-encode to JPEG (smaller than PNG/WebP roundtrips well)
+  const mediaType = 'image/jpeg';
+  const dataUrl = canvas.toDataURL(mediaType, quality);
+  const blob = await new Promise(res => canvas.toBlob(res, mediaType, quality));
+  return { dataUrl, mediaType, blob, width: w, height: h };
+}
+
+function dataUrlToBase64(dataUrl) {
+  const i = dataUrl.indexOf(',');
+  return i >= 0 ? dataUrl.slice(i + 1) : dataUrl;
+}
+
+async function handlePhotoFile(file) {
+  const result   = document.getElementById('photoResult');
+  const wrap     = document.getElementById('photoPreviewWrap');
+  const img      = document.getElementById('photoPreview');
+  const meta     = document.getElementById('photoMeta');
+  const warning  = document.getElementById('photoSizeWarning');
+  const analyze  = document.getElementById('analyzePhotoBtn');
+
+  if (!PHOTO_ALLOWED_TYPES.includes(file.type)) {
+    result.classList.remove('empty');
+    result.innerHTML = '<strong>' + t('photo.errBadType') + '</strong>';
+    return;
+  }
+
+  warning.style.display = 'none';
+  if (file.size > PHOTO_MAX_BYTES) {
+    warning.textContent = t('photo.errTooBig');
+    warning.style.display = '';
+  }
+
+  // Show original-size preview first so the user sees instant feedback
+  const previewUrl = URL.createObjectURL(file);
+  img.src = previewUrl;
+  wrap.style.display = '';
+  meta.textContent = file.name + ' · ' + bytesHuman(file.size) + ' · ' + t('photo.resizing');
+  analyze.disabled = true;
+
+  try {
+    const { dataUrl, mediaType, blob, width, height } = await resizeImageFile(file, PHOTO_RESIZE_DIM, PHOTO_JPEG_QUALITY);
+    pendingPhoto = { dataUrl, mediaType, name: file.name, size: blob.size, width, height };
+    img.src = dataUrl;
+    URL.revokeObjectURL(previewUrl);
+    meta.textContent = file.name + ' · ' + bytesHuman(blob.size) + ' · ' + width + '×' + height;
+    analyze.disabled = false;
+    result.classList.add('empty');
+    result.innerHTML = t('photo.empty');
+    // VERIFY: visible debug line — base64 length ready before send
+    setPhotoDebug('ok', '✅ image ready · ' + mediaType + ' · base64 length: ' + dataUrlToBase64(dataUrl).length);
+  } catch (err) {
+    console.error('[Leusi] Image resize failed:', err);
+    result.classList.remove('empty');
+    result.innerHTML = '<strong>' + err.message + '</strong>';
+    pendingPhoto = null;
+    analyze.disabled = true;
+    setPhotoDebug('bad', '❌ image processing failed: ' + err.message);
+  }
+}
+
+function setPhotoDebug(state, text) {
+  const el = document.getElementById('photoDebugLine');
+  if (!el) return;
+  el.className = 'photo-debug-line' + (state ? ' ' + state : '');
+  el.textContent = text;
+}
+
+function removePhoto() {
+  pendingPhoto = null;
+  document.getElementById('photoInput').value = '';
+  document.getElementById('photoPreviewWrap').style.display = 'none';
+  document.getElementById('analyzePhotoBtn').disabled = true;
+  document.getElementById('photoResult').classList.add('empty');
+  document.getElementById('photoResult').innerHTML = t('photo.empty');
+  setPhotoDebug('', '⏳ no image selected yet · base64 length: 0');
+}
+
+function buildVisionPrompt(context) {
+  const langName = { en: 'English', nl: 'Dutch', ar: 'Arabic' }[state.lang] || 'English';
+  const industry = state.industry || 'general';
+  const ctx = context ? `\n\nWorker-provided context: ${context}` : '';
+  return `You are Leusi — a multilingual HSSE/VCA safety coach for the Levant European Safety Initiative.
+Industry context: ${industry}.
+Respond entirely in ${langName}.
+
+Analyze the attached worksite photograph for visible HSSE risks. Be specific about what you can SEE versus what you CANNOT confirm from a single still image.
+
+Identify hazards relevant to: missing or unsafe PPE/PBM, fall risks, scaffolding/ladder safety, housekeeping, electrical, lifting and rigging, plant and equipment, traffic and pedestrian interface, maritime/port/rail/construction/workshop hazards where visible, fire, chemical, public interface, body positioning, congestion or access/egress, signage and exclusion zones.${ctx}
+
+Reply using THIS EXACT markdown structure:
+
+### 1. Immediate visual observations
+(2–4 short bullets describing what is clearly visible)
+
+### 2. Potential hazards
+- (each hazard on its own line, with a brief why)
+
+### 3. Risk level
+**Overall:** Low / Medium / High / Critical
+(one-sentence justification grounded in what is visible)
+
+### 4. Missing information / uncertainty
+- (what you cannot determine from this single image, e.g. permits, ventilation, weights, distances)
+
+### 5. Immediate controls
+- (specific, actionable steps the crew or supervisor can take now)
+
+### 6. Training and coaching points
+- (2–4 short coaching items aligned with VCA / HSSE thinking)
+
+### 7. VCA / HSSE alignment
+- (relevant VCA checklist items, EN standards, or EU directives — only if confidently applicable)
+
+### 8. Worker-friendly explanation
+(2–3 sentences in plain everyday language a frontline worker can act on)
+
+### 9. Important reminder
+This AI visual assessment supports awareness and coaching. It does not replace a competent site inspection, employer risk assessment, or legal compliance review.
+
+Guidance: use phrases like "visible from the image", "appears to be", "cannot confirm from this image". Do not invent details. If the photo is unclear or unsuitable, say so plainly in section 4.`;
+}
+
+async function callLeusiVision(prompt, image) {
+  // image = { dataUrl, mediaType }
+  const base64 = dataUrlToBase64(image.dataUrl);
+  const body = {
+    prompt: prompt,
+    lang: state.lang,
+    industry: state.industry,
+    image: { media_type: image.mediaType, data: base64 },
+  };
+
+  // Explicit pre-fetch diagnostic (no full base64 ever logged)
+  console.log('[Leusi Vision] Sending request:', {
+    endpoint: AI_BACKEND_URL,
+    hasImage: !!body.image,
+    media_type: body.image.media_type,
+    base64_length: body.image.data.length,
+    base64_prefix: body.image.data.slice(0, 24) + '…',
+    keys: Object.keys(body),
+  });
+
+  // VERIFY: visible status line — exactly what's about to leave the browser
+  setPhotoDebug('ok', '⬆️ sending → ' + AI_BACKEND_URL + ' · base64 length: ' + body.image.data.length);
+
+  let resp;
+  try {
+    resp = await fetch(AI_BACKEND_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch (e) {
+    throw new Error('Could not reach AI service (network or CORS): ' + e.message);
+  }
+  if (!resp.ok) {
+    let detail = '';
+    try { detail = (await resp.json()).error || ''; } catch (_) {}
+    throw new Error('AI service error (' + resp.status + '). ' + detail);
+  }
+  const data = await resp.json();
+
+  // Surface Worker's debug echo (no key, no image data)
+  if (data && data.debug) {
+    console.log('[Leusi Vision] Worker debug echo:', data.debug);
+    const d = data.debug;
+    const received = d.workerReceivedImage === true || d.hasImage === true;
+    setPhotoDebug(
+      received ? 'ok' : 'bad',
+      (received ? '✅ worker received image' : '❌ worker DID NOT receive image') +
+      ' · route: ' + (d.route || '?') +
+      ' · model: ' + (d.model || '?') +
+      ' · imageBytes: ' + (d.imageDataLength || 0)
+    );
+  } else {
+    setPhotoDebug('bad', '❌ worker response missing debug echo — old Worker code still deployed');
+  }
+
+  if (typeof data.text === 'string' && data.text.trim()) return data.text;
+  if (typeof data.content === 'string' && data.content.trim()) return data.content;
+  throw new Error('AI returned empty response.');
+}
+
+// ── Wire UI ──
+(function initPhotoPanel() {
+  const dropzone = document.getElementById('photoDropzone');
+  const input    = document.getElementById('photoInput');
+  const removeBtn = document.getElementById('photoRemoveBtn');
+  const analyze  = document.getElementById('analyzePhotoBtn');
+  const result   = document.getElementById('photoResult');
+  const ctxInput = document.getElementById('photoContext');
+
+  if (!dropzone || !input) return; // panel not in DOM yet
+
+  input.addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (f) handlePhotoFile(f);
+  });
+  removeBtn.addEventListener('click', removePhoto);
+
+  // Drag & drop on desktop
+  ['dragenter', 'dragover'].forEach(ev =>
+    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add('dragging'); })
+  );
+  ['dragleave', 'drop'].forEach(ev =>
+    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove('dragging'); })
+  );
+  dropzone.addEventListener('drop', (e) => {
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handlePhotoFile(f);
+  });
+
+  analyze.addEventListener('click', async () => {
+    if (!pendingPhoto) return;
+    setBusy(analyze, true, t('photo.analyze'));
+    result.classList.remove('empty');
+    result.innerHTML = '<span class="spinner"></span> ' + t('photo.analyzing');
+    try {
+      const prompt = buildVisionPrompt((ctxInput.value || '').trim());
+      const text = await callLeusiVision(prompt, pendingPhoto);
+      result.innerHTML = renderMarkdownLite(text);
+    } catch (err) {
+      console.error('[Leusi] Vision call failed:', err);
+      result.innerHTML = '<strong>⚠️ ' + err.message + '</strong>';
+      setPhotoDebug('bad', '❌ vision call failed: ' + err.message);
+    } finally {
+      setBusy(analyze, false, t('photo.analyze'));
+    }
+  });
+})();
+
+// VERIFY: build marker — change this string each deploy so you can tell at a glance
+window.LEUSI_BUILD = 'phase2-verify-2026-06-10';
+console.log('[Leusi] Build:', window.LEUSI_BUILD);
 
 // ============================================================
 // INIT
