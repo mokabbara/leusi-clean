@@ -723,21 +723,6 @@
   }
   .btn-link:hover { color: var(--primary-dark); }
 
-  /* VERIFY: temporary visible debug line — remove after Phase 2 verified */
-  .photo-debug-line {
-    margin: 10px 0;
-    padding: 8px 12px;
-    background: #fff8e1;
-    border: 1px dashed #b88944;
-    color: #5a3a0a;
-    font-family: ui-monospace, "SF Mono", Consolas, monospace;
-    font-size: 12px;
-    border-radius: 6px;
-    word-break: break-all;
-  }
-  .photo-debug-line.ok { background: #ecf3ef; border-color: var(--low); color: var(--low); }
-  .photo-debug-line.bad { background: #fbf0ee; border-color: var(--high); color: var(--high); }
-
   .photo-disclaimer {
     margin-top: 14px;
     font-size: 12px;
@@ -754,6 +739,471 @@
     .photo-dropzone-icon { font-size: 32px; }
     .photo-dropzone-text { font-size: 14px; }
     .photo-preview-wrap img { max-height: 50vh; }
+  }
+
+  /* ============================================================
+     PHASE 3 — Reports + Safety Signs + Print
+     ============================================================ */
+
+  /* Photo source buttons (Phase 3-deep mobile fix) */
+  .photo-source-buttons { display: flex; gap: 10px; margin: 6px 0 4px; flex-wrap: wrap; }
+  .photo-source-btn { flex: 1; min-width: 140px; margin-top: 0 !important; }
+
+  /* Deep report sub-navigation */
+  .report-subnav {
+    display: flex; gap: 4px; margin: 12px 0 16px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .report-subnav-tab {
+    padding: 8px 14px; font-size: 12px; font-weight: 500;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 6px 6px 0 0;
+    color: var(--text-soft); cursor: pointer; white-space: nowrap;
+    font-family: inherit;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .report-subnav-tab:hover { color: var(--primary-dark); background: var(--primary-light); }
+  .report-subnav-tab.active { color: var(--primary-dark); border-bottom-color: var(--accent); background: var(--primary-light); font-weight: 600; }
+  .report-subnav-tab .check { color: var(--low); margin-left: 5px; font-weight: bold; }
+  .report-subnav-tab.complete::after { content: '✓'; color: var(--low); margin-left: 5px; font-weight: 700; }
+
+  .report-progress-bar {
+    height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .report-progress-bar-fill { height: 100%; background: var(--low); transition: width 0.3s; }
+
+  /* Risk matrix 5×5 */
+  .risk-matrix-wrap { margin: 12px 0; }
+  .risk-matrix-table {
+    width: 100%; border-collapse: collapse; font-size: 11px;
+    background: #fff;
+  }
+  .risk-matrix-table th, .risk-matrix-table td {
+    border: 1px solid var(--border); padding: 6px 4px; text-align: center;
+  }
+  .risk-matrix-table th { background: var(--bg); color: var(--text); font-weight: 600; }
+  .risk-matrix-table td.cell { cursor: pointer; height: 32px; }
+  .risk-matrix-table td.cell:hover { outline: 2px solid var(--primary); }
+  .risk-matrix-table td.selected { outline: 3px solid var(--primary-dark); position: relative; }
+  .risk-matrix-table td.selected::after { content: '✓'; position: absolute; top: 2px; right: 4px; color: #fff; font-weight: 700; }
+  .risk-l1 { background: #d8f0d8; color: #1a5a1a; } /* very low */
+  .risk-l2 { background: #b8e6c0; color: #1a5a1a; }
+  .risk-l3 { background: #ffe066; color: #6d5500; } /* medium */
+  .risk-l4 { background: #ffb555; color: #6e3000; }
+  .risk-l5 { background: #f87a6e; color: #6e0e08; } /* high */
+  .risk-l6 { background: #c0392b; color: #fff; }    /* critical */
+  .risk-summary {
+    margin-top: 8px; padding: 8px 12px; border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    background: var(--bg); border: 1px solid var(--border);
+  }
+  .risk-summary.has-value { background: var(--primary-light); border-color: var(--primary); }
+
+  /* Hazard chips (multi-select) */
+  .chip-multiselect { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .chip-multiselect .chip {
+    padding: 7px 12px; font-size: 12px; cursor: pointer;
+    background: #fff; border: 1px solid var(--border-strong); border-radius: 16px;
+    color: var(--text); transition: all 0.15s;
+    font-family: inherit;
+  }
+  .chip-multiselect .chip.selected {
+    background: var(--primary); color: #fff; border-color: var(--primary);
+  }
+  .chip-multiselect .chip:hover:not(.selected) { border-color: var(--primary); color: var(--primary-dark); }
+
+  /* PPE checklist */
+  .ppe-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px; margin: 8px 0;
+  }
+  .ppe-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; background: #fff; border: 1px solid var(--border-strong);
+    border-radius: 8px; cursor: pointer; font-size: 13px;
+    transition: all 0.15s;
+  }
+  .ppe-item input { width: 18px; height: 18px; margin: 0; flex-shrink: 0; cursor: pointer; }
+  .ppe-item:has(input:checked) { background: var(--primary-light); border-color: var(--primary); }
+  .ppe-item:hover { border-color: var(--primary); }
+
+  /* Control hierarchy (STOP) */
+  .control-hierarchy { display: grid; gap: 10px; margin: 8px 0; }
+  .control-row {
+    display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: start;
+  }
+  .control-row .label-cell {
+    padding: 10px 12px; background: var(--primary-dark); color: #fff;
+    border-radius: 6px; font-weight: 600; font-size: 12px; text-align: center;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .control-row textarea { min-height: 60px; }
+
+  /* Repeatable rows (task steps, observations, punch items) */
+  .repeat-container { margin: 8px 0; }
+  .repeat-row {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; margin-bottom: 10px;
+    display: grid; gap: 8px;
+  }
+  .repeat-row-head {
+    display: flex; justify-content: space-between; align-items: center;
+    font-weight: 600; color: var(--primary-dark); font-size: 13px;
+    border-bottom: 1px solid var(--border); padding-bottom: 6px;
+  }
+  .repeat-row-grid { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 720px) { .repeat-row-grid { grid-template-columns: 1fr; } }
+  .repeat-row .field-row { gap: 3px; }
+  .repeat-row .field-row label { font-size: 11px; }
+  .repeat-row textarea { min-height: 50px; font-size: 13px; }
+  .repeat-add-btn {
+    background: transparent; border: 2px dashed var(--border-strong);
+    border-radius: 8px; padding: 12px; width: 100%;
+    color: var(--primary-dark); font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .repeat-add-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+  .repeat-remove-btn {
+    background: transparent; border: none; color: var(--high);
+    font-size: 18px; cursor: pointer; padding: 0 4px;
+  }
+
+  /* AI multi-action toolbar */
+  .ai-toolbar {
+    display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0;
+    padding: 10px; background: var(--accent-light); border-radius: 8px;
+    border: 1px solid var(--accent);
+  }
+  .ai-toolbar .btn { margin-top: 0; font-size: 12px; padding: 8px 12px; }
+  .ai-toolbar .ai-label {
+    font-size: 11px; font-weight: 700; color: var(--accent-dark);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    display: flex; align-items: center; padding: 0 8px;
+  }
+
+  /* Repeatable row select inside section */
+  .repeat-row select, .repeat-row input { padding: 7px 10px; font-size: 13px; }
+
+  /* Signature box (final review) */
+  .sig-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px; margin: 12px 0;
+  }
+  .sig-box {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; background: #fff;
+  }
+  .sig-box h4 { margin: 0 0 8px; font-size: 13px; color: var(--primary-dark); }
+  .sig-line { border-bottom: 1px dashed var(--border-strong); height: 28px; margin-top: 4px; }
+
+  /* Final report rendered output (pro style) */
+  .report-final {
+    background: #fff; border-radius: 10px; padding: 28px 30px;
+    border: 1px solid var(--border); color: #000; line-height: 1.65; font-size: 13.5px;
+  }
+  .report-final .doc-head {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 18px; align-items: center;
+    border-bottom: 2px solid var(--primary-dark); padding-bottom: 12px; margin-bottom: 18px;
+  }
+  .report-final .doc-head h1 { margin: 0; font-size: 22px; color: var(--primary-dark); }
+  .report-final .doc-head .doc-meta { font-size: 11px; color: var(--text-soft); text-align: right; }
+  .report-final h2 { color: var(--primary-dark); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-top: 18px; font-size: 16px; }
+  .report-final h3 { color: var(--primary-dark); margin-top: 14px; font-size: 14px; }
+  .report-final table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+  .report-final th, .report-final td { border: 1px solid #999; padding: 6px 8px; vertical-align: top; text-align: left; }
+  .report-final th { background: var(--bg); font-weight: 600; }
+  .report-final .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; margin: 10px 0; font-size: 12px; }
+  .report-final .meta-grid .k { color: var(--text-soft); font-weight: 600; min-width: 130px; display: inline-block; }
+  .report-final ul { margin: 6px 0 6px 20px; }
+  .report-final .disclaimer-final {
+    margin-top: 18px; padding: 10px 12px; background: var(--accent-light);
+    border-left: 3px solid var(--accent); border-radius: 4px; font-size: 11px;
+  }
+  .report-final .sig-final-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    margin-top: 24px; page-break-inside: avoid;
+  }
+  .report-final .sig-final {
+    border-top: 1px solid #555; padding-top: 6px; font-size: 11px;
+  }
+  .report-final .sig-final .k { color: #555; font-weight: 600; }
+
+  /* Exam / quiz */
+  .exam-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+  .exam-q { font-weight: 600; color: var(--primary-dark); margin-bottom: 10px; font-size: 14px; }
+  .exam-options { display: flex; flex-direction: column; gap: 6px; }
+  .exam-option {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 10px 14px; background: var(--bg); border: 1px solid var(--border-strong);
+    border-radius: 8px; cursor: pointer; font-size: 13px;
+    transition: all 0.15s; font-family: inherit; text-align: left; color: var(--text);
+  }
+  .exam-option:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+  .exam-option.correct { background: var(--low-bg); border-color: var(--low); color: var(--low); font-weight: 600; }
+  .exam-option.wrong { background: var(--high-bg); border-color: var(--high); color: var(--high); }
+  .exam-option .letter { font-weight: 700; min-width: 18px; }
+  .exam-feedback { margin-top: 10px; padding: 10px 12px; background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 4px; font-size: 12px; }
+  .exam-final-score { background: var(--primary); color: #fff; padding: 18px; border-radius: 10px; text-align: center; margin-top: 14px; }
+  .exam-final-score strong { display: block; font-size: 28px; margin-bottom: 4px; }
+  .exam-final-score.pass { background: var(--low); }
+  .exam-final-score.fail { background: var(--high); }
+  /* Phase 3 Final additions */
+  .exam-info-box {
+    background: var(--primary-light);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    padding: 14px 16px; margin: 12px 0 16px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px; font-size: 13px;
+  }
+  .exam-progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin: 8px 0; }
+  .exam-progress-fill { height: 100%; background: var(--low); width: 0%; transition: width 0.3s; }
+  .exam-review { margin-top: 18px; }
+  .exam-review .exam-card { border-left: 4px solid var(--border); }
+  .exam-review .exam-card.passed { border-left-color: var(--low); }
+  .exam-review .exam-card.failed { border-left-color: var(--high); }
+  .exam-review-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .review-topics {
+    background: var(--accent-light); border: 1px solid var(--accent);
+    border-radius: 10px; padding: 12px 16px; margin: 14px 0;
+  }
+  .review-topics h3 { margin: 0 0 8px; color: var(--accent-dark); font-size: 14px; }
+  .review-topics ul { margin: 4px 0 0 18px; padding: 0; font-size: 13px; }
+  /* Learning module cards */
+  .lm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px; margin: 14px 0;
+  }
+  .lm-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px;
+    cursor: pointer; transition: all 0.18s;
+    font-family: inherit; text-align: left;
+  }
+  .lm-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(44,110,90,0.08); }
+  .lm-card .ic { font-size: 24px; margin-bottom: 6px; }
+  .lm-card h4 { margin: 0 0 4px; font-size: 14px; color: var(--primary-dark); font-weight: 600; }
+  .lm-card .meta { font-size: 11px; color: var(--text-soft); }
+  .lm-card .progress-pill {
+    display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; background: var(--low-bg); color: var(--low);
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .lm-view { background: #fff; border-radius: 10px; }
+  .lm-view .lm-back {
+    color: var(--primary); cursor: pointer; font-size: 13px;
+    font-weight: 500; margin: 10px 0;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .lm-view h3 { color: var(--primary-dark); margin: 8px 0 4px; font-size: 18px; }
+  .lm-view .lm-explain { font-size: 14px; line-height: 1.6; margin: 10px 0 14px; }
+  .lm-view .key-msg {
+    background: var(--accent-light); border-left: 4px solid var(--accent);
+    padding: 10px 14px; border-radius: 6px; font-weight: 500; margin: 10px 0;
+  }
+  .lm-view .example {
+    background: var(--low-bg); border-left: 4px solid var(--low);
+    padding: 10px 14px; border-radius: 6px; margin: 10px 0; font-size: 13px;
+  }
+  .lm-view .terms {
+    display: grid; grid-template-columns: 1fr; gap: 6px;
+    background: var(--bg); padding: 12px; border-radius: 8px; margin: 10px 0;
+    font-size: 13px;
+  }
+  .lm-view .terms .row {
+    display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 8px;
+    padding: 5px 0; border-bottom: 1px dashed var(--border);
+  }
+  .lm-view .terms .row:last-child { border-bottom: none; }
+  .lm-view .terms .row:first-child { font-weight: 600; color: var(--primary-dark); }
+  @media (max-width: 720px) {
+    .lm-view .terms .row { grid-template-columns: 60px 1fr 1fr; }
+    .lm-view .terms .row .ar-col { grid-column: 1 / -1; padding-left: 60px; }
+  }
+  /* Inspection per-row photo upload */
+  .inspect-photo-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .inspect-photo-actions .btn { margin-top: 0; font-size: 11px; padding: 6px 10px; }
+  .inspect-photo-preview { display: block; max-width: 100%; max-height: 140px; margin-top: 6px; border-radius: 6px; border: 1px solid var(--border); }
+  body[dir="rtl"] .exam-progress-bar, body[dir="rtl"] .lm-view .terms .row { direction: rtl; text-align: right; }
+  .exam-mode-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+  .exam-mode-tab {
+    padding: 8px 16px; border-radius: 16px; font-size: 13px; cursor: pointer;
+    background: #fff; border: 1px solid var(--border-strong); color: var(--text);
+    font-family: inherit; transition: all 0.15s;
+  }
+  .exam-mode-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  /* Reports landing */
+  .reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 14px 0 18px;
+  }
+  .report-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: left;
+    font-family: inherit;
+  }
+  .report-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(44,110,90,0.10); }
+  .report-card:active { transform: scale(0.98); }
+  .report-card .ic { font-size: 26px; margin-bottom: 6px; line-height: 1; }
+  .report-card h3 { margin: 0 0 4px; font-size: 14px; color: var(--primary-dark); font-weight: 600; }
+  .report-card p { margin: 0; font-size: 12px; color: var(--text-soft); line-height: 1.45; }
+
+  /* Report form */
+  #reportFieldset { display: grid; gap: 12px; margin: 14px 0; }
+  #reportFieldset .field-row { display: grid; gap: 4px; }
+  #reportFieldset .field-row.two-col { grid-template-columns: 1fr 1fr; gap: 12px; }
+  #reportFieldset label { font-size: 12px; font-weight: 500; color: var(--text); margin: 0; }
+  #reportFieldset textarea { min-height: 70px; }
+  #reportFieldset .req { color: var(--high); }
+  .section-heading {
+    grid-column: 1 / -1;
+    margin: 8px 0 2px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .report-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    align-items: center;
+  }
+  .report-actions .btn { margin-top: 0; }
+
+  .report-output-wrap { margin-top: 18px; }
+  .report-output-wrap h3 { margin: 0 0 8px; color: var(--primary-dark); font-size: 15px; }
+  .report-output {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: var(--text);
+  }
+  .report-output h3 { margin: 14px 0 6px; font-size: 14px; color: var(--primary-dark); font-weight: 600; }
+  .report-output h3:first-child { margin-top: 0; }
+  .report-output strong { color: var(--primary-dark); }
+  .report-output ul { margin: 6px 0 6px 18px; padding: 0; }
+  .report-output-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
+  .report-disclaimer {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-soft);
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+
+  /* Safety Signs */
+  .signs-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .sign-filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    cursor: pointer;
+    color: var(--text);
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .sign-filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .sign-filter-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary-dark); }
+
+  .signs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .sign-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .sign-card:hover { border-color: var(--primary); transform: translateY(-1px); }
+  .sign-card .sign-thumb {
+    width: 64px; height: 64px;
+    margin: 0 auto 8px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+  .sign-card.cat-mandatory .sign-thumb { background: #e8f0fa; border-color: #4a86c8; color: #2c5d96; }
+  .sign-card.cat-warning .sign-thumb { background: #fff8de; border-color: #d4a800; color: #8a6c00; }
+  .sign-card.cat-emergency .sign-thumb { background: #e6f5ec; border-color: #2e9e5c; color: #1b6b3c; }
+  .sign-card.cat-fire .sign-thumb { background: #fce6e1; border-color: #c0392b; color: #8a261a; }
+  .sign-card.cat-prohibition .sign-thumb { background: #fbe7e4; border-color: #b8473e; color: #7a2622; }
+  .sign-card.cat-ppe .sign-thumb { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+  .sign-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .sign-card .sign-label { font-size: 12px; color: var(--text); font-weight: 500; line-height: 1.3; }
+  .sign-card .sign-cat { font-size: 10px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 3px; }
+
+  /* Sign detail panel (shown when clicked) */
+  .sign-detail-card {
+    background: var(--primary-light);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 14px;
+  }
+  .sign-detail-card h3 { margin: 0 0 6px; color: var(--primary-dark); font-size: 15px; }
+  .sign-detail-card .langs { display: grid; gap: 4px; margin: 8px 0 10px; font-size: 13px; }
+  .sign-detail-card .langs span { color: var(--text-soft); margin-right: 8px; font-weight: 600; min-width: 24px; display: inline-block; }
+  body[dir="rtl"] .sign-detail-card .langs span { margin-right: 0; margin-left: 8px; }
+
+  @media (max-width: 720px) {
+    #reportFieldset .field-row.two-col { grid-template-columns: 1fr; }
+    .reports-grid { grid-template-columns: 1fr 1fr; }
+    .signs-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+    .sign-card .sign-thumb { width: 56px; height: 56px; font-size: 24px; }
+  }
+
+  /* Print styles: produce a clean report when user prints */
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    .header, .tabs, .whatsapp-fab, .panel:not(.print-active), .report-actions,
+    .report-output-actions, .lang-pill-group, .toolbar, .reports-grid,
+    .report-disclaimer, #reportsBack, .photo-disclaimer, .back-link,
+    #reportFieldset, #reportsForm > .card > h2 ~ p,
+    .sign-detail-card { display: none !important; }
+    .panel.print-active { display: block !important; }
+    .card { border: none !important; box-shadow: none !important; padding: 0 !important; }
+    .report-output { border: none !important; padding: 0 !important; white-space: pre-wrap; font-size: 12pt; }
+    .report-output h3 { border-bottom: 1px solid #999; padding-bottom: 2pt; }
+    .content { padding: 24pt; max-width: none; }
+    a { color: inherit; text-decoration: none; }
   }
 </style>
 </head>
@@ -824,6 +1274,7 @@
   <div class="tab" data-tab="photo" data-i18n="tab.photo">📸 Photo Risk</div>
   <div class="tab" data-tab="coach" data-i18n="tab.coach">💬 Safety Coach</div>
   <div class="tab" data-tab="learn" data-i18n="tab.learn">🎓 Learn</div>
+  <div class="tab" data-tab="reports" data-i18n="tab.reports">📋 Reports</div>
   <div class="tab" data-tab="alerts" data-i18n="tab.alerts">🔔 Alerts &amp; Briefing</div>
   <div class="tab" data-tab="report" data-i18n="tab.report">📝 Report Incident</div>
 </div>
@@ -867,15 +1318,22 @@
 
       <div class="photo-helper" data-i18n="photo.helper">Upload a clear worksite photo. Avoid faces or personal data where possible.</div>
 
-      <!-- Drop zone / file input -->
-      <label for="photoInput" class="photo-dropzone" id="photoDropzone">
+      <!-- Two separate inputs: camera (capture=environment) AND gallery (no capture) -->
+      <div class="photo-source-buttons">
+        <button type="button" class="btn photo-source-btn" id="photoCameraBtn" data-i18n="photo.takePhoto">📷 Take Photo</button>
+        <button type="button" class="btn btn-accent photo-source-btn" id="photoGalleryBtn" data-i18n="photo.chooseGallery">🖼 Choose from Gallery</button>
+      </div>
+      <input id="photoCameraInput"  type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden />
+      <input id="photoGalleryInput" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+
+      <!-- Drag-and-drop zone (desktop) still works for drop -->
+      <div class="photo-dropzone" id="photoDropzone" style="margin-top:10px;">
         <div class="photo-dropzone-inner">
-          <div class="photo-dropzone-icon">📷</div>
-          <div class="photo-dropzone-text" data-i18n="photo.cta">Tap to choose a photo or take one with your camera</div>
+          <div class="photo-dropzone-icon">📥</div>
+          <div class="photo-dropzone-text" data-i18n="photo.dropHere">…or drag &amp; drop an image here</div>
           <div class="photo-dropzone-hint" data-i18n="photo.formats">JPEG · PNG · WEBP · max 8 MB</div>
         </div>
-      </label>
-      <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden />
+      </div>
 
       <!-- Preview area -->
       <div class="photo-preview-wrap" id="photoPreviewWrap" style="display:none;">
@@ -890,9 +1348,6 @@
       <!-- Optional context -->
       <label for="photoContext" data-i18n="photo.contextLabel">Optional context (location, task, time of day)</label>
       <input id="photoContext" data-i18n-ph="photo.contextPh" placeholder="e.g., Scaffolding outside warehouse, mid-shift, light rain" />
-
-      <!-- VERIFY: visible debug line — remove after verification -->
-      <div id="photoDebugLine" class="photo-debug-line" aria-live="polite">⏳ no image selected yet · base64 length: 0</div>
 
       <button class="btn" id="analyzePhotoBtn" disabled data-i18n="photo.analyze">Analyze Photo Risk</button>
 
@@ -942,6 +1397,51 @@
         <button class="btn btn-accent" id="generateLessonBtn" data-i18n="learn.custom.btn">Generate Lesson</button>
         <div class="result empty" id="customLessonResult" data-i18n="learn.custom.empty">Your AI-generated lesson will appear here.</div>
       </div>
+
+      <!-- PHASE 3B/C — Safety Signs subsection -->
+      <div class="card" id="signsCard" style="margin-top: 18px;">
+        <h2 data-i18n="signs.title">🪧 Safety Signs &amp; Pictograms</h2>
+        <p class="subtitle" data-i18n="signs.subtitle">Learn the four families of safety signs used on Dutch/EU worksites. Filter by category and tap a sign for a worker-friendly explanation in your language.</p>
+        <div class="signs-filter" id="signsFilter"></div>
+        <div class="signs-grid" id="signsGrid"></div>
+        <div id="signDetail" style="display:none;"></div>
+      </div>
+
+      <!-- PHASE 3 FINAL — Learning Modules card -->
+      <div class="card" id="learningModulesCard" style="margin-top: 18px;">
+        <h2>📚 <span data-i18n="learnmod.title">VGM Learning Modules</span></h2>
+        <p class="subtitle" data-i18n="learnmod.subtitle">Structured topics adapted from the Arabic VGM safety training manual. Each module has a key message, a worker example, key terms in EN/NL/AR, and a mini quiz with instant feedback.</p>
+        <div class="lm-grid" id="learningModulesGrid"></div>
+        <div id="learningModuleView" style="display:none;"></div>
+      </div>
+
+      <!-- PHASE 3 FINAL — Final Exam (40 questions, hidden behind Start button) -->
+      <div class="card" id="examCard" style="margin-top: 18px;">
+        <h2 data-i18n="exam.title">🏆 LEUSI VGM-Basic Final Exam</h2>
+        <p class="subtitle" data-i18n="exam.subtitle">40 questions adapted from the VGM training exam. Pass threshold: 70%. This is a LEUSI learning-readiness test, not an official VCA certificate.</p>
+
+        <div id="examStart">
+          <div class="exam-info-box">
+            <div><strong>📋 <span data-i18n="exam.questions">Questions</span>:</strong> 40</div>
+            <div><strong>⏱ <span data-i18n="exam.time">Time</span>:</strong> <span data-i18n="exam.untimed">Untimed</span></div>
+            <div><strong>🎯 <span data-i18n="exam.passmark">Pass mark</span>:</strong> 70%</div>
+            <div><strong>🌍 <span data-i18n="exam.langs">Languages</span>:</strong> EN · NL · AR</div>
+          </div>
+          <button class="btn btn-accent" id="examStartBtn" data-i18n="exam.start">▶ Start Final Exam</button>
+        </div>
+
+        <div id="examInProgress" style="display:none;">
+          <div class="exam-progress-bar"><div class="exam-progress-fill" id="examProgressFill"></div></div>
+          <div id="examProgressText" style="font-size:12px;color:var(--text-soft);margin-bottom:12px;"></div>
+          <div id="examQuestionsList"></div>
+          <div style="display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;">
+            <button class="btn btn-accent" id="examSubmitBtn" data-i18n="exam.submit">✅ Submit Exam</button>
+            <button class="btn btn-secondary" id="examCancelBtn" data-i18n="exam.cancel">Cancel</button>
+          </div>
+        </div>
+
+        <div id="examResult" style="display:none;"></div>
+      </div>
     </div>
 
     <div class="lesson-view" id="lessonView">
@@ -951,6 +1451,65 @@
         <div class="lesson-body" id="lessonViewBody"></div>
         <button class="btn" id="startQuizBtn">Start Quiz</button>
         <div id="quizContainer" style="margin-top: 18px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 3A — Reports panel (TRA / RA / Inspection / PrePunch / RoadTransport)
+       ============================================================ -->
+  <div class="panel" id="panel-reports">
+    <!-- Index view: pick a report type -->
+    <div id="reportsHome">
+      <div class="card">
+        <h2 data-i18n="reports.title">📋 HSSE Reports</h2>
+        <p class="subtitle" data-i18n="reports.subtitle">Original LEUSI report templates inspired by standard VCA/HSSE practice. Fill the fields, ask Leusi to improve the wording, generate a clean output, then copy or print.</p>
+        <div class="reports-grid" id="reportsGrid"></div>
+        <div class="report-disclaimer" data-i18n="reports.disclaimer">⚠️ LEUSI AI supports safety awareness and reporting. It does not replace a competent HSSE professional, the employer's legal duty, certified inspection, or local regulation.</div>
+      </div>
+    </div>
+
+    <!-- Form view: sub-navigation + dynamic section -->
+    <div id="reportsForm" style="display:none;">
+      <span class="back-link" id="reportsBack">← <span data-i18n="reports.back">Back to reports</span></span>
+      <div class="card">
+        <h2 id="reportFormTitle"></h2>
+        <p class="subtitle" id="reportFormSubtitle"></p>
+
+        <!-- Sub-navigation -->
+        <div class="report-subnav" id="reportSubnav"></div>
+        <div class="report-progress-bar"><div class="report-progress-bar-fill" id="reportProgressFill"></div></div>
+
+        <!-- Dynamic section content -->
+        <form id="reportSection" autocomplete="off"></form>
+
+        <!-- Section navigation -->
+        <div class="report-actions">
+          <button class="btn btn-secondary" id="reportPrevBtn" data-i18n="reports.prev">← Previous</button>
+          <button class="btn" id="reportNextBtn" data-i18n="reports.next">Next →</button>
+          <button class="btn btn-secondary" id="reportSaveDraftBtn" data-i18n="reports.saveDraft">💾 Save Draft</button>
+          <button class="btn btn-secondary" id="reportClearBtn" data-i18n="reports.clear">🗑 Clear</button>
+        </div>
+
+        <!-- AI multi-action toolbar -->
+        <div class="ai-toolbar">
+          <span class="ai-label">✨ AI</span>
+          <button class="btn" id="aiImproveBtn" data-i18n="reports.ai.improve">Improve Wording</button>
+          <button class="btn" id="aiMissingBtn" data-i18n="reports.ai.missing">Identify Missing Info</button>
+          <button class="btn" id="aiControlsBtn" data-i18n="reports.ai.controls">Suggest Controls</button>
+          <button class="btn" id="aiSummaryBtn" data-i18n="reports.ai.summary">Executive Summary</button>
+          <button class="btn btn-accent" id="aiGenerateBtn" data-i18n="reports.ai.generate">Generate Final Report</button>
+        </div>
+
+        <div class="report-output-wrap" id="reportOutputWrap" style="display:none;">
+          <h3 data-i18n="reports.output">Generated Output</h3>
+          <div class="report-output" id="reportOutput"></div>
+          <div class="report-output-actions">
+            <button class="btn" id="reportCopyBtn" data-i18n="reports.copy">📋 Copy</button>
+            <button class="btn" id="reportPrintBtn" data-i18n="reports.print">🖨 Print / Save as PDF</button>
+            <button class="btn btn-secondary" id="reportDownloadBtn" data-i18n="reports.download">⬇ Download HTML</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1028,7 +1587,25 @@ const I18N = {
     'ind.maritime': 'Maritime', 'ind.transport': 'Transportation', 'ind.agri': 'Agriculture',
     'ind.oilgas': 'Oil & Gas', 'ind.services': 'Industrial Services',
     'tab.analyzer': '⚠️ Hazard Analyzer', 'tab.coach': '💬 Safety Coach', 'tab.learn': '🎓 Learn',
-    'tab.alerts': '🔔 Alerts & Briefing', 'tab.report': '📝 Report Incident', 'tab.photo': '📸 Photo Risk',
+    'tab.alerts': '🔔 Alerts & Briefing', 'tab.report': '📝 Report Incident', 'tab.photo': '📸 Photo Risk', 'tab.reports': '📋 Reports',
+    'reports.title': '📋 HSSE Reports',
+    'reports.subtitle': 'Original LEUSI report templates inspired by standard VCA/HSSE practice. Fill the fields, ask Leusi to improve the wording, generate a clean output, then copy or print.',
+    'reports.back': 'Back to reports',
+    'reports.aiAssist': '✨ AI Assist',
+    'reports.generate': 'Generate Report',
+    'reports.saveDraft': 'Save Draft',
+    'reports.clear': 'Clear',
+    'reports.copy': '📋 Copy Report',
+    'reports.copied': 'Copied!',
+    'reports.print': '🖨 Print / Save as PDF',
+    'reports.output': 'Generated Report',
+    'reports.thinking': 'Improving wording…',
+    'reports.generating': 'Generating report…',
+    'reports.draftSaved': 'Draft saved',
+    'reports.clearConfirm': 'Clear all fields and saved draft for this report?',
+    'reports.disclaimer': '⚠️ LEUSI AI supports safety awareness and reporting. It does not replace a competent HSSE professional, the employer\'s legal duty, certified inspection, or local regulation.',
+    'signs.title': '🪧 Safety Signs & Pictograms',
+    'signs.subtitle': 'Learn the four families of safety signs used on Dutch/EU worksites. Tap a sign for a worker-friendly explanation in your language.',
     'photo.title': '📸 Photo Risk Assessment',
     'photo.subtitle': 'Upload or capture a worksite photo. Leusi identifies visible HSSE hazards: missing PPE, fall risks, unsafe scaffolding, poor housekeeping, electrical and lifting risks, traffic/pedestrian interface, fire, chemical, and more.',
     'photo.helper': 'Upload a clear worksite photo. Avoid faces or personal data where possible.',
@@ -1131,7 +1708,25 @@ const I18N = {
     'photo.errTooBig': 'Afbeelding is groter dan 8 MB. Kies een kleinere foto of de afbeelding wordt automatisch verkleind.',
     'photo.resizing': 'Comprimeren voor upload…',
     'tab.analyzer': '⚠️ Risico-Analyse', 'tab.coach': '💬 Veiligheidscoach', 'tab.learn': '🎓 Leren',
-    'tab.alerts': '🔔 Meldingen & Briefing', 'tab.report': '📝 Incident Melden',
+    'tab.alerts': '🔔 Meldingen & Briefing', 'tab.report': '📝 Incident Melden', 'tab.reports': '📋 Rapporten',
+    'reports.title': '📋 VGM-Rapporten',
+    'reports.subtitle': 'Originele LEUSI-rapportsjablonen geïnspireerd op standaard VCA/VGM-praktijk. Vul de velden, vraag Leusi om de tekst te verbeteren, genereer een nette uitvoer en kopieer of print.',
+    'reports.back': 'Terug naar rapporten',
+    'reports.aiAssist': '✨ AI Hulp',
+    'reports.generate': 'Rapport genereren',
+    'reports.saveDraft': 'Concept opslaan',
+    'reports.clear': 'Wissen',
+    'reports.copy': '📋 Rapport kopiëren',
+    'reports.copied': 'Gekopieerd!',
+    'reports.print': '🖨 Printen / opslaan als PDF',
+    'reports.output': 'Gegenereerd rapport',
+    'reports.thinking': 'Bezig met verbeteren…',
+    'reports.generating': 'Rapport wordt gegenereerd…',
+    'reports.draftSaved': 'Concept opgeslagen',
+    'reports.clearConfirm': 'Alle velden en opgeslagen concept wissen voor dit rapport?',
+    'reports.disclaimer': '⚠️ LEUSI AI ondersteunt veiligheidsbewustzijn en rapportage. Het vervangt geen bevoegde VGM-professional, de wettelijke werkgeversplicht, een gecertificeerde inspectie of lokale regelgeving.',
+    'signs.title': '🪧 Veiligheidstekens & Pictogrammen',
+    'signs.subtitle': 'Leer de vier families veiligheidstekens op Nederlandse/EU werkplekken. Tik een teken aan voor een werker-vriendelijke uitleg in je taal.',
     'welcome.title': "Hoi, ik ben Leusi 👋",
     'welcome.body': "Je VCA-veiligheidsagent. Ik help je gevaren te zien voordat ze bijten, je crew coachen, en incidenten goed documenteren. Beschrijf hieronder een taak en we beginnen met een Taak-Risico Analyse.",
     'analyzer.title': 'Taak-Risico Analyse (TRA / LMRA)',
@@ -1219,7 +1814,25 @@ const I18N = {
     'photo.errTooBig': 'الصورة أكبر من 8 ميجابايت. اختر صورة أصغر وإلا سيتم ضغطها تلقائيًا.',
     'photo.resizing': 'جاري الضغط للرفع…',
     'tab.analyzer': '⚠️ محلل المخاطر', 'tab.coach': '💬 مدرب السلامة', 'tab.learn': '🎓 تعلَّم',
-    'tab.alerts': '🔔 التنبيهات', 'tab.report': '📝 الإبلاغ عن حادث',
+    'tab.alerts': '🔔 التنبيهات', 'tab.report': '📝 الإبلاغ عن حادث', 'tab.reports': '📋 التقارير',
+    'reports.title': '📋 تقارير السلامة والصحة والبيئة',
+    'reports.subtitle': 'قوالب تقارير LEUSI الأصلية المستوحاة من ممارسات VCA/HSSE. املأ الحقول، اطلب من Leusi تحسين الصياغة، أنشئ مخرجًا نظيفًا، ثم انسخ أو اطبع.',
+    'reports.back': 'الرجوع إلى التقارير',
+    'reports.aiAssist': '✨ مساعدة بالذكاء الاصطناعي',
+    'reports.generate': 'إنشاء التقرير',
+    'reports.saveDraft': 'حفظ المسودة',
+    'reports.clear': 'مسح',
+    'reports.copy': '📋 نسخ التقرير',
+    'reports.copied': 'تم النسخ!',
+    'reports.print': '🖨 طباعة / حفظ PDF',
+    'reports.output': 'التقرير المُنشأ',
+    'reports.thinking': 'جاري تحسين الصياغة…',
+    'reports.generating': 'جاري إنشاء التقرير…',
+    'reports.draftSaved': 'تم حفظ المسودة',
+    'reports.clearConfirm': 'مسح جميع الحقول والمسودة المحفوظة لهذا التقرير؟',
+    'reports.disclaimer': '⚠️ يدعم LEUSI AI الوعي بالسلامة والإبلاغ. لا يحل محل مهني HSSE المختص أو الواجب القانوني لصاحب العمل أو التفتيش المعتمد أو اللوائح المحلية.',
+    'signs.title': '🪧 لافتات السلامة والرموز',
+    'signs.subtitle': 'تعلم العائلات الأربع للافتات السلامة المستخدمة في مواقع العمل الهولندية/الأوروبية. انقر على لافتة لشرح مبسط للعامل بلغتك.',
     'welcome.title': "مرحبًا، أنا Leusi 👋",
     'welcome.body': "وكيل السلامة الخاص بك، المتوافق مع VCA. أساعدك على رصد المخاطر قبل وقوعها، وتدريب فريقك، وتوثيق الحوادث بشكل صحيح. صف المهمة أدناه لنبدأ بتحليل المخاطر.",
     'analyzer.title': 'تحليل مخاطر المهمة (TRA / LMRA)',
@@ -2625,33 +3238,23 @@ async function handlePhotoFile(file) {
     analyze.disabled = false;
     result.classList.add('empty');
     result.innerHTML = t('photo.empty');
-    // VERIFY: visible debug line — base64 length ready before send
-    setPhotoDebug('ok', '✅ image ready · ' + mediaType + ' · base64 length: ' + dataUrlToBase64(dataUrl).length);
   } catch (err) {
     console.error('[Leusi] Image resize failed:', err);
     result.classList.remove('empty');
     result.innerHTML = '<strong>' + err.message + '</strong>';
     pendingPhoto = null;
     analyze.disabled = true;
-    setPhotoDebug('bad', '❌ image processing failed: ' + err.message);
   }
-}
-
-function setPhotoDebug(state, text) {
-  const el = document.getElementById('photoDebugLine');
-  if (!el) return;
-  el.className = 'photo-debug-line' + (state ? ' ' + state : '');
-  el.textContent = text;
 }
 
 function removePhoto() {
   pendingPhoto = null;
-  document.getElementById('photoInput').value = '';
+  document.getElementById('photoCameraInput').value = '';
+  document.getElementById('photoGalleryInput').value = '';
   document.getElementById('photoPreviewWrap').style.display = 'none';
   document.getElementById('analyzePhotoBtn').disabled = true;
   document.getElementById('photoResult').classList.add('empty');
   document.getElementById('photoResult').innerHTML = t('photo.empty');
-  setPhotoDebug('', '⏳ no image selected yet · base64 length: 0');
 }
 
 function buildVisionPrompt(context) {
@@ -2719,9 +3322,6 @@ async function callLeusiVision(prompt, image) {
     keys: Object.keys(body),
   });
 
-  // VERIFY: visible status line — exactly what's about to leave the browser
-  setPhotoDebug('ok', '⬆️ sending → ' + AI_BACKEND_URL + ' · base64 length: ' + body.image.data.length);
-
   let resp;
   try {
     resp = await fetch(AI_BACKEND_URL, {
@@ -2743,17 +3343,6 @@ async function callLeusiVision(prompt, image) {
   // Surface Worker's debug echo (no key, no image data)
   if (data && data.debug) {
     console.log('[Leusi Vision] Worker debug echo:', data.debug);
-    const d = data.debug;
-    const received = d.workerReceivedImage === true || d.hasImage === true;
-    setPhotoDebug(
-      received ? 'ok' : 'bad',
-      (received ? '✅ worker received image' : '❌ worker DID NOT receive image') +
-      ' · route: ' + (d.route || '?') +
-      ' · model: ' + (d.model || '?') +
-      ' · imageBytes: ' + (d.imageDataLength || 0)
-    );
-  } else {
-    setPhotoDebug('bad', '❌ worker response missing debug echo — old Worker code still deployed');
   }
 
   if (typeof data.text === 'string' && data.text.trim()) return data.text;
@@ -2763,19 +3352,29 @@ async function callLeusiVision(prompt, image) {
 
 // ── Wire UI ──
 (function initPhotoPanel() {
-  const dropzone = document.getElementById('photoDropzone');
-  const input    = document.getElementById('photoInput');
-  const removeBtn = document.getElementById('photoRemoveBtn');
-  const analyze  = document.getElementById('analyzePhotoBtn');
-  const result   = document.getElementById('photoResult');
-  const ctxInput = document.getElementById('photoContext');
+  const dropzone   = document.getElementById('photoDropzone');
+  const camInput   = document.getElementById('photoCameraInput');
+  const galInput   = document.getElementById('photoGalleryInput');
+  const camBtn     = document.getElementById('photoCameraBtn');
+  const galBtn     = document.getElementById('photoGalleryBtn');
+  const removeBtn  = document.getElementById('photoRemoveBtn');
+  const analyze    = document.getElementById('analyzePhotoBtn');
+  const result     = document.getElementById('photoResult');
+  const ctxInput   = document.getElementById('photoContext');
 
-  if (!dropzone || !input) return; // panel not in DOM yet
+  if (!dropzone || !camInput) return; // panel not in DOM yet
 
-  input.addEventListener('change', (e) => {
+  // PHASE 3-DEEP: two distinct input sources so mobile users can pick gallery OR camera
+  camBtn.addEventListener('click', () => camInput.click());
+  galBtn.addEventListener('click', () => galInput.click());
+
+  function onChange(e) {
     const f = e.target.files && e.target.files[0];
     if (f) handlePhotoFile(f);
-  });
+    e.target.value = ''; // allow re-picking same file
+  }
+  camInput.addEventListener('change', onChange);
+  galInput.addEventListener('change', onChange);
   removeBtn.addEventListener('click', removePhoto);
 
   // Drag & drop on desktop
@@ -2802,21 +3401,1776 @@ async function callLeusiVision(prompt, image) {
     } catch (err) {
       console.error('[Leusi] Vision call failed:', err);
       result.innerHTML = '<strong>⚠️ ' + err.message + '</strong>';
-      setPhotoDebug('bad', '❌ vision call failed: ' + err.message);
     } finally {
       setBusy(analyze, false, t('photo.analyze'));
     }
   });
 })();
 
-// VERIFY: build marker — change this string each deploy so you can tell at a glance
-window.LEUSI_BUILD = 'phase2-verify-2026-06-10';
-console.log('[Leusi] Build:', window.LEUSI_BUILD);
+// ============================================================
+// PHASE 3-DEEP — Reports module with sub-navigation, risk matrix,
+// hazard chips, PPE checklist, control hierarchy, repeatable rows,
+// 5 AI modes, professional final report renderer.
+// ============================================================
+
+// Helper for trilingual labels
+function L(en, nl, ar) { return { en, nl, ar }; }
+
+// ─── Helpers ────────────────────────────────────────────────
+function L(en, nl, ar) { return { en, nl, ar }; }
+function tr(obj, fallback) {
+  if (!obj) return fallback || '';
+  return obj[state.lang] || obj.en || fallback || '';
+}
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Risk-matrix utility ────────────────────────────────────
+function riskLevel(likelihood, severity) {
+  if (!likelihood || !severity) return null;
+  const score = Number(likelihood) * Number(severity);
+  if (score <= 3)   return { score, label: L('Low','Laag','منخفض'),       css: 'risk-l1' };
+  if (score <= 6)   return { score, label: L('Medium','Middel','متوسط'), css: 'risk-l3' };
+  if (score <= 12)  return { score, label: L('High','Hoog','عالٍ'),       css: 'risk-l5' };
+  return                  { score, label: L('Critical','Kritiek','حرج'), css: 'risk-l6' };
+}
+
+// ─── DEEP report templates ──────────────────────────────────
+const DEEP_REPORTS = {
+  tra: {
+    id:'tra', icon:'📋',
+    title: L('Task Risk Analysis (TRA)','Taak-Risico Analyse (TRA)','تحليل مخاطر المهمة (TRA)'),
+    description: L('Pre-work analysis: task steps, hazards, controls, residual risk, stop-work, sign-off.','Pre-werk analyse.','تحليل ما قبل العمل.'),
+    sections:[
+      { id:'details', title:L('Details','Details','التفاصيل'), type:'fields', fields:[
+        { key:'project',    label:L('Project / Site','Project','المشروع / الموقع'), type:'text', required:true },
+        { key:'location',   label:L('Location','Locatie','الموقع'), type:'text' },
+        { key:'date',       label:L('Date','Datum','التاريخ'), type:'date', required:true },
+        { key:'company',    label:L('Company / Organization','Bedrijf','الشركة'), type:'text' },
+        { key:'supervisor', label:L('Supervisor','Leidinggevende','المشرف'), type:'text' },
+        { key:'team',       label:L('Workers / Team','Werkers','العمال / الفريق'), type:'text' },
+        { key:'permit',     label:L('Permit required?','Werkvergunning?','هل التصريح مطلوب؟'), type:'select', options:['Yes','No','To be checked'] },
+        { key:'workType',   label:L('Work type','Type werk','نوع العمل'), type:'multiSelect', options:[
+          L('Excavation','Graafwerk','حفر'),L('Lifting','Hijswerk','رفع'),
+          L('Working at height','Werken op hoogte','العمل على ارتفاع'),
+          L('Hot work','Vuurwerk','عمل ساخن'),L('Electrical work','Elektrisch werk','عمل كهربائي'),
+          L('Confined space','Besloten ruimte','مكان مغلق'),
+          L('Vehicle / traffic','Voertuig / verkeer','مركبات / مرور'),
+          L('Manual handling','Handmatig tillen','رفع يدوي'),
+          L('Chemical / substance','Chemisch','عمل كيميائي'),
+          L('Cleaning','Schoonmaak','تنظيف'),L('Other','Anders','أخرى')
+        ]},
+      ]},
+      { id:'hazards', title:L('Hazards & Risk','Gevaren','المخاطر'), type:'composite', parts:[
+        { type:'risk_matrix', label:L('Initial risk (before controls)','Initieel risico','المخاطر الأولية'), key:'initialRisk' },
+        { type:'hazard_chips', label:L('Hazard categories present','Aanwezige gevaren','فئات المخاطر'), key:'hazardChips', options:[
+          L('Fall from height','Val van hoogte','السقوط من ارتفاع'),L('Falling objects','Vallende voorwerpen','الأشياء الساقطة'),
+          L('Collapse / excavation','Instorting','الانهيار'),L('Moving vehicles','Bewegende voertuigen','المركبات المتحركة'),
+          L('Lifting operations','Hijswerk','عمليات الرفع'),L('Electricity','Elektriciteit','الكهرباء'),
+          L('Fire / explosion','Brand','الحريق'),L('Chemical exposure','Chemisch','التعرض الكيميائي'),
+          L('Dust / fumes','Stof / dampen','الغبار'),L('Noise','Lawaai','الضوضاء'),
+          L('Heat stress','Hitte','الإجهاد الحراري'),L('Slips / trips','Uitglijden','الانزلاق'),
+          L('Manual handling','Handmatig tillen','الرفع اليدوي'),L('Poor housekeeping','Slechte orde','سوء الترتيب'),
+          L('Public interface','Publiek','التعامل مع العامة'),L('Weather','Weer','الطقس'),
+          L('Unauthorized access','Onbevoegde toegang','الوصول غير المصرح'),L('Other','Anders','أخرى')
+        ]},
+        { type:'repeatable', key:'taskSteps', rowLabel:L('Task step','Stap','الخطوة'), columns:[
+          { key:'step', label:L('Step #','Nr.','رقم'), type:'text' },
+          { key:'task', label:L('Task step','Taakstap','الخطوة'), type:'textarea' },
+          { key:'hazard', label:L('Hazard','Gevaar','الخطر'), type:'textarea' },
+          { key:'consequence', label:L('Possible consequence','Gevolg','النتيجة'), type:'textarea' },
+          { key:'exposed', label:L('Persons exposed','Blootgesteld','المعرضون'), type:'text' },
+          { key:'iLike', label:L('Initial L','Init W','احتمالية أولية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'iSev', label:L('Initial S','Init S','شدة أولية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'controls', label:L('Controls','Maatregelen','الضوابط'), type:'textarea' },
+          { key:'rLike', label:L('Residual L','Res W','احتمالية متبقية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'rSev', label:L('Residual S','Res S','شدة متبقية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'owner', label:L('Responsible','Verantwoordelijke','المسؤول'), type:'text' },
+        ]}
+      ]},
+      { id:'controls', title:L('Controls','Maatregelen','الضوابط'), type:'composite', parts:[
+        { type:'hierarchy', key:'hierarchy', rows:[
+          { id:'eliminate', label:L('Eliminate','Elimineren','الإزالة') },
+          { id:'substitute', label:L('Substitute','Vervangen','الاستبدال') },
+          { id:'isolate', label:L('Isolate','Isoleren','العزل') },
+          { id:'engineer', label:L('Engineering','Technisch','تقني') },
+          { id:'admin', label:L('Administrative','Organisatorisch','تنظيمي') },
+          { id:'ppe', label:L('PPE / PBM','PBM','معدات الحماية') },
+        ]},
+        { type:'ppe_checklist', key:'ppeList', label:L('Required PPE','Vereiste PBM','PPE المطلوبة'), options:[
+          L('Safety helmet (EN 397)','Helm (EN 397)','خوذة (EN 397)'),
+          L('Safety shoes','Veiligheidsschoenen','أحذية أمان'),
+          L('Hi-vis vest','Hi-vis vest','سترة عالية الوضوح'),
+          L('Gloves (EN 388)','Handschoenen (EN 388)','قفازات (EN 388)'),
+          L('Eye protection (EN 166)','Oogbescherming (EN 166)','حماية العين'),
+          L('Hearing protection (EN 352)','Gehoorbescherming','حماية السمع'),
+          L('Respiratory protection','Adembescherming','حماية التنفس'),
+          L('Fall-arrest harness (EN 361)','Valharnas (EN 361)','حزام السقوط'),
+          L('Arc-flash kit','Vlamboog','قوس كهربائي'),
+          L('Chemical suit','Chemiepak','بدلة كيميائية'),
+          L('Other','Anders','أخرى'),
+        ]},
+        { type:'fields', fields:[
+          { key:'emergency', label:L('Emergency arrangements','Noodregelingen','ترتيبات الطوارئ'), type:'textarea' },
+          { key:'communication', label:L('Communication plan','Communicatieplan','خطة الاتصال'), type:'textarea' },
+        ]}
+      ]},
+      { id:'actions', title:L('Stop-Work & Actions','Stop-werk','إيقاف العمل'), type:'composite', parts:[
+        { type:'stop_work_chips', key:'stopWork', label:L('Stop-work conditions','Stop-werk voorwaarden','شروط إيقاف العمل'), options:[
+          L('Unsafe excavation edge','Onveilige rand','حافة حفر غير آمنة'),
+          L('Missing edge protection','Ontbrekende randbeveiliging','حماية الحافة مفقودة'),
+          L('Uncontrolled lifting zone','Onbeheerste hijszone','منطقة رفع غير مسيطر عليها'),
+          L('Exposed electrical source','Blootgestelde elektriciteit','مصدر كهربائي مكشوف'),
+          L('Unstable structure','Onstabiel','هيكل غير مستقر'),
+          L('Missing permit','Geen vergunning','تصريح مفقود'),
+          L('Worker not trained','Niet getraind','عامل غير مدرب'),
+          L('No supervision','Geen toezicht','بدون إشراف'),
+          L('Weather unsafe','Weer onveilig','طقس غير آمن'),
+          L('Public exposed','Publiek blootgesteld','تعرض العامة'),
+          L('Emergency access blocked','Nooduitgang geblokkeerd','مسار الطوارئ مغلق'),
+          L('Other','Anders','أخرى'),
+        ]},
+        { type:'risk_matrix', label:L('Residual risk (after controls)','Restrisico','المخاطر المتبقية'), key:'residualRisk' },
+        { type:'fields', fields:[
+          { key:'lmra', label:L('LMRA performed?','LMRA?','LMRA منفذ؟'), type:'select', options:['Yes','No'] },
+          { key:'briefing', label:L('Worker briefing done?','Briefing klaar?','إيجاز العامل مكتمل؟'), type:'select', options:['Yes','No'] },
+          { key:'notes', label:L('Additional notes','Aanvullende notities','ملاحظات إضافية'), type:'textarea' },
+        ]}
+      ]},
+      { id:'review', title:L('Review & Sign-off','Beoordeling','المراجعة'), type:'sign_off', fields:[
+        { key:'preparedBy', label:L('Prepared by','Opgesteld door','أعدها') },
+        { key:'reviewedBy', label:L('Reviewed by','Beoordeeld door','راجعها') },
+        { key:'approvedBy', label:L('Approved by','Goedgekeurd door','اعتمدها') },
+      ]}
+    ]
+  },
+
+  riskAssessment: {
+    id:'riskAssessment', icon:'⚖️',
+    title: L('Risk Assessment','Risicobeoordeling','تقييم المخاطر'),
+    description: L('Hazard table with L×S matrix, residual risk, action owners.','Gevarentabel.','جدول مخاطر.'),
+    sections:[
+      { id:'details', title:L('Details','Details','التفاصيل'), type:'fields', fields:[
+        { key:'activity', label:L('Activity','Activiteit','النشاط'), type:'text', required:true },
+        { key:'department', label:L('Department / Location','Afdeling','القسم / الموقع'), type:'text' },
+        { key:'date', label:L('Date','Datum','التاريخ'), type:'date', required:true },
+        { key:'assessor', label:L('Assessor','Beoordelaar','المُقَيِّم'), type:'text' },
+        { key:'reviewDate', label:L('Next review','Volgende beoordeling','المراجعة التالية'), type:'date' },
+      ]},
+      { id:'hazards', title:L('Hazard table','Gevarentabel','جدول المخاطر'), type:'composite', parts:[
+        { type:'repeatable', key:'hazardRows', rowLabel:L('Hazard','Gevaar','المخاطر'), columns:[
+          { key:'hazard', label:L('Hazard','Gevaar','الخطر'), type:'textarea' },
+          { key:'cause', label:L('Cause','Oorzaak','السبب'), type:'textarea' },
+          { key:'consequence', label:L('Consequence','Gevolg','النتيجة'), type:'textarea' },
+          { key:'likelihood', label:L('Likelihood (1-5)','W','الاحتمالية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'severity', label:L('Severity (1-5)','S','الشدة'), type:'select', options:['1','2','3','4','5'] },
+          { key:'existingControls', label:L('Existing controls','Bestaande maatregelen','الضوابط الحالية'), type:'textarea' },
+          { key:'additionalControls', label:L('Additional controls','Aanvullende maatregelen','ضوابط إضافية'), type:'textarea' },
+          { key:'residualL', label:L('Residual L','Res W','احتمالية متبقية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'residualS', label:L('Residual S','Res S','شدة متبقية'), type:'select', options:['1','2','3','4','5'] },
+          { key:'owner', label:L('Action owner','Eigenaar','مالك الإجراء'), type:'text' },
+          { key:'dueDate', label:L('Due date','Streefdatum','تاريخ الاستحقاق'), type:'date' },
+          { key:'status', label:L('Status','Status','الحالة'), type:'select', options:['Open','In progress','Closed'] },
+        ]}
+      ]},
+      { id:'matrix', title:L('Overall risk matrix','Algemeen risico','المصفوفة العامة'), type:'composite', parts:[
+        { type:'risk_matrix', label:L('Overall initial risk','Algemeen initieel','المخاطر الأولية الكلية'), key:'initialMatrix' },
+        { type:'risk_matrix', label:L('Overall residual risk','Algemeen restrisico','المخاطر المتبقية الكلية'), key:'residualMatrix' },
+      ]},
+      { id:'review', title:L('Sign-off','Ondertekening','الاعتماد'), type:'sign_off', fields:[
+        { key:'assessor', label:L('Assessor','Beoordelaar','المُقَيِّم') },
+        { key:'manager', label:L('Department manager','Manager','مدير القسم') },
+      ]}
+    ]
+  },
+
+  inspection: {
+    id:'inspection', icon:'🔍',
+    title: L('Inspection Report','Inspectierapport','تقرير التفتيش'),
+    description: L('Site walk-through with observations and corrective actions.','Site-inspectie.','جولة الموقع.'),
+    sections:[
+      { id:'details', title:L('Details','Details','التفاصيل'), type:'fields', fields:[
+        { key:'site', label:L('Site / Area','Locatie','الموقع'), type:'text', required:true },
+        { key:'date', label:L('Inspection date','Datum','تاريخ التفتيش'), type:'date', required:true },
+        { key:'inspector', label:L('Inspector','Inspecteur','المفتش'), type:'text' },
+        { key:'organization', label:L('Organization','Organisatie','المنظمة'), type:'text' },
+        { key:'weather', label:L('Weather','Weer','الطقس'), type:'text' },
+        { key:'activity', label:L('Work activity observed','Activiteit','النشاط الملاحظ'), type:'textarea' },
+        { key:'attendees', label:L('Participants','Deelnemers','المشاركون'), type:'text' },
+      ]},
+      { id:'observations', title:L('Observations','Observaties','الملاحظات'), type:'composite', parts:[
+        { type:'repeatable', key:'observations', rowLabel:L('Observation','Observatie','ملاحظة'), columns:[
+          { key:'observation', label:L('Observation','Observatie','الملاحظة'), type:'textarea' },
+          { key:'category', label:L('Category','Categorie','الفئة'), type:'select', options:['Unsafe act','Unsafe condition','Positive observation','Environmental','Security','Housekeeping','PPE','Tools/equipment','Vehicle/traffic','Work at height','Excavation','Electrical','Fire safety','Emergency readiness'] },
+          { key:'riskLevel', label:L('Risk level','Niveau','مستوى الخطر'), type:'select', options:['Low','Medium','High','Critical'] },
+          { key:'photo', label:L('Photo (camera or gallery)','Foto (camera of galerij)','صورة (كاميرا أو معرض)'), type:'photo' },
+          { key:'photoNote', label:L('Photo note','Foto-notitie','ملاحظة الصورة'), type:'text' },
+          { key:'immediate', label:L('Immediate action?','Direct?','إجراء فوري؟'), type:'select', options:['Yes','No'] },
+          { key:'correction', label:L('Corrective action','Correctief','الإجراء التصحيحي'), type:'textarea' },
+          { key:'owner', label:L('Responsible','Verantwoordelijke','المسؤول'), type:'text' },
+          { key:'dueDate', label:L('Due date','Streefdatum','تاريخ الاستحقاق'), type:'date' },
+          { key:'status', label:L('Status','Status','الحالة'), type:'select', options:['Open','In progress','Closed'] },
+        ]}
+      ]},
+      { id:'summary', title:L('Summary','Samenvatting','الملخص'), type:'fields', fields:[
+        { key:'positives', label:L('Positive practices','Positieve praktijken','الممارسات الإيجابية'), type:'textarea' },
+        { key:'keyRisks', label:L('Key risks','Belangrijkste risico\'s','المخاطر الرئيسية'), type:'textarea' },
+        { key:'immediate', label:L('Immediate actions','Directe acties','الإجراءات الفورية'), type:'textarea' },
+        { key:'followUp', label:L('Follow-up required','Follow-up','المتابعة'), type:'textarea' },
+      ]},
+      { id:'review', title:L('Sign-off','Ondertekening','الاعتماد'), type:'sign_off', fields:[
+        { key:'inspector', label:L('Inspector','Inspecteur','المفتش') },
+        { key:'supervisor', label:L('Site supervisor','Site-leidinggevende','مشرف الموقع') },
+      ]}
+    ]
+  },
+
+  prePunch: {
+    id:'prePunch', icon:'✅',
+    title: L('Pre-Punch Checklist','Pre-Punch Checklijst','قائمة فحص ما قبل التسليم'),
+    description: L('Pre-handover quality + safety walk with per-item rows.','Pre-overdracht loop.','جولة قبل التسليم.'),
+    sections:[
+      { id:'details', title:L('Details','Details','التفاصيل'), type:'fields', fields:[
+        { key:'project', label:L('Project / work package','Project','المشروع / حزمة العمل'), type:'text', required:true },
+        { key:'date', label:L('Date','Datum','التاريخ'), type:'date', required:true },
+        { key:'inspector', label:L('Inspector','Inspecteur','المفتش'), type:'text' },
+        { key:'discipline', label:L('Primary discipline','Discipline','التخصص الأساسي'), type:'select', options:['Civil','Mechanical','Electrical','HSSE','Fire safety','Signage','Access/egress','Documentation','Other'] },
+      ]},
+      { id:'items', title:L('Punch items','Punch items','عناصر الفحص'), type:'composite', parts:[
+        { type:'repeatable', key:'punchItems', rowLabel:L('Punch item','Item','العنصر'), columns:[
+          { key:'itemNo', label:L('Item #','Nr.','رقم'), type:'text' },
+          { key:'area', label:L('Area','Gebied','المنطقة'), type:'text' },
+          { key:'desc', label:L('Description','Omschrijving','الوصف'), type:'textarea' },
+          { key:'discipline', label:L('Discipline','Discipline','التخصص'), type:'select', options:['Civil','Mechanical','Electrical','HSSE','Fire safety','Signage','Access/egress','Documentation','Other'] },
+          { key:'status', label:L('Status','Status','الحالة'), type:'select', options:['Open','Closed','N/A'] },
+          { key:'safety', label:L('Safety impact','Veiligheidsimpact','تأثير السلامة'), type:'select', options:['None','Low','Medium','High','Critical'] },
+          { key:'defect', label:L('Defect / missing','Defect','العيب'), type:'textarea' },
+          { key:'correction', label:L('Required correction','Correctie','التصحيح المطلوب'), type:'textarea' },
+          { key:'owner', label:L('Responsible','Verantwoordelijke','المسؤول'), type:'text' },
+          { key:'targetDate', label:L('Target closure','Streefdatum','تاريخ الإغلاق'), type:'date' },
+          { key:'verification', label:L('Verification','Verificatie','التحقق'), type:'text' },
+          { key:'accepted', label:L('Final acceptance','Eindacceptatie','القبول النهائي'), type:'select', options:['Accepted','Rejected','Pending'] },
+        ]}
+      ]},
+      { id:'review', title:L('Sign-off','Ondertekening','الاعتماد'), type:'sign_off', fields:[
+        { key:'inspector', label:L('Inspector','Inspecteur','المفتش') },
+        { key:'contractor', label:L('Contractor','Contractor','المقاول') },
+        { key:'client', label:L('Client rep.','Klantvertegenwoordiger','ممثل العميل') },
+      ]}
+    ]
+  },
+
+  roadTransport: {
+    id:'roadTransport', icon:'🚚',
+    title: L('Road Vehicle Checklist','Checklist Wegtransport','قائمة فحص المركبات'),
+    description: L('Driver, vehicle, load, journey risk, and go/no-go decision.','Chauffeur, voertuig, lading.','السائق، المركبة، الحمولة.'),
+    sections:[
+      { id:'driver', title:L('Driver & route','Chauffeur','السائق والطريق'), type:'fields', fields:[
+        { key:'date', label:L('Date','Datum','التاريخ'), type:'date', required:true },
+        { key:'driver', label:L('Driver name','Naam chauffeur','اسم السائق'), type:'text', required:true },
+        { key:'fitness', label:L('Driver fitness','Fitheid','لياقة السائق'), type:'select', options:['Fit','Marginal','Unfit'] },
+        { key:'route', label:L('Route','Route','الطريق'), type:'textarea' },
+        { key:'loadType', label:L('Load type','Lading','نوع الحمولة'), type:'text' },
+        { key:'vehicleType', label:L('Vehicle type & plate','Voertuig & kenteken','المركبة واللوحة'), type:'text' },
+        { key:'journeyRisk', label:L('Journey risk assessment','Reisrisico','تقييم مخاطر الرحلة'), type:'textarea' },
+      ]},
+      { id:'vehicle', title:L('Vehicle checks','Voertuig','فحص المركبة'), type:'fields', fields:[
+        { key:'tires', label:L('Tires','Banden','الإطارات'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'brakes', label:L('Brakes','Remmen','الفرامل'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'lights', label:L('Lights','Verlichting','الأضواء'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'mirrors', label:L('Mirrors','Spiegels','المرايا'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'loadSecure', label:L('Load secured','Lading vast','تأمين الحمولة'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'defects', label:L('Vehicle defects','Defecten','عيوب المركبة'), type:'textarea' },
+        { key:'documents', label:L('Documents','Documenten','المستندات'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'emergencyKit', label:L('Emergency kit','Noodset','عدة الطوارئ'), type:'select', options:['OK','Not OK','N/A'] },
+        { key:'fireExt', label:L('Fire extinguisher','Brandblusser','طفاية الحريق'), type:'select', options:['OK','Not OK','N/A'] },
+      ]},
+      { id:'decision', title:L('Decision','Beslissing','القرار'), type:'fields', fields:[
+        { key:'actionsBeforeDeparture', label:L('Action before departure','Actie vóór vertrek','الإجراء قبل المغادرة'), type:'textarea' },
+        { key:'goNoGo', label:L('Go / No-Go','Go / No-go','الموافقة / الرفض'), type:'select', options:['Go','No-Go'], required:true },
+        { key:'goNoGoReason', label:L('Reason','Reden','السبب'), type:'textarea' },
+      ]},
+      { id:'review', title:L('Sign-off','Ondertekening','الاعتماد'), type:'sign_off', fields:[
+        { key:'driver', label:L('Driver','Chauffeur','السائق') },
+        { key:'planner', label:L('Planner','Planner','المخطط') },
+      ]}
+    ]
+  },
+};
+
+const REPORT_ORDER = ['tra','riskAssessment','inspection','prePunch','roadTransport'];
+let currentReportId = null;
+let currentSectionIdx = 0;
+let currentReportData = {};
+function reportsT(key) { return typeof t === 'function' ? t(key) : (I18N.en[key] || key); }
+function draftKey(id) { return 'leusi_deep_report_' + id; }
+function loadDraft(id) { try { return JSON.parse(localStorage.getItem(draftKey(id))) || {}; } catch(e){return {};} }
+function saveDraft(id, data) { localStorage.setItem(draftKey(id), JSON.stringify(data)); }
+
+function renderReportsHome() {
+  const grid = document.getElementById('reportsGrid'); if (!grid) return;
+  grid.innerHTML = REPORT_ORDER.map(id => {
+    const r = DEEP_REPORTS[id];
+    return `<button class="report-card" data-rep="${id}"><div class="ic">${r.icon}</div><h3>${tr(r.title)}</h3><p>${tr(r.description)}</p></button>`;
+  }).join('');
+  grid.querySelectorAll('.report-card').forEach(b => b.addEventListener('click', () => openReport(b.dataset.rep)));
+}
+
+function openReport(id) {
+  const r = DEEP_REPORTS[id]; if (!r) return;
+  currentReportId = id; currentReportData = loadDraft(id); currentSectionIdx = 0;
+  document.getElementById('reportsHome').style.display = 'none';
+  document.getElementById('reportsForm').style.display = '';
+  document.getElementById('reportFormTitle').textContent = tr(r.title);
+  document.getElementById('reportFormSubtitle').textContent = tr(r.description);
+  document.getElementById('reportOutputWrap').style.display = 'none';
+  renderSubnav(); renderSection();
+}
+
+function renderSubnav() {
+  const r = DEEP_REPORTS[currentReportId];
+  const nav = document.getElementById('reportSubnav');
+  nav.innerHTML = r.sections.map((s, i) => {
+    const done = isSectionComplete(s);
+    return `<button class="report-subnav-tab${i===currentSectionIdx?' active':''}${done?' complete':''}" data-i="${i}">${tr(s.title)}</button>`;
+  }).join('');
+  nav.querySelectorAll('.report-subnav-tab').forEach(b => b.addEventListener('click', () => { currentSectionIdx = +b.dataset.i; renderSubnav(); renderSection(); }));
+  const total = r.sections.length;
+  const done = r.sections.filter(isSectionComplete).length;
+  document.getElementById('reportProgressFill').style.width = (done/total*100) + '%';
+}
+
+function isSectionComplete(section) {
+  const data = currentReportData;
+  if (section.type === 'fields') return (section.fields || []).some(f => data[f.key] && String(data[f.key]).trim());
+  if (section.type === 'sign_off') return (section.fields || []).some(f => data[f.key]);
+  if (section.type === 'composite') return (section.parts || []).some(p => {
+    if (p.type === 'fields') return (p.fields || []).some(f => data[f.key]);
+    if (p.type === 'risk_matrix') return data[p.key+'_L'] && data[p.key+'_S'];
+    if (p.type === 'hazard_chips' || p.type === 'stop_work_chips') return (data[p.key]||[]).length > 0;
+    if (p.type === 'ppe_checklist') return (data[p.key]||[]).length > 0;
+    if (p.type === 'repeatable') return (data[p.key]||[]).length > 0;
+    if (p.type === 'hierarchy') return (p.rows || []).some(row => data[p.key+'_'+row.id]);
+    return false;
+  });
+  return false;
+}
+
+function renderSection() {
+  const r = DEEP_REPORTS[currentReportId];
+  const section = r.sections[currentSectionIdx];
+  const form = document.getElementById('reportSection');
+  let html = `<div class="section-heading">${tr(section.title)}</div>`;
+  if (section.type === 'fields') html += renderFields(section.fields);
+  else if (section.type === 'sign_off') html += renderSignOff(section.fields);
+  else if (section.type === 'composite') (section.parts || []).forEach(p => html += renderPart(p));
+  form.innerHTML = html;
+  wireFormInputs(form);
+  const isFirst = currentSectionIdx === 0;
+  const isLast = currentSectionIdx === r.sections.length - 1;
+  document.getElementById('reportPrevBtn').disabled = isFirst;
+  document.getElementById('reportNextBtn').textContent = isLast ? reportsT('reports.finishSection') : reportsT('reports.next');
+}
+
+function renderPart(p) {
+  if (p.type === 'fields') return renderFields(p.fields);
+  if (p.type === 'risk_matrix') return renderRiskMatrix(p);
+  if (p.type === 'hazard_chips' || p.type === 'stop_work_chips') return renderChipMulti(p);
+  if (p.type === 'ppe_checklist') return renderPPEChecklist(p);
+  if (p.type === 'hierarchy') return renderHierarchy(p);
+  if (p.type === 'repeatable') return renderRepeatable(p);
+  return '';
+}
+
+function renderFields(fields) {
+  return (fields || []).map(f => {
+    const id = 'rf_' + f.key;
+    const val = currentReportData[f.key] || '';
+    const label = tr(f.label) + (f.required ? ' <span class="req">*</span>' : '');
+    let input;
+    if (f.type === 'textarea') input = `<textarea id="${id}" data-k="${f.key}" rows="3">${escapeHtml(val)}</textarea>`;
+    else if (f.type === 'select') {
+      const opts = (f.options || []).map(o => {
+        const txt = typeof o === 'object' ? tr(o) : o;
+        const value = typeof o === 'object' ? (o.en || txt) : o;
+        return `<option value="${escapeHtml(value)}"${value===val?' selected':''}>${escapeHtml(txt)}</option>`;
+      }).join('');
+      input = `<select id="${id}" data-k="${f.key}"><option value=""></option>${opts}</select>`;
+    } else if (f.type === 'multiSelect') {
+      const sel = currentReportData[f.key] || [];
+      input = `<div class="chip-multiselect" data-multi-k="${f.key}">${(f.options || []).map(o => {
+        const txt = typeof o === 'object' ? tr(o) : o;
+        const value = typeof o === 'object' ? (o.en || txt) : o;
+        return `<button type="button" class="chip${sel.includes(value)?' selected':''}" data-v="${escapeHtml(value)}">${escapeHtml(txt)}</button>`;
+      }).join('')}</div>`;
+    } else input = `<input id="${id}" data-k="${f.key}" type="${f.type||'text'}" value="${escapeHtml(val)}" />`;
+    return `<div class="field-row"><label for="${id}">${label}</label>${input}</div>`;
+  }).join('');
+}
+
+function renderRiskMatrix(p) {
+  const Lk = p.key+'_L', Sk = p.key+'_S';
+  const sL = currentReportData[Lk], sS = currentReportData[Sk];
+  const llL = ['','Very unlikely','Unlikely','Possible','Likely','Almost certain'];
+  const ssL = ['','Negligible','Minor','Moderate','Major','Catastrophic'];
+  let html = `<div class="risk-matrix-wrap"><div style="font-weight:600;color:var(--primary-dark);margin-bottom:6px;">${tr(p.label)}</div>`;
+  html += `<table class="risk-matrix-table"><thead><tr><th></th>`;
+  for (let s=1;s<=5;s++) html += `<th>S${s}<br><small>${ssL[s]}</small></th>`;
+  html += `</tr></thead><tbody>`;
+  for (let l=5;l>=1;l--) {
+    html += `<tr><th>L${l}<br><small>${llL[l]}</small></th>`;
+    for (let s=1;s<=5;s++) {
+      const lvl = riskLevel(l, s);
+      const sel = (Number(sL)===l && Number(sS)===s) ? ' selected' : '';
+      html += `<td class="cell ${lvl.css}${sel}" data-mk="${p.key}" data-l="${l}" data-s="${s}">${l*s}</td>`;
+    }
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+  if (sL && sS) {
+    const lvl = riskLevel(sL, sS);
+    html += `<div class="risk-summary has-value">${tr(L('Selected risk','Geselecteerd','المخاطر المحددة'))}: ${sL}×${sS} = ${lvl.score} → <strong>${tr(lvl.label)}</strong></div>`;
+  } else html += `<div class="risk-summary">${tr(L('Click a cell to select the risk level.','Klik een cel.','انقر خانة لاختيار المخاطر.'))}</div>`;
+  html += `</div>`;
+  return html;
+}
+
+function renderChipMulti(p) {
+  const sel = currentReportData[p.key] || [];
+  return `<div style="margin-top:10px;"><div style="font-weight:600;color:var(--primary-dark);font-size:13px;margin-bottom:6px;">${tr(p.label)}</div>
+    <div class="chip-multiselect" data-multi-k="${p.key}">${p.options.map(o => {
+      const txt = tr(o);
+      return `<button type="button" class="chip${sel.includes(txt)?' selected':''}" data-v="${escapeHtml(txt)}">${escapeHtml(txt)}</button>`;
+    }).join('')}</div></div>`;
+}
+
+function renderPPEChecklist(p) {
+  const sel = currentReportData[p.key] || [];
+  return `<div style="margin-top:10px;"><div style="font-weight:600;color:var(--primary-dark);font-size:13px;margin-bottom:6px;">${tr(p.label)}</div>
+    <div class="ppe-grid" data-ppe-k="${p.key}">${p.options.map(o => {
+      const txt = tr(o);
+      const checked = sel.includes(txt) ? ' checked' : '';
+      return `<label class="ppe-item"><input type="checkbox" value="${escapeHtml(txt)}"${checked}><span>${escapeHtml(txt)}</span></label>`;
+    }).join('')}</div></div>`;
+}
+
+function renderHierarchy(p) {
+  let html = `<div style="margin-top:10px;"><div style="font-weight:600;color:var(--primary-dark);font-size:13px;margin-bottom:6px;">${tr(L('Hierarchy of controls (STOP)','Hiërarchie (STOP)','تسلسل الضوابط (STOP)'))}</div><div class="control-hierarchy">`;
+  p.rows.forEach(row => {
+    const key = p.key + '_' + row.id;
+    const val = currentReportData[key] || '';
+    html += `<div class="control-row"><div class="label-cell">${tr(row.label)}</div><textarea data-k="${key}" rows="2">${escapeHtml(val)}</textarea></div>`;
+  });
+  html += `</div></div>`;
+  return html;
+}
+
+function renderRepeatable(p) {
+  const rows = currentReportData[p.key] || [];
+  let html = `<div class="repeat-container"><div style="font-weight:600;color:var(--primary-dark);font-size:13px;margin-bottom:6px;">${tr(p.rowLabel)}</div>`;
+  rows.forEach((row, idx) => {
+    html += `<div class="repeat-row" data-row-idx="${idx}" data-rep-k="${p.key}"><div class="repeat-row-head"><span>${tr(p.rowLabel)} #${idx+1}</span><button type="button" class="repeat-remove-btn" data-remove-row="${idx}" title="Remove">×</button></div><div class="repeat-row-grid">`;
+    p.columns.forEach(col => {
+      const v = row[col.key] || '';
+      const cellKey = `${p.key}__${idx}__${col.key}`;
+      let input;
+      if (col.type === 'textarea') input = `<textarea data-rk="${cellKey}" rows="2">${escapeHtml(v)}</textarea>`;
+      else if (col.type === 'select') {
+        const opts = (col.options || []).map(o => {
+          const txt = typeof o === 'object' ? tr(o) : o;
+          const value = typeof o === 'object' ? (o.en || txt) : o;
+          return `<option value="${escapeHtml(value)}"${value===v?' selected':''}>${escapeHtml(txt)}</option>`;
+        }).join('');
+        input = `<select data-rk="${cellKey}"><option value=""></option>${opts}</select>`;
+      } else if (col.type === 'photo') {
+        // PHASE 3 FINAL — Inspection observation per-row photo upload
+        const camId = 'inscam_' + p.key + '_' + idx;
+        const galId = 'insgal_' + p.key + '_' + idx;
+        const preview = v ? `<img class="inspect-photo-preview" src="${v}" alt="observation photo" />` : '';
+        input = `<div class="inspect-photo-cell" data-rk="${cellKey}">
+          ${preview}
+          <div class="inspect-photo-actions">
+            <button type="button" class="btn" data-cam-trigger="${camId}">📷 ${tr(L('Take Photo','Foto maken','التقاط صورة'))}</button>
+            <button type="button" class="btn btn-accent" data-gal-trigger="${galId}">🖼 ${tr(L('Choose from Gallery','Uit galerij','اختر من المعرض'))}</button>
+            ${v ? `<button type="button" class="btn btn-secondary" data-clear-photo="${cellKey}">🗑 ${tr(L('Remove','Verwijder','إزالة'))}</button>` : ''}
+          </div>
+          <input id="${camId}" type="file" accept="image/*" capture="environment" hidden data-cell-input="${cellKey}">
+          <input id="${galId}" type="file" accept="image/jpeg,image/png,image/webp" hidden data-cell-input="${cellKey}">
+        </div>`;
+      } else input = `<input data-rk="${cellKey}" type="${col.type||'text'}" value="${escapeHtml(v)}" />`;
+      html += `<div class="field-row"><label>${tr(col.label)}</label>${input}</div>`;
+    });
+    html += `</div></div>`;
+  });
+  html += `<button type="button" class="repeat-add-btn" data-add-row="${p.key}">+ ${tr(L('Add row','Rij toevoegen','إضافة صف'))}</button></div>`;
+  return html;
+}
+
+function renderSignOff(fields) {
+  return `<div class="sig-grid">${(fields||[]).map(f => {
+    const val = currentReportData[f.key] || '';
+    return `<div class="sig-box"><h4>${tr(f.label)}</h4><input data-k="${f.key}" type="text" placeholder="${tr(L('Name','Naam','الاسم'))}" value="${escapeHtml(val)}"/><input data-k="${f.key}_date" type="date" value="${escapeHtml(currentReportData[f.key+'_date']||'')}"/><div class="sig-line"></div></div>`;
+  }).join('')}</div>`;
+}
+
+function wireFormInputs(root) {
+  root.addEventListener('input', e => {
+    const tt = e.target;
+    if (tt.dataset.k) currentReportData[tt.dataset.k] = tt.value;
+    if (tt.dataset.rk) {
+      const [pk, idx, col] = tt.dataset.rk.split('__');
+      if (!currentReportData[pk]) currentReportData[pk] = [];
+      while (currentReportData[pk].length <= +idx) currentReportData[pk].push({});
+      currentReportData[pk][+idx][col] = tt.value;
+    }
+  });
+  root.addEventListener('change', e => {
+    if (e.target.type === 'checkbox' && e.target.closest('[data-ppe-k]')) {
+      const pk = e.target.closest('[data-ppe-k]').dataset.ppeK;
+      const arr = currentReportData[pk] || [];
+      if (e.target.checked) { if (!arr.includes(e.target.value)) arr.push(e.target.value); }
+      else { const i = arr.indexOf(e.target.value); if (i>=0) arr.splice(i,1); }
+      currentReportData[pk] = arr;
+      renderSubnav();
+    }
+  });
+  root.querySelectorAll('.chip-multiselect').forEach(host => {
+    host.addEventListener('click', e => {
+      if (!e.target.classList.contains('chip')) return;
+      const k = host.dataset.multiK;
+      const v = e.target.dataset.v;
+      const arr = currentReportData[k] || [];
+      const i = arr.indexOf(v);
+      if (i >= 0) { arr.splice(i, 1); e.target.classList.remove('selected'); }
+      else { arr.push(v); e.target.classList.add('selected'); }
+      currentReportData[k] = arr;
+      renderSubnav();
+    });
+  });
+  root.querySelectorAll('.risk-matrix-table .cell').forEach(c => c.addEventListener('click', () => {
+    const k = c.dataset.mk;
+    currentReportData[k+'_L'] = c.dataset.l;
+    currentReportData[k+'_S'] = c.dataset.s;
+    renderSection(); renderSubnav();
+  }));
+  root.querySelectorAll('[data-add-row]').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.addRow;
+    currentReportData[k] = currentReportData[k] || [];
+    currentReportData[k].push({});
+    renderSection();
+  }));
+  root.querySelectorAll('[data-remove-row]').forEach(b => b.addEventListener('click', () => {
+    const idx = +b.dataset.removeRow;
+    const k = b.closest('[data-rep-k]').dataset.repK;
+    currentReportData[k].splice(idx, 1);
+    renderSection(); renderSubnav();
+  }));
+  // PHASE 3 FINAL — Inspection observation photo handlers (per row)
+  root.querySelectorAll('[data-cam-trigger]').forEach(b => b.addEventListener('click', () =>
+    document.getElementById(b.dataset.camTrigger).click()));
+  root.querySelectorAll('[data-gal-trigger]').forEach(b => b.addEventListener('click', () =>
+    document.getElementById(b.dataset.galTrigger).click()));
+  root.querySelectorAll('[data-cell-input]').forEach(inp => inp.addEventListener('change', e => {
+    const file = e.target.files && e.target.files[0]; if (!file) return;
+    if (!/^image\//.test(file.type)) { alert(tr(L('Please choose an image file.','Kies een afbeelding.','اختر ملف صورة.'))); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      // resize to max 1024px and re-encode JPEG
+      const img = new Image();
+      img.onload = () => {
+        const max = 1024;
+        const scale = Math.min(1, max / Math.max(img.width, img.height));
+        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        const [pk, idx, col] = e.target.dataset.cellInput.split('__');
+        if (!currentReportData[pk]) currentReportData[pk] = [];
+        while (currentReportData[pk].length <= +idx) currentReportData[pk].push({});
+        currentReportData[pk][+idx][col] = dataUrl;
+        renderSection();
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }));
+  root.querySelectorAll('[data-clear-photo]').forEach(b => b.addEventListener('click', () => {
+    const [pk, idx, col] = b.dataset.clearPhoto.split('__');
+    if (currentReportData[pk] && currentReportData[pk][+idx]) {
+      currentReportData[pk][+idx][col] = '';
+      renderSection();
+    }
+  }));
+}
+
+function goPrev() { if (currentSectionIdx > 0) { currentSectionIdx--; renderSubnav(); renderSection(); } }
+function goNext() {
+  const r = DEEP_REPORTS[currentReportId];
+  if (currentSectionIdx < r.sections.length - 1) { currentSectionIdx++; renderSubnav(); renderSection(); }
+  else { runAI('generate', 'aiGenerateBtn'); }
+}
+
+function summarizeDataForAI() {
+  const r = DEEP_REPORTS[currentReportId];
+  const lines = [];
+  r.sections.forEach(section => {
+    const collect = (fields) => fields.forEach(f => {
+      const v = currentReportData[f.key];
+      if (v) lines.push(`- ${f.label.en} (${f.key}): ${v}`);
+    });
+    if (section.type === 'fields' || section.type === 'sign_off') collect(section.fields);
+    else if (section.type === 'composite') {
+      (section.parts||[]).forEach(p => {
+        if (p.type === 'fields') collect(p.fields);
+        if (p.type === 'risk_matrix') {
+          const Lv = currentReportData[p.key+'_L'], Sv = currentReportData[p.key+'_S'];
+          if (Lv && Sv) { const lvl = riskLevel(Lv, Sv); lines.push(`- ${p.label.en}: L${Lv} × S${Sv} = ${lvl.score} (${lvl.label.en})`); }
+        }
+        if (p.type === 'hazard_chips' || p.type === 'stop_work_chips' || p.type === 'ppe_checklist') {
+          const v = currentReportData[p.key] || [];
+          if (v.length) lines.push(`- ${p.label.en}: ${v.join('; ')}`);
+        }
+        if (p.type === 'hierarchy') p.rows.forEach(row => {
+          const v = currentReportData[p.key+'_'+row.id];
+          if (v) lines.push(`- ${row.label.en}: ${v}`);
+        });
+        if (p.type === 'repeatable') {
+          const rows = currentReportData[p.key] || [];
+          rows.forEach((row, i) => {
+            const parts = p.columns.map(col => row[col.key] ? `${col.label.en}=${row[col.key]}` : '').filter(Boolean).join('; ');
+            if (parts) lines.push(`- ${p.rowLabel.en} #${i+1}: ${parts}`);
+          });
+        }
+      });
+    }
+  });
+  return lines.join('\n');
+}
+
+function buildAIPrompt(mode) {
+  const r = DEEP_REPORTS[currentReportId];
+  const langName = { en:'English', nl:'Dutch', ar:'Arabic' }[state.lang] || 'English';
+  const filled = summarizeDataForAI();
+  const head = `You are LEUSI — Levant European Safety Initiative HSSE assistant. Industry: ${state.industry||'general'}. Respond entirely in ${langName}.\n\nReport: ${r.title.en}\n\nFilled fields:\n${filled || '(none yet)'}\n\n`;
+  if (mode === 'improve') return head + `Mode: IMPROVE WORDING. Rewrite each filled field professionally. Do not invent. Return Markdown:\n**field_key**: improved text\n\nIf critical safety field empty, list under "### Missing critical information".`;
+  if (mode === 'missing') return head + `Mode: IDENTIFY MISSING INFO. List ONLY empty critical fields grouped as:\n### Must-fill (blocking)\n### Should-fill (recommended)\nDo not invent.`;
+  if (mode === 'controls') return head + `Mode: SUGGEST CONTROLS. Suggest specific controls following STOP hierarchy (Eliminate → Substitute → Isolate → Engineering → Administrative → PPE). Use headings per level. Be concrete and worker-friendly.`;
+  if (mode === 'summary') return head + `Mode: EXECUTIVE SUMMARY. Write 3-4 sentence summary for management. State residual risk clearly. Note stop-work conditions if flagged.`;
+  return head + `Mode: FINAL REPORT. Produce complete professional ${r.title.en} report. Markdown:\n\n### Executive Summary\n(3-4 sentences)\n\n### Key Findings\n(bulleted)\n\n### Risk Table\n(Markdown table)\n\n### Corrective Actions\n(table: action, owner, due date)\n\n### Stop-Work Conditions\n(if flagged)\n\n### Worker Coaching Note\n(short, supportive)\n\n### Disclaimer\nLEUSI AI supports safety awareness and reporting. It does not replace a competent HSSE professional, the employer's legal duty, certified inspection, or local regulation.\n\nUse ONLY facts above. Tone: respectful, simple. Output language: ${langName}.`;
+}
+
+async function runAI(mode, btnId) {
+  const btn = document.getElementById(btnId);
+  const out = document.getElementById('reportOutput');
+  const wrap = document.getElementById('reportOutputWrap');
+  setBusy(btn, true, btn.textContent.trim());
+  wrap.style.display = '';
+  out.innerHTML = '<span class="spinner"></span> ' + reportsT('reports.thinking');
+  try {
+    const text = await askAI(buildAIPrompt(mode), reportsT('aiOffline'));
+    if (mode === 'generate') out.innerHTML = renderProfessionalFinal(text);
+    else out.innerHTML = renderMarkdownLite(text);
+    saveDraft(currentReportId, currentReportData);
+  } catch (err) {
+    out.innerHTML = '<strong>⚠️ ' + err.message + '</strong>';
+  } finally {
+    setBusy(btn, false, btn.textContent.replace('...','').trim());
+  }
+}
+
+function renderProfessionalFinal(text) {
+  const r = DEEP_REPORTS[currentReportId];
+  const today = new Date().toLocaleDateString();
+  const project = currentReportData.project || currentReportData.activity || currentReportData.site || '—';
+  const preparedBy = currentReportData.preparedBy || currentReportData.inspector || currentReportData.assessor || currentReportData.driver || '—';
+  return `<div class="report-final"><div class="doc-head"><div><h1>LEUSI · ${escapeHtml(tr(r.title))}</h1><div class="doc-meta">${escapeHtml(project)} · ${today}</div></div><div class="doc-meta">${escapeHtml(tr(L('Prepared by','Opgesteld door','أعدها')))}: <strong>${escapeHtml(preparedBy)}</strong></div></div>${renderMarkdownLite(text)}<div class="sig-final-grid"><div class="sig-final"><div class="k">${escapeHtml(tr(L('Prepared by','Opgesteld door','أعدها')))}</div><div>${escapeHtml(preparedBy)}</div></div><div class="sig-final"><div class="k">${escapeHtml(tr(L('Reviewed by','Beoordeeld door','راجعها')))}</div><div>${escapeHtml(currentReportData.reviewedBy||currentReportData.supervisor||'—')}</div></div><div class="sig-final"><div class="k">${escapeHtml(tr(L('Approved by','Goedgekeurd door','اعتمدها')))}</div><div>${escapeHtml(currentReportData.approvedBy||currentReportData.client||'—')}</div></div></div><div class="disclaimer-final">⚠️ LEUSI AI supports safety awareness and reporting. It does not replace a competent HSSE professional, the employer's legal duty, certified inspection, or local regulation.</div></div>`;
+}
+
+function reportCopy() {
+  const out = document.getElementById('reportOutput');
+  const text = out.innerText || '';
+  if (!text.trim()) return;
+  navigator.clipboard.writeText(text).then(() => flashBtn('reportCopyBtn', reportsT('reports.copied')));
+}
+function reportPrint() {
+  document.getElementById('panel-reports').classList.add('print-active');
+  setTimeout(() => { window.print(); setTimeout(() => document.getElementById('panel-reports').classList.remove('print-active'), 100); }, 30);
+}
+function reportDownload() {
+  const out = document.getElementById('reportOutput');
+  const r = DEEP_REPORTS[currentReportId];
+  const html = `<!doctype html><meta charset="utf-8"><title>LEUSI — ${escapeHtml(tr(r.title))}</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:30px auto;color:#222;line-height:1.6}h1,h2,h3{color:#1f5043}table{width:100%;border-collapse:collapse;margin:10px 0}th,td{border:1px solid #999;padding:6px 8px;text-align:left}th{background:#f5f5f5}.disclaimer{margin-top:24px;padding:10px;background:#f5ede0;border-left:3px solid #c89968;font-size:12px}</style><body>${out.innerHTML}`;
+  const blob = new Blob([html], { type:'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `LEUSI-${currentReportId}-${Date.now()}.html`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  flashBtn('reportDownloadBtn', reportsT('reports.downloaded'));
+}
+function flashBtn(id, msg) { const b = document.getElementById(id); if (!b) return; const o = b.innerHTML; b.innerHTML = '✓ ' + msg; setTimeout(()=>b.innerHTML=o, 1400); }
+function reportSaveDraft() { saveDraft(currentReportId, currentReportData); flashBtn('reportSaveDraftBtn', reportsT('reports.draftSaved')); }
+function reportClear() {
+  if (!confirm(reportsT('reports.clearConfirm'))) return;
+  currentReportData = {};
+  localStorage.removeItem(draftKey(currentReportId));
+  openReport(currentReportId);
+}
+
+function initReportsUI() {
+  renderReportsHome();
+  document.getElementById('reportsBack').addEventListener('click', () => {
+    document.getElementById('reportsHome').style.display = '';
+    document.getElementById('reportsForm').style.display = 'none';
+    currentReportId = null;
+  });
+  document.getElementById('reportPrevBtn').addEventListener('click', goPrev);
+  document.getElementById('reportNextBtn').addEventListener('click', goNext);
+  document.getElementById('aiImproveBtn').addEventListener('click', () => runAI('improve', 'aiImproveBtn'));
+  document.getElementById('aiMissingBtn').addEventListener('click', () => runAI('missing', 'aiMissingBtn'));
+  document.getElementById('aiControlsBtn').addEventListener('click', () => runAI('controls', 'aiControlsBtn'));
+  document.getElementById('aiSummaryBtn').addEventListener('click', () => runAI('summary', 'aiSummaryBtn'));
+  document.getElementById('aiGenerateBtn').addEventListener('click', () => runAI('generate', 'aiGenerateBtn'));
+  document.getElementById('reportCopyBtn').addEventListener('click', reportCopy);
+  document.getElementById('reportPrintBtn').addEventListener('click', reportPrint);
+  document.getElementById('reportDownloadBtn').addEventListener('click', reportDownload);
+  document.getElementById('reportSaveDraftBtn').addEventListener('click', reportSaveDraft);
+  document.getElementById('reportClearBtn').addEventListener('click', reportClear);
+}
+
+// ============================================================
+// PHASE 3-DEEP — Safety Symbols (extended metadata)
+// ============================================================
+const SAFETY_SYMBOLS = [
+  { id:'helmet', file:'mandatory-helmet.png', category:'mandatory', emoji:'🪖',
+    labels: L('Hard hat required','Helm verplicht','ارتداء خوذة السلامة إلزامي'),
+    meaning: L('Head protection mandatory.','Hoofdbescherming verplicht.','حماية الرأس إلزامية.'),
+    instruction: L('Wear EN 397 hard hat at all times.','Draag een EN 397 helm.','ارتدِ خوذة EN 397 دائمًا.'),
+    location: L('Entrances, overhead-risk zones','Toegangen','المداخل ومناطق المخاطر العلوية') },
+  { id:'gloves', file:'mandatory-gloves.png', category:'mandatory', emoji:'🧤',
+    labels: L('Safety gloves required','Handschoenen verplicht','ارتداء قفازات السلامة إلزامي'),
+    meaning: L('Hand protection mandatory.','Handbescherming verplicht.','حماية اليدين إلزامية.'),
+    instruction: L('Match glove to hazard (EN 388 / EN 374).','Kies passend.','اختر المناسب.'),
+    location: L('Workshops, manual handling','Werkplaatsen','الورش') },
+  { id:'shoes', file:'mandatory-safety-shoes.png', category:'mandatory', emoji:'🥾',
+    labels: L('Safety shoes required','Veiligheidsschoenen verplicht','ارتداء أحذية السلامة إلزامي'),
+    meaning: L('Foot protection mandatory.','Voetbescherming verplicht.','حماية القدمين إلزامية.'),
+    instruction: L('EN ISO 20345 with toe and sole protection.','EN ISO 20345.','EN ISO 20345.'),
+    location: L('All site entrances','Site-toegangen','جميع المداخل') },
+  { id:'eyes', file:'mandatory-eye-protection.png', category:'mandatory', emoji:'🥽',
+    labels: L('Eye protection required','Oogbescherming verplicht','ارتداء واقي العينين إلزامي'),
+    meaning: L('Risk of eye injury.','Oogletselrisico.','خطر إصابة العين.'),
+    instruction: L('EN 166 glasses/goggles.','EN 166.','نظارات EN 166.'),
+    location: L('Welding, grinding, chemical zones','Las-, slijp-, chemiezones','مناطق اللحام والكيمياء') },
+  { id:'hearing', file:'mandatory-hearing.png', category:'mandatory', emoji:'🎧',
+    labels: L('Hearing protection required','Gehoorbescherming verplicht','ارتداء واقي السمع إلزامي'),
+    meaning: L('Noise above safe limits.','Lawaai boven grens.','الضوضاء فوق الحد الآمن.'),
+    instruction: L('EN 352 plugs or muffs above 80 dB.','EN 352.','سدادات EN 352.'),
+    location: L('Heavy machinery rooms','Machineruimtes','غرف الآلات') },
+  { id:'mask', file:'mandatory-respirator.png', category:'mandatory', emoji:'😷',
+    labels: L('Respirator required','Adembescherming verplicht','ارتداء قناع التنفس إلزامي'),
+    meaning: L('Airborne contaminants.','Luchtverontreiniging.','ملوثات في الهواء.'),
+    instruction: L('FFP or air-supplied per SDS.','FFP per VIB.','حسب SDS.'),
+    location: L('Painting, dust, chemical zones','Schilderwerk','الطلاء والغبار') },
+  { id:'harness', file:'mandatory-harness.png', category:'mandatory', emoji:'🪢',
+    labels: L('Fall arrest harness required','Valharnas verplicht','ارتداء حزام منع السقوط إلزامي'),
+    meaning: L('Fall risk above 2.5 m.','Valgevaar boven 2,5 m.','خطر السقوط فوق 2.5 م.'),
+    instruction: L('EN 361 + EN 355 with 12 kN anchor.','EN 361 + EN 355.','EN 361 + EN 355.'),
+    location: L('Rooftops, scaffolding, MEWPs','Daken','الأسطح والسقالات') },
+  { id:'electric', file:'warning-electricity.png', category:'warning', emoji:'⚡',
+    labels: L('Electrical hazard','Elektriciteit','خطر الكهرباء'),
+    meaning: L('Risk of shock or arc flash.','Schok of vlamboog.','خطر الصعق أو القوس.'),
+    instruction: L('LOTO + insulated tools + arc-flash PPE.','LOTO + isolatie.','LOTO وأدوات معزولة.'),
+    location: L('Substations, panels','Onderstations','المحطات الفرعية') },
+  { id:'falling', file:'warning-falling.png', category:'warning', emoji:'🪜',
+    labels: L('Fall from height','Valgevaar','خطر السقوط من ارتفاع'),
+    meaning: L('Open edge / fragile surface.','Open rand.','حافة مفتوحة.'),
+    instruction: L('Collective protection first; harness last.','Eerst collectief.','الحماية الجماعية أولاً.'),
+    location: L('Roofs, edges, scaffolding','Daken','الأسطح والحواف') },
+  { id:'toxic', file:'warning-toxic.png', category:'warning', emoji:'☠️',
+    labels: L('Toxic substance','Giftige stof','مادة سامة'),
+    meaning: L('Poisoning risk.','Vergiftiging.','خطر التسمم.'),
+    instruction: L('Read SDS, ventilation, full PPE.','Lees VIB.','اقرأ SDS.'),
+    location: L('Chemical stores, labs','Chemie-opslag','تخزين الكيمياء') },
+  { id:'flammable', file:'warning-flammable.png', category:'warning', emoji:'🔥',
+    labels: L('Flammable material','Brandbaar','مادة قابلة للاشتعال'),
+    meaning: L('Fire/explosion risk.','Brand- of explosiegevaar.','خطر حريق/انفجار.'),
+    instruction: L('Remove ignition; hot-work permit.','Verwijder ontsteking.','أزل مصادر الإشعال.'),
+    location: L('Fuel stores, gas cylinders','Brandstof','الوقود') },
+  { id:'suspended', file:'warning-suspended-load.png', category:'warning', emoji:'🏗️',
+    labels: L('Suspended load','Hangende last','حمولة معلقة'),
+    meaning: L('Crane operation overhead.','Hijswerk boven.','عملية رفع علوية.'),
+    instruction: L('Exclusion zone; never under load.','Exclusiezone.','منطقة استبعاد.'),
+    location: L('Crane / lifting zones','Hijslocaties','مناطق الرفع') },
+  { id:'trip', file:'warning-trip.png', category:'warning', emoji:'⚠️',
+    labels: L('Trip hazard','Struikelgevaar','خطر التعثر'),
+    meaning: L('Cables, uneven floor.','Kabels, oneffen vloer.','كابلات أو أرضية غير مستوية.'),
+    instruction: L('Keep walkways clear.','Vrije looppaden.','أبقِ الممرات خالية.'),
+    location: L('Walkways','Looppaden','الممرات') },
+  { id:'exit', file:'emergency-exit.png', category:'emergency', emoji:'🚪',
+    labels: L('Emergency exit','Nooduitgang','مخرج الطوارئ'),
+    meaning: L('Designated egress route.','Vluchtroute.','مسار طوارئ.'),
+    instruction: L('Keep clear and unlocked.','Vrij houden.','أبقه واضحًا.'),
+    location: L('Doors, corridors, stairs','Deuren','الأبواب والممرات') },
+  { id:'firstAid', file:'emergency-first-aid.png', category:'emergency', emoji:'🩹',
+    labels: L('First aid','Eerste hulp','الإسعافات الأولية'),
+    meaning: L('First-aid station.','EHBO-post.','نقطة إسعاف.'),
+    instruction: L('Know the location and trained first-aider.','Weet plaats en BHV.','اعرف الموقع.'),
+    location: L('Break rooms, offices','Pauzeruimtes','غرف الاستراحة') },
+  { id:'assembly', file:'emergency-assembly.png', category:'emergency', emoji:'🧭',
+    labels: L('Assembly point','Verzamelplaats','نقطة التجمع'),
+    meaning: L('Evacuation muster.','Verzamelpunt.','نقطة تجمع.'),
+    instruction: L('Wait for head-count.','Wacht op telling.','انتظر التحقق.'),
+    location: L('Open areas away from building','Open terrein','مناطق مفتوحة') },
+  { id:'eyewash', file:'emergency-eye-wash.png', category:'emergency', emoji:'👁️',
+    labels: L('Emergency eye-wash','Oogdouche','غسيل العين الطارئ'),
+    meaning: L('Eye rinse station.','Oogspoelstation.','محطة شطف العين.'),
+    instruction: L('Rinse 15 min minimum.','15 minuten spoelen.','اشطف 15 دقيقة.'),
+    location: L('Chemical labs','Labs','المختبرات الكيميائية') },
+  { id:'extinguisher', file:'fire-extinguisher.png', category:'fire', emoji:'🧯',
+    labels: L('Fire extinguisher','Brandblusser','طفاية الحريق'),
+    meaning: L('Portable fire-fighting.','Brandblusser.','جهاز إطفاء.'),
+    instruction: L('PASS method on small fires only.','PASS.','PASS للحرائق الصغيرة فقط.'),
+    location: L('Mounted every 30 m typically','Aan muren','مثبتة كل 30 م') },
+  { id:'firephone', file:'fire-phone.png', category:'fire', emoji:'📞',
+    labels: L('Fire reporting phone','Brandmelder','هاتف الإبلاغ عن الحريق'),
+    meaning: L('Emergency call point.','Noodoproep.','نقطة طوارئ.'),
+    instruction: L('Activate first, then evacuate.','Activeer eerst.','شغّله أولاً.'),
+    location: L('Control rooms, stairwells','Controlekamers','غرف التحكم') },
+  { id:'hose', file:'fire-hose.png', category:'fire', emoji:'🚒',
+    labels: L('Fire hose reel','Brandhaspel','بكرة خرطوم الحريق'),
+    meaning: L('Fixed water supply.','Vaste waterleiding.','إمداد مياه ثابت.'),
+    instruction: L('Trained personnel only.','Alleen getraind.','للأشخاص المدربين فقط.'),
+    location: L('Fire bays','Brandnissen','تجاويف الحريق') },
+  { id:'noSmoking', file:'prohibition-no-smoking.png', category:'prohibition', emoji:'🚭',
+    labels: L('No smoking','Verboden te roken','ممنوع التدخين'),
+    meaning: L('Smoking prohibited.','Roken verboden.','التدخين ممنوع.'),
+    instruction: L('Includes e-cigs. Designated areas only.','Inclusief e-sigaret.','يشمل السجائر الإلكترونية.'),
+    location: L('Fuel, ATEX, indoors','Brandstof','الوقود وATEX') },
+  { id:'noFire', file:'prohibition-no-fire.png', category:'prohibition', emoji:'🚫',
+    labels: L('No open flame','Geen open vuur','ممنوع اللهب المكشوف'),
+    meaning: L('No ignition sources.','Geen ontsteking.','لا مصادر إشعال.'),
+    instruction: L('Hot work: permit + fire watch.','Vuurwerk: vergunning.','تصريح + مراقب.'),
+    location: L('Fuel/gas storage','Brandstof','مستودعات الوقود') },
+  { id:'noEntry', file:'prohibition-no-entry.png', category:'prohibition', emoji:'⛔',
+    labels: L('No unauthorised entry','Geen toegang onbevoegden','ممنوع الدخول لغير المخولين'),
+    meaning: L('Restricted area.','Toegang beperkt.','منطقة محظورة.'),
+    instruction: L('Permit/sign-in required.','Werkvergunning.','تصريح/تسجيل.'),
+    location: L('Substations, confined spaces','Onderstations','محطات وأماكن مغلقة') },
+];
+
+const SIGN_CATEGORIES = ['all','mandatory','warning','emergency','fire','prohibition'];
+let signsFilter = 'all';
+function categoryLabel(cat) {
+  const map = { all:L('All','Alle','الكل'), mandatory:L('Mandatory','Verplicht','إلزامي'),
+    warning:L('Warning','Waarschuwing','تحذير'), emergency:L('Emergency','Nood','طوارئ'),
+    fire:L('Fire','Brand','حريق'), prohibition:L('Prohibition','Verbod','حظر') };
+  return tr(map[cat]) || cat;
+}
+function renderSignsFilter() {
+  const el = document.getElementById('signsFilter'); if (!el) return;
+  el.innerHTML = SIGN_CATEGORIES.map(c => `<button class="sign-filter-btn${c===signsFilter?' active':''}" data-cat="${c}">${categoryLabel(c)}</button>`).join('');
+  el.querySelectorAll('.sign-filter-btn').forEach(b => b.addEventListener('click', () => { signsFilter = b.dataset.cat; renderSignsFilter(); renderSignsGrid(); }));
+}
+function renderSignsGrid() {
+  const el = document.getElementById('signsGrid'); if (!el) return;
+  const list = SAFETY_SYMBOLS.filter(s => signsFilter === 'all' || s.category === signsFilter);
+  el.innerHTML = list.map(s => {
+    const label = tr(s.labels);
+    return `<button class="sign-card cat-${s.category}" data-sign="${s.id}"><div class="sign-thumb"><img src="assets/symbols/${s.file}" alt="${escapeHtml(label)}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none;">${s.emoji}</span></div><div class="sign-label">${escapeHtml(label)}</div><div class="sign-cat">${categoryLabel(s.category)}</div></button>`;
+  }).join('');
+  el.querySelectorAll('.sign-card').forEach(b => b.addEventListener('click', () => showSignDetail(b.dataset.sign)));
+}
+function showSignDetail(id) {
+  const s = SAFETY_SYMBOLS.find(x => x.id === id); if (!s) return;
+  const el = document.getElementById('signDetail');
+  el.innerHTML = `<div class="sign-detail-card"><h3>${s.emoji} ${escapeHtml(tr(s.labels))}</h3><div><strong>${escapeHtml(tr(L('Meaning','Betekenis','المعنى')))}:</strong> ${escapeHtml(tr(s.meaning))}</div><div style="margin-top:6px;"><strong>${escapeHtml(tr(L('Worker instruction','Werker instructie','تعليمات العامل')))}:</strong> ${escapeHtml(tr(s.instruction))}</div><div style="margin-top:6px;"><strong>${escapeHtml(tr(L('Common location','Veelvoorkomende locatie','الموقع الشائع')))}:</strong> ${escapeHtml(tr(s.location))}</div><div class="langs" style="margin-top:10px;"><div><span>EN</span> ${escapeHtml(s.labels.en)}</div><div><span>NL</span> ${escapeHtml(s.labels.nl)}</div><div><span dir="ltr">AR</span> ${escapeHtml(s.labels.ar)}</div></div></div>`;
+  el.style.display = '';
+  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+function initSignsUI() { renderSignsFilter(); renderSignsGrid(); }
+
+// ============================================================
+// PHASE 3-DEEP — VGM-Basic Exam (adapted from Arabic VGM training doc)
+// 15 multiple-choice questions in EN / NL / AR with answer keys + explanations.
+// ============================================================
+// ============================================================
+// PHASE 3 FINAL — Full 40-question VGM-Basic exam
+// Adapted from the Arabic VGM training document (الاختبار التمهيدي 9).
+// Each question: q (3 lang), options (3 lang each), correct = index or [indices] for multi-select,
+// explain (3 lang), topic (for review topic suggestions).
+// ============================================================
+const EXAM_QUESTIONS = [
+  { topic:'arbowet', q: L('Who does the Working Conditions law (Arbowet) apply to?','Voor wie geldt de Arbowet?','لمن يطبق قانون ظروف العمل؟'),
+    options:[ L('Site visitors','Bezoekers','زوار الموقع'),
+              L('Trainees','Stagiairs','المتدربون'),
+              L('Employers','Werkgevers','أرباب العمل'),
+              L('Temporary workers','Uitzendkrachten','عمال مؤقتون'),
+              L('Local residents','Omwonenden','المقيمون المحليون'),
+              L('Employees','Werknemers','الموظفون') ],
+    correct:[0,1,2,3,5], multi:true,
+    explain: L('All except local residents are covered by the Arbowet.','Alle behalve omwonenden.','جميعهم باستثناء المقيمين المحليين.') },
+
+  { topic:'rie', q: L('A new welding robot is installed in a workshop. What does this mean for the RI&E (risk assessment)?','Een nieuwe lasrobot wordt geïnstalleerd. Wat betekent dit voor de RI&E?','يتم تركيب روبوت لحام جديد في الورشة. ماذا يعني هذا لـ RI&E؟'),
+    options:[ L('A new RI&E by the workers alone','Nieuwe RI&E door werknemers alleen','RI&E جديد من قبل الموظفين أنفسهم'),
+              L('No new RI&E — it is an existing workshop','Geen nieuwe RI&E','لا حاجة لـ RI&E جديد'),
+              L('A new RI&E by employer and employees together','Door werkgever én werknemers samen','من قبل صاحب العمل والموظفين معاً'),
+              L('A new RI&E by an internal safety expert','Door een interne veiligheidskundige','من قبل خبير سلامة داخلي') ],
+    correct:2,
+    explain: L('Significant change requires a new RI&E together by employer and employees.','Significante wijziging = samen.','تغيير كبير يستدعي RI&E جديد معًا.') },
+
+  { topic:'fitness', q: L('Anouk works on saws. She uses medicine that affects her reactions. What should she do?','Anouk werkt aan zagen. Ze gebruikt medicijnen die haar reactie beïnvloeden. Wat doet ze?','تعمل أنوك على المناشير. تستخدم دواءً يؤثر على ردود فعلها. ماذا تفعل؟'),
+    options:[ L('She cannot work and stays home','Niet werken, thuisblijven','لا تعمل وتبقى في المنزل'),
+              L('She works as usual — she feels fine','Werkt normaal — voelt zich goed','تعمل كالمعتاد'),
+              L('She tells her supervisor about the medication','Vertelt leidinggevende','تخبر مديرها عن الدواء'),
+              L('She asks her doctor what work is safe','Vraagt arts wat veilig is','تسأل طبيبها عن العمل الآمن') ],
+    correct:[2,3], multi:true,
+    explain: L('Inform supervisor AND ask the doctor.','Meld + vraag arts.','أبلغ + استشر الطبيب.') },
+
+  { topic:'enforcement', q: L('Workers at a company refuse to wear PPE. What can the authorities do?','Werknemers weigeren PBM. Wat kunnen autoriteiten doen?','يرفض العمال ارتداء PPE. ماذا تفعل السلطات؟'),
+    options:[ L('Require workers to take a mandatory course','Verplichte cursus eisen','إلزام بدورة'),
+              L('Revoke the contractor VCA checklist certification','VCA-certificaat intrekken','إلغاء شهادة VCA'),
+              L('Give a warning','Waarschuwing geven','تحذير') ],
+    correct:2,
+    explain: L('Authorities can issue a warning first.','Eerst waarschuwing.','تحذير أولاً.') },
+
+  { topic:'tra', q: L('What is a Task Risk Analysis (TRA)?','Wat is een TRA?','ما هو تحليل مخاطر المهمة (TRA)؟'),
+    options:[ L('A written assessment of tasks mentioned in the RI&E','Schriftelijke beoordeling van RI&E-taken','تقييم مكتوب للمهام في RI&E'),
+              L('A written summary of risky tasks','Schriftelijke samenvatting','ملخص للمهام المحفوفة'),
+              L('A written analysis of risks during execution of high-risk tasks','Analyse van risico\'s bij risicotaken','تحليل المخاطر أثناء مهام عالية الخطورة') ],
+    correct:2,
+    explain: L('TRA analyses the risks during the actual execution of high-risk tasks.','TRA = risico bij uitvoering.','تحليل المخاطر أثناء التنفيذ.') },
+
+  { topic:'reporting', q: L('Where do you report a non-serious accident or near-miss?','Waar meld je een bijna-ongeval?','أين تبلغ عن حادث وشيك بدون إصابة خطيرة؟'),
+    options:[ L('At the labour inspectorate','Bij de Arbeidsinspectie','تفتيش العمل'),
+              L('At the company emergency services','Bij bedrijfsnoodhulp','خدمات الطوارئ'),
+              L('To your direct supervisor','Aan je directe leidinggevende','مديرك المباشر') ],
+    correct:2,
+    explain: L('Direct supervisor is the right channel.','Directe leidinggevende.','مديرك المباشر.') },
+
+  { topic:'arbowet', q: L('What duty does the Arbowet put on the employee?','Welke plicht legt de Arbowet op de werknemer?','ما هو واجب الموظف بموجب قانون ظروف العمل؟'),
+    options:[ L('Develop policy','Beleid maken','تطوير السياسة'),
+              L('Organise information and training','Voorlichting & training','تنظيم التثقيف والتدريب'),
+              L('Use PPE correctly','PBM juist gebruiken','استخدام PPE بشكل صحيح') ],
+    correct:2,
+    explain: L('Employees must use PPE correctly and follow procedures.','PBM goed gebruiken.','استخدام PPE بشكل صحيح.') },
+
+  { topic:'risk', q: L('What is a possible source of risk at work?','Wat is een mogelijke risicobron op het werk?','ما هو المصدر المحتمل للخطر في العمل؟'),
+    options:[ L('Lack of knowledge or experience','Gebrek aan kennis/ervaring','الجهل وانعدام الخبرة'),
+              L('Wearing PPE','PBM dragen','ارتداء PPE'),
+              L('Work schedule','Werkrooster','جدول ساعات العمل') ],
+    correct:0,
+    explain: L('Worker knowledge/experience is a key risk source.','Kennis is bron.','المعرفة مصدر للخطر.') },
+
+  { topic:'ce', q: L('What does the CE mark on a machine mean?','Wat betekent CE-markering?','ماذا تعني علامة CE؟'),
+    options:[ L('Machine meets minimum EU safety requirements','Voldoet aan EU-minimum','الآلة تفي بالحد الأدنى الأوروبي'),
+              L('Machine can be used immediately without checks','Direct te gebruiken zonder controle','يمكن استخدامها فوراً'),
+              L('Machine can only be used in EU countries','Alleen EU bruikbaar','تُستخدم في الاتحاد فقط') ],
+    correct:0,
+    explain: L('CE = minimum EU safety compliance.','EU minimum.','الحد الأدنى الأوروبي.') },
+
+  { topic:'lmra', q: L('Put the LMRA steps in the correct order: A) Look at hazards from surroundings  B) Take control measures  C) Think carefully about risks  D) Evaluate risks','Zet LMRA-stappen in volgorde','رتب خطوات LMRA بالترتيب الصحيح'),
+    options:[ L('A → C → D → B','A → C → D → B','أ → ت → ث → ب'),
+              L('A → B → C → D','A → B → C → D','أ → ب → ت → ث'),
+              L('B → A → C → D','B → A → C → D','ب → أ → ت → ث'),
+              L('C → A → D → B','C → A → D → B','ت → أ → ث → ب') ],
+    correct:0,
+    explain: L('Order: Look → Think → Evaluate → Take measures.','Kijk → Denk → Evalueer → Maatregelen.','انظر → فكر → قيّم → اتخذ تدابير.') },
+
+  { topic:'welding', q: L('Safety measures when gas-welding (select all that apply):','Veiligheidsmaatregelen bij gaslassen','إجراءات السلامة عند اللحام بالغاز'),
+    options:[ L('Remove all materials from the surrounding area','Verwijder alle materialen','أزل جميع المواد'),
+              L('Remove the flame arrester','Vlamblusser verwijderen','أزل مصيدة اللهب'),
+              L('Check no flammables nearby','Geen brandbare stoffen nabij','تحقق من عدم وجود مواد قابلة للاشتعال'),
+              L('Use the correct PPE','Juiste PBM','استخدم PPE الصحيحة'),
+              L('Keep an extinguisher at hand','Brandblusser binnen handbereik','احتفظ بطفاية حريق') ],
+    correct:[2,3,4], multi:true,
+    explain: L('No flammables, correct PPE, extinguisher within reach.','Brandbaar weg, PBM, blusser.','لا مواد قابلة للاشتعال، PPE، طفاية.') },
+
+  { topic:'demolition', q: L('Actions required for demolition work (select all):','Vereiste acties bij sloopwerk','الإجراءات المطلوبة عند الهدم'),
+    options:[ L('Work permit must be present','Werkvergunning aanwezig','تصريح العمل حاضر'),
+              L('Gas measurements during work','Gasmetingen tijdens werk','قياسات الغازات'),
+              L('Demolition plan in place','Sloopplan aanwezig','خطة الهدم'),
+              L('Inventory of released hazardous materials','Inventaris vrijgekomen stoffen','جرد المواد الخطرة') ],
+    correct:[0,2,3], multi:true,
+    explain: L('Permit, demolition plan, hazmat inventory. Gas-measurement is only specific cases.','Vergunning, sloopplan, inventaris.','تصريح، خطة، جرد.') },
+
+  { topic:'electric', q: L('When does an earth leakage circuit breaker trip?','Wanneer schakelt een aardlekschakelaar uit?','متى يطفئ قاطع التسرب الأرضي؟'),
+    options:[ L('When the equipment is overloaded','Bij overbelasting','عند تحميل المعدات بشكل زائد'),
+              L('When the difference between in and out currents exceeds the set value','Verschil in-/uitstroom > drempel','عندما يتجاوز الفرق الإعداد'),
+              L('When source voltage falls below minimum','Spanning te laag','عندما ينخفض الجهد') ],
+    correct:1,
+    explain: L('RCD trips on residual current difference.','RCD reageert op verschilstroom.','يطفئ على فرق التيار المتبقي.') },
+
+  { topic:'permit', q: L('What must a work permit contain?','Wat moet een werkvergunning bevatten?','ما الذي يحتاجه تصريح العمل؟'),
+    options:[ L('Project leader of executing company','Projectleider uitvoerder','رئيس مشروع الشركة المنفذة'),
+              L('Safety officer name','Naam veiligheidskundige','مسؤول السلامة'),
+              L('Who is responsible for safety measures','Wie verantwoordelijk is voor maatregelen','المسؤول عن اتخاذ إجراءات السلامة') ],
+    correct:2,
+    explain: L('Clearly state who is responsible for safety measures.','Verantwoordelijke staat erin.','المسؤول عن الإجراءات.') },
+
+  { topic:'signs', q: L('What are the colours of a warning sign?','Welke kleuren heeft een waarschuwingsbord?','ما هي ألوان إشارة التحذير؟'),
+    options:[ L('Yellow with black border and black symbol','Geel met zwarte rand en symbool','أصفر مع حد أسود ورمز أسود'),
+              L('Red with white symbol','Rood met wit symbool','أحمر برمز أبيض'),
+              L('White with blue symbol','Wit met blauw symbool','أبيض برمز أزرق') ],
+    correct:0,
+    explain: L('Warning: yellow triangle with black border and symbol.','Geel waarschuwt.','الأصفر يُحذِّر.') },
+
+  { topic:'emergency', q: L('What does the company emergency plan describe?','Wat beschrijft het bedrijfsnoodplan?','ما الذي تنص عليه خطة الطوارئ؟'),
+    options:[ L('Step-by-step response to an emergency','Stappen bij nood','التدرج عند مواجهة الطوارئ'),
+              L('When evacuation is performed','Wanneer wordt geëvacueerd','عندما يتم الإخلاء'),
+              L('Materials and processes that could cause an emergency','Materialen en processen die nood veroorzaken','المواد والعمليات التي تسبب الطوارئ') ],
+    correct:0,
+    explain: L('The plan defines the response sequence.','Het plan = stappen.','خطة الاستجابة.') },
+
+  { topic:'hazmat', q: L('What is the risk of harmful and irritating substances to humans?','Risico van schadelijke/irriterende stoffen?','ما هي مخاطر المواد الضارة والمهيجة؟'),
+    options:[ L('The container ages quickly','Verpakking veroudert snel','العبوة تتأثر بسرعة'),
+              L('They cause illness on skin contact or in the body','Ziek bij contact met huid/lichaam','تمرض عند تلامسها مع الجلد أو في الجسم'),
+              L('They are flammable','Zijn brandbaar','إنها قابلة للاشتعال') ],
+    correct:1,
+    explain: L('Cause illness when contacting skin or entering the body.','Ziek bij contact.','تسبب المرض عند التلامس.') },
+
+  { topic:'controls', q: L('Which source-level measure prevents exposure to hazardous substances?','Welke maatregel aan de bron voorkomt blootstelling?','أي تدبير عند المصدر يمنع التعرض للمواد الخطرة؟'),
+    options:[ L('Train workers','Werknemers trainen','تدريب الموظفين'),
+              L('Use raw materials as pellets instead of powder','Korrels in plaats van poeder','استخدام مواد على شكل أقراص بدلاً من مسحوق'),
+              L('Allow workers to use PPE','Werknemers PBM laten gebruiken','السماح للموظفين باستخدام PPE') ],
+    correct:1,
+    explain: L('Use a less dusty form (pellets vs powder) at the source.','Korrels aan de bron.','استخدام شكل أقل غبارًا.') },
+
+  { topic:'fire', q: L('What three elements are needed for a fire?','Welke 3 elementen heeft een brand nodig?','ما هي العناصر الثلاثة اللازمة للحريق؟'),
+    options:[ L('Flammable material, oxygen, flash point','Brandbaar + zuurstof + vlampunt','مادة قابلة للاشتعال + أكسجين + نقطة لهب'),
+              L('Flammable material, oxygen, mixture ratio','Brandbaar + zuurstof + mengverhouding','مادة + أكسجين + نسبة مخلوط'),
+              L('Flammable material, oxygen, ignition energy','Brandbaar + zuurstof + ontstekingsenergie','مادة + أكسجين + طاقة اشتعال') ],
+    correct:2,
+    explain: L('Fire triangle: combustible + oxygen + ignition energy.','Branddriehoek.','مثلث النار.') },
+
+  { topic:'excavation', q: L('Put excavation activities in the correct order: A) Excavate with the digger  B) Place fencing  C) Dig the trench  D) Inspect bridge and dam','Volgorde graafwerk','رتب أنشطة الحفر بالترتيب الصحيح'),
+    options:[ L('D → B → A → C','D → B → A → C','ث → ب → أ → ت'),
+              L('A → B → C → D','A → B → C → D','أ → ب → ت → ث'),
+              L('B → A → C → D','B → A → C → D','ب → أ → ت → ث'),
+              L('A → C → B → D','A → C → B → D','أ → ت → ب → ث') ],
+    correct:0,
+    explain: L('Inspect first, then fence, then excavate, then dig trench.','Inspecteer eerst.','تفقد أولاً ثم سيّج ثم احفر.') },
+
+  { topic:'heights', q: L('John and Harry will clean windows of a 12-storey building using a suspended scaffold. Required measures (select all):','John & Harry wassen ramen van 12 verdiepingen vanaf hangende steiger','جون وهاري ينظفان نوافذ مبنى 12 طابقًا بسقالة معلقة'),
+    options:[ L('Both must have followed training','Beiden cursus gevolgd','كلاهما اتبع تدريبًا'),
+              L('Wear harness + carry hand radio','Harnas + portofoon','حزام + جهاز اتصال يدوي'),
+              L('One person stays in the control room','Iemand blijft in controlekamer','شخص يبقى في غرفة المراقبة'),
+              L('Fence the area below at ground level','Onderkant afzetten','تسييج المنطقة الأرضية تحت السقالة'),
+              L('Scaffold must be inspected before use','Steiger gekeurd vóór gebruik','فحص السقالة قبل الاستخدام') ],
+    correct:[0,1,2,3,4], multi:true,
+    explain: L('All of these are required.','Alles is vereist.','جميع هذه الإجراءات مطلوبة.') },
+
+  { topic:'hazmat', q: L('Match hazardous materials (A=sulphuric acid, B=cleaning solvents, C=herbicide, D=acetone) to symbol category (1=corrosive, 2=flammable, 3=environmental, 4=highly flammable):','Match stoffen aan symbool','اربط الرموز بالمواد الخطرة'),
+    options:[ L('A-1, B-2, C-3, D-4','A-1, B-2, C-3, D-4','أ-1، ب-2، ت-3، ث-4'),
+              L('A-2, B-1, C-3, D-4','A-2, B-1, C-3, D-4','أ-2، ب-1، ت-3، ث-4'),
+              L('A-1, B-4, C-3, D-2','A-1, B-4, C-3, D-2','أ-1، ب-4، ت-3، ث-2') ],
+    correct:0,
+    explain: L('Sulphuric acid is corrosive (1); solvents flammable (2); herbicide environmental (3); acetone highly flammable (4).','—','—') },
+
+  { topic:'labels', q: L('A product label with a hazardous substance must state (select all):','Etiket bij gevaarlijke stof moet bevatten','يجب أن يتضمن ملصق المنتج الخطر'),
+    options:[ L('Which PPE to use','Welke PBM','معدات الحماية المطلوبة'),
+              L('Purpose of the product','Doel van gebruik','الغرض من الاستخدام'),
+              L('Who may use it','Wie mag gebruiken','من قد يستخدمه'),
+              L('Supplier / importer data','Leverancier / importeur','بيانات المورد / المستورد') ],
+    correct:[0,1], multi:true,
+    explain: L('PPE and purpose are required on the label.','PBM en doel.','المعدات والغرض.') },
+
+  { topic:'response', q: L('Harry works with hazardous materials. He notices green vapour from a tank. What should he do?','Harry ziet groene damp uit tank','يلاحظ هاري بخارًا أخضر من خزان'),
+    options:[ L('Keep distance and warn his supervisor','Afstand houden + leidinggevende waarschuwen','يحتفظ بمسافة ويحذر مديره'),
+              L('Continue working — his PPE protects him','Doorwerken — PBM beschermt','يواصل العمل لأن PPE يحميه'),
+              L('Immediately investigate with an extinguisher','Direct onderzoeken met blusser','يحقق فورًا مع طفاية') ],
+    correct:0,
+    explain: L('Distance + warn supervisor first.','Afstand + meld.','المسافة + أبلغ.') },
+
+  { topic:'toxic', q: L('Which substance is toxic?','Welke stof is giftig?','أي مادة سامة؟'),
+    options:[ L('Benzene','Benzeen','البنزين'),
+              L('Nitrogen','Stikstof','النيتروجين'),
+              L('Hydrogen','Waterstof','الهيدروجين') ],
+    correct:0,
+    explain: L('Benzene is a known carcinogen and toxic.','Benzeen.','البنزين.') },
+
+  { topic:'labels', q: L('A label shows this image. What does it mean? (Oxidising material symbol)','Etiket beeld?','ما معنى الصورة على الملصق؟'),
+    options:[ L('This material is toxic','Giftig','هذه المادة سامة'),
+              L('This material is corrosive','Bijtend','مادة آكلة'),
+              L('This material is oxidising','Oxiderend','مادة مؤكسدة') ],
+    correct:2,
+    explain: L('Flaming O symbol = oxidiser.','Oxiderend.','مادة مؤكسدة.') },
+
+  { topic:'demolition', q: L('Demolition risks include (select all):','Sloop-risico\'s','مخاطر الهدم تشمل'),
+    options:[ L('Natural ventilation may be insufficient','Ventilatie kan onvoldoende zijn','التهوية الطبيعية قد لا تكون كافية'),
+              L('Trapped between moving parts','Bekneld tussen bewegende delen','عالقًا بين الأجزاء المتحركة'),
+              L('Parts to be demolished may collapse','Onderdelen kunnen instorten','الأجزاء قد تنهار'),
+              L('Hit by protruding building parts','Geraakt door uitstekende delen','الاصطدام بأجزاء بارزة') ],
+    correct:[0,2,3], multi:true,
+    explain: L('Ventilation, collapse, protrusions are typical demolition risks.','—','—') },
+
+  { topic:'firstaid', q: L('Most important when treating an external burn?','Belangrijkste bij brandwond?','الأهم في علاج الحروق الخارجية؟'),
+    options:[ L('Cool with water 10–20 minutes','10-20 min koelen','بَرِّد بالماء 10-20 دقيقة'),
+              L('Bandage immediately','Direct verbinden','ضمده فورًا'),
+              L('Cool 5 minutes then dry and bandage','5 min koelen, drogen, verbinden','بَرِّد 5 دقائق ثم جفِّف وضمد') ],
+    correct:0,
+    explain: L('Cool 10–20 minutes with water.','10-20 min koelen.','بَرِّد 10-20 دقيقة.') },
+
+  { topic:'asbestos', q: L('Specific measure during asbestos removal?','Specifieke maatregel bij asbestverwijdering?','تدبير محدد عند إزالة الأسبستوس؟'),
+    options:[ L('Wear coveralls','Overall dragen','ارتدِ أفرول'),
+              L('Wear safety shoes','Veiligheidsschoenen','أحذية أمان'),
+              L('Wear disposable coveralls','Wegwerp-overall','أفرول يمكن التخلص منه') ],
+    correct:2,
+    explain: L('Disposable coveralls so asbestos fibres are discarded with them.','Wegwerp.','للتخلص منه مع الألياف.') },
+
+  { topic:'confined', q: L('Gary must work inside a tank. Insertion flanges are placed. Their purpose?','Garry in tank. Doel van flanges?','يعمل غاري في خزان. ما هدف الفلنجات؟'),
+    options:[ L('Protect from electrical hazards','Tegen elektriciteit','للحماية من الكهرباء'),
+              L('Separator between two hazardous materials','Scheiding tussen stoffen','جدار فاصل بين مادتين خطرتين'),
+              L('Close the supply pipes to the storage tank','Toevoerleidingen afsluiten','لإغلاق مواسير الإمداد') ],
+    correct:2,
+    explain: L('Blind flanges isolate the supply lines.','Toevoer afsluiten.','إغلاق الإمداد.') },
+
+  { topic:'lifting', q: L('Lifting transport: which is correct? (yes/no)','Tillen: juist?','الرفع: أيهم صحيح؟'),
+    options:[ L('Heavy furniture moved by 2 people if possible — YES','Zwaar meubilair 2 personen — JA','نقل الأثاث الثقيل بشخصين كلما أمكن — نعم'),
+              L('You can lift 15 kg alone — NO','Je kan 15 kg alleen tillen — NEE','يمكنك رفع 15 كغ بمفردك — لا'),
+              L('Keep arms straight when lifting — YES','Armen recht — JA','حافظ على استقامة الذراعين — نعم'),
+              L('Keep load close to body — NO','Last dicht bij lichaam — NEE','احتفظ بالحمل قريبًا من الجسم — لا') ],
+    correct:[0,2], multi:true,
+    explain: L('A=YES, B=NO, C=YES, D=NO — the original answer key.','—','—') },
+
+  { topic:'confined', q: L('Insertion flange use (yes/no per statement):','Flange-gebruik','استخدام فلانجة الإدراج'),
+    options:[ L('Insertion flange prevents hazardous materials entering work area — YES','—','تمنع المواد الخطرة من دخول مساحة العمل — نعم'),
+              L('When valves are present, no flange needed — NO','—','لا تحتاج فلانجة عند وجود الصمامات — لا'),
+              L('Insertion flange used to block supply pipes — NO','—','تستخدم لمنع أنابيب الإمداد — لا'),
+              L('Insertion flange is PPE — YES','—','تستخدم كجهاز حماية شخصية — نعم') ],
+    correct:[0,3], multi:true,
+    explain: L('A=YES, B=NO, C=NO, D=YES per answer key.','—','—') },
+
+  { topic:'tools', q: L('What must a hammer handle comply with to be safe?','Wat moet een hamersteel zijn?','ما الذي يجب أن يكون آمنًا في مقبض المطرقة؟'),
+    options:[ L('Firmly attached to the hammer head','Stevig vast aan kop','متصلًا بإحكام برأس المطرقة'),
+              L('Made of insulating plastic','Geïsoleerd plastic','بلاستيك معزول'),
+              L('Clean and a different colour than the head','Schoon, andere kleur','نظيف وله لون مختلف') ],
+    correct:0,
+    explain: L('A loose handle is the main hazard.','Stevig vast.','يجب التثبيت بإحكام.') },
+
+  { topic:'signs', q: L('What does this sign mean (black on yellow)?','Geel-zwart bord?','ماذا تعني العلامة (أسود على أصفر)؟'),
+    options:[ L('No unauthorised access','Geen toegang onbevoegden','ممنوع الوصول لغير المخولين'),
+              L('Warning: beware of falling','Waarschuwing val','تحذير: احذر السقوط'),
+              L('Assembly point','Verzamelpunt','نقطة التجمع') ],
+    correct:1,
+    explain: L('Yellow + black = warning sign.','Geel = waarschuwing.','الأصفر = تحذير.') },
+
+  { topic:'welding', q: L('Mandatory PPE when welding?','Verplichte PBM bij lassen?','معدات الحماية الإجبارية عند اللحام؟'),
+    options:[ L('Eye protection and gloves only','Alleen ogen + handschoenen','حماية العين والقفازات فقط'),
+              L('Welder decides','Lasser bepaalt','يقرر اللحام'),
+              L('Eye protection + gloves + apron + safety shoes','Ogen + handschoenen + schort + schoenen','واقي العين + قفازات + مريول + أحذية أمان') ],
+    correct:2,
+    explain: L('Full set: eyes, gloves, apron, shoes.','Volledige set.','مجموعة كاملة.') },
+
+  { topic:'tools', q: L('Working with a fixed grinder — what must you always check?','Bij vaste slijpmachine — wat altijd controleren?','عند المطحنة المثبتة — ماذا تفحص؟'),
+    options:[ L('On/off switch','Aan/uit schakelaar','مفتاح التشغيل/الإيقاف'),
+              L('Tool rest','Steungereedschap','أداة الراحة'),
+              L('The stone faces','Stenenzijden','جوانب الأحجار') ],
+    correct:1,
+    explain: L('Tool rest must be set within 3 mm of stone.','Steun bij steen.','أداة الراحة بقرب الحجر.') },
+
+  { topic:'tools', q: L('Safety conditions for working with standalone machines (select all):','Veiligheid bij standalone machines','شروط السلامة للآلات القائمة بذاتها'),
+    options:[ L('Must be at least 16 years old','Minstens 16 jaar','16 سنة على الأقل'),
+              L('Manual present at the machine','Handleiding aanwezig','دليل عند الجهاز'),
+              L('Machine has CE mark','CE-keurmerk','شهادة CE'),
+              L('Emergency stop on the machine','Noodstop','إيقاف طوارئ'),
+              L('Guards must be removable','Beveiligingen afneembaar','الدروع قابلة للإزالة'),
+              L('All machines connected to dust collector','Op stofafzuiging','تركيب مجمع غبار') ],
+    correct:[1,2,3], multi:true,
+    explain: L('Manual + CE + emergency stop. Guards must NOT be removable.','Handleiding, CE, noodstop.','الدليل + CE + الإيقاف.') },
+
+  { topic:'ppe', q: L('Order ear protection from LEAST to MOST protective: A) Ear muffs (cup)  B) Earplugs  C) Ear cotton','Volgorde gehoorbescherming','رتب حماية السمع'),
+    options:[ L('C → B → A','C → B → A','ت → ب → أ'),
+              L('A → B → C','A → B → C','أ → ب → ت'),
+              L('B → C → A','B → C → A','ب → ت → أ') ],
+    correct:0,
+    explain: L('Cotton (lowest) → plugs → muffs (highest).','—','—') },
+
+  { topic:'tools', q: L('Lily uses a freestanding circular saw. Required safety devices (select all):','Lily met cirkelzaag','المنشار الدائري — ماذا يجب أن يكون موجودًا'),
+    options:[ L('Splitter (riving knife)','Splitter','لوحة حماية'),
+              L('Protective cover','Beschermkap','غطاء حماية'),
+              L('Rest tool','Steungereedschap','أداة الراحة'),
+              L('Push block','Duwblok','كتلة دفع') ],
+    correct:[1,2,3], multi:true,
+    explain: L('Cover, rest, push block required.','—','—') },
+
+  { topic:'signs', q: L('What does this sign warn against? (Explosion symbol)','Wat waarschuwt dit bord?','ما الذي تحذر منه هذه الإشارة؟'),
+    options:[ L('Explosive mixture','Explosief mengsel','خليط متفجر'),
+              L('Explosive zone (ATEX area)','Explosieve zone','منطقة المتفجرات (ATEX)'),
+              L('Explosive material','Explosief materiaal','مادة متفجرة') ],
+    correct:1,
+    explain: L('It marks an ATEX zone, not the substance itself.','ATEX-zone.','منطقة ATEX.') },
+];
+
+// Helper: compare answers (multi-select arrays or single index)
+function isAnswerCorrect(q, answer) {
+  if (q.multi) {
+    if (!Array.isArray(answer)) return false;
+    const a = [...answer].sort();
+    const c = [...q.correct].sort();
+    return a.length === c.length && a.every((v, i) => v === c[i]);
+  }
+  return answer === q.correct;
+}
+
+// ─── Exam state ─────────────────────────────────────────────
+const EXAM_PASS = 0.70;
+let examAnswers = {};
+
+function startExam() {
+  examAnswers = {};
+  document.getElementById('examStart').style.display = 'none';
+  document.getElementById('examResult').style.display = 'none';
+  document.getElementById('examInProgress').style.display = '';
+  renderExamQuestions();
+  document.getElementById('examInProgress').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function renderExamQuestions() {
+  const list = document.getElementById('examQuestionsList');
+  list.innerHTML = EXAM_QUESTIONS.map((q, qi) => {
+    const opts = q.options.map((o, oi) => {
+      const v = examAnswers[qi];
+      const checked = q.multi ? (Array.isArray(v) && v.includes(oi)) : (v === oi);
+      const inputType = q.multi ? 'checkbox' : 'radio';
+      return `<button type="button" class="exam-option${checked ? ' selected-pick' : ''}" data-q="${qi}" data-o="${oi}" data-multi="${q.multi?1:0}">
+        <span class="letter">${String.fromCharCode(65+oi)}.</span> ${escapeHtml(tr(o))}
+      </button>`;
+    }).join('');
+    return `<div class="exam-card" data-q="${qi}">
+      <div class="exam-q">${qi+1}. ${escapeHtml(tr(q.q))}${q.multi?' <small style="color:var(--text-soft);">— '+tr(L('select all that apply','meerdere mogelijk','اختر كل ما ينطبق'))+'</small>':''}</div>
+      <div class="exam-options">${opts}</div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.exam-option').forEach(b => b.addEventListener('click', () => {
+    const qi = +b.dataset.q, oi = +b.dataset.o, multi = b.dataset.multi === '1';
+    const q = EXAM_QUESTIONS[qi];
+    if (multi) {
+      const arr = examAnswers[qi] || [];
+      const idx = arr.indexOf(oi);
+      if (idx >= 0) arr.splice(idx, 1); else arr.push(oi);
+      examAnswers[qi] = arr;
+    } else {
+      examAnswers[qi] = oi;
+    }
+    renderExamQuestions();
+    updateExamProgress();
+  }));
+  updateExamProgress();
+}
+
+function updateExamProgress() {
+  const answered = Object.keys(examAnswers).filter(k => {
+    const v = examAnswers[k];
+    return Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null;
+  }).length;
+  const total = EXAM_QUESTIONS.length;
+  document.getElementById('examProgressFill').style.width = (answered/total*100) + '%';
+  document.getElementById('examProgressText').textContent =
+    `${answered} / ${total} ${tr(L('answered','beantwoord','مُجاب'))}`;
+  document.querySelectorAll('.exam-option.selected-pick').forEach(el => el.style.outline = '3px solid var(--primary)');
+}
+
+function submitExam() {
+  let correct = 0;
+  const wrongTopics = {};
+  EXAM_QUESTIONS.forEach((q, i) => {
+    if (isAnswerCorrect(q, examAnswers[i])) correct++;
+    else wrongTopics[q.topic] = (wrongTopics[q.topic] || 0) + 1;
+  });
+  const total = EXAM_QUESTIONS.length;
+  const wrong = total - correct;
+  const pct = correct / total;
+  const passed = pct >= EXAM_PASS;
+
+  const topTopics = Object.entries(wrongTopics)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([t,n]) => `${TOPIC_LABEL[t] ? tr(TOPIC_LABEL[t]) : t} (${n})`);
+
+  const reviewHtml = EXAM_QUESTIONS.map((q, qi) => {
+    const ok = isAnswerCorrect(q, examAnswers[qi]);
+    return `<div class="exam-card ${ok?'passed':'failed'}">
+      <div class="exam-q">${qi+1}. ${escapeHtml(tr(q.q))}</div>
+      <div class="exam-options">${q.options.map((o, oi) => {
+        const yours = q.multi ? (examAnswers[qi]||[]).includes(oi) : examAnswers[qi] === oi;
+        const right = q.multi ? q.correct.includes(oi) : q.correct === oi;
+        let cls = '';
+        if (right) cls = 'correct';
+        else if (yours) cls = 'wrong';
+        return `<div class="exam-option ${cls}"><span class="letter">${String.fromCharCode(65+oi)}.</span> ${escapeHtml(tr(o))}${right?' ✓':''}${yours && !right ? ' ✗':''}</div>`;
+      }).join('')}</div>
+      <div class="exam-feedback"><strong>${tr(L('Explanation','Uitleg','الشرح'))}:</strong> ${escapeHtml(tr(q.explain))}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('examInProgress').style.display = 'none';
+  const res = document.getElementById('examResult');
+  res.style.display = '';
+  res.innerHTML = `
+    <div class="exam-final-score ${passed?'pass':'fail'}">
+      <strong>${correct} / ${total} = ${Math.round(pct*100)}%</strong>
+      ${passed
+        ? tr(L('🎉 PASS — LEUSI learning readiness met (≥70%). This is NOT an official VCA certificate but shows readiness for VCA-Basic study.','🎉 GESLAAGD','🎉 ناجح'))
+        : tr(L('Below 70% pass threshold. Review the topics below and retake.','Onder 70% — bekijk en probeer opnieuw.','أقل من حد النجاح 70%.'))}
+    </div>
+    <div class="review-topics">
+      <h3>📌 ${tr(L('Suggested review topics','Aanbevolen om te herzien','مواضيع للمراجعة'))}</h3>
+      ${topTopics.length ? '<ul>' + topTopics.map(t => `<li>${escapeHtml(t)}</li>`).join('') + '</ul>' : '<div>' + tr(L('No focused topics — well done!','Geen focusgebieden!','لا توجد مواضيع — أحسنت!')) + '</div>'}
+    </div>
+    <div class="exam-review-actions">
+      <button class="btn btn-accent" id="examRetakeBtn">🔄 ${tr(L('Retake Exam','Opnieuw afleggen','إعادة الامتحان'))}</button>
+      <button class="btn" id="examPrintBtn">🖨 ${tr(L('Print / Save Result','Printen / Bewaren','طباعة / حفظ النتيجة'))}</button>
+    </div>
+    <div class="exam-review">
+      <h3 style="color:var(--primary-dark);margin-top:18px;">📝 ${tr(L('Answer review','Antwoordbeoordeling','مراجعة الإجابات'))}</h3>
+      ${reviewHtml}
+    </div>
+  `;
+  document.getElementById('examRetakeBtn').addEventListener('click', () => { startExam(); });
+  document.getElementById('examPrintBtn').addEventListener('click', () => {
+    document.getElementById('examCard').classList.add('print-active');
+    setTimeout(() => { window.print(); setTimeout(() => document.getElementById('examCard').classList.remove('print-active'), 200); }, 30);
+  });
+  res.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+const TOPIC_LABEL = {
+  arbowet: L('Working Conditions law (Arbowet)','Arbowet','قانون ظروف العمل'),
+  rie: L('Risk Inventory (RI&E)','Risico-inventarisatie','جرد المخاطر'),
+  fitness: L('Worker fitness for duty','Fitheid voor werk','اللياقة للعمل'),
+  enforcement: L('Authority enforcement','Autoriteiten','إجراءات السلطات'),
+  tra: L('Task Risk Analysis','TRA','تحليل مخاطر المهمة'),
+  reporting: L('Incident reporting','Incidentmelding','الإبلاغ عن الحوادث'),
+  risk: L('Risk sources','Risicobronnen','مصادر المخاطر'),
+  ce: L('CE marking','CE-markering','علامة CE'),
+  lmra: L('LMRA','LMRA','LMRA'),
+  welding: L('Welding safety','Lassen','اللحام'),
+  demolition: L('Demolition','Sloop','الهدم'),
+  electric: L('Electrical safety','Elektriciteit','الكهرباء'),
+  permit: L('Work permits','Werkvergunning','تصاريح العمل'),
+  signs: L('Safety signs','Veiligheidsborden','إشارات السلامة'),
+  emergency: L('Emergency response','Noodrespons','الاستجابة للطوارئ'),
+  hazmat: L('Hazardous materials','Gevaarlijke stoffen','المواد الخطرة'),
+  controls: L('Hierarchy of controls','Beheersmaatregelen','تسلسل الضوابط'),
+  fire: L('Fire safety','Brandveiligheid','السلامة من الحريق'),
+  excavation: L('Excavation','Graafwerk','الحفر'),
+  heights: L('Work at heights','Werken op hoogte','العمل على ارتفاع'),
+  labels: L('Hazardous-substance labels','Etiketten','ملصقات المواد الخطرة'),
+  response: L('Hazmat response','Hazmat-respons','الاستجابة للمواد الخطرة'),
+  toxic: L('Toxic substances','Toxische stoffen','المواد السامة'),
+  firstaid: L('First aid','Eerste hulp','الإسعافات الأولية'),
+  asbestos: L('Asbestos work','Asbest','العمل بالأسبستوس'),
+  confined: L('Confined spaces','Besloten ruimten','الأماكن المغلقة'),
+  lifting: L('Lifting / manual handling','Tillen','الرفع'),
+  tools: L('Tools and machines','Gereedschap','الأدوات والآلات'),
+  ppe: L('PPE / PBM','PBM','معدات الحماية'),
+};
+
+function initExamUI() {
+  const btn = document.getElementById('examStartBtn');
+  if (!btn) return;
+  btn.addEventListener('click', startExam);
+  document.getElementById('examSubmitBtn').addEventListener('click', submitExam);
+  document.getElementById('examCancelBtn').addEventListener('click', () => {
+    if (!confirm(tr(L('Cancel the exam? Your answers will be lost.','Examen annuleren? Antwoorden gaan verloren.','إلغاء الامتحان؟ ستفقد إجاباتك.')))) return;
+    examAnswers = {};
+    document.getElementById('examInProgress').style.display = 'none';
+    document.getElementById('examStart').style.display = '';
+  });
+}
+
+// ============================================================
+// PHASE 3 FINAL — Learning Modules (from Arabic VGM doc)
+// 16 modules grouped, each with explanation + key message + example + key terms + mini quiz
+// ============================================================
+const LEARNING_MODULES = [
+  { id:'intro', icon:'📘',
+    title: L('Introduction to VGM / HSSE','Inleiding VGM / HSSE','مقدمة في VGM / HSSE'),
+    explain: L('VGM stands for Veiligheid, Gezondheid en Milieu (Safety, Health and Environment). The VCA contractor checklist proves a contractor takes VGM seriously across its work. The Working Hours Act sets working/rest rules; the Working Conditions Act sets rights and duties of employers and workers in health, safety and conditions. European rules (CE marking) also apply: all machines used in the EU must be safety-checked.',
+                 'VGM staat voor Veiligheid, Gezondheid en Milieu. De VCA-checklist toont aan dat een aannemer voldoende aandacht aan VGM besteedt. De Arbeidstijdenwet regelt werk- en rusttijden; de Arbowet de rechten en plichten. Europese regels (CE-keurmerk) gelden ook.',
+                 'VGM تعني السلامة والصحة والبيئة. تثبت قائمة مراجعة VCA أن المقاول يولي اهتمامًا كافيًا للسلامة. قانون ساعات العمل ينظم العمل والراحة؛ قانون ظروف العمل ينظم الحقوق والواجبات. تنطبق القواعد الأوروبية أيضًا (علامة CE).'),
+    keyMsg: L('Safety is a legal duty AND a personal habit.','Veiligheid is een wet én een gewoonte.','السلامة واجب قانوني وعادة شخصية.'),
+    example: L('Before starting a new welding station, a new RI&E must be done together by employer and workers.','Voor een nieuwe lasrobot: nieuwe RI&E samen.','قبل تشغيل روبوت لحام جديد: RI&E جديد بصاحب العمل والعمال معًا.'),
+    terms: [
+      ['VGM', 'Safety, Health, Environment', 'VGM (Veiligheid, Gezondheid en Milieu)', 'السلامة والصحة والبيئة'],
+      ['VCA', 'Contractor safety checklist', 'VCA checklist', 'قائمة مراجعة المقاولين'],
+      ['Arbowet', 'Working Conditions Act', 'Arbowet', 'قانون ظروف العمل'],
+      ['RI&E', 'Risk Inventory & Evaluation', 'Risico-Inventarisatie en -Evaluatie', 'جرد وتقييم المخاطر'],
+      ['CE', 'EU minimum safety conformity', 'CE-markering', 'مطابقة الحد الأدنى للسلامة الأوروبية'],
+    ],
+    quiz: [
+      { q: L('What does VGM stand for?','Waar staat VGM voor?','ما معنى VGM؟'),
+        options:[L('Vehicle, Goods, Maintenance','Voertuig, Goederen, Onderhoud','المركبة والبضائع والصيانة'),
+                 L('Safety, Health and Environment','Veiligheid, Gezondheid en Milieu','السلامة والصحة والبيئة'),
+                 L('VCA, Goedkeuring, Milieu','VCA, Goedkeuring, Milieu','VCA والموافقة والبيئة')],
+        correct:1, explain: L('VGM = Safety, Health and Environment.','VGM = Veiligheid, Gezondheid, Milieu.','VGM = السلامة والصحة والبيئة.') },
+      { q: L('Who has duties under the Arbowet?','Wie heeft plichten onder de Arbowet?','من له واجبات بموجب قانون ظروف العمل؟'),
+        options:[L('Only the employer','Alleen werkgever','صاحب العمل فقط'),
+                 L('Only the worker','Alleen werknemer','الموظف فقط'),
+                 L('Both employer and worker','Beide','كلاهما')],
+        correct:2, explain: L('Both have duties.','Beide.','كلاهما له واجبات.') }
+    ] },
+
+  { id:'why', icon:'🛡️',
+    title: L('Why workplace safety matters','Waarom veiligheid telt','لماذا تهم سلامة العمل'),
+    explain: L('Risk (R) is determined by Probability (P) × Impact (I). Risk sources include the type of work, the workplace, and the knowledge/skills of the worker. Behind direct accident causes lie deeper factors: inadequate knowledge, time pressure, weak supervision. Most workplace accidents are caused by human behaviour. Acting positively, following safety rules, no alcohol/drugs, personal hygiene and tidiness all improve safety.',
+                 'Risico = Kans × Effect. Bronnen: werk, werkplek, kennis. Achterliggende factoren: kennis, tijdsdruk, toezicht. Menselijk gedrag is hoofdoorzaak.',
+                 'المخاطر = الاحتمال × التأثير. مصادرها: نوع العمل، مكان العمل، معرفة الموظف. وراء الأسباب المباشرة عوامل أعمق: المعرفة، ضغط الوقت، ضعف الإشراف. السلوك البشري هو السبب الرئيسي.'),
+    keyMsg: L('Safe behaviour is the single biggest lever — even more than equipment.','Veilig gedrag is de grootste hefboom.','السلوك الآمن أهم رافعة، حتى أكثر من المعدات.'),
+    example: L('A worker on medication that affects reactions must tell the supervisor AND ask the doctor what work is safe.','Medicijngebruik? Meld + vraag arts.','مَن يستخدم دواءً يؤثر على ردود الفعل: يبلغ المشرف ويسأل الطبيب.'),
+    terms: [
+      ['R = P × I','Risk equals probability times impact','Risico = Kans × Effect','المخاطر = الاحتمال × التأثير'],
+      ['Stop-work','Right and duty to halt unsafe work','Stop-werk-recht','حق وواجب إيقاف العمل غير الآمن'],
+    ],
+    quiz: [
+      { q: L('What is the formula for workplace risk?','Wat is de risicoformule?','ما صيغة المخاطر؟'),
+        options:[L('Probability + Impact','Kans + Effect','الاحتمال + التأثير'),
+                 L('Probability × Impact','Kans × Effect','الاحتمال × التأثير'),
+                 L('Probability − Impact','Kans − Effect','الاحتمال − التأثير')],
+        correct:1, explain: L('R = P × I.','R = K × E.','المخاطر = الاحتمال × التأثير.') },
+      { q: L('What causes most workplace accidents?','Hoofdoorzaak ongevallen?','السبب الرئيسي للحوادث؟'),
+        options:[L('Equipment failure','Apparatuurfout','عطل المعدات'),
+                 L('Human behaviour','Menselijk gedrag','السلوك البشري'),
+                 L('Weather','Het weer','الطقس')],
+        correct:1, explain: L('Human behaviour dominates.','Menselijk gedrag.','السلوك البشري هو السبب الأكثر شيوعًا.') }
+    ] },
+
+  { id:'duties', icon:'⚖️',
+    title: L('Worker and employer responsibilities','Verantwoordelijkheden','مسؤوليات العامل وصاحب العمل'),
+    explain: L('Worker duties: use PPE correctly, follow procedures, report unsafe situations and near-misses to the direct supervisor. Employer duties: provide a safe workplace, training, equipment, and an emergency plan. For risky work, a work permit between client and supervisor records the activities and safety measures.',
+                 'Werknemer: PBM, procedures, meld onveilig. Werkgever: veilige werkplek, training. Werkvergunning vóór risicovol werk.',
+                 'واجبات العامل: استخدام PPE واتباع الإجراءات والإبلاغ عن الحوادث. واجبات صاحب العمل: مكان آمن وتدريب وخطة طوارئ. تصريح العمل للعمل عالي الخطورة.'),
+    keyMsg: L('Report near-misses to your direct supervisor — they prevent the next real accident.','Meld bijna-ongevallen.','بلِّغ عن الحوادث الوشيكة — فهي تمنع الحادث التالي.'),
+    example: L('Saw a colleague almost slip on an oil patch? Tell the supervisor today.','Glij-incident? Meld vandaag.','رأيت زميلاً كاد ينزلق على بقعة زيت؟ أبلغ المشرف اليوم.'),
+    terms: [
+      ['Near-miss','An incident that caused no injury but easily could','Bijna-ongeval','حادث وشيك'],
+      ['Work permit','Written approval for high-risk tasks','Werkvergunning','تصريح العمل'],
+    ],
+    quiz: [
+      { q: L('Where to report a near-miss?','Waar bijna-ongeval melden?','أين تبلغ عن حادث وشيك؟'),
+        options:[L('Labour inspectorate','Arbeidsinspectie','تفتيش العمل'),L('Direct supervisor','Directe leidinggevende','المدير المباشر'),L('No need','Niet nodig','لا حاجة')],
+        correct:1, explain: L('Tell your direct supervisor first.','Directe leidinggevende.','المدير المباشر.') },
+      { q: L('What is a worker\'s duty under the Arbowet?','Werknemer-plicht?','واجب العامل؟'),
+        options:[L('Develop safety policy','Beleid maken','تطوير السياسة'),L('Use PPE correctly','PBM juist gebruiken','استخدام PPE'),L('Hire safety officer','Veiligheidskundige aannemen','تعيين مسؤول')],
+        correct:1, explain: L('Use PPE correctly and follow procedures.','PBM goed.','استخدام PPE بشكل صحيح.') }
+    ] },
+
+  { id:'signs', icon:'🪧',
+    title: L('Safety signs and pictograms','Veiligheidsborden','إشارات السلامة'),
+    explain: L('Four sign families: Mandatory (blue circle, white symbol) — what you MUST do; Warning (yellow triangle, black border and symbol) — risk ahead; Emergency / rescue (green square, white symbol) — exits, eye-wash, assembly; Firefighting (red square, white symbol) — where the fire-fighting equipment is. Prohibition signs use red.',
+                 'Vier families: Verplicht (blauw), Waarschuwing (geel), Nood (groen), Brandbestrijding (rood). Verbod = rood.',
+                 'أربع عائلات: إلزامية (دائرة زرقاء)، تحذيرية (مثلث أصفر)، طوارئ (مربع أخضر)، مكافحة حريق (مربع أحمر). الحظر يستخدم الأحمر.'),
+    keyMsg: L('Color and shape tell you the message before you read a word.','Kleur + vorm = boodschap.','اللون والشكل يخبرانك بالرسالة قبل القراءة.'),
+    example: L('A yellow triangle with a falling-person symbol means BEWARE of falls — collective protection or harness required.','Geel met val-symbool = valgevaar.','مثلث أصفر برمز السقوط = خطر السقوط.'),
+    terms: [
+      ['Mandatory','Blue circle: must do','Gebod: blauw','إلزامي: دائرة زرقاء'],
+      ['Warning','Yellow triangle: risk','Waarschuwing: geel','تحذير: مثلث أصفر'],
+      ['Emergency','Green square: route','Nood: groen','طوارئ: مربع أخضر'],
+      ['Fire','Red square: extinguisher','Brand: rood','حريق: مربع أحمر'],
+    ],
+    quiz: [
+      { q: L('Yellow triangle, black border, black symbol — what does it mean?','Geel-zwart driehoek?','مثلث أصفر بحد أسود؟'),
+        options:[L('Mandatory','Verplicht','إلزامي'),L('Warning','Waarschuwing','تحذير'),L('Emergency','Nood','طوارئ')],
+        correct:1, explain: L('Warning sign.','Waarschuwing.','إشارة تحذير.') }
+    ] },
+
+  { id:'ppe', icon:'🪖',
+    title: L('PPE / PBM — Personal Protective Equipment','PBM','معدات الوقاية الشخصية'),
+    explain: L('PPE is the LAST line of defence — used only when hazards cannot be eliminated otherwise. All PPE must carry the CE mark. Hearing: ear plugs, muffs (above 80 dB). Head: helmet (EN 397). Eyes: safety glasses, goggles, face shield, welding glass. Breathing: filter mask or self-contained breathing apparatus (SCBA) when oxygen low or contaminants high. Body: overalls, protective suit. Fall arrest harness for heights. Safety footwear protects from falling objects, slips, sharp objects.',
+                 'PBM = laatste verdediging. CE verplicht. Gehoor >80 dB. EN 397 helm. SCBA bij zuurstoftekort.',
+                 'PPE هي خط الدفاع الأخير وتُستخدم فقط عند تعذر إزالة المخاطر. يجب أن تحمل علامة CE. السمع >80 ديسيبل. خوذة EN 397. SCBA عند نقص الأكسجين.'),
+    keyMsg: L('PPE doesn\'t replace removing the hazard — it\'s the last barrier.','PBM is laatste barrière.','PPE لا تحل محل إزالة الخطر — هي الحاجز الأخير.'),
+    example: L('Welding always needs eye protection + gloves + apron + safety shoes.','Lassen: ogen + handschoenen + schort + schoenen.','اللحام يتطلب دائمًا حماية العين والقفازات والمريول وأحذية الأمان.'),
+    terms: [
+      ['EN 397','Industrial safety helmet','Industriële helm','خوذة صناعية'],
+      ['EN 166','Eye protection','Oogbescherming','حماية العين'],
+      ['EN 388','Mechanical gloves','Mechanische handschoenen','قفازات ميكانيكية'],
+      ['EN 361','Fall-arrest harness','Valharnas','حزام منع السقوط'],
+    ],
+    quiz: [
+      { q: L('Above what noise level is hearing protection mandatory?','Vanaf welk dB-niveau is gehoorbescherming verplicht?','عند أي مستوى ضوضاء تكون حماية السمع إلزامية؟'),
+        options:[L('60 dB','60 dB','60 ديسيبل'),L('70 dB','70 dB','70 ديسيبل'),L('80 dB','80 dB','80 ديسيبل')],
+        correct:2, explain: L('Above 80 dB(A).','Boven 80 dB(A).','فوق 80 ديسيبل.') },
+      { q: L('What mark must PPE carry to be legal in EU?','Welk keurmerk moet PBM hebben?','أي علامة يجب أن تحملها PPE؟'),
+        options:[L('UL','UL','UL'),L('CE','CE','CE'),L('ISO','ISO','ISO')],
+        correct:1, explain: L('CE marking required.','CE.','CE.') }
+    ] },
+
+  { id:'tools', icon:'🔧',
+    title: L('Tools and equipment','Gereedschap','الأدوات والمعدات'),
+    explain: L('Hand tools (hammer, screwdriver, pliers) must be well-maintained and used only for their intended purpose. Mechanical machines pose mechanical, electrical, pneumatic and health hazards. Powered hand-tools must be double-insulated OR run on safe voltage (< 50V AC / 120V DC). Stationary machines (drills, circular saws, joinery machines, bench grinders) each have specific risks and safety measures. Lifting requires a crane and accessories: chains, slings — all must be inspected annually. Forklift drivers must be trained.',
+                 'Handgereedschap: onderhouden. Machines: gevaren. Powered: dubbel geïsoleerd of veilige spanning.',
+                 'الأدوات اليدوية: تُصان وتُستخدم للغرض المحدد. الآلات الميكانيكية لها مخاطر ميكانيكية وكهربائية. الأدوات المحمولة المُشغلة: عزل مزدوج أو جهد آمن.'),
+    keyMsg: L('A loose hammer head or a missing guard turns a tool into a weapon.','Losse kop = wapen.','أداة بحالة سيئة = سلاح.'),
+    example: L('A circular saw needs a riving knife (splitter), protective cover, and push block — never operate without them.','Cirkelzaag: splitter, kap, duwblok.','المنشار الدائري: لوحة حماية وغطاء وكتلة دفع.'),
+    terms: [
+      ['Safe voltage','< 50V AC or < 120V DC','Veilige spanning','الجهد الآمن'],
+      ['Double insulation','Two layers of electrical protection','Dubbele isolatie','عزل مزدوج'],
+    ],
+    quiz: [
+      { q: L('A hammer handle must be:','Hamersteel?','يجب أن يكون مقبض المطرقة:'),
+        options:[L('Firmly attached to head','Stevig vast','متصلًا بإحكام'),L('Plastic','Plastic','بلاستيك'),L('Painted','Geverfd','مطلي')],
+        correct:0, explain: L('Firmly attached above all.','Stevig vast.','متصلًا بإحكام.') }
+    ] },
+
+  { id:'heights', icon:'🪜',
+    title: L('Work at heights','Werken op hoogte','العمل على ارتفاع'),
+    explain: L('Falls cause many injuries each year. Under Dutch law, working above 2.5 m is "work at height" and needs fall protection. Fixed scaffolds must be erected by trained workers and only entered after the scaffold tag is attached. Rolling scaffolds must NOT be used above wind force 6. Suspended scaffolds, MEWPs and platforms require fall-arrest harness. Prefer scaffolds or platforms over ladders. If a ladder is used for light, short work, extra safety measures apply.',
+                 'Vallen > 2,5 m = werken op hoogte. Vaste steiger door opgeleiden, tag. Hangende steiger: harnas.',
+                 'العمل فوق 2.5 متر يتطلب حماية. السقالة الثابتة من قبل مدربين وعلامة سقالة. السقالة المتدحرجة لا تُستخدم فوق قوة الرياح 6. السقالات المعلقة تحتاج حزام منع السقوط.'),
+    keyMsg: L('Collective protection (guard rails) first; harness only when collective is impossible.','Eerst collectief, daarna harnas.','الحماية الجماعية أولاً، ثم الحزام.'),
+    example: L('Two workers cleaning windows from a suspended scaffold need: training, harness, radio, fenced ground area, scaffold inspection.','Hangende steiger: alles samen.','جميع الإجراءات مطلوبة في السقالة المعلقة.'),
+    terms: [
+      ['Suspended scaffold','Hangs from a building','Hangende steiger','سقالة معلقة'],
+      ['EN 361','Fall-arrest harness','Valharnas','حزام منع السقوط'],
+    ],
+    quiz: [
+      { q: L('Above which height (NL) does work require fall protection?','Vanaf welke hoogte (NL)?','فوق أي ارتفاع؟'),
+        options:[L('1.0 m','1,0 m','1.0 م'),L('2.5 m','2,5 m','2.5 م'),L('4.0 m','4,0 m','4.0 م')],
+        correct:1, explain: L('2.5 m per Arbobesluit.','2,5 m.','2.5 م.') }
+    ] },
+
+  { id:'confined', icon:'🕳️',
+    title: L('Confined spaces','Besloten ruimten','الأماكن المغلقة'),
+    explain: L('A confined space is hard to enter and hard to ventilate. Main risks: fire/explosion, poisoning, moving parts, electricity, suffocation. A work permit is required. An attendant ("mangatwacht") must be present at all times. Extra measures when using gas cylinders, welding, cutting, or painting inside.',
+                 'Besloten ruimte: vergunning + mangatwacht. Risico\'s: brand, vergiftiging, beklemming.',
+                 'الفضاء المغلق صعب الدخول والتهوية. المخاطر: حريق، تسمم، أجزاء متحركة، اختناق. تصريح العمل ومراقب خارجي ضروريان.'),
+    keyMsg: L('Never enter alone. Never enter without a permit and an attendant.','Nooit alleen, nooit zonder vergunning.','لا تدخل أبدًا وحدك أو دون تصريح.'),
+    example: L('Inside a tank, insertion (blind) flanges close the supply pipes so hazardous materials cannot enter.','In tank: flanges sluiten toevoer.','الفلنجات تغلق أنابيب الإمداد لمنع دخول المواد.'),
+    terms: [
+      ['Mangatwacht','Confined-space attendant','Mangatwacht','مراقب الفضاء المغلق'],
+      ['Blind flange','Plate that blocks pipe flow','Steekflange','فلانجة مسدودة'],
+    ],
+    quiz: [
+      { q: L('Minimum oxygen percentage to safely work?','Min. zuurstof?','الحد الأدنى للأكسجين؟'),
+        options:[L('15%','15%','15%'),L('19%','19%','19%'),L('25%','25%','25%')],
+        correct:1, explain: L('Below 19% is oxygen-deficient.','Onder 19%.','أقل من 19%.') }
+    ] },
+
+  { id:'excavation', icon:'⛏️',
+    title: L('Excavation and collapse risks','Graafwerk en instorting','الحفر ومخاطر الانهيار'),
+    explain: L('Demolition and excavation carry very high risks: asbestos and silica dust, trips, collapse, falling materials. Order of activities matters: inspect bridges/dams first, fence the area, then excavate, then dig the trench. A work permit, demolition plan, and inventory of hazardous materials are required. Stay alert for protruding parts and tripping hazards.',
+                 'Graafwerk: asbest, silica, inval. Volgorde belangrijk. Sloopplan + vergunning + inventaris.',
+                 'الحفر: غبار الأسبستوس والسيليكا، الانهيار، السقوط. الترتيب مهم. خطة الهدم والتصريح والجرد ضرورية.'),
+    keyMsg: L('A collapse takes seconds. Inspect first, fence, then dig.','Inspecteer eerst, dan graven.','تفقّد أولاً، ثم سيِّج، ثم احفر.'),
+    example: L('Before digging a trench beside a road: inspect, fence the area, then excavate, then dig.','Voor sleuf naast weg: inspecteer eerst.','قبل حفر خندق بجانب طريق: تفقّد ثم سيّج ثم احفر.'),
+    terms: [
+      ['Asbestos','Cancer-causing mineral fibre','Asbest','أسبستوس'],
+      ['Silica','Crystalline dust causing silicosis','Silica','سيليكا'],
+    ],
+    quiz: [
+      { q: L('Order of excavation: which step first?','Welke stap eerst?','الخطوة الأولى؟'),
+        options:[L('Excavate with digger','Graven','الحفر بالحفارة'),L('Inspect bridge/dam','Inspecteer brug','تفقّد الجسر'),L('Fence the area','Hekken plaatsen','سياج')],
+        correct:1, explain: L('Inspect first.','Inspecteer eerst.','تفقّد أولاً.') }
+    ] },
+
+  { id:'electric', icon:'⚡',
+    title: L('Electrical hazards','Elektriciteit','مخاطر الكهرباء'),
+    explain: L('Electrical hazards: burns, shock, electrocution. Current through the body depends on voltage, surface resistance, and footwear. Short-circuits cause sparks but the most common fire cause is overload. Arc flash causes severe burns. In explosive atmospheres, special electrical equipment is needed. Static electricity can ignite sparks. Safety measures: physical protection, insulation, double insulation, earthing, RCD, extra-low voltages. Temporary site distribution boxes must have an RCD. Cable reels should be fully unrolled to prevent overheating.',
+                 'Elektriciteit: schok, vlamboog, brand. RCD verplicht. Cable reels uitrollen.',
+                 'مخاطر الكهرباء: الحروق، الصدمة، الصعق. يجب فك بكرات الكابلات بالكامل لمنع الحرارة.'),
+    keyMsg: L('When in doubt: lock-out, tag-out, test for dead — every time.','LOTO bij twijfel.','عند الشك: LOTO.'),
+    example: L('Site supply boxes MUST have an RCD that trips on residual current.','Bouwkast met RCD.','يجب أن تحوي صناديق الكهرباء بالموقع RCD.'),
+    terms: [
+      ['RCD','Residual current device (earth-leakage)','Aardlekschakelaar','قاطع التسرب الأرضي'],
+      ['LOTO','Lock-out, tag-out','LOTO','الإغلاق والإشارة'],
+    ],
+    quiz: [
+      { q: L('When does an RCD trip?','Wanneer schakelt aardlek?','متى يطفئ RCD؟'),
+        options:[L('When voltage drops','Bij spanningsdaling','عند انخفاض الجهد'),L('On residual current difference','Bij verschilstroom','عند فرق التيار'),L('On overload','Bij overbelasting','عند الزيادة')],
+        correct:1, explain: L('Residual current trips the RCD.','Verschilstroom.','فرق التيار.') }
+    ] },
+
+  { id:'manual', icon:'🏋️',
+    title: L('Slips, trips, falls and manual handling','Tillen, struikelen, vallen','الانزلاق والتعثر والرفع'),
+    explain: L('Poor lifting causes back injuries. Loads can be dropped and feet trapped. Prevent slips/trips with good housekeeping, marking unsafe spots, and proper safety footwear with anti-slip soles. Above 80 dB hearing protection is mandatory. Eye protection: safety glasses, goggles, face shield, welding shield. Respirators: filter masks vs. self-contained breathing apparatus.',
+                 'Tilfouten: rug. Goede ordening, juiste schoenen. > 80 dB gehoor.',
+                 'الرفع غير الصحيح يصيب الظهر. تدبير منزلي جيد. أحذية بنعل مقاوم. > 80 ديسيبل حماية السمع.'),
+    keyMsg: L('Keep the load close to your body, knees bent, back straight.','Last dichtbij, knieën buigen.','اقترب من الحمل، اثنِ الركبتين، وحافظ على استقامة الظهر.'),
+    example: L('Two people for furniture; max 15 kg alone if possible; load close to body.','2 personen voor meubels.','شخصان للأثاث؛ 15 كغ كحد أقصى بمفردك إن أمكن.'),
+    terms: [
+      ['Housekeeping','Tidy, organised workplace','Orde & netheid','الترتيب والنظافة'],
+    ],
+    quiz: [
+      { q: L('When lifting, keep the load:','Tijdens tillen:','عند الرفع، احتفظ بالحمل:'),
+        options:[L('As far from body as possible','Zo ver mogelijk','بعيدًا'),L('Close to your body','Dicht tegen lichaam','قريبًا'),L('At shoulder height','Op schouderhoogte','عند الكتف')],
+        correct:1, explain: L('Close to body protects the back.','Dichtbij.','قريبًا يحمي الظهر.') }
+    ] },
+
+  { id:'fire', icon:'🔥',
+    title: L('Fire prevention and emergency response','Brand en nood','منع الحريق والاستجابة للطوارئ'),
+    explain: L('Fire needs 3 elements: flammable material + oxygen + ignition energy (fire triangle). LEL and UEL are the lower/upper explosive limits. Flash point is the lowest temperature a liquid produces enough vapour to form an explosive mixture with air. Fire classes: A (solid), B (liquid), C (gas), D (metal). Extinguishers remove one side of the triangle: powder, foam, sand, fire blanket, water, CO₂. In a fire: ensure your own safety first, then warn the fire brigade. Do NOT fight a fire alone.',
+                 'Branddriehoek. LEL/UEL. Klassen A-D. Eerst veiligheid, dan blussen.',
+                 'مثلث النار: مادة + أكسجين + طاقة. LEL/UEL. الفئات A-D. السلامة أولاً ثم التحذير.'),
+    keyMsg: L('People first. Things second. Always call for help before fighting.','Mensen eerst.','الأشخاص أولاً، الأشياء ثانيًا.'),
+    example: L('Gas-welding safely: check no flammables nearby + correct PPE + extinguisher within reach.','Gaslassen veilig.','اللحام بالغاز: لا مواد قابلة للاشتعال + PPE + طفاية.'),
+    terms: [
+      ['Fire triangle','Material + oxygen + ignition','Branddriehoek','مثلث النار'],
+      ['LEL','Lower explosive limit','LEL','حد الانفجار الأدنى'],
+      ['ATEX','Explosive atmosphere zones','ATEX','مناطق ATEX'],
+    ],
+    quiz: [
+      { q: L('Three elements of a fire?','3 elementen brand?','عناصر الحريق الثلاثة؟'),
+        options:[L('Material + water + oxygen','—','مادة + ماء + أكسجين'),L('Material + oxygen + ignition energy','—','مادة + أكسجين + طاقة اشتعال'),L('Sparks + smoke + fire','—','شرر + دخان + نار')],
+        correct:1, explain: L('Fire triangle: material + oxygen + ignition energy.','—','مثلث النار.') }
+    ] },
+
+  { id:'hazmat', icon:'☠️',
+    title: L('Hazardous substances','Gevaarlijke stoffen','المواد الخطرة'),
+    explain: L('Main hazards: poisoning, suffocation, skin/mucous irritation, corrosion, fire, explosion. Toxic substances enter through mouth, skin, nose, or directly into bloodstream. Acute symptoms appear quickly; chronic poisoning develops slowly. Maximum exposure values describe the safe concentration over a reference period. Labels show R-/S-/H-/P-statements. Prevention strategy: 1) at source, 2) ventilation, 3) separate people from source, 4) PPE. Personal hygiene matters. Many gases can\'t be seen or smelled. Min oxygen: 19%. Above 21%, fire risk rises.',
+                 'Vergiftiging: mond, huid, neus, bloed. R/S/H/P-zinnen. Strategie: bron → ventilatie → afscheiding → PBM.',
+                 'التسمم عبر الفم والجلد والأنف والدم. ملصقات R/S/H/P. الاستراتيجية: مصدر → تهوية → فصل → PPE.'),
+    keyMsg: L('Always read the SDS BEFORE handling. Hygiene prevents many poisonings.','Lees VIB.','اقرأ SDS قبل التعامل.'),
+    example: L('Green vapour from a tank: keep distance and warn the supervisor — do NOT investigate alone.','Groene damp: afstand.','بخار أخضر: ابتعد وأبلغ.'),
+    terms: [
+      ['SDS / VIB','Safety Data Sheet','Veiligheidsinformatieblad','صحيفة بيانات السلامة'],
+      ['MAC','Maximum allowable concentration','MAC-waarde','الحد الأقصى المسموح'],
+    ],
+    quiz: [
+      { q: L('Best source-level control for hazardous materials?','Bronmaatregel?','أفضل تدبير عند المصدر؟'),
+        options:[L('Train workers','Trainen','تدريب'),L('Pellets instead of powder','Korrels in plaats van poeder','أقراص بدلاً من مسحوق'),L('PPE','PBM','PPE')],
+        correct:1, explain: L('Less dusty form at source.','Korrels.','أقراص.') }
+    ] },
+
+  { id:'firstaid', icon:'🩹',
+    title: L('First aid and emergency response','Eerste hulp en noodrespons','الإسعافات الأولية والاستجابة للطوارئ'),
+    explain: L('Large companies must have an emergency response plan and rehearse it. Reporting near-misses helps prevention. For external burns: cool with water for 10–20 minutes immediately. For asbestos work: wear disposable coveralls. Personal hygiene: wash hands, do not eat or drink in exposure zones.',
+                 'Noodplan + oefenen. Brandwond: 10-20 min koelen. Asbest: wegwerp-overall.',
+                 'خطة طوارئ. الحرق: تبريد 10-20 دقيقة. الأسبستوس: أفرول للتخلص منه.'),
+    keyMsg: L('Cool a burn FIRST — 10 to 20 minutes of water saves skin.','Koel brandwond.','بَرِّد الحرق أولاً.'),
+    example: L('A worker burns hand on a hot pipe: rinse under cool water 15 minutes, then seek medical help.','Brandwond: spoel.','اشطف الحرق فورًا.'),
+    terms: [
+      ['First-aid kit','Bandages, eye-wash, gloves','EHBO-kit','حقيبة الإسعافات'],
+      ['BHV','Trained first-aider','BHV-er','المُسعِف المدرب'],
+    ],
+    quiz: [
+      { q: L('Most important when treating an external burn?','Brandwond eerst?','الأهم في الحرق الخارجي؟'),
+        options:[L('Cool 10–20 minutes','10-20 min koelen','بَرِّد 10-20 دقيقة'),L('Bandage','Verbinden','ضمد'),L('Ointment','Zalf','مرهم')],
+        correct:0, explain: L('Cool with water 10–20 minutes.','Koelen.','بَرِّد.') }
+    ] },
+
+  { id:'stopwork', icon:'🛑',
+    title: L('Stop-work authority','Stop-werk-recht','حق إيقاف العمل'),
+    explain: L('Every worker has the RIGHT AND DUTY to stop unsafe work — for themselves and others — and to report the situation. No one can punish you for stopping unsafe work. After stopping, tell the supervisor, document, and only resume when the situation is safe.',
+                 'Iedereen mag onveilig werk stoppen. Niemand mag dat bestraffen.',
+                 'لكل عامل الحق والواجب في إيقاف العمل غير الآمن. لا يُعاقب أحد على ذلك.'),
+    keyMsg: L('When in doubt — STOP. Report. Resume only when safe.','Bij twijfel: STOP.','عند الشك: توقف وأبلغ ولا تستأنف إلا بأمان.'),
+    example: L('Edge protection missing on a roof? STOP. Report. Wait for guard rails.','Geen leuning: STOP.','حماية الحافة مفقودة: توقف.'),
+    terms: [
+      ['Stop-Work Authority','Right to halt unsafe work','Stop-Work-recht','حق إيقاف العمل'],
+    ],
+    quiz: [
+      { q: L('When may you stop work?','Wanneer mag je stoppen?','متى يمكنك إيقاف العمل؟'),
+        options:[L('Only if your supervisor says so','Alleen met toestemming','فقط بإذن المشرف'),L('Whenever you see a serious safety issue','Bij ernstig veiligheidsprobleem','عند رؤية مشكلة سلامة خطيرة'),L('Never','Nooit','أبدًا')],
+        correct:1, explain: L('Anyone, any time, for serious safety reasons.','Iedereen mag.','يمكن لأي شخص عند رؤية مشكلة خطيرة.') }
+    ] },
+];
+
+let currentLM = null;
+let lmAnswers = {};
+
+function renderLearningModulesHome() {
+  const grid = document.getElementById('learningModulesGrid');
+  if (!grid) return;
+  grid.innerHTML = LEARNING_MODULES.map(m => {
+    const done = localStorage.getItem('leusi_lm_done_' + m.id) === '1';
+    return `<button class="lm-card" data-lm="${m.id}">
+      <div class="ic">${m.icon}</div>
+      <h4>${escapeHtml(tr(m.title))}</h4>
+      <div class="meta">${m.quiz.length} ${tr(L('questions','vragen','أسئلة'))}</div>
+      ${done ? '<div class="progress-pill">' + tr(L('Done','Klaar','تم')) + '</div>' : ''}
+    </button>`;
+  }).join('');
+  grid.querySelectorAll('.lm-card').forEach(b => b.addEventListener('click', () => openLM(b.dataset.lm)));
+}
+
+function openLM(id) {
+  const m = LEARNING_MODULES.find(x => x.id === id);
+  if (!m) return;
+  currentLM = id;
+  lmAnswers = {};
+  document.getElementById('learningModulesGrid').style.display = 'none';
+  const view = document.getElementById('learningModuleView');
+  view.style.display = '';
+  view.innerHTML = `
+    <span class="lm-back" id="lmBackBtn">← ${escapeHtml(tr(L('Back to modules','Terug naar modules','الرجوع إلى الوحدات')))}</span>
+    <div class="lm-view">
+      <h3>${escapeHtml(tr(m.title))}</h3>
+      <div class="lm-explain">${escapeHtml(tr(m.explain))}</div>
+      <div class="key-msg">💡 <strong>${escapeHtml(tr(L('Key message','Kernboodschap','الرسالة الأساسية')))}:</strong> ${escapeHtml(tr(m.keyMsg))}</div>
+      <div class="example">📌 <strong>${escapeHtml(tr(L('Worker example','Werker-voorbeeld','مثال للعامل')))}:</strong> ${escapeHtml(tr(m.example))}</div>
+      <h4 style="margin:14px 0 6px;color:var(--primary-dark);">${escapeHtml(tr(L('Key terms','Belangrijke termen','مصطلحات أساسية')))}</h4>
+      <div class="terms">
+        <div class="row"><div>EN/NL/AR</div><div>EN</div><div>NL</div><div class="ar-col">AR</div></div>
+        ${m.terms.map(t => `<div class="row"><div><strong>${escapeHtml(t[0])}</strong></div><div>${escapeHtml(t[1])}</div><div>${escapeHtml(t[2])}</div><div class="ar-col" dir="rtl">${escapeHtml(t[3])}</div></div>`).join('')}
+      </div>
+      <h4 style="margin:14px 0 6px;color:var(--primary-dark);">${escapeHtml(tr(L('Mini quiz','Mini-quiz','اختبار قصير')))}</h4>
+      <div id="lmQuizContainer">${m.quiz.map((q, qi) => `
+        <div class="exam-card" data-q="${qi}">
+          <div class="exam-q">${qi+1}. ${escapeHtml(tr(q.q))}</div>
+          <div class="exam-options">${q.options.map((o, oi) => `<button type="button" class="exam-option" data-lq="${qi}" data-lo="${oi}"><span class="letter">${String.fromCharCode(65+oi)}.</span> ${escapeHtml(tr(o))}</button>`).join('')}</div>
+          <div class="exam-feedback" style="display:none;"></div>
+        </div>`).join('')}
+      </div>
+    </div>
+  `;
+  document.getElementById('lmBackBtn').addEventListener('click', () => {
+    view.style.display = 'none';
+    document.getElementById('learningModulesGrid').style.display = '';
+    renderLearningModulesHome();
+  });
+  view.querySelectorAll('.exam-option').forEach(b => b.addEventListener('click', () => {
+    const qi = +b.dataset.lq, oi = +b.dataset.lo;
+    const card = b.closest('.exam-card');
+    if (card.dataset.answered) {
+      // allow retry
+      delete card.dataset.answered;
+      card.querySelectorAll('.exam-option').forEach(opt => { opt.disabled = false; opt.classList.remove('correct','wrong'); });
+      card.querySelector('.exam-feedback').style.display = 'none';
+      return;
+    }
+    const q = LEARNING_MODULES.find(x => x.id === currentLM).quiz[qi];
+    card.dataset.answered = '1';
+    card.querySelectorAll('.exam-option').forEach((opt, i) => {
+      opt.disabled = true;
+      if (i === q.correct) opt.classList.add('correct');
+      else if (i === oi) opt.classList.add('wrong');
+    });
+    const fb = card.querySelector('.exam-feedback');
+    fb.textContent = tr(q.explain);
+    fb.style.display = '';
+    // mark module done if all quiz items answered correctly
+    const allDone = view.querySelectorAll('.exam-card').length === view.querySelectorAll('.exam-card[data-answered]').length;
+    if (allDone) localStorage.setItem('leusi_lm_done_' + currentLM, '1');
+  }));
+  view.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function initLearningModules() {
+  renderLearningModulesHome();
+}
 
 // ============================================================
 // INIT
 // ============================================================
 applyLanguage();
+initReportsUI();
+initSignsUI();
+initExamUI();
+initLearningModules();
+
+// Re-render when language changes
+document.querySelectorAll('.lang-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    setTimeout(() => { renderLearningModulesHome(); }, 30);
+    setTimeout(() => { renderReportsHome(); renderSignsFilter(); renderSignsGrid(); }, 30);
+  });
+});
 
 // ============================================================
 // PHASE 1 — PWA service worker registration
