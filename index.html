@@ -1932,6 +1932,52 @@ border-color: rgba(94,255,170,0.22);
   }
 
 }
+
+
+/* LEUSI language switcher */
+.leusi-lang-switcher{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:5px;
+  border:1px solid rgba(4,120,87,.20);
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 24px rgba(4,24,29,.08);
+}
+.leusi-lang-switcher button{
+  border:0;
+  background:transparent;
+  color:#0f3f33;
+  font-weight:800;
+  font-size:12px;
+  letter-spacing:.03em;
+  padding:7px 9px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.leusi-lang-switcher button:hover,
+.leusi-lang-switcher button.active{
+  background:#0f513f;
+  color:#fff;
+}
+#google_translate_element{
+  position:absolute;
+  left:-9999px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+body.lang-ar{direction:rtl;}
+body.lang-ar .nav,
+body.lang-ar .nav-links{direction:rtl;}
+body.lang-ar .brand{direction:ltr;}
+body.lang-ar .brand + *{direction:rtl;}
+@media(max-width:900px){
+  .leusi-lang-switcher{order:3;margin-left:auto;}
+  .leusi-lang-switcher button{padding:6px 8px;font-size:11px;}
+}
 </style>
 </head>
 <body>
@@ -2946,5 +2992,63 @@ if (heroPanel && window.matchMedia('(pointer: fine)').matches) {
   });
 }
 </script>
+
+
+<script>
+(function(){
+  const STORAGE_KEY = 'leusi_site_language';
+  const supported = { en: 'en', ar: 'ar', nl: 'nl' };
+
+  window.googleTranslateElementInit = function(){
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,ar,nl',
+      autoDisplay: false
+    }, 'google_translate_element');
+
+    const saved = localStorage.getItem(STORAGE_KEY) || 'en';
+    setTimeout(function(){ applyLanguage(saved); }, 700);
+  };
+
+  function setCookie(name, value) {
+    document.cookie = name + '=' + value + ';path=/;max-age=31536000';
+    document.cookie = name + '=' + value + ';domain=.' + location.hostname + ';path=/;max-age=31536000';
+  }
+
+  function applyLanguage(lang){
+    if(!supported[lang]) lang = 'en';
+    localStorage.setItem(STORAGE_KEY, lang);
+
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.body.classList.toggle('lang-ar', lang === 'ar');
+
+    document.querySelectorAll('[data-leusi-lang]').forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.leusiLang === lang);
+    });
+
+    if(lang === 'en'){
+      setCookie('googtrans', '/en/en');
+    } else {
+      setCookie('googtrans', '/en/' + lang);
+    }
+
+    const combo = document.querySelector('.goog-te-combo');
+    if(combo){
+      combo.value = lang === 'en' ? 'en' : lang;
+      combo.dispatchEvent(new Event('change'));
+    }
+  }
+
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-leusi-lang]');
+    if(!btn) return;
+    applyLanguage(btn.dataset.leusiLang);
+  });
+
+  window.LEUSI_SET_LANGUAGE = applyLanguage;
+})();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
