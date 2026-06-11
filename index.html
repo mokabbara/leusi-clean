@@ -1978,6 +1978,43 @@ body.lang-ar .brand + *{direction:rtl;}
   .leusi-lang-switcher{order:3;margin-left:auto;}
   .leusi-lang-switcher button{padding:6px 8px;font-size:11px;}
 }
+  .leusi-lang-switch {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.leusi-lang-switch button {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.leusi-lang-switch button.active,
+.leusi-lang-switch button:hover {
+  background: #22c55e;
+  color: #061018;
+}
+
+html[dir="rtl"] body {
+  direction: rtl;
+}
+
+html[dir="rtl"] .nav_links,
+html[dir="rtl"] .header-inner {
+  direction: rtl;
+}
 </style>
 </head>
 <body>
@@ -2002,6 +2039,15 @@ body.lang-ar .brand + *{direction:rtl;}
       <a href="#partners">Partners</a>
       <a href="#status">Status</a>
       <a href="#contact">Contact</a>
+      <div class="leusi-lang-switch" aria-label="Language selector">
+
+  <button type="button" data-lang-switch="en" class="active">EN</button>
+
+  <button type="button" data-lang-switch="ar">AR</button>
+
+  <button type="button" data-lang-switch="nl">NL</button>
+
+</div>
     </nav>
     <a class="button" href="#contact">Join the Initiative</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
@@ -3050,5 +3096,27 @@ if (heroPanel && window.matchMedia('(pointer: fine)').matches) {
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script>
+  (function () {
+    const buttons = document.querySelectorAll('[data-lang-switch]');
+    const savedLang = localStorage.getItem('leusiLang') || 'en';
+
+    function setLang(lang) {
+      localStorage.setItem('leusiLang', lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.langSwitch === lang);
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.langSwitch));
+    });
+
+    setLang(savedLang);
+  })();
+</script>
 </body>
 </html>
