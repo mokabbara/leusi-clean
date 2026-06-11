@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LEUSI | Levant European Safety Initiative</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <meta name="description" content="LEUSI is a Netherlands based social initiative advancing HSSE (Health, Safety, Security, and Environemnt) awareness, training, certification readiness, and safety culture for frontline workers in Lebanon and the region." />
 <meta name="keywords" content="LEUSI, HSSE, safety training, VCA, Lebanon, Syria, and the MENA rigeon frontline workers, social enterprise, The Hague, workplace safety" />
 <meta name="author" content="LEUSI" />
@@ -471,6 +471,64 @@ footer {
 .footer-wrap { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px; align-items: start; }
 .footer-title { color: white; font-weight: 900; font-size: 18px; margin-bottom: 8px; }
 .footer-small { color: #cbd5e1; font-size: 13px; line-height: 1.55; }
+
+/* LEUSI language selector - visible only, section-by-section translation ready */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+}
+.lang-switcher button {
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.lang-switcher button:hover,
+.lang-switcher button.active {
+  background: #22c55e;
+  color: #061018;
+}
+body[dir="rtl"] {
+  direction: rtl;
+}
+body[dir="rtl"] .hero,
+body[dir="rtl"] .section-label,
+body[dir="rtl"] .lead,
+body[dir="rtl"] h1,
+body[dir="rtl"] h2,
+body[dir="rtl"] h3,
+body[dir="rtl"] p,
+body[dir="rtl"] .brand,
+body[dir="rtl"] .nav-links,
+body[dir="rtl"] .mobile-nav {
+  text-align: right;
+}
+body[dir="rtl"] .hero-actions,
+body[dir="rtl"] .nav-links,
+body[dir="rtl"] .mobile-nav {
+  direction: rtl;
+}
+body[dir="rtl"] .intro-grid,
+body[dir="rtl"] .hero-grid {
+  direction: rtl;
+}
+@media (max-width: 980px) {
+  .lang-switcher { margin-left: auto; }
+}
+
 /* Hamburger menu */
 .hamburger {
   display: none;
@@ -1933,88 +1991,63 @@ border-color: rgba(94,255,170,0.22);
 
 }
 
+/* RTL language refinements */
+body.leusi-rtl { font-family: "IBM Plex Sans Arabic", Inter, Arial, Helvetica, sans-serif; }
+body.leusi-rtl h1,
+body.leusi-rtl h2,
+body.leusi-rtl h3,
+body.leusi-rtl .brand-title,
+body.leusi-rtl .button,
+body.leusi-rtl .nav-links,
+body.leusi-rtl .mobile-nav,
+body.leusi-rtl .section-label,
+body.leusi-rtl .tag,
+body.leusi-rtl .lead,
+body.leusi-rtl p,
+body.leusi-rtl span,
+body.leusi-rtl a,
+body.leusi-rtl input,
+body.leusi-rtl textarea,
+body.leusi-rtl button {
+  font-family: "IBM Plex Sans Arabic", Inter, Arial, Helvetica, sans-serif;
+}
+body.leusi-rtl h1,
+body.leusi-rtl h2,
+body.leusi-rtl .sdg-text-header h2,
+body.leusi-rtl .sdg-reveal-content h3 {
+  letter-spacing: -0.025em;
+  line-height: 1.16;
+}
+body.leusi-rtl .section-label,
+body.leusi-rtl .eyebrow,
+body.leusi-rtl .framework-label,
+body.leusi-rtl .sdg-text-header .label {
+  letter-spacing: 0.08em;
+}
+body.leusi-rtl .nav,
+body.leusi-rtl .hero-grid,
+body.leusi-rtl .intro-grid,
+body.leusi-rtl .two-col,
+body.leusi-rtl .partners-layout,
+body.leusi-rtl .cta-wrap,
+body.leusi-rtl .footer-wrap { direction: rtl; }
+body.leusi-rtl .hero,
+body.leusi-rtl section,
+body.leusi-rtl footer { text-align: right; }
+body.leusi-rtl .hero-actions,
+body.leusi-rtl .nav-links,
+body.leusi-rtl .language-switcher,
+body.leusi-rtl .profile-top,
+body.leusi-rtl .contact-row,
+body.leusi-rtl .impact-card,
+body.leusi-rtl .audience-row,
+body.leusi-rtl .list-item { direction: rtl; }
+body.leusi-rtl .sdg-reveal-content,
+body.leusi-rtl .sdg-text-header,
+body.leusi-rtl .program-content,
+body.leusi-rtl .advisor-visual-content { text-align: right; }
+body.leusi-rtl .sdg-reveal-card { direction: rtl; }
 
-/* LEUSI language switcher */
-.leusi-lang-switcher{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:5px;
-  border:1px solid rgba(4,120,87,.20);
-  border-radius:999px;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(12px);
-  box-shadow:0 8px 24px rgba(4,24,29,.08);
-}
-.leusi-lang-switcher button{
-  border:0;
-  background:transparent;
-  color:#0f3f33;
-  font-weight:800;
-  font-size:12px;
-  letter-spacing:.03em;
-  padding:7px 9px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.leusi-lang-switcher button:hover,
-.leusi-lang-switcher button.active{
-  background:#0f513f;
-  color:#fff;
-}
-#google_translate_element{
-  position:absolute;
-  left:-9999px;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-}
-body.lang-ar{direction:rtl;}
-body.lang-ar .nav,
-body.lang-ar .nav-links{direction:rtl;}
-body.lang-ar .brand{direction:ltr;}
-body.lang-ar .brand + *{direction:rtl;}
-@media(max-width:900px){
-  .leusi-lang-switcher{order:3;margin-left:auto;}
-  .leusi-lang-switcher button{padding:6px 8px;font-size:11px;}
-}
-  .leusi-lang-switch {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 6px;
-  margin-left: 12px;
-  padding: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-}
-
-.leusi-lang-switch button {
-  border: 0;
-  border-radius: 999px;
-  padding: 7px 10px;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 12px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.leusi-lang-switch button.active,
-.leusi-lang-switch button:hover {
-  background: #22c55e;
-  color: #061018;
-}
-
-html[dir="rtl"] body {
-  direction: rtl;
-}
-
-html[dir="rtl"] .nav_links,
-html[dir="rtl"] .header-inner {
-  direction: rtl;
-}
 </style>
 </head>
 <body>
@@ -2032,24 +2065,20 @@ html[dir="rtl"] .header-inner {
       </div>
     </a>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#mission">Mission</a>
-      <a href="#programs">Programs</a>
-      <a href="#governance">Governance</a>
-      <a class="nav-framework-link" href="leusi-framework.html">Organizational Framework</a>
-      <a href="#partners">Partners</a>
-      <a href="#status">Status</a>
-      <a href="#contact">Contact</a>
-      <div class="leusi-lang-switch" aria-label="Language selector">
-
-  <button type="button" data-lang-switch="en" class="active">EN</button>
-
-  <button type="button" data-lang-switch="ar">AR</button>
-
-  <button type="button" data-lang-switch="nl">NL</button>
-
-</div>
+      <a href="#mission" data-i18n="nav.mission">Mission</a>
+      <a href="#programs" data-i18n="nav.programs">Programs</a>
+      <a href="#governance" data-i18n="nav.governance">Governance</a>
+      <a class="nav-framework-link" href="leusi-framework.html" data-i18n="nav.framework">Organizational Framework</a>
+      <a href="#partners" data-i18n="nav.partners">Partners</a>
+      <a href="#status" data-i18n="nav.status">Status</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
-    <a class="button" href="#contact">Join the Initiative</a>
+    <div class="lang-switcher" aria-label="Language selector">
+      <button type="button" class="active" data-lang="en">EN</button>
+      <button type="button" data-lang="ar">AR</button>
+      <button type="button" data-lang="nl">NL</button>
+    </div>
+    <a class="button" href="#contact" data-i18n="nav.join">Join the Initiative</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -2057,26 +2086,26 @@ html[dir="rtl"] .header-inner {
 </header>
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-  <a href="#mission" onclick="closeMobileNav()">Mission</a>
-  <a href="#programs" onclick="closeMobileNav()">Programs</a>
-  <a href="#governance" onclick="closeMobileNav()">Governance</a>
-  <a class="nav-framework-link" href="leusi-framework.html" onclick="closeMobileNav()">Organizational Framework</a>
-  <a href="#partners" onclick="closeMobileNav()">Partners</a>
-  <a href="#status" onclick="closeMobileNav()">Status</a>
-  <a href="#contact" onclick="closeMobileNav()">Contact</a>
-  <a class="button" href="#contact" onclick="closeMobileNav()">Join the Initiative</a>
+  <a href="#mission" onclick="closeMobileNav()" data-i18n="nav.mission">Mission</a>
+  <a href="#programs" onclick="closeMobileNav()" data-i18n="nav.programs">Programs</a>
+  <a href="#governance" onclick="closeMobileNav()" data-i18n="nav.governance">Governance</a>
+  <a class="nav-framework-link" href="leusi-framework.html" onclick="closeMobileNav()" data-i18n="nav.framework">Organizational Framework</a>
+  <a href="#partners" onclick="closeMobileNav()" data-i18n="nav.partners">Partners</a>
+  <a href="#status" onclick="closeMobileNav()" data-i18n="nav.status">Status</a>
+  <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
+  <a class="button" href="#contact" onclick="closeMobileNav()" data-i18n="nav.join">Join the Initiative</a>
 </nav>
 
 <main id="top">
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <div class="tag">✦ HSSE awareness for workers, communities, and responsible employers</div>
-        <h1>Building a safer working culture for The Levant and the region.</h1>
-        <p>LEUSI is a Netherlands-based social initiative dedicated to HSSE (Health, Safety, Security, and Environmental) awareness, training, and certification readiness for frontline workers in Lebanon and Syria and the MENA region. We connect human dignity, practical safety, and European professional standards.</p>
+        <div class="tag" data-i18n="hero.tag">✦ HSSE awareness for workers, communities, and responsible employers</div>
+        <h1 data-i18n="hero.title">Building a safer working culture for The Levant and the region.</h1>
+        <p data-i18n="hero.text">LEUSI is a Netherlands-based social initiative dedicated to HSSE (Health, Safety, Security, and Environmental) awareness, training, and certification readiness for frontline workers in Lebanon and Syria and the MENA region. We connect human dignity, practical safety, and European professional standards.</p>
         <div class="hero-actions">
-          <a class="button" href="#programs">Explore Programs</a>
-          <a class="button secondary" href="#governance">View Governance</a>
+          <a class="button" href="#programs" data-i18n="hero.ctaPrograms">Explore Programs</a>
+          <a class="button secondary" href="#governance" data-i18n="hero.ctaGovernance">View Governance</a>
         </div>
       </div>
       <div class="hero-panel">
@@ -2180,11 +2209,11 @@ html[dir="rtl"] .header-inner {
           </svg>
         </div>
         <div class="focus-inner">
-          <p class="eyebrow">Our 2026 targets</p>
+          <p class="eyebrow" data-i18n="hero.targetsLabel">Our 2026 targets</p>
           <div class="stats">
-            <div class="stat"><strong>15</strong><span>HSSE ambassadors to train and certify</span></div>
-            <div class="stat"><strong>3</strong><span>Pilot locations for measurable safety compliance</span></div>
-            <div class="stat"><strong>EU</strong><span>Standards adapted for local realities</span></div>
+            <div class="stat"><strong>15</strong><span data-i18n="hero.stat1">HSSE ambassadors to train and certify</span></div>
+            <div class="stat"><strong>3</strong><span data-i18n="hero.stat2">Pilot locations for measurable safety compliance</span></div>
+            <div class="stat"><strong>EU</strong><span data-i18n="hero.stat3">Standards adapted for local realities</span></div>
           </div>
         </div>
       </div>
@@ -2320,20 +2349,20 @@ filter:drop-shadow(0 0 40px rgba(34,197,94,0.28));
 </section>  <section id="mission" class="white">
     <div class="container intro-grid">
       <div>
-        <div class="section-label">Mission</div>
-        <h2>Safety is not only compliance. It is protection, dignity, and trust.</h2>
-        <p class="lead">LEUSI helps workers, employers, and institutions move from reactive safety behaviour to preventive safety culture. Our work is designed for people who face real operational risks, often with limited access to structured training, certification, and institutional protection.</p>
+        <div class="section-label" data-i18n="mission.label">Mission</div>
+        <h2 data-i18n="mission.title">Safety is not only compliance. It is protection, dignity, and trust.</h2>
+        <p class="lead" data-i18n="mission.text">LEUSI helps workers, employers, and institutions move from reactive safety behaviour to preventive safety culture. Our work is designed for people who face real operational risks, often with limited access to structured training, certification, and institutional protection.</p>
       </div>
       <div class="image-frame mission-image">
-        <div class="image-caption">LEUSI focuses on prevention, workplace dignity, practical training, and standards that can be understood by workers and implemented by employers.</div>
+        <div class="image-caption" data-i18n="mission.caption">LEUSI focuses on prevention, workplace dignity, practical training, and standards that can be understood by workers and implemented by employers.</div>
       </div>
     </div>
     <div class="container">
       <div class="cards">
-        <div class="card"><div class="icon">◎</div><h3>HSSE Awareness</h3><p>Practical awareness in health, safety, security, and environmental protection for frontline workers and communities.</p></div>
-        <div class="card"><div class="icon">▣</div><h3>Training and Certification</h3><p>Accessible training pathways aligned with Dutch and European safety principles, including VCA-oriented learning.</p></div>
-        <div class="card"><div class="icon">◌</div><h3>Worker Readiness</h3><p>Preparing workers with the safety mindset, discipline, and professional habits expected by European and international companies.</p></div>
-        <div class="card"><div class="icon">◇</div><h3>Institutional Impact</h3><p>Supporting long-term safety culture, pilot locations, and future policy development in Lebanon and the wider region.</p></div>
+        <div class="card"><div class="icon">◎</div><h3 data-i18n="mission.card1Title">HSSE Awareness</h3><p data-i18n="mission.card1Text">Practical awareness in health, safety, security, and environmental protection for frontline workers and communities.</p></div>
+        <div class="card"><div class="icon">▣</div><h3 data-i18n="mission.card2Title">Training and Certification</h3><p data-i18n="mission.card2Text">Accessible training pathways aligned with Dutch and European safety principles, including VCA-oriented learning.</p></div>
+        <div class="card"><div class="icon">◌</div><h3 data-i18n="mission.card3Title">Worker Readiness</h3><p data-i18n="mission.card3Text">Preparing workers with the safety mindset, discipline, and professional habits expected by European and international companies.</p></div>
+        <div class="card"><div class="icon">◇</div><h3 data-i18n="mission.card4Title">Institutional Impact</h3><p data-i18n="mission.card4Text">Supporting long-term safety culture, pilot locations, and future policy development in Lebanon and the wider region.</p></div>
       </div>
     </div>
   </section>
@@ -2903,6 +2932,409 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   </div>
 </footer>
+
+
+<script>
+/* LEUSI full-site language layer: translates text nodes, placeholders, titles, aria-labels, alt text, and SDG pop-up data attributes. */
+const LEUSI_TEXT_TRANSLATIONS = {
+  "ar": {
+    "Levant European Safety Initiative": "المبادرة الشامية الأوروبية للسلامة",
+    "Mission": "الرسالة",
+    "Programs": "البرامج",
+    "Governance": "الحوكمة",
+    "Organizational Framework": "الإطار التنظيمي",
+    "Partners": "الشركاء",
+    "Status": "الوضع الحالي",
+    "Contact": "تواصل معنا",
+    "Join the Initiative": "انضم إلى المبادرة",
+    "✦ HSSE awareness for workers, communities, and responsible employers": "✦ توعية بالصحة والسلامة والأمن والبيئة للعمال والمجتمعات وأصحاب العمل المسؤولين",
+    "Building a safer working culture for The Levant and the region.": "بناء ثقافة عمل أكثر أماناً لبلاد الشام والمنطقة.",
+    "LEUSI is a Netherlands-based social initiative dedicated to HSSE (Health, Safety, Security, and Environmental) awareness, training, and certification readiness for frontline workers in Lebanon and Syria and the MENA region. We connect human dignity, practical safety, and European professional standards.": "LEUSI مبادرة اجتماعية مقرها هولندا، مكرّسة للتوعية والتدريب والاستعداد لمسارات الاعتماد في مجال الصحة والسلامة والأمن والبيئة للعمال في الخطوط الأمامية في لبنان وسوريا ومنطقة الشرق الأوسط وشمال أفريقيا. نربط بين الكرامة الإنسانية والسلامة العملية والمعايير المهنية الأوروبية.",
+    "Explore Programs": "استكشف البرامج",
+    "View Governance": "عرض الحوكمة",
+    "Our 2026 targets": "أهدافنا لعام 2026",
+    "HSSE ambassadors to train and certify": "سفراء HSSE للتدريب والاعتماد",
+    "Pilot locations for measurable safety compliance": "مواقع تجريبية لامتثال سلامة قابل للقياس",
+    "Standards adapted for local realities": "معايير مكيّفة مع الواقع المحلي",
+    "LEUSI AI ASSISTANT": "مساعد LEUSI الذكي",
+    "Meet Leusi AI": "تعرّف إلى Leusi AI",
+    "A multilingual VCA and HSSE-aligned AI platform helping workers, employers, engineers, and communities improve hazard awareness, incident understanding, operational safety culture, and European workplace readiness.": "منصة ذكاء اصطناعي متعددة اللغات ومتوافقة مع VCA وHSSE، تساعد العمال وأصحاب العمل والمهندسين والمجتمعات على تحسين الوعي بالمخاطر وفهم الحوادث وثقافة السلامة التشغيلية والجاهزية لمعايير العمل الأوروبية.",
+    "English": "English",
+    "Nederlands": "Nederlands",
+    "العربية": "العربية",
+    "Open LEUSI AI →": "افتح LEUSI AI →",
+    "Safety is not only compliance. It is protection, dignity, and trust.": "السلامة ليست مجرد امتثال. إنها حماية وكرامة وثقة.",
+    "LEUSI helps workers, employers, and institutions move from reactive safety behaviour to preventive safety culture. Our work is designed for people who face real operational risks, often with limited access to structured training, certification, and institutional protection.": "تساعد LEUSI العمال وأصحاب العمل والمؤسسات على الانتقال من سلوك سلامة تفاعلي إلى ثقافة سلامة وقائية. صُمم عملنا للأشخاص الذين يواجهون مخاطر تشغيلية حقيقية، وغالباً ما تكون فرصهم محدودة في الوصول إلى تدريب منظم واعتماد وحماية مؤسسية.",
+    "LEUSI focuses on prevention, workplace dignity, practical training, and standards that can be understood by workers and implemented by employers.": "تركز LEUSI على الوقاية وكرامة مكان العمل والتدريب العملي والمعايير التي يستطيع العمال فهمها ويستطيع أصحاب العمل تطبيقها.",
+    "HSSE Awareness": "التوعية بالصحة والسلامة والأمن والبيئة",
+    "Practical awareness in health, safety, security, and environmental protection for frontline workers and communities.": "توعية عملية في الصحة والسلامة والأمن وحماية البيئة للعمال في الخطوط الأمامية والمجتمعات.",
+    "Training and Certification": "التدريب والاعتماد",
+    "Accessible training pathways aligned with Dutch and European safety principles, including VCA-oriented learning.": "مسارات تدريب ميسّرة ومتوافقة مع مبادئ السلامة الهولندية والأوروبية، بما في ذلك التعلم الموجّه نحو VCA.",
+    "Worker Readiness": "جاهزية العمال",
+    "Preparing workers with the safety mindset, discipline, and professional habits expected by European and international companies.": "إعداد العمال بعقلية السلامة والانضباط والعادات المهنية التي تتوقعها الشركات الأوروبية والدولية.",
+    "Institutional Impact": "الأثر المؤسسي",
+    "Supporting long-term safety culture, pilot locations, and future policy development in Lebanon and the wider region.": "دعم ثقافة سلامة طويلة المدى، ومواقع تجريبية، وتطوير سياسات مستقبلية في لبنان والمنطقة الأوسع.",
+    "Practical pathways from awareness to readiness.": "مسارات عملية من التوعية إلى الجاهزية.",
+    "LEUSI develops modular training and certification-oriented programs that can be adapted for workers, employers, NGOs, and public institutions.": "تطوّر LEUSI برامج تدريب معيارية وموجّهة نحو الاعتماد يمكن تكييفها للعمال وأصحاب العمل والمنظمات غير الحكومية والمؤسسات العامة.",
+    "Frontline HSSE Awareness": "توعية HSSE للخطوط الأمامية",
+    "Simple, accessible, and practical safety learning for workers exposed to real operational risk.": "تعلم سلامة بسيط ومتاح وعملي للعمال المعرّضين لمخاطر تشغيلية حقيقية.",
+    "Train the Trainer": "تدريب المدرّبين",
+    "Building local HSSE ambassadors who can transfer safety practices inside workplaces and communities.": "بناء سفراء HSSE محليين قادرين على نقل ممارسات السلامة داخل أماكن العمل والمجتمعات.",
+    "Employer Readiness": "جاهزية أصحاب العمل",
+    "Supporting responsible employers, contractors, NGOs, and institutions with safer implementation practices.": "دعم أصحاب العمل والمقاولين والمنظمات غير الحكومية والمؤسسات المسؤولة بممارسات تنفيذ أكثر أماناً.",
+    "Basic HSSE awareness modules for frontline workers": "وحدات أساسية للتوعية بـ HSSE للعمال في الخطوط الأمامية",
+    "Founder profile": "ملف المؤسس",
+    "Led by infrastructure, energy transition, and HSSE delivery experience.": "قيادة مبنية على خبرة في البنية التحتية والتحول الطاقي وتنفيذ HSSE.",
+    "LEUSI is founded by Mohamad Kabbara and is based in The Hague, with experience across architecture, urban strategy, energy transition, EV infrastructure, project delivery, and HSSE governance in European and international environments.": "أسس LEUSI محمد كبارة وتتخذ من لاهاي مقراً لها، مستندة إلى خبرة في العمارة والاستراتيجية الحضرية والتحول الطاقي وبنية شحن المركبات الكهربائية وتنفيذ المشاريع وحوكمة HSSE في بيئات أوروبية ودولية.",
+    "Founder, Levant European Safety Initiative": "المؤسس، المبادرة الشامية الأوروبية للسلامة",
+    "Mo’s background spans senior roles at BP and AECOM across EV infrastructure, HSE governance, and program delivery in Europe, the GCC, and Africa. He holds an MSc in Architecture, an MBA, and credentials from LSE and Harvard Kennedy School. LEUSI builds on this experience to create practical safety pathways for workers, employers, NGOs, and institutions operating in fragile and high-risk environments.": "تمتد خبرة مو عبر أدوار قيادية في BP وAECOM في بنية شحن المركبات الكهربائية، وحوكمة HSE، وتنفيذ البرامج في أوروبا والخليج وأفريقيا. يحمل ماجستير في العمارة وMBA واعتمادات من LSE وكلية هارفارد كينيدي. تبني LEUSI على هذه الخبرة لإنشاء مسارات سلامة عملية للعمال وأصحاب العمل والمنظمات غير الحكومية والمؤسسات العاملة في بيئات هشّة وعالية المخاطر.",
+    "Governance and structure": "الحوكمة والهيكل",
+    "A mission-first structure with room for partnerships, accountability, and long-term scale.": "هيكل يضع الرسالة أولاً، مع مساحة للشراكات والمساءلة والتوسع طويل المدى.",
+    "LEUSI’s governance model, operating principles, accountability structure, and long-term organizational pathway are explained in detail in the Strategic Organizing Framework.": "يشرح الإطار الاستراتيجي للتنظيم بالتفصيل نموذج حوكمة LEUSI ومبادئ التشغيل وهيكل المساءلة والمسار التنظيمي طويل المدى.",
+    "View Organizational Framework →": "عرض الإطار التنظيمي →",
+    "Policy plan and social enterprise structure": "خطة السياسات وهيكل المؤسسة الاجتماعية",
+    "From training activity to measurable safety culture.": "من نشاط تدريبي إلى ثقافة سلامة قابلة للقياس.",
+    "The policy plan will define the foundation’s mission, governance, programs, financial model, partnerships, insurance needs, risk controls, and measurable impact indicators.": "ستحدد خطة السياسات رسالة المؤسسة وحوكمتها وبرامجها ونموذجها المالي وشراكاتها واحتياجات التأمين وضوابط المخاطر ومؤشرات الأثر القابلة للقياس.",
+    "Impact model": "نموذج الأثر",
+    "From individual awareness to system change.": "من وعي فردي إلى تغيير في النظام.",
+    "LEUSI starts with people. We train workers, develop local safety ambassadors, support pilot locations, and use evidence from practice to strengthen safety expectations across employers, communities, and institutions.": "تبدأ LEUSI من الناس. ندرّب العمال، ونطوّر سفراء سلامة محليين، وندعم مواقع تجريبية، ونستخدم الأدلة من الممارسة لتعزيز توقعات السلامة لدى أصحاب العمل والمجتمعات والمؤسسات.",
+    "Train": "درّب",
+    "Deliver accessible HSSE learning for workers exposed to operational risks.": "تقديم تعلم HSSE متاح للعمال المعرّضين لمخاطر تشغيلية.",
+    "Organise": "نظّم",
+    "Develop ambassadors who can influence teams, families, and workplaces.": "تطوير سفراء قادرين على التأثير في الفرق والعائلات وأماكن العمل.",
+    "Pilot": "جرّب",
+    "Demonstrate measurable safety compliance in selected locations.": "إظهار امتثال سلامة قابل للقياس في مواقع مختارة.",
+    "Scale": "وسّع",
+    "Build partnerships that support policy, certification, and long term safety culture.": "بناء شراكات تدعم السياسات والاعتماد وثقافة السلامة طويلة المدى.",
+    "Advisory and partner direction": "توجه الاستشارة والشراكات",
+    "Building a credible circle of institutional, corporate, and civil society advisors.": "بناء دائرة موثوقة من المستشارين المؤسسيين والشركات والمجتمع المدني.",
+    "LEUSI is developing its advisory and partnership network. Formal roles will be confirmed only after governance, responsibilities, and legal implications are clearly defined.": "تعمل LEUSI على تطوير شبكة الاستشارة والشراكات. لن يتم تأكيد الأدوار الرسمية إلا بعد توضيح الحوكمة والمسؤوليات والآثار القانونية.",
+    "Sector partnerships": "شراكات قطاعية",
+    "Energy, infrastructure, and industry": "الطاقة والبنية التحتية والصناعة",
+    "Renewable energy, maritime and seaports, airports, railways, logistics, agriculture, civil infrastructure, buildings, manufacturing, and local workshops.": "الطاقة المتجددة، والبحرية والموانئ، والمطارات، والسكك الحديدية، واللوجستيات، والزراعة، والبنية التحتية المدنية، والمباني، والتصنيع، والورش المحلية.",
+    "Community leadership": "قيادة مجتمعية",
+    "NGOs, civic society, and community leadership": "المنظمات غير الحكومية والمجتمع المدني والقيادة المجتمعية",
+    "Community building, local development, inclusion and diversity, constituency building, worker protection, and grassroots leadership development.": "بناء المجتمع، والتنمية المحلية، والشمول والتنوع، وبناء القاعدة المجتمعية، وحماية العمال، وتطوير القيادة الشعبية.",
+    "Safety pathways": "مسارات السلامة",
+    "Certification and standards partners": "شركاء الاعتماد والمعايير",
+    "Safety training and certification pathways inspired by Dutch VCA, EU, and international standards, adapted to local realities and contextualized workplace risks.": "مسارات تدريب واعتماد في السلامة مستلهمة من VCA الهولندية ومعايير الاتحاد الأوروبي والمعايير الدولية، ومكيّفة مع الواقع المحلي ومخاطر العمل السياقية.",
+    "Institutional alignment": "مواءمة مؤسسية",
+    "Public, private, and PPP institutions": "مؤسسات عامة وخاصة وشراكات بين القطاعين العام والخاص",
+    "Public institutions, governmental bodies, private institutions, municipalities, development actors, and public private partnership platforms.": "المؤسسات العامة، والجهات الحكومية، والمؤسسات الخاصة، والبلديات، وجهات التنمية، ومنصات الشراكة بين القطاعين العام والخاص.",
+    "Who we serve": "من نخدم",
+    "Designed for workers and the institutions that protect them.": "مصمم للعمال والمؤسسات التي تحميهم.",
+    "LEUSI works at the intersection of safety, social enterprise, workforce development, ESG, and responsible market entry.": "تعمل LEUSI عند تقاطع السلامة، والمؤسسة الاجتماعية، وتطوير القوى العاملة، وESG، والدخول المسؤول إلى الأسواق.",
+    "Who LEUSI is built for": "لمن بُنيت LEUSI",
+    "Connecting workers, institutions, and partners across high-risk environments.": "ربط العمال والمؤسسات والشركاء عبر بيئات عالية المخاطر.",
+    "Frontline workers in Lebanon and Syria and potentially the GCC": "العمال في الخطوط الأمامية في لبنان وسوريا وربما دول الخليج",
+    "Refugees and vulnerable workers active in high-risk sectors": "اللاجئون والعمال الضعفاء العاملون في قطاعات عالية المخاطر",
+    "Local employers, contractors, and training centers": "أصحاب العمل المحليون والمقاولون ومراكز التدريب",
+    "Dutch and European companies entering Levant and regional markets": "الشركات الهولندية والأوروبية الداخلة إلى أسواق بلاد الشام والمنطقة",
+    "NGOs, municipalities, donors, and development partners": "المنظمات غير الحكومية والبلديات والمانحون وشركاء التنمية",
+    "Diaspora professionals seeking measurable social impact": "مهنيون من الاغتراب يسعون إلى أثر اجتماعي قابل للقياس",
+    "Current status": "الوضع الحالي",
+    "Where we are right now.": "أين نحن الآن.",
+    "LEUSI is in active development. Formal registration as a Netherlands-based foundation is underway. Pilot programs are planned for Q3 2026. We are currently building our advisory network and welcoming conversations with potential partners, donors, and institutional allies.": "LEUSI في مرحلة تطوير نشطة. يجري العمل على التسجيل الرسمي كمؤسسة مقرها هولندا. ومن المخطط تنفيذ برامج تجريبية في الربع الثالث من عام 2026. نحن حالياً نبني شبكة المستشارين ونرحب بالحوار مع الشركاء المحتملين والمانحين والحلفاء المؤسسيين.",
+    "LEUSI is currently moving from foundation building into structured organizing, partnership development, and pilot preparation. For the detailed implementation pathway, please visit the step by step organizing strategy in the LEUSI Strategic Organizing Framework.": "تنتقل LEUSI حالياً من بناء الأساس إلى التنظيم المنهجي وتطوير الشراكات والتحضير للبرامج التجريبية. للاطلاع على مسار التنفيذ التفصيلي، يرجى زيارة استراتيجية التنظيم خطوة بخطوة في الإطار الاستراتيجي للتنظيم الخاص بـ LEUSI.",
+    "View Step by Step Strategy →": "عرض الاستراتيجية خطوة بخطوة →",
+    "Strategic Organizing Framework": "الإطار الاستراتيجي للتنظيم",
+    "Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership": "السرد العام، ونظرية التغيير، وبناء القوة، والاستراتيجية، والتكتيكات، والقيادة بالتدريب",
+    "A practical framework for building safety leadership, constituency power, institutional trust, and measurable HSSE transformation across the Levant and the region.": "إطار عملي لبناء قيادة السلامة، وقوة القاعدة المجتمعية، والثقة المؤسسية، والتحول القابل للقياس في HSSE عبر بلاد الشام والمنطقة.",
+    "Open Framework →": "افتح الإطار →",
+    "LEUSI SDG center reveal section with official card icons": "قسم أهداف التنمية المستدامة التفاعلي الخاص بـ LEUSI مع أيقونات رسمية",
+    "LEUSI · Sustainable Development Goals": "LEUSI · أهداف التنمية المستدامة",
+    "HSSE as a chain of human protection.": "HSSE كسلسلة من الحماية الإنسانية.",
+    "The cards keep the recognizable SDG colour identity. Hover or tap each goal to bring its impact logic into the centre of the screen.": "تحافظ البطاقات على الهوية اللونية المعروفة لأهداف التنمية المستدامة. مرر المؤشر أو اضغط على كل هدف لإظهار منطق أثره في وسط الشاشة.",
+    "No Poverty": "القضاء على الفقر",
+    "Zero Hunger": "القضاء على الجوع",
+    "Good Health and Well Being": "الصحة الجيدة والرفاه",
+    "Quality Education": "التعليم الجيد",
+    "Gender Equality": "المساواة بين الجنسين",
+    "Clean Water and Sanitation": "المياه النظيفة والنظافة الصحية",
+    "Affordable and Clean Energy": "طاقة نظيفة وبأسعار معقولة",
+    "Decent Work and Economic Growth": "العمل اللائق والنمو الاقتصادي",
+    "Industry, Innovation and Infrastructure": "الصناعة والابتكار والبنية التحتية",
+    "Reduced Inequalities": "الحد من أوجه عدم المساواة",
+    "Sustainable Cities and Communities": "مدن ومجتمعات مستدامة",
+    "Responsible Consumption and Production": "الاستهلاك والإنتاج المسؤولان",
+    "Climate Action": "العمل المناخي",
+    "Life Below Water": "الحياة تحت الماء",
+    "Life on Land": "الحياة في البر",
+    "Peace, Justice and Strong Institutions": "السلام والعدل والمؤسسات القوية",
+    "Partnerships for the Goals": "عقد الشراكات لتحقيق الأهداف",
+    "Call to action": "دعوة إلى العمل",
+    "Help build a practical safety movement rooted in dignity and measurable impact.": "ساهم في بناء حركة سلامة عملية راسخة في الكرامة والأثر القابل للقياس.",
+    "Start a Conversation": "ابدأ الحوار",
+    "Let’s connect around pilots, partnerships, and certification pathways.": "لنتواصل حول البرامج التجريبية والشراكات ومسارات الاعتماد.",
+    "LEUSI welcomes conversations with safety professionals, employers, NGOs, donors, municipalities, certification partners, and diaspora leaders.": "ترحب LEUSI بالحوار مع مهنيي السلامة وأصحاب العمل والمنظمات غير الحكومية والمانحين والبلديات وشركاء الاعتماد وقادة الاغتراب.",
+    "Base": "المقر",
+    "The Hague, The Netherlands": "لاهاي، هولندا",
+    "Email": "البريد الإلكتروني",
+    "Founder": "المؤسس",
+    "Send Message": "إرسال الرسالة",
+    "Your name": "اسمك",
+    "Your email": "بريدك الإلكتروني",
+    "Tell us how you would like to connect with LEUSI": "أخبرنا كيف ترغب في التواصل مع LEUSI",
+    "Focus": "التركيز",
+    "HSSE awareness, training pathways, certification readiness, worker dignity, and institutional safety culture.": "التوعية بـ HSSE، ومسارات التدريب، والجاهزية للاعتماد، وكرامة العمال، وثقافة السلامة المؤسسية.",
+    "© 2026 LEUSI. All rights reserved. Built as a public platform for partnership and social impact.": "© 2026 LEUSI. جميع الحقوق محفوظة. بُنيت كمنصة عامة للشراكة والأثر الاجتماعي.",
+    "Levant European Safety Initiative, based in The Hague and focused on a safer working culture in Lebanon and the region.": "المبادرة الشامية الأوروبية للسلامة، مقرها لاهاي وتركز على ثقافة عمل أكثر أماناً في لبنان والمنطقة.",
+    "LEUSI contributes to reducing poverty risk by protecting workers from preventable accidents that can remove their income overnight. When HSSE standards are applied properly, fewer workers face fatal injuries, long term disability, or sudden job loss. Safer workplaces also make insurance coverage more realistic for workers and employers, helping families remain financially protected when incidents occur.": "تساهم LEUSI في تقليل مخاطر الفقر عبر حماية العمال من الحوادث القابلة للوقاية التي قد تزيل مصدر دخلهم بين ليلة وضحاها. عندما تُطبق معايير HSSE بشكل صحيح، يواجه عدد أقل من العمال إصابات قاتلة أو إعاقة طويلة المدى أو فقداناً مفاجئاً للعمل. كما تجعل أماكن العمل الأكثر أماناً التغطية التأمينية أكثر واقعية للعمال وأصحاب العمل، مما يساعد الأسر على البقاء محمية مالياً عند وقوع الحوادث.",
+    "Workplace safety is connected to household stability. When a worker is injured or unable to continue working, the impact often reaches the family table first. LEUSI supports Zero Hunger by helping protect the income continuity of frontline workers, allowing families to maintain food security through safer, more stable employment conditions.": "ترتبط سلامة مكان العمل باستقرار الأسرة. عندما يُصاب عامل أو يصبح غير قادر على مواصلة العمل، غالباً ما يصل الأثر أولاً إلى مائدة العائلة. تدعم LEUSI القضاء على الجوع من خلال حماية استمرارية دخل العمال في الخطوط الأمامية، بما يساعد الأسر على الحفاظ على أمنها الغذائي من خلال شروط عمل أكثر أماناً واستقراراً.",
+    "LEUSI directly supports worker health by promoting practical HSSE awareness, safer site behaviour, accident prevention, emergency readiness, and stronger workplace protection. The goal is not only to avoid injuries, but to build a culture where physical health, mental safety, and human dignity are treated as part of everyday work.": "تدعم LEUSI صحة العمال مباشرة من خلال تعزيز التوعية العملية بـ HSSE، وسلوكيات الموقع الأكثر أماناً، والوقاية من الحوادث، والاستعداد للطوارئ، وحماية أقوى في مكان العمل. الهدف ليس فقط تجنب الإصابات، بل بناء ثقافة تُعامل فيها الصحة الجسدية والسلامة النفسية والكرامة الإنسانية كجزء من العمل اليومي.",
+    "LEUSI turns safety knowledge into accessible education. Through training, awareness, certification pathways, and practical site based learning, workers, supervisors, and contractors gain the skills needed to operate safely and professionally. This creates a bridge between international standards and local work realities.": "تحوّل LEUSI معرفة السلامة إلى تعليم متاح. من خلال التدريب والتوعية ومسارات الاعتماد والتعلم العملي في المواقع، يكتسب العمال والمشرفون والمقاولون المهارات اللازمة للعمل بأمان ومهنية. وهذا يخلق جسراً بين المعايير الدولية وواقع العمل المحلي.",
+    "Safer workplaces create more inclusive workplaces. When sites have clear HSSE rules, reporting mechanisms, protective equipment, safe access, welfare standards, and safety committees, women can participate with greater protection and confidence. LEUSI supports gender equality by helping create site environments where safety enables broader participation.": "أماكن العمل الأكثر أماناً تخلق أماكن عمل أكثر شمولاً. عندما تمتلك المواقع قواعد HSSE واضحة، وآليات إبلاغ، ومعدات حماية، ووصولاً آمناً، ومعايير رعاية، ولجان سلامة، تستطيع النساء المشاركة بحماية وثقة أكبر. تدعم LEUSI المساواة بين الجنسين من خلال المساعدة في خلق بيئات عمل تمكّن السلامة فيها مشاركة أوسع.",
+    "HSSE standards include hygiene, sanitation, safe welfare facilities, and the prevention of contamination on worksites. LEUSI can support cleaner and safer work environments by promoting proper site facilities, responsible handling of materials, and awareness of how unsafe practices can affect water, sanitation, and public health.": "تشمل معايير HSSE النظافة والصرف الصحي ومرافق الرعاية الآمنة ومنع التلوث في مواقع العمل. تستطيع LEUSI دعم بيئات عمل أنظف وأكثر أماناً من خلال تعزيز مرافق الموقع المناسبة، والتعامل المسؤول مع المواد، والوعي بكيفية تأثير الممارسات غير الآمنة على المياه والصرف الصحي والصحة العامة.",
+    "Energy infrastructure cannot be truly sustainable if the people building and maintaining it are exposed to unsafe conditions. LEUSI supports clean energy development by strengthening the safety capacity of workers involved in energy, mobility, infrastructure, and future low carbon projects, helping the energy transition become safer on the ground.": "لا يمكن اعتبار البنية التحتية للطاقة مستدامة حقاً إذا كان الأشخاص الذين يبنونها ويشغلونها معرضين لظروف غير آمنة. تدعم LEUSI تطوير الطاقة النظيفة من خلال تعزيز قدرات السلامة لدى العمال المشاركين في الطاقة والتنقل والبنية التحتية والمشاريع منخفضة الكربون المستقبلية، بما يجعل التحول الطاقي أكثر أماناً على الأرض.",
+    "Decent work means more than employment. It means safe employment, protected workers, fairer site conditions, and the ability to grow professionally. LEUSI supports decent work by improving safety culture, employability, certification readiness, and the professional dignity of frontline workers in construction, infrastructure, logistics, and energy related sectors.": "العمل اللائق يعني أكثر من مجرد التوظيف. إنه يعني عملاً آمناً، وعمالاً محميين، وظروف مواقع أكثر عدلاً، والقدرة على التطور مهنياً. تدعم LEUSI العمل اللائق من خلال تحسين ثقافة السلامة وقابلية التوظيف والجاهزية للاعتماد والكرامة المهنية للعمال في البناء والبنية التحتية واللوجستيات والقطاعات المرتبطة بالطاقة.",
+    "Infrastructure depends on people, not only materials and capital. LEUSI supports responsible infrastructure delivery by building the human safety capacity required to execute projects safely, reliably, and professionally. Better trained workers and stronger HSSE systems reduce delays, accidents, insurance risk, and delivery failure.": "تعتمد البنية التحتية على الناس، وليس فقط على المواد ورأس المال. تدعم LEUSI تنفيذ البنية التحتية بمسؤولية من خلال بناء قدرة السلامة البشرية اللازمة لتنفيذ المشاريع بأمان وموثوقية ومهنية. العمال الأفضل تدريباً وأنظمة HSSE الأقوى تقلل التأخير والحوادث ومخاطر التأمين وفشل التنفيذ.",
+    "Many frontline workers are excluded from formal training, certification, and international employment pathways. LEUSI helps reduce this gap by making HSSE knowledge more accessible and by preparing workers to meet recognized safety expectations. This creates a fairer bridge between local labour markets and international standards.": "يُستبعد العديد من العمال في الخطوط الأمامية من التدريب الرسمي والاعتماد ومسارات العمل الدولية. تساعد LEUSI على تقليل هذه الفجوة من خلال جعل معرفة HSSE أكثر إتاحة، وإعداد العمال لتلبية توقعات السلامة المعترف بها. وهذا يخلق جسراً أكثر عدلاً بين أسواق العمل المحلية والمعايير الدولية.",
+    "Cities are shaped by the safety of the people who build them. LEUSI supports safer urban development by promoting responsible construction practices, stronger site discipline, reduced public risk, and better protection for workers and communities around active work zones. Safer sites contribute to safer cities.": "تتشكل المدن بسلامة الأشخاص الذين يبنونها. تدعم LEUSI تطويراً حضرياً أكثر أماناً من خلال تعزيز ممارسات بناء مسؤولة، وانضباط أقوى في المواقع، وتقليل المخاطر العامة، وحماية أفضل للعمال والمجتمعات حول مناطق العمل النشطة. المواقع الأكثر أماناً تساهم في مدن أكثر أماناً.",
+    "Responsible production includes how materials are handled, how waste is managed, how risks are controlled, and how safely work is executed. LEUSI supports responsible practices by promoting awareness around site housekeeping, hazardous materials, environmental protection, safe storage, and disciplined operational behaviour.": "يشمل الإنتاج المسؤول كيفية التعامل مع المواد، وكيفية إدارة النفايات، وكيفية ضبط المخاطر، ومدى أمان تنفيذ العمل. تدعم LEUSI الممارسات المسؤولة من خلال تعزيز الوعي بنظافة الموقع، والمواد الخطرة، وحماية البيئة، والتخزين الآمن، والسلوك التشغيلي المنضبط.",
+    "Climate infrastructure requires safe implementation capacity. Solar, EV charging, energy efficiency, resilient buildings, and low carbon infrastructure all depend on trained workers who can deliver safely. LEUSI supports climate action by helping prepare workers and organizations to execute climate related projects without transferring risk to the most vulnerable people on site.": "تحتاج البنية التحتية المناخية إلى قدرة تنفيذ آمنة. فالطاقة الشمسية، وشحن المركبات الكهربائية، وكفاءة الطاقة، والمباني المرنة، والبنية التحتية منخفضة الكربون كلها تعتمد على عمال مدربين قادرين على التنفيذ بأمان. تدعم LEUSI العمل المناخي من خلال إعداد العمال والمؤسسات لتنفيذ المشاريع المناخية دون نقل المخاطر إلى أكثر الأشخاص ضعفاً في الموقع.",
+    "Unsafe construction and poor site practices can lead to pollution, runoff, chemical leakage, and waste reaching waterways. LEUSI can support protection of water systems by raising awareness around environmental controls, spill prevention, waste discipline, and safe handling practices near drainage, rivers, ports, and coastal environments.": "قد تؤدي ممارسات البناء غير الآمنة وسوء إدارة المواقع إلى التلوث والجريان السطحي وتسرب المواد الكيميائية ووصول النفايات إلى المجاري المائية. تستطيع LEUSI دعم حماية الأنظمة المائية من خلال رفع الوعي حول الضوابط البيئية، ومنع الانسكابات، والانضباط في إدارة النفايات، وممارسات التعامل الآمن قرب المصارف والأنهار والموانئ والبيئات الساحلية.",
+    "Construction and infrastructure work can affect land, soil, vegetation, and surrounding ecosystems when safety and environmental controls are weak. LEUSI supports better protection of land based environments by promoting responsible site behaviour, controlled work zones, waste management, and awareness of environmental risk during project execution.": "يمكن أن تؤثر أعمال البناء والبنية التحتية على الأرض والتربة والنباتات والأنظمة البيئية المحيطة عندما تكون ضوابط السلامة والبيئة ضعيفة. تدعم LEUSI حماية أفضل للبيئات البرية من خلال تعزيز السلوك المسؤول في الموقع، ومناطق العمل المضبوطة، وإدارة النفايات، والوعي بالمخاطر البيئية أثناء تنفيذ المشاريع.",
+    "A strong safety culture is also a culture of accountability. LEUSI supports institutional trust by promoting compliance, reporting, responsibility, and transparent safety behaviour between workers, employers, contractors, insurers, and public actors. Safer systems help build stronger institutions because rules become visible in daily practice.": "ثقافة السلامة القوية هي أيضاً ثقافة مساءلة. تدعم LEUSI الثقة المؤسسية من خلال تعزيز الامتثال، والإبلاغ، والمسؤولية، والسلوك الشفاف في السلامة بين العمال وأصحاب العمل والمقاولين وشركات التأمين والجهات العامة. تساعد الأنظمة الأكثر أماناً على بناء مؤسسات أقوى لأن القواعد تصبح مرئية في الممارسة اليومية.",
+    "LEUSI is built on partnership. It connects European safety standards with local workers, companies, trainers, institutions, insurers, contractors, and communities in the Levant. Its impact depends on collaboration between sectors, countries, and institutions that share one practical goal: making work safer, more dignified, and more future ready.": "تقوم LEUSI على الشراكة. فهي تربط معايير السلامة الأوروبية بالعمال المحليين والشركات والمدربين والمؤسسات وشركات التأمين والمقاولين والمجتمعات في بلاد الشام. يعتمد أثرها على التعاون بين القطاعات والدول والمؤسسات التي تشترك في هدف عملي واحد: جعل العمل أكثر أماناً وكرامة واستعداداً للمستقبل."
+  },
+  "nl": {
+    "Levant European Safety Initiative": "Levant European Safety Initiative",
+    "Mission": "Missie",
+    "Programs": "Programma’s",
+    "Governance": "Governance",
+    "Organizational Framework": "Organisatorisch kader",
+    "Partners": "Partners",
+    "Status": "Status",
+    "Contact": "Contact",
+    "Join the Initiative": "Sluit je aan",
+    "✦ HSSE awareness for workers, communities, and responsible employers": "✦ HSSE-bewustzijn voor werknemers, gemeenschappen en verantwoordelijke werkgevers",
+    "Building a safer working culture for The Levant and the region.": "Bouwen aan een veiligere werkcultuur voor de Levant en de regio.",
+    "LEUSI is a Netherlands-based social initiative dedicated to HSSE (Health, Safety, Security, and Environmental) awareness, training, and certification readiness for frontline workers in Lebanon and Syria and the MENA region. We connect human dignity, practical safety, and European professional standards.": "LEUSI is een in Nederland gevestigd sociaal initiatief voor HSSE-bewustzijn, training en certificeringsgereedheid voor frontline workers in Libanon, Syrië en de MENA-regio. Wij verbinden menselijke waardigheid, praktische veiligheid en Europese professionele standaarden.",
+    "Explore Programs": "Bekijk programma’s",
+    "View Governance": "Bekijk governance",
+    "Our 2026 targets": "Onze doelen voor 2026",
+    "HSSE ambassadors to train and certify": "HSSE-ambassadeurs trainen en certificeren",
+    "Pilot locations for measurable safety compliance": "Pilotlocaties voor meetbare veiligheidsnaleving",
+    "Standards adapted for local realities": "Standaarden aangepast aan lokale realiteiten",
+    "LEUSI AI ASSISTANT": "LEUSI AI-assistent",
+    "Meet Leusi AI": "Maak kennis met Leusi AI",
+    "A multilingual VCA and HSSE-aligned AI platform helping workers, employers, engineers, and communities improve hazard awareness, incident understanding, operational safety culture, and European workplace readiness.": "Een meertalig AI-platform afgestemd op VCA en HSSE dat werknemers, werkgevers, ingenieurs en gemeenschappen helpt bij risicobewustzijn, incidentbegrip, operationele veiligheidscultuur en Europese werkplekgereedheid.",
+    "English": "English",
+    "Nederlands": "Nederlands",
+    "العربية": "العربية",
+    "Open LEUSI AI →": "Open LEUSI AI →",
+    "Safety is not only compliance. It is protection, dignity, and trust.": "Veiligheid is niet alleen naleving. Het is bescherming, waardigheid en vertrouwen.",
+    "LEUSI helps workers, employers, and institutions move from reactive safety behaviour to preventive safety culture. Our work is designed for people who face real operational risks, often with limited access to structured training, certification, and institutional protection.": "LEUSI helpt werknemers, werkgevers en instellingen om van reactief veiligheidsgedrag naar een preventieve veiligheidscultuur te gaan. Ons werk is ontworpen voor mensen die echte operationele risico’s lopen, vaak met beperkte toegang tot gestructureerde training, certificering en institutionele bescherming.",
+    "LEUSI focuses on prevention, workplace dignity, practical training, and standards that can be understood by workers and implemented by employers.": "LEUSI richt zich op preventie, waardigheid op de werkvloer, praktische training en standaarden die werknemers begrijpen en werkgevers kunnen toepassen.",
+    "HSSE Awareness": "HSSE-bewustzijn",
+    "Practical awareness in health, safety, security, and environmental protection for frontline workers and communities.": "Praktisch bewustzijn rond gezondheid, veiligheid, beveiliging en milieubescherming voor frontline workers en gemeenschappen.",
+    "Training and Certification": "Training en certificering",
+    "Accessible training pathways aligned with Dutch and European safety principles, including VCA-oriented learning.": "Toegankelijke trainingsroutes afgestemd op Nederlandse en Europese veiligheidsprincipes, inclusief VCA-gerichte voorbereiding.",
+    "Worker Readiness": "Werknemersgereedheid",
+    "Preparing workers with the safety mindset, discipline, and professional habits expected by European and international companies.": "Werknemers voorbereiden met de veiligheidsmindset, discipline en professionele gewoonten die Europese en internationale bedrijven verwachten.",
+    "Institutional Impact": "Institutionele impact",
+    "Supporting long-term safety culture, pilot locations, and future policy development in Lebanon and the wider region.": "Ondersteuning van langetermijnveiligheidscultuur, pilotlocaties en toekomstige beleidsontwikkeling in Libanon en de bredere regio.",
+    "Practical pathways from awareness to readiness.": "Praktische routes van bewustzijn naar gereedheid.",
+    "LEUSI develops modular training and certification-oriented programs that can be adapted for workers, employers, NGOs, and public institutions.": "LEUSI ontwikkelt modulaire trainings- en certificeringsgerichte programma’s die kunnen worden aangepast voor werknemers, werkgevers, NGO’s en publieke instellingen.",
+    "Frontline HSSE Awareness": "HSSE-bewustzijn voor frontline workers",
+    "Simple, accessible, and practical safety learning for workers exposed to real operational risk.": "Eenvoudig, toegankelijk en praktisch veiligheidsleren voor werknemers die aan echte operationele risico’s worden blootgesteld.",
+    "Train the Trainer": "Train-de-trainer",
+    "Building local HSSE ambassadors who can transfer safety practices inside workplaces and communities.": "Lokale HSSE-ambassadeurs opbouwen die veiligheidspraktijken binnen werkplekken en gemeenschappen kunnen overdragen.",
+    "Employer Readiness": "Werkgeversgereedheid",
+    "Supporting responsible employers, contractors, NGOs, and institutions with safer implementation practices.": "Verantwoordelijke werkgevers, aannemers, NGO’s en instellingen ondersteunen met veiligere uitvoeringspraktijken.",
+    "Basic HSSE awareness modules for frontline workers": "Basismodules HSSE-bewustzijn voor frontline workers",
+    "Founder profile": "Profiel van de oprichter",
+    "Led by infrastructure, energy transition, and HSSE delivery experience.": "Geleid door ervaring in infrastructuur, energietransitie en HSSE-uitvoering.",
+    "LEUSI is founded by Mohamad Kabbara and is based in The Hague, with experience across architecture, urban strategy, energy transition, EV infrastructure, project delivery, and HSSE governance in European and international environments.": "LEUSI is opgericht door Mohamad Kabbara en gevestigd in Den Haag, met ervaring in architectuur, stedelijke strategie, energietransitie, EV-infrastructuur, projectuitvoering en HSSE-governance in Europese en internationale omgevingen.",
+    "Founder, Levant European Safety Initiative": "Oprichter, Levant European Safety Initiative",
+    "Mo’s background spans senior roles at BP and AECOM across EV infrastructure, HSE governance, and program delivery in Europe, the GCC, and Africa. He holds an MSc in Architecture, an MBA, and credentials from LSE and Harvard Kennedy School. LEUSI builds on this experience to create practical safety pathways for workers, employers, NGOs, and institutions operating in fragile and high-risk environments.": "Mo’s achtergrond omvat senior rollen bij BP en AECOM rond EV-infrastructuur, HSE-governance en programma-uitvoering in Europa, de GCC en Afrika. Hij heeft een MSc in Architectuur, een MBA en certificaten van LSE en Harvard Kennedy School. LEUSI bouwt op deze ervaring om praktische veiligheidsroutes te creëren voor werknemers, werkgevers, NGO’s en instellingen die in kwetsbare en risicovolle omgevingen werken.",
+    "Governance and structure": "Governance en structuur",
+    "A mission-first structure with room for partnerships, accountability, and long-term scale.": "Een missiegedreven structuur met ruimte voor partnerschappen, verantwoording en langetermijnschaal.",
+    "LEUSI’s governance model, operating principles, accountability structure, and long-term organizational pathway are explained in detail in the Strategic Organizing Framework.": "Het governance-model, de operationele principes, de verantwoordingsstructuur en het langetermijnpad van LEUSI worden gedetailleerd uitgelegd in het Strategic Organizing Framework.",
+    "View Organizational Framework →": "Bekijk organisatorisch kader →",
+    "Policy plan and social enterprise structure": "Beleidsplan en sociale ondernemingsstructuur",
+    "From training activity to measurable safety culture.": "Van trainingsactiviteit naar meetbare veiligheidscultuur.",
+    "The policy plan will define the foundation’s mission, governance, programs, financial model, partnerships, insurance needs, risk controls, and measurable impact indicators.": "Het beleidsplan definieert de missie, governance, programma’s, het financiële model, partnerschappen, verzekeringsbehoeften, risicobeheersing en meetbare impactindicatoren van de stichting.",
+    "Impact model": "Impactmodel",
+    "From individual awareness to system change.": "Van individueel bewustzijn naar systeemverandering.",
+    "LEUSI starts with people. We train workers, develop local safety ambassadors, support pilot locations, and use evidence from practice to strengthen safety expectations across employers, communities, and institutions.": "LEUSI begint bij mensen. We trainen werknemers, ontwikkelen lokale veiligheidsambassadeurs, ondersteunen pilotlocaties en gebruiken praktijkbewijs om veiligheidsverwachtingen bij werkgevers, gemeenschappen en instellingen te versterken.",
+    "Train": "Train",
+    "Deliver accessible HSSE learning for workers exposed to operational risks.": "Toegankelijk HSSE-leren bieden aan werknemers die aan operationele risico’s worden blootgesteld.",
+    "Organise": "Organiseer",
+    "Develop ambassadors who can influence teams, families, and workplaces.": "Ambassadeurs ontwikkelen die teams, families en werkplekken kunnen beïnvloeden.",
+    "Pilot": "Pilot",
+    "Demonstrate measurable safety compliance in selected locations.": "Meetbare veiligheidsnaleving aantonen op geselecteerde locaties.",
+    "Scale": "Schaal op",
+    "Build partnerships that support policy, certification, and long term safety culture.": "Partnerschappen opbouwen die beleid, certificering en langetermijnveiligheidscultuur ondersteunen.",
+    "Advisory and partner direction": "Advies- en partnerrichting",
+    "Building a credible circle of institutional, corporate, and civil society advisors.": "Een geloofwaardige kring van institutionele, zakelijke en maatschappelijke adviseurs opbouwen.",
+    "LEUSI is developing its advisory and partnership network. Formal roles will be confirmed only after governance, responsibilities, and legal implications are clearly defined.": "LEUSI ontwikkelt haar advies- en partnernetwerk. Formele rollen worden pas bevestigd nadat governance, verantwoordelijkheden en juridische implicaties duidelijk zijn vastgesteld.",
+    "Sector partnerships": "Sectorpartnerschappen",
+    "Energy, infrastructure, and industry": "Energie, infrastructuur en industrie",
+    "Renewable energy, maritime and seaports, airports, railways, logistics, agriculture, civil infrastructure, buildings, manufacturing, and local workshops.": "Hernieuwbare energie, maritieme sector en zeehavens, luchthavens, spoorwegen, logistiek, landbouw, civiele infrastructuur, gebouwen, maakindustrie en lokale werkplaatsen.",
+    "Community leadership": "Gemeenschapsleiderschap",
+    "NGOs, civic society, and community leadership": "NGO’s, civiele samenleving en gemeenschapsleiderschap",
+    "Community building, local development, inclusion and diversity, constituency building, worker protection, and grassroots leadership development.": "Gemeenschapsopbouw, lokale ontwikkeling, inclusie en diversiteit, achterbanopbouw, werknemersbescherming en leiderschapsontwikkeling van onderop.",
+    "Safety pathways": "Veiligheidsroutes",
+    "Certification and standards partners": "Certificerings- en standaardpartners",
+    "Safety training and certification pathways inspired by Dutch VCA, EU, and international standards, adapted to local realities and contextualized workplace risks.": "Veiligheidstraining en certificeringsroutes geïnspireerd door Nederlandse VCA-, EU- en internationale standaarden, aangepast aan lokale realiteiten en contextuele werkplekrisico’s.",
+    "Institutional alignment": "Institutionele afstemming",
+    "Public, private, and PPP institutions": "Publieke, private en PPP-instellingen",
+    "Public institutions, governmental bodies, private institutions, municipalities, development actors, and public private partnership platforms.": "Publieke instellingen, overheidsorganen, private instellingen, gemeenten, ontwikkelingsactoren en publiek-private samenwerkingsplatforms.",
+    "Who we serve": "Wie we dienen",
+    "Designed for workers and the institutions that protect them.": "Ontworpen voor werknemers en de instellingen die hen beschermen.",
+    "LEUSI works at the intersection of safety, social enterprise, workforce development, ESG, and responsible market entry.": "LEUSI werkt op het snijvlak van veiligheid, sociaal ondernemerschap, workforce development, ESG en verantwoordelijke markttoetreding.",
+    "Who LEUSI is built for": "Voor wie LEUSI is gebouwd",
+    "Connecting workers, institutions, and partners across high-risk environments.": "Werknemers, instellingen en partners verbinden in risicovolle omgevingen.",
+    "Frontline workers in Lebanon and Syria and potentially the GCC": "Frontline workers in Libanon en Syrië en mogelijk de GCC",
+    "Refugees and vulnerable workers active in high-risk sectors": "Vluchtelingen en kwetsbare werknemers actief in risicosectoren",
+    "Local employers, contractors, and training centers": "Lokale werkgevers, aannemers en trainingscentra",
+    "Dutch and European companies entering Levant and regional markets": "Nederlandse en Europese bedrijven die Levantijnse en regionale markten betreden",
+    "NGOs, municipalities, donors, and development partners": "NGO’s, gemeenten, donoren en ontwikkelingspartners",
+    "Diaspora professionals seeking measurable social impact": "Diasporaprofessionals die meetbare sociale impact zoeken",
+    "Current status": "Huidige status",
+    "Where we are right now.": "Waar we nu staan.",
+    "LEUSI is in active development. Formal registration as a Netherlands-based foundation is underway. Pilot programs are planned for Q3 2026. We are currently building our advisory network and welcoming conversations with potential partners, donors, and institutional allies.": "LEUSI is actief in ontwikkeling. De formele registratie als in Nederland gevestigde stichting is in gang. Pilotprogramma’s zijn gepland voor Q3 2026. We bouwen momenteel ons adviesnetwerk op en staan open voor gesprekken met potentiële partners, donoren en institutionele bondgenoten.",
+    "LEUSI is currently moving from foundation building into structured organizing, partnership development, and pilot preparation. For the detailed implementation pathway, please visit the step by step organizing strategy in the LEUSI Strategic Organizing Framework.": "LEUSI beweegt momenteel van fundamentopbouw naar gestructureerd organiseren, partnerontwikkeling en pilotvoorbereiding. Voor het gedetailleerde implementatiepad kunt u de stapsgewijze organisatiestrategie in het LEUSI Strategic Organizing Framework raadplegen.",
+    "View Step by Step Strategy →": "Bekijk stapsgewijze strategie →",
+    "Strategic Organizing Framework": "Strategisch organisatiekader",
+    "Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership": "Public narrative, Theory of Change, Power Building, Strategie, Tactieken en Coaching Leadership",
+    "A practical framework for building safety leadership, constituency power, institutional trust, and measurable HSSE transformation across the Levant and the region.": "Een praktisch kader voor het opbouwen van veiligheidsleiderschap, achterbanmacht, institutioneel vertrouwen en meetbare HSSE-transformatie in de Levant en de regio.",
+    "Open Framework →": "Open kader →",
+    "LEUSI SDG center reveal section with official card icons": "LEUSI SDG-interactiesectie met officiële kaarticonen",
+    "LEUSI · Sustainable Development Goals": "LEUSI · Sustainable Development Goals",
+    "HSSE as a chain of human protection.": "HSSE als keten van menselijke bescherming.",
+    "The cards keep the recognizable SDG colour identity. Hover or tap each goal to bring its impact logic into the centre of the screen.": "De kaarten behouden de herkenbare SDG-kleuridentiteit. Beweeg over of tik op elk doel om de impactlogica in het midden van het scherm te tonen.",
+    "No Poverty": "Geen armoede",
+    "Zero Hunger": "Geen honger",
+    "Good Health and Well Being": "Goede gezondheid en welzijn",
+    "Quality Education": "Kwaliteitsonderwijs",
+    "Gender Equality": "Gendergelijkheid",
+    "Clean Water and Sanitation": "Schoon water en sanitair",
+    "Affordable and Clean Energy": "Betaalbare en duurzame energie",
+    "Decent Work and Economic Growth": "Waardig werk en economische groei",
+    "Industry, Innovation and Infrastructure": "Industrie, innovatie en infrastructuur",
+    "Reduced Inequalities": "Ongelijkheid verminderen",
+    "Sustainable Cities and Communities": "Duurzame steden en gemeenschappen",
+    "Responsible Consumption and Production": "Verantwoorde consumptie en productie",
+    "Climate Action": "Klimaatactie",
+    "Life Below Water": "Leven in het water",
+    "Life on Land": "Leven op het land",
+    "Peace, Justice and Strong Institutions": "Vrede, justitie en sterke instellingen",
+    "Partnerships for the Goals": "Partnerschappen voor de doelen",
+    "Call to action": "Oproep tot actie",
+    "Help build a practical safety movement rooted in dignity and measurable impact.": "Help mee een praktische veiligheidsbeweging op te bouwen die geworteld is in waardigheid en meetbare impact.",
+    "Start a Conversation": "Start een gesprek",
+    "Let’s connect around pilots, partnerships, and certification pathways.": "Laten we verbinden rond pilots, partnerschappen en certificeringsroutes.",
+    "LEUSI welcomes conversations with safety professionals, employers, NGOs, donors, municipalities, certification partners, and diaspora leaders.": "LEUSI staat open voor gesprekken met veiligheidsprofessionals, werkgevers, NGO’s, donoren, gemeenten, certificeringspartners en diasporaleiders.",
+    "Base": "Basis",
+    "The Hague, The Netherlands": "Den Haag, Nederland",
+    "Email": "E-mail",
+    "Founder": "Oprichter",
+    "Send Message": "Bericht verzenden",
+    "Your name": "Uw naam",
+    "Your email": "Uw e-mailadres",
+    "Tell us how you would like to connect with LEUSI": "Vertel ons hoe u met LEUSI wilt verbinden",
+    "Focus": "Focus",
+    "HSSE awareness, training pathways, certification readiness, worker dignity, and institutional safety culture.": "HSSE-bewustzijn, trainingsroutes, certificeringsgereedheid, waardigheid van werknemers en institutionele veiligheidscultuur.",
+    "© 2026 LEUSI. All rights reserved. Built as a public platform for partnership and social impact.": "© 2026 LEUSI. Alle rechten voorbehouden. Gebouwd als publiek platform voor partnerschap en sociale impact.",
+    "Levant European Safety Initiative, based in The Hague and focused on a safer working culture in Lebanon and the region.": "Levant European Safety Initiative, gevestigd in Den Haag en gericht op een veiligere werkcultuur in Libanon en de regio.",
+    "LEUSI contributes to reducing poverty risk by protecting workers from preventable accidents that can remove their income overnight. When HSSE standards are applied properly, fewer workers face fatal injuries, long term disability, or sudden job loss. Safer workplaces also make insurance coverage more realistic for workers and employers, helping families remain financially protected when incidents occur.": "LEUSI draagt bij aan het verminderen van armoederisico door werknemers te beschermen tegen vermijdbare ongevallen die hun inkomen van de ene dag op de andere kunnen wegnemen. Wanneer HSSE-standaarden goed worden toegepast, krijgen minder werknemers te maken met dodelijk letsel, langdurige arbeidsongeschiktheid of plotseling baanverlies. Veiligere werkplekken maken verzekeringsdekking ook realistischer voor werknemers en werkgevers, waardoor gezinnen financieel beter beschermd blijven bij incidenten.",
+    "Workplace safety is connected to household stability. When a worker is injured or unable to continue working, the impact often reaches the family table first. LEUSI supports Zero Hunger by helping protect the income continuity of frontline workers, allowing families to maintain food security through safer, more stable employment conditions.": "Veiligheid op het werk is verbonden met stabiliteit thuis. Wanneer een werknemer gewond raakt of niet kan blijven werken, raakt de impact vaak als eerste het gezin. LEUSI ondersteunt Zero Hunger door de inkomenscontinuïteit van frontline workers te helpen beschermen, zodat gezinnen hun voedselzekerheid kunnen behouden via veiligere en stabielere arbeidsomstandigheden.",
+    "LEUSI directly supports worker health by promoting practical HSSE awareness, safer site behaviour, accident prevention, emergency readiness, and stronger workplace protection. The goal is not only to avoid injuries, but to build a culture where physical health, mental safety, and human dignity are treated as part of everyday work.": "LEUSI ondersteunt de gezondheid van werknemers direct door praktisch HSSE-bewustzijn, veiliger gedrag op locatie, ongevalspreventie, noodgereedheid en sterkere bescherming op de werkplek te bevorderen. Het doel is niet alleen letsel voorkomen, maar een cultuur opbouwen waarin fysieke gezondheid, mentale veiligheid en menselijke waardigheid deel zijn van dagelijks werk.",
+    "LEUSI turns safety knowledge into accessible education. Through training, awareness, certification pathways, and practical site based learning, workers, supervisors, and contractors gain the skills needed to operate safely and professionally. This creates a bridge between international standards and local work realities.": "LEUSI maakt veiligheidskennis toegankelijk onderwijs. Via training, bewustwording, certificeringsroutes en praktijkgericht leren op locatie krijgen werknemers, supervisors en aannemers de vaardigheden die nodig zijn om veilig en professioneel te werken. Dit vormt een brug tussen internationale standaarden en lokale werkrealiteiten.",
+    "Safer workplaces create more inclusive workplaces. When sites have clear HSSE rules, reporting mechanisms, protective equipment, safe access, welfare standards, and safety committees, women can participate with greater protection and confidence. LEUSI supports gender equality by helping create site environments where safety enables broader participation.": "Veiligere werkplekken creëren inclusievere werkplekken. Wanneer locaties duidelijke HSSE-regels, meldmechanismen, beschermingsmiddelen, veilige toegang, welfare-standaarden en veiligheidscommissies hebben, kunnen vrouwen met meer bescherming en vertrouwen deelnemen. LEUSI ondersteunt gendergelijkheid door te helpen werkomgevingen te creëren waarin veiligheid bredere deelname mogelijk maakt.",
+    "HSSE standards include hygiene, sanitation, safe welfare facilities, and the prevention of contamination on worksites. LEUSI can support cleaner and safer work environments by promoting proper site facilities, responsible handling of materials, and awareness of how unsafe practices can affect water, sanitation, and public health.": "HSSE-standaarden omvatten hygiëne, sanitair, veilige welfarevoorzieningen en het voorkomen van besmetting op werklocaties. LEUSI kan schonere en veiligere werkomgevingen ondersteunen door goede sitevoorzieningen, verantwoord materiaalgebruik en bewustzijn te bevorderen over hoe onveilige praktijken water, sanitair en volksgezondheid kunnen beïnvloeden.",
+    "Energy infrastructure cannot be truly sustainable if the people building and maintaining it are exposed to unsafe conditions. LEUSI supports clean energy development by strengthening the safety capacity of workers involved in energy, mobility, infrastructure, and future low carbon projects, helping the energy transition become safer on the ground.": "Energie-infrastructuur kan niet echt duurzaam zijn wanneer de mensen die haar bouwen en onderhouden aan onveilige omstandigheden worden blootgesteld. LEUSI ondersteunt de ontwikkeling van schone energie door de veiligheidscapaciteit te versterken van werknemers in energie, mobiliteit, infrastructuur en toekomstige koolstofarme projecten, zodat de energietransitie op de werkvloer veiliger wordt.",
+    "Decent work means more than employment. It means safe employment, protected workers, fairer site conditions, and the ability to grow professionally. LEUSI supports decent work by improving safety culture, employability, certification readiness, and the professional dignity of frontline workers in construction, infrastructure, logistics, and energy related sectors.": "Waardig werk betekent meer dan werkgelegenheid. Het betekent veilige arbeid, beschermde werknemers, eerlijkere sitecondities en de mogelijkheid om professioneel te groeien. LEUSI ondersteunt waardig werk door veiligheidscultuur, inzetbaarheid, certificeringsgereedheid en professionele waardigheid van frontline workers in bouw, infrastructuur, logistiek en energiegerelateerde sectoren te verbeteren.",
+    "Infrastructure depends on people, not only materials and capital. LEUSI supports responsible infrastructure delivery by building the human safety capacity required to execute projects safely, reliably, and professionally. Better trained workers and stronger HSSE systems reduce delays, accidents, insurance risk, and delivery failure.": "Infrastructuur hangt af van mensen, niet alleen van materialen en kapitaal. LEUSI ondersteunt verantwoorde infrastructuuruitvoering door de menselijke veiligheidscapaciteit op te bouwen die nodig is om projecten veilig, betrouwbaar en professioneel uit te voeren. Beter getrainde werknemers en sterkere HSSE-systemen verminderen vertragingen, ongevallen, verzekeringsrisico’s en uitvoeringsfalen.",
+    "Many frontline workers are excluded from formal training, certification, and international employment pathways. LEUSI helps reduce this gap by making HSSE knowledge more accessible and by preparing workers to meet recognized safety expectations. This creates a fairer bridge between local labour markets and international standards.": "Veel frontline workers zijn uitgesloten van formele training, certificering en internationale arbeidsroutes. LEUSI helpt deze kloof te verkleinen door HSSE-kennis toegankelijker te maken en werknemers voor te bereiden op erkende veiligheidsverwachtingen. Zo ontstaat een eerlijkere brug tussen lokale arbeidsmarkten en internationale standaarden.",
+    "Cities are shaped by the safety of the people who build them. LEUSI supports safer urban development by promoting responsible construction practices, stronger site discipline, reduced public risk, and better protection for workers and communities around active work zones. Safer sites contribute to safer cities.": "Steden worden gevormd door de veiligheid van de mensen die ze bouwen. LEUSI ondersteunt veiligere stedelijke ontwikkeling door verantwoorde bouwpraktijken, sterkere sitediscipline, minder publiek risico en betere bescherming voor werknemers en gemeenschappen rond actieve werkzones te bevorderen. Veiligere sites dragen bij aan veiligere steden.",
+    "Responsible production includes how materials are handled, how waste is managed, how risks are controlled, and how safely work is executed. LEUSI supports responsible practices by promoting awareness around site housekeeping, hazardous materials, environmental protection, safe storage, and disciplined operational behaviour.": "Verantwoorde productie omvat hoe materialen worden behandeld, hoe afval wordt beheerd, hoe risico’s worden beheerst en hoe veilig het werk wordt uitgevoerd. LEUSI ondersteunt verantwoord gedrag door bewustzijn te bevorderen rond housekeeping op locatie, gevaarlijke stoffen, milieubescherming, veilige opslag en gedisciplineerd operationeel gedrag.",
+    "Climate infrastructure requires safe implementation capacity. Solar, EV charging, energy efficiency, resilient buildings, and low carbon infrastructure all depend on trained workers who can deliver safely. LEUSI supports climate action by helping prepare workers and organizations to execute climate related projects without transferring risk to the most vulnerable people on site.": "Klimaatinfrastructuur vereist veilige uitvoeringscapaciteit. Zonne-energie, EV-laden, energie-efficiëntie, veerkrachtige gebouwen en koolstofarme infrastructuur zijn allemaal afhankelijk van getrainde werknemers die veilig kunnen leveren. LEUSI ondersteunt klimaatactie door werknemers en organisaties voor te bereiden op klimaatrelevante projecten zonder risico af te wentelen op de meest kwetsbare mensen op locatie.",
+    "Unsafe construction and poor site practices can lead to pollution, runoff, chemical leakage, and waste reaching waterways. LEUSI can support protection of water systems by raising awareness around environmental controls, spill prevention, waste discipline, and safe handling practices near drainage, rivers, ports, and coastal environments.": "Onveilige bouw en slechte sitepraktijken kunnen leiden tot vervuiling, afstroming, chemische lekkage en afval dat waterwegen bereikt. LEUSI kan bescherming van watersystemen ondersteunen door bewustzijn te vergroten rond milieubeheersmaatregelen, morspreventie, afvaldiscipline en veilige hantering nabij afwatering, rivieren, havens en kustgebieden.",
+    "Construction and infrastructure work can affect land, soil, vegetation, and surrounding ecosystems when safety and environmental controls are weak. LEUSI supports better protection of land based environments by promoting responsible site behaviour, controlled work zones, waste management, and awareness of environmental risk during project execution.": "Bouw- en infrastructuurwerk kunnen land, bodem, vegetatie en omliggende ecosystemen beïnvloeden wanneer veiligheids- en milieubeheersing zwak zijn. LEUSI ondersteunt betere bescherming van landgebonden omgevingen door verantwoord sitegedrag, gecontroleerde werkzones, afvalbeheer en bewustzijn van milieurisico’s tijdens projectuitvoering te bevorderen.",
+    "A strong safety culture is also a culture of accountability. LEUSI supports institutional trust by promoting compliance, reporting, responsibility, and transparent safety behaviour between workers, employers, contractors, insurers, and public actors. Safer systems help build stronger institutions because rules become visible in daily practice.": "Een sterke veiligheidscultuur is ook een cultuur van verantwoording. LEUSI ondersteunt institutioneel vertrouwen door naleving, rapportage, verantwoordelijkheid en transparant veiligheidsgedrag tussen werknemers, werkgevers, aannemers, verzekeraars en publieke actoren te bevorderen. Veiligere systemen helpen sterkere instellingen op te bouwen omdat regels zichtbaar worden in de dagelijkse praktijk.",
+    "LEUSI is built on partnership. It connects European safety standards with local workers, companies, trainers, institutions, insurers, contractors, and communities in the Levant. Its impact depends on collaboration between sectors, countries, and institutions that share one practical goal: making work safer, more dignified, and more future ready.": "LEUSI is gebouwd op partnerschap. Het verbindt Europese veiligheidsstandaarden met lokale werknemers, bedrijven, trainers, instellingen, verzekeraars, aannemers en gemeenschappen in de Levant. De impact hangt af van samenwerking tussen sectoren, landen en instellingen met één praktisch doel: werk veiliger, waardiger en toekomstgerichter maken."
+  }
+};
+
+function normalizeLEUSIText(value) {
+  return (value || '').replace(/\s+/g, ' ').trim();
+}
+
+function translateLEUSIValue(original, lang) {
+  const key = normalizeLEUSIText(original);
+  if (!key || lang === 'en') return original;
+  return (LEUSI_TEXT_TRANSLATIONS[lang] && LEUSI_TEXT_TRANSLATIONS[lang][key]) ? LEUSI_TEXT_TRANSLATIONS[lang][key] : original;
+}
+
+function collectLEUSITextNodes(root, list) {
+  root.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const raw = node.nodeValue;
+      if (normalizeLEUSIText(raw)) {
+        list.push(node);
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const tag = node.tagName.toLowerCase();
+      if (!['script', 'style', 'svg', 'noscript'].includes(tag)) collectLEUSITextNodes(node, list);
+    }
+  });
+}
+
+function initialiseLEUSITranslationMemory() {
+  const textNodes = [];
+  collectLEUSITextNodes(document.body, textNodes);
+  textNodes.forEach((node) => {
+    if (!node.__leusiOriginalText) node.__leusiOriginalText = node.nodeValue;
+  });
+  const attrNames = ['placeholder', 'title', 'aria-label', 'alt', 'data-title', 'data-body'];
+  document.querySelectorAll('*').forEach((el) => {
+    attrNames.forEach((attr) => {
+      if (el.hasAttribute(attr) && !el.dataset['leusiOriginal' + attr.replace(/(^|-)([a-z])/g, (_,a,b)=>b.toUpperCase())]) {
+        el.dataset['leusiOriginal' + attr.replace(/(^|-)([a-z])/g, (_,a,b)=>b.toUpperCase())] = el.getAttribute(attr);
+      }
+    });
+  });
+}
+
+function setLEUSILanguage(lang) {
+  initialiseLEUSITranslationMemory();
+  const textNodes = [];
+  collectLEUSITextNodes(document.body, textNodes);
+  textNodes.forEach((node) => {
+    node.nodeValue = translateLEUSIValue(node.__leusiOriginalText || node.nodeValue, lang);
+  });
+
+  const attrNames = ['placeholder', 'title', 'aria-label', 'alt', 'data-title', 'data-body'];
+  document.querySelectorAll('*').forEach((el) => {
+    attrNames.forEach((attr) => {
+      const keyName = 'leusiOriginal' + attr.replace(/(^|-)([a-z])/g, (_,a,b)=>b.toUpperCase());
+      const original = el.dataset[keyName];
+      if (original) el.setAttribute(attr, translateLEUSIValue(original, lang));
+    });
+  });
+
+  document.documentElement.lang = lang;
+  document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+  document.body.classList.toggle('leusi-rtl', lang === 'ar');
+  document.querySelectorAll('.lang-switcher button').forEach((button) => {
+    button.classList.toggle('active', button.dataset.lang === lang);
+  });
+  localStorage.setItem('leusiLanguage', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initialiseLEUSITranslationMemory();
+  document.querySelectorAll('.lang-switcher button').forEach((button) => {
+    button.addEventListener('click', () => setLEUSILanguage(button.dataset.lang));
+  });
+  setLEUSILanguage(localStorage.getItem('leusiLanguage') || 'en');
+});
+</script>
+
+
 <script>
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobileNav');
@@ -3037,86 +3469,6 @@ if (heroPanel && window.matchMedia('(pointer: fine)').matches) {
     heroPanel.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   });
 }
-</script>
-
-
-<script>
-(function(){
-  const STORAGE_KEY = 'leusi_site_language';
-  const supported = { en: 'en', ar: 'ar', nl: 'nl' };
-
-  window.googleTranslateElementInit = function(){
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'en,ar,nl',
-      autoDisplay: false
-    }, 'google_translate_element');
-
-    const saved = localStorage.getItem(STORAGE_KEY) || 'en';
-    setTimeout(function(){ applyLanguage(saved); }, 700);
-  };
-
-  function setCookie(name, value) {
-    document.cookie = name + '=' + value + ';path=/;max-age=31536000';
-    document.cookie = name + '=' + value + ';domain=.' + location.hostname + ';path=/;max-age=31536000';
-  }
-
-  function applyLanguage(lang){
-    if(!supported[lang]) lang = 'en';
-    localStorage.setItem(STORAGE_KEY, lang);
-
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.body.classList.toggle('lang-ar', lang === 'ar');
-
-    document.querySelectorAll('[data-leusi-lang]').forEach(function(btn){
-      btn.classList.toggle('active', btn.dataset.leusiLang === lang);
-    });
-
-    if(lang === 'en'){
-      setCookie('googtrans', '/en/en');
-    } else {
-      setCookie('googtrans', '/en/' + lang);
-    }
-
-    const combo = document.querySelector('.goog-te-combo');
-    if(combo){
-      combo.value = lang === 'en' ? 'en' : lang;
-      combo.dispatchEvent(new Event('change'));
-    }
-  }
-
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('[data-leusi-lang]');
-    if(!btn) return;
-    applyLanguage(btn.dataset.leusiLang);
-  });
-
-  window.LEUSI_SET_LANGUAGE = applyLanguage;
-})();
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script>
-  (function () {
-    const buttons = document.querySelectorAll('[data-lang-switch]');
-    const savedLang = localStorage.getItem('leusiLang') || 'en';
-
-    function setLang(lang) {
-      localStorage.setItem('leusiLang', lang);
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.langSwitch === lang);
-      });
-    }
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => setLang(btn.dataset.langSwitch));
-    });
-
-    setLang(savedLang);
-  })();
 </script>
 </body>
 </html>
