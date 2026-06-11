@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>LEUSI Strategic Organizing Framework</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="/leusi-icon-192.png">
-<meta name="theme-color" content="#04111d">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="/leusi-icon-192.png" rel="apple-touch-icon"/>
+<meta content="#04111d" name="theme-color"/>
 <style>
 :root {
   --bg:#04111d;
@@ -721,473 +722,408 @@ footer { padding:44px 24px; text-align:center; background:#031018; color:#94a3b8
 
 }
 
+/* LEUSI fixed offline multilingual layer */
+.language-switcher{display:inline-flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 26px rgba(0,0,0,.18)}
+.lang-btn{border:0;border-radius:999px;padding:8px 12px;background:transparent;color:#dbeafe;font-weight:900;cursor:pointer;font-family:inherit;transition:.2s ease}.lang-btn:hover,.lang-btn.active{background:linear-gradient(135deg,#22c55e,#5effaa);color:#031018;box-shadow:0 0 18px rgba(94,255,170,.28)}
+html[lang="ar"] body{font-family:'IBM Plex Sans Arabic','Inter',Arial,sans-serif;direction:rtl;text-align:right;letter-spacing:0}html[lang="ar"] .nav,html[lang="ar"] .hero-box,html[lang="ar"] .cta .wrap{direction:rtl}html[lang="ar"] .nav-links{justify-content:flex-start}html[lang="ar"] .hero h2,html[lang="ar"] .light-section h3,html[lang="ar"] .dark-section h3,html[lang="ar"] .gradient-section h3,html[lang="ar"] .cta h3{letter-spacing:-.02em;line-height:1.16}html[lang="ar"] .eyebrow,html[lang="ar"] .section-label{letter-spacing:.08em}html[lang="ar"] ol,html[lang="ar"] ul{padding-left:0;padding-right:22px}html[lang="ar"] .flow-step:after{content:'←';left:-18px;right:auto}html[lang="ar"] .flow-step:last-child:after{display:none}html[lang="ar"] .step-toggle{text-align:right}html[lang="ar"] .internal_governance_section .section_head{text-align:right}
+@media(max-width:900px){.language-switcher{order:3}.nav{align-items:flex-start}.hero h2,.hero p{text-align:inherit}}
 
-/* LEUSI language switcher */
-.leusi-lang-switcher{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:5px;
-  border:1px solid rgba(4,120,87,.20);
-  border-radius:999px;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(12px);
-  box-shadow:0 8px 24px rgba(4,24,29,.08);
-}
-.leusi-lang-switcher button{
-  border:0;
-  background:transparent;
-  color:#0f3f33;
-  font-weight:800;
-  font-size:12px;
-  letter-spacing:.03em;
-  padding:7px 9px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.leusi-lang-switcher button:hover,
-.leusi-lang-switcher button.active{
-  background:#0f513f;
-  color:#fff;
-}
-#google_translate_element{
-  position:absolute;
-  left:-9999px;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-}
-body.lang-ar{direction:rtl;}
-body.lang-ar .nav,
-body.lang-ar .nav-links{direction:rtl;}
-body.lang-ar .brand{direction:ltr;}
-body.lang-ar .brand + *{direction:rtl;}
-@media(max-width:900px){
-  .leusi-lang-switcher{order:3;margin-left:auto;}
-  .leusi-lang-switcher button{padding:6px 8px;font-size:11px;}
-}
+/* Fix: keep accordion step titles visible after clicking translated tabs */
+.step-toggle > span:first-child { display: inline-flex; align-items: center; min-width: 0; }
+.step-toggle > span:last-child { flex: 0 0 auto; }
+
 </style>
-</head>
-
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/></head>
 <body>
 <div class="progress" id="progress"></div>
-
 <header>
-  <div class="nav">
-    <a class="brand" href="https://leusi.org">
-      <div class="logo"><img src="Leusi avatar.png" alt="LEUSI Safety Assistant"></div>
-      <div>
-        <h1>LEUSI</h1>
-        <p>Levant European Safety Initiative</p>
-      </div>
-    </a>
-    <nav class="nav-links">
-      <a href="#identity">Identity</a>
-      <a href="#theory">Theory</a>
-      <a href="#power">Power</a>
-      <a href="#strategy">Strategy</a>
-      <a href="#metrics">Metrics</a>
-      <a href="#coaching">Coaching</a>
-      <a href="#internal_governance">Internal Governance</a>
-    </nav>
-  </div>
+<div class="nav">
+<div class="language-switcher"><button class="lang-btn active" data-lang="en" type="button">EN</button><button class="lang-btn" data-lang="ar" type="button">AR</button><button class="lang-btn" data-lang="nl" type="button">NL</button></div><a class="brand" href="https://leusi.org">
+<div class="logo"><img alt="LEUSI Safety Assistant" src="Leusi avatar.png"/></div>
+<div>
+<h1><span data-i18n="t0">LEUSI</span></h1>
+<p><span data-i18n="t1">Levant European Safety Initiative</span></p>
+</div>
+</a>
+<nav class="nav-links">
+<a href="#identity"><span data-i18n="t2">Identity</span></a>
+<a href="#theory"><span data-i18n="t3">Theory</span></a>
+<a href="#power"><span data-i18n="t4">Power</span></a>
+<a href="#strategy"><span data-i18n="t5">Strategy</span></a>
+<a href="#metrics"><span data-i18n="t6">Metrics</span></a>
+<a href="#coaching"><span data-i18n="t7">Coaching</span></a>
+<a href="#internal_governance"><span data-i18n="t8">Internal Governance</span></a>
+</nav>
+</div>
 </header>
-
 <section class="hero">
-  <div class="hero-box">
-    <div class="hero-copy">
-      <div class="eyebrow">LEUSI Strategic Organizing Framework</div>
-      <h2>Safety as dignity, power, and public trust.</h2>
-      <p>Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership. A practical organizing framework for building safety leadership and institutional accountability across the Levant and MENA region.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#strategy">Explore Strategy →</a>
-        <a class="btn btn-secondary" href="#theory">View Theory of Change</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="framework-orbit">
-        <div class="ring one"></div><div class="ring two"></div><div class="ring three"></div>
-        <div class="orbit-card a">Public Narrative</div><div class="orbit-card b">Power Building</div><div class="orbit-card c">Coaching</div><div class="orbit-card d">Tactics</div>
-        <div class="core"><img src="Leusi avatar.png" alt="LEUSI Safety Assistant"></div>
-      </div>
-    </div>
-  </div>
+<div class="hero-box">
+<div class="hero-copy">
+<div class="eyebrow"><span data-i18n="t9">LEUSI Strategic Organizing Framework</span></div>
+<h2><span data-i18n="t10">Safety as dignity, power, and public trust.</span></h2>
+<p><span data-i18n="t11">Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership. A practical organizing framework for building safety leadership and institutional accountability across the Levant and MENA region.</span></p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#strategy"><span data-i18n="t12">Explore Strategy →</span></a>
+<a class="btn btn-secondary" href="#theory"><span data-i18n="t13">View Theory of Change</span></a>
+</div>
+</div>
+<div class="hero-visual">
+<div class="framework-orbit">
+<div class="ring one"></div><div class="ring two"></div><div class="ring three"></div>
+<div class="orbit-card a"><span data-i18n="t14">Public Narrative</span></div><div class="orbit-card b"><span data-i18n="t15">Power Building</span></div><div class="orbit-card c"><span data-i18n="t7">Coaching</span></div><div class="orbit-card d"><span data-i18n="t16">Tactics</span></div>
+<div class="core"><img alt="LEUSI Safety Assistant" src="Leusi avatar.png"/></div>
+</div>
+</div>
+</div>
 </section>
-
 <section class="quote-band">
 </section>
-
 <section class="gradient-section" id="identity">
-  <div class="wrap reveal">
-    <div class="section-label">01 · Core Organizing Identity</div>
-    <h3>LEUSI Core Organizing Identity</h3>
-    <div class="grid">
-      <div class="card glass-card"><h4>Mission</h4><p>LEUSI aims to transform workplace safety culture in the Levant and the MENA Region by developing frontline workers, engineers, contractors, transport workers, and local communities into HSSE leaders. These leaders will advance safer workplaces, strengthen institutional accountability, and promote internationally aligned safety standards.</p></div>
-      <div class="card glass-card"><h4>Vision</h4><p>A region where safety is recognized as a core social value, not just a compliance requirement.</p></div>
-      <div class="card glass-card"><h4>Organizing Philosophy</h4><p>LEUSI is not solely a training provider or consultancy. This framework positions LEUSI as an organizing institution focused on leadership development. LEUSI empowers individuals to lead change, guided by key principles: building relationships before launching programs; prioritizing leadership development before scaling; organizing people for action rather than simply mobilizing audiences; fostering distributed leadership to reduce reliance on central figures; transforming shared pain into collective action; and building constituency power to influence institutions.</p></div>
-    </div>
-    <div class="grid" style="margin-top:24px;">
-      <div class="card glass-card"><h4>The organization should</h4><ol><li>Build relationships before programs.</li><li>Prioritize leadership development over rapid scaling.</li><li>Organize people rather than mobilize audiences.</li><li>Promote distributed leadership instead of centralized dependency.</li><li>Transform shared pain into collective action.</li><li>Build constituency power capable of influencing institutions.</li></ol></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t17">01 · Core Organizing Identity</span></div>
+<h3><span data-i18n="t18">LEUSI Core Organizing Identity</span></h3>
+<div class="grid">
+<div class="card glass-card"><h4><span data-i18n="t19">Mission</span></h4><p><span data-i18n="t20">LEUSI aims to transform workplace safety culture in the Levant and the MENA Region by developing frontline workers, engineers, contractors, transport workers, and local communities into HSSE leaders. These leaders will advance safer workplaces, strengthen institutional accountability, and promote internationally aligned safety standards.</span></p></div>
+<div class="card glass-card"><h4><span data-i18n="t21">Vision</span></h4><p><span data-i18n="t22">A region where safety is recognized as a core social value, not just a compliance requirement.</span></p></div>
+<div class="card glass-card"><h4><span data-i18n="t23">Organizing Philosophy</span></h4><p><span data-i18n="t24">LEUSI is not solely a training provider or consultancy. This framework positions LEUSI as an organizing institution focused on leadership development. LEUSI empowers individuals to lead change, guided by key principles: building relationships before launching programs; prioritizing leadership development before scaling; organizing people for action rather than simply mobilizing audiences; fostering distributed leadership to reduce reliance on central figures; transforming shared pain into collective action; and building constituency power to influence institutions.</span></p></div>
+</div>
+<div class="grid" style="margin-top:24px;">
+<div class="card glass-card"><h4><span data-i18n="t25">The organization should</span></h4><ol><li><span data-i18n="t26">Build relationships before programs.</span></li><li><span data-i18n="t27">Prioritize leadership development over rapid scaling.</span></li><li><span data-i18n="t28">Organize people rather than mobilize audiences.</span></li><li><span data-i18n="t29">Promote distributed leadership instead of centralized dependency.</span></li><li><span data-i18n="t30">Transform shared pain into collective action.</span></li><li><span data-i18n="t31">Build constituency power capable of influencing institutions.</span></li></ol></div>
+</div>
+</div>
 </section>
-
 <section class="dark-section" id="theory">
-  <div class="wrap reveal">
-    <div class="section-label">02 · Theory of Change</div>
-    <h3>How LEUSI turns unsafe conditions into organized safety leadership.</h3>
-    <p>Unsafe environments persist not only because of technical failures but also because affected individuals lack organized power, leadership capacity, institutional representation, and collective strategic coordination.</p>
-    <div class="diagram-flow">
-      <div class="flow-step"><strong>1 · Identify</strong>Affected workers, engineers, contractors, transport workers, and local communities.</div>
-      <div class="flow-step"><strong>2 · Develop</strong>Credible HSSE leaders through coaching, storytelling, education, structured organizing, and practical safety implementation.</div>
-      <div class="flow-step"><strong>3 · Influence</strong>Workplace behavior, community expectations, institutions, and responsible partnerships.</div>
-      <div class="flow-step"><strong>4 · Normalize</strong>Stronger safety standards, international credibility, and long-term societal transformation.</div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t32">02 · Theory of Change</span></div>
+<h3><span data-i18n="t33">How LEUSI turns unsafe conditions into organized safety leadership.</span></h3>
+<p><span data-i18n="t34">Unsafe environments persist not only because of technical failures but also because affected individuals lack organized power, leadership capacity, institutional representation, and collective strategic coordination.</span></p>
+<div class="diagram-flow">
+<div class="flow-step"><strong><span data-i18n="t35">1 · Identify</span></strong><span data-i18n="t36">Affected workers, engineers, contractors, transport workers, and local communities.</span></div>
+<div class="flow-step"><strong><span data-i18n="t37">2 · Develop</span></strong><span data-i18n="t38">Credible HSSE leaders through coaching, storytelling, education, structured organizing, and practical safety implementation.</span></div>
+<div class="flow-step"><strong><span data-i18n="t39">3 · Influence</span></strong><span data-i18n="t40">Workplace behavior, community expectations, institutions, and responsible partnerships.</span></div>
+<div class="flow-step"><strong><span data-i18n="t41">4 · Normalize</span></strong><span data-i18n="t42">Stronger safety standards, international credibility, and long-term societal transformation.</span></div>
+</div>
+</div>
 </section>
-
 <section class="light-section">
-  <div class="wrap reveal">
-    <div class="section-label">03 · Current Situation</div>
-    <h3>Workers in the Levant and similar environments often experience:</h3>
-    <div class="grid">
-      <div class="card"><h4>Safety Culture</h4><ol><li>Weak safety culture.</li><li>Poor HSSE awareness.</li><li>Limited institutional enforcement.</li></ol></div>
-      <div class="card"><h4>Systemic Pressure</h4><ol><li>Informal labor structures.</li><li>Political interference and corruption.</li><li>Lack of accountability mechanisms.</li></ol></div>
-      <div class="card"><h4>Leadership Gap</h4><ol><li>Economic pressures force workers to accept unsafe conditions.</li><li>Absence of leadership development among frontline workers.</li></ol></div>
-    </div>
-    <div class="grid" style="margin-top:24px;">
-      <div class="card"><h4>This creates</h4><ol><li>Cultural change</li><li>Organizational change</li><li>Institutional pressure</li><li>Policy momentum</li><li>Economic incentives for compliance</li><li>International credibility</li><li>Long-term societal transformation</li></ol></div>
-      <div class="card"><h4>LEUSI Theory of Change</h4><p>If LEUSI identifies affected workers and develops them into credible HSSE leaders through coaching, storytelling, education, structured organizing, and practical safety implementation, these leaders can influence workplace behavior, shift community expectations, pressure institutions, attract responsible international partnerships, and gradually normalize stronger safety standards.</p></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t43">03 · Current Situation</span></div>
+<h3><span data-i18n="t44">Workers in the Levant and similar environments often experience:</span></h3>
+<div class="grid">
+<div class="card"><h4><span data-i18n="t45">Safety Culture</span></h4><ol><li><span data-i18n="t46">Weak safety culture.</span></li><li><span data-i18n="t47">Poor HSSE awareness.</span></li><li><span data-i18n="t48">Limited institutional enforcement.</span></li></ol></div>
+<div class="card"><h4><span data-i18n="t49">Systemic Pressure</span></h4><ol><li><span data-i18n="t50">Informal labor structures.</span></li><li><span data-i18n="t51">Political interference and corruption.</span></li><li><span data-i18n="t52">Lack of accountability mechanisms.</span></li></ol></div>
+<div class="card"><h4><span data-i18n="t53">Leadership Gap</span></h4><ol><li><span data-i18n="t54">Economic pressures force workers to accept unsafe conditions.</span></li><li><span data-i18n="t55">Absence of leadership development among frontline workers.</span></li></ol></div>
+</div>
+<div class="grid" style="margin-top:24px;">
+<div class="card"><h4><span data-i18n="t56">This creates</span></h4><ol><li><span data-i18n="t57">Cultural change</span></li><li><span data-i18n="t58">Organizational change</span></li><li><span data-i18n="t59">Institutional pressure</span></li><li><span data-i18n="t60">Policy momentum</span></li><li><span data-i18n="t61">Economic incentives for compliance</span></li><li><span data-i18n="t62">International credibility</span></li><li><span data-i18n="t63">Long-term societal transformation</span></li></ol></div>
+<div class="card"><h4><span data-i18n="t64">LEUSI Theory of Change</span></h4><p><span data-i18n="t65">If LEUSI identifies affected workers and develops them into credible HSSE leaders through coaching, storytelling, education, structured organizing, and practical safety implementation, these leaders can influence workplace behavior, shift community expectations, pressure institutions, attract responsible international partnerships, and gradually normalize stronger safety standards.</span></p></div>
+</div>
+</div>
 </section>
-
 <section class="quote-band alt-one"></section>
-
 <section class="light-section">
-  <div class="wrap reveal">
-    <div class="section-label">04 · The LEUSI Organizing Model</div>
-    <h3>The Five Core Practices</h3>
-    <div class="grid">
-      <div class="card"><h4>Public Narrative</h4><p>LEUSI must continuously communicate:</p><ol><li>Story of Self<br>Why do you personally care about safety, dignity, institutional honesty, and accountability?</li><li>Story of Us<br>Why workers, communities, engineers, and organizations share this challenge collectively.</li><li>Story of Now<br>Immediate action is essential due to reconstruction, regional transformation, infrastructure investment, and rising international standards.</li></ol><p>The narrative must connect on emotional and moral levels, not just technical ones.</p></div>
-      <div class="card"><h4>LEUSI Narrative Positioning</h4><p>LEUSI focuses on accident prevention and broader organizational and societal goals.</p><ol><li>Protecting human dignity</li><li>Building trust in institutions</li><li>Creating internationally employable workers</li><li>Supporting economic reconstruction</li><li>Bridging Europe and the Levant</li><li>Developing ethical leadership</li><li>Creating safer cities and workplaces</li></ol></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t66">04 · The LEUSI Organizing Model</span></div>
+<h3><span data-i18n="t67">The Five Core Practices</span></h3>
+<div class="grid">
+<div class="card"><h4><span data-i18n="t14">Public Narrative</span></h4><p><span data-i18n="t68">LEUSI must continuously communicate:</span></p><ol><li><span data-i18n="t69">Story of Self</span><br/><span data-i18n="t70">Why do you personally care about safety, dignity, institutional honesty, and accountability?</span></li><li><span data-i18n="t71">Story of Us</span><br/><span data-i18n="t72">Why workers, communities, engineers, and organizations share this challenge collectively.</span></li><li><span data-i18n="t73">Story of Now</span><br/><span data-i18n="t74">Immediate action is essential due to reconstruction, regional transformation, infrastructure investment, and rising international standards.</span></li></ol><p><span data-i18n="t75">The narrative must connect on emotional and moral levels, not just technical ones.</span></p></div>
+<div class="card"><h4><span data-i18n="t76">LEUSI Narrative Positioning</span></h4><p><span data-i18n="t77">LEUSI focuses on accident prevention and broader organizational and societal goals.</span></p><ol><li><span data-i18n="t78">Protecting human dignity</span></li><li><span data-i18n="t79">Building trust in institutions</span></li><li><span data-i18n="t80">Creating internationally employable workers</span></li><li><span data-i18n="t81">Supporting economic reconstruction</span></li><li><span data-i18n="t82">Bridging Europe and the Levant</span></li><li><span data-i18n="t83">Developing ethical leadership</span></li><li><span data-i18n="t84">Creating safer cities and workplaces</span></li></ol></div>
+</div>
+</div>
 </section>
-
 <section class="dark-section">
-  <div class="wrap reveal">
-    <div class="section-label">05 · Constituency Building</div>
-    <h3>Organizing the people directly affected by unsafe systems.</h3>
-    <div class="grid">
-      <div class="card dark-card"><h4>Primary Constituency</h4><p>The people directly affected by unsafe systems.</p><ol><li>Construction workers</li><li>Electrical workers</li><li>Transport and logistics operators</li><li>Site supervisors</li><li>Small contractors</li><li>Young engineers</li><li>Vocational students</li><li>Municipal workers</li><li>Informal labor sectors</li></ol></div>
-      <div class="card dark-card"><h4>Secondary Constituency</h4><p>People with influence, resources, or institutional legitimacy.</p><ol><li>Universities</li><li>Municipalities</li><li>International NGOs</li><li>European institutions</li><li>Energy companies</li><li>Construction firms</li><li>Insurance actors</li><li>Labor advocates</li><li>Diaspora professionals</li><li>Dutch and GCC networks</li></ol></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t85">05 · Constituency Building</span></div>
+<h3><span data-i18n="t86">Organizing the people directly affected by unsafe systems.</span></h3>
+<div class="grid">
+<div class="card dark-card"><h4><span data-i18n="t87">Primary Constituency</span></h4><p><span data-i18n="t88">The people directly affected by unsafe systems.</span></p><ol><li><span data-i18n="t89">Construction workers</span></li><li><span data-i18n="t90">Electrical workers</span></li><li><span data-i18n="t91">Transport and logistics operators</span></li><li><span data-i18n="t92">Site supervisors</span></li><li><span data-i18n="t93">Small contractors</span></li><li><span data-i18n="t94">Young engineers</span></li><li><span data-i18n="t95">Vocational students</span></li><li><span data-i18n="t96">Municipal workers</span></li><li><span data-i18n="t97">Informal labor sectors</span></li></ol></div>
+<div class="card dark-card"><h4><span data-i18n="t98">Secondary Constituency</span></h4><p><span data-i18n="t99">People with influence, resources, or institutional legitimacy.</span></p><ol><li><span data-i18n="t100">Universities</span></li><li><span data-i18n="t101">Municipalities</span></li><li><span data-i18n="t102">International NGOs</span></li><li><span data-i18n="t103">European institutions</span></li><li><span data-i18n="t104">Energy companies</span></li><li><span data-i18n="t105">Construction firms</span></li><li><span data-i18n="t106">Insurance actors</span></li><li><span data-i18n="t107">Labor advocates</span></li><li><span data-i18n="t108">Diaspora professionals</span></li><li><span data-i18n="t109">Dutch and GCC networks</span></li></ol></div>
+</div>
+</div>
 </section>
-
 <section class="dark-section" id="power">
-  <div class="wrap reveal">
-    <div class="section-label">06 · Power Analysis</div>
-    <h3>Power is the ability to achieve objectives in uncertain conditions.</h3>
-    <p>LEUSI should understand power as organized people, organized resources, organized relationships, strategic legitimacy, public trust, institutional access, and narrative influence.</p>
-    <div class="power-map">
-      <div><h4 style="color:var(--green-soft);font-size:24px;margin-bottom:14px;">Current Power Holders</h4><div class="pill-list"><span class="pill">Political actors</span><span class="pill">Ministries</span><span class="pill">Construction elites</span><span class="pill">Informal networks</span><span class="pill">International funders</span><span class="pill">Municipal authorities</span><span class="pill">Engineering syndicates</span><span class="pill">Employers</span></div></div>
-      <div class="power-core">LEUSI<br>Power<br>Building</div>
-      <div><h4 style="color:var(--green-soft);font-size:24px;margin-bottom:14px;">LEUSI Initial Power Assets</h4><div class="pill-list"><span class="pill">International credibility</span><span class="pill">European safety alignment</span><span class="pill">Energy infrastructure experience</span><span class="pill">BP and Shell background</span><span class="pill">HKS organizing framework</span><span class="pill">Policy understanding</span><span class="pill">Cross-cultural positioning</span><span class="pill">Dutch and GCC networks</span><span class="pill">Storytelling credibility</span><span class="pill">Moral legitimacy</span></div></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t110">06 · Power Analysis</span></div>
+<h3><span data-i18n="t111">Power is the ability to achieve objectives in uncertain conditions.</span></h3>
+<p><span data-i18n="t112">LEUSI should understand power as organized people, organized resources, organized relationships, strategic legitimacy, public trust, institutional access, and narrative influence.</span></p>
+<div class="power-map">
+<div><h4 style="color:var(--green-soft);font-size:24px;margin-bottom:14px;"><span data-i18n="t113">Current Power Holders</span></h4><div class="pill-list"><span class="pill"><span data-i18n="t114">Political actors</span></span><span class="pill"><span data-i18n="t115">Ministries</span></span><span class="pill"><span data-i18n="t116">Construction elites</span></span><span class="pill"><span data-i18n="t117">Informal networks</span></span><span class="pill"><span data-i18n="t118">International funders</span></span><span class="pill"><span data-i18n="t119">Municipal authorities</span></span><span class="pill"><span data-i18n="t120">Engineering syndicates</span></span><span class="pill"><span data-i18n="t121">Employers</span></span></div></div>
+<div class="power-core"><span data-i18n="t0">LEUSI</span><br/><span data-i18n="t4">Power</span><br/><span data-i18n="t122">Building</span></div>
+<div><h4 style="color:var(--green-soft);font-size:24px;margin-bottom:14px;"><span data-i18n="t123">LEUSI Initial Power Assets</span></h4><div class="pill-list"><span class="pill"><span data-i18n="t62">International credibility</span></span><span class="pill"><span data-i18n="t124">European safety alignment</span></span><span class="pill"><span data-i18n="t125">Energy infrastructure experience</span></span><span class="pill"><span data-i18n="t126">BP and Shell background</span></span><span class="pill"><span data-i18n="t127">HKS organizing framework</span></span><span class="pill"><span data-i18n="t128">Policy understanding</span></span><span class="pill"><span data-i18n="t129">Cross-cultural positioning</span></span><span class="pill"><span data-i18n="t109">Dutch and GCC networks</span></span><span class="pill"><span data-i18n="t130">Storytelling credibility</span></span><span class="pill"><span data-i18n="t131">Moral legitimacy</span></span></div></div>
+</div>
+</div>
 </section>
-
 <section class="light-section">
-  <div class="wrap reveal">
-    <div class="section-label">07 · Strategic Goal Structure</div>
-    <h3>Strategic goals from legitimacy to systems change.</h3>
-    <div class="grid">
-      <div class="card"><h4>Phase 1 Goal</h4><p>Build legitimacy and relational infrastructure.</p></div>
-      <div class="card"><h4>Phase 2 Goal</h4><p>Develop visible pilot safety leaders and measurable implementation projects.</p></div>
-      <div class="card"><h4>Phase 3 Goal</h4><p>Create institutional partnerships and public recognition.</p></div>
-      <div class="card"><h4>Phase 4 Goal</h4><p>Influence policy, standards, and broader market behavior.</p></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t132">07 · Strategic Goal Structure</span></div>
+<h3><span data-i18n="t133">Strategic goals from legitimacy to systems change.</span></h3>
+<div class="grid">
+<div class="card"><h4><span data-i18n="t134">Phase 1 Goal</span></h4><p><span data-i18n="t135">Build legitimacy and relational infrastructure.</span></p></div>
+<div class="card"><h4><span data-i18n="t136">Phase 2 Goal</span></h4><p><span data-i18n="t137">Develop visible pilot safety leaders and measurable implementation projects.</span></p></div>
+<div class="card"><h4><span data-i18n="t138">Phase 3 Goal</span></h4><p><span data-i18n="t139">Create institutional partnerships and public recognition.</span></p></div>
+<div class="card"><h4><span data-i18n="t140">Phase 4 Goal</span></h4><p><span data-i18n="t141">Influence policy, standards, and broader market behavior.</span></p></div>
+</div>
+</div>
 </section>
-
 <section class="light-section" id="strategy">
-  <div class="wrap reveal">
-    <div class="section-label">08 · Step-by-Step Organizing Strategy</div>
-    <h3>Interactive timeline and stage gates.</h3>
-    <div class="phase-timeline" id="phaseTimeline">
-      <div class="phase-gate active" data-gate="p1"><strong>0 to 6 Months</strong><span>Foundation and relational organizing</span></div>
-      <div class="phase-gate" data-gate="p2"><strong>6 to 12 Months</strong><span>Pilot organizing and leadership development</span></div>
-      <div class="phase-gate" data-gate="p3"><strong>12 to 24 Months</strong><span>Power building and public positioning</span></div>
-      <div class="phase-gate" data-gate="p4"><strong>2 to 5 Years</strong><span>Policy and systemic influence</span></div>
-    </div>
-    <div class="tabs">
-      <div class="tab-buttons">
-        <button class="tab-btn active" data-tab="p1">Phase 1</button>
-        <button class="tab-btn" data-tab="p2">Phase 2</button>
-        <button class="tab-btn" data-tab="p3">Phase 3</button>
-        <button class="tab-btn" data-tab="p4">Phase 4</button>
-      </div>
-
-      <div class="tab-panel active" id="p1">
-        <div class="card">
-          <h4>PHASE 1 · FOUNDATION AND RELATIONAL ORGANIZING</h4>
-          <p>Timeline: 0 to 6 Months</p>
-          <p>Objective: Establish trust, build relationships, and ensure legitimacy and organizational clarity.</p>
-          <div class="phase-steps">
-            
-          <div class="phase-step">
-            <button class="step-toggle active" type="button">
-              <span>Step 1. Clarify Organizational Structure</span>
-              <span>−</span>
-            </button>
-            <div class="step-body active">
-              <ol><li>Stichting structure</li><li>Governance framework</li><li>Advisory board strategy</li><li>Financial model</li><li>Ethical charter</li><li>Transparency policy</li><li>HSSE framework</li><li>Data and reporting systems</li></ol>
-              <p>These actions establish institutional legitimacy.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 2. Develop Public Narrative Infrastructure</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Founder narrative</li><li>LEUSI manifesto</li><li>Website storytelling structure</li><li>Social media narrative</li><li>Worker stories</li><li>Safety transformation stories</li><li>Visual identity tied to dignity and professionalism</li></ol>
-              <p>All communications should reinforce the message: Safety is dignity, accountability, and development.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 3. Conduct Relational Meetings</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Workers</li><li>Contractors</li><li>Engineers</li><li>Municipal actors</li><li>NGOs</li><li>Universities</li><li>International professionals</li><li>Diaspora actors</li></ol>
-              <p>Goal: Conduct 100 structured relational conversations.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 4. Identify Initial Leadership Circle</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Personal connection to safety</li><li>Credibility among peers</li><li>Willingness to learn</li><li>Communication ability</li><li>Moral commitment</li><li>Potential to mobilize others</li></ol>
-              <p>Select 10 to 15 people who can grow into LEUSI’s first leadership circle.</p>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-panel" id="p2">
-        <div class="card">
-          <h4>PHASE 2 · PILOT ORGANIZING AND LEADERSHIP DEVELOPMENT</h4>
-          <p>Timeline: 6 to 12 Months</p>
-          <p>Objective: Transition from relationship-building to organized action.</p>
-          <div class="phase-steps">
-            
-          <div class="phase-step">
-            <button class="step-toggle active" type="button">
-              <span>Step 5. Launch LEUSI Leadership Academy</span>
-              <span>−</span>
-            </button>
-            <div class="step-body active">
-              <ol><li>HSSE fundamentals</li><li>Leadership development</li><li>Public narrative</li><li>Communication</li><li>Incident reporting culture</li><li>Ethical leadership</li><li>Conflict management</li><li>Coaching skills</li><li>Community organizing</li><li>Team accountability</li></ol>
-              <p>The academy provides more than technical training. It prepares safety leaders.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 6. Build Pilot Action Teams</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>One team per pilot site</li><li>Clear roles</li><li>Weekly check-ins</li><li>Safety observation routines</li><li>Incident reflection sessions</li><li>Public learning moments</li></ol>
-              <p>Each pilot team should include workers, supervisors, technical advisors, and community supporters.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 7. Implement Visible Pilot Projects</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Basic PPE awareness</li><li>Site traffic flow safety</li><li>Emergency response mapping</li><li>Housekeeping campaigns</li><li>Working at height awareness</li><li>Electrical hazard awareness</li><li>Incident reporting practice</li><li>Toolbox talk routines</li></ol>
-              <p>Pilot projects must generate visible results and measurable learning.</p>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-panel" id="p3">
-        <div class="card">
-          <h4>PHASE 3 · POWER BUILDING AND PUBLIC POSITIONING</h4>
-          <p>Timeline: 12 to 24 Months</p>
-          <p>Objective: Leverage legitimacy to build influence.</p>
-          <div class="phase-steps">
-            
-          <div class="phase-step">
-            <button class="step-toggle active" type="button">
-              <span>Step 8. Build Institutional Alliances</span>
-              <span>−</span>
-            </button>
-            <div class="step-body active">
-              <ol><li>Dutch institutions</li><li>Lebanese municipalities</li><li>Universities</li><li>International NGOs</li><li>European safety organizations</li><li>Insurance actors</li><li>Infrastructure companies</li><li>Development agencies</li><li>GCC actors</li></ol>
-              <p>Institutional alliances give LEUSI legitimacy, access, and resources.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 9. Launch Public Safety Campaigns</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Safety is dignity</li><li>No work without protection</li><li>Every worker returns home</li><li>Safe reconstruction</li><li>European safety mindset for Levant workers</li></ol>
-              <p>Campaigns must connect moral urgency with practical action.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 10. Publish Impact Evidence</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Number of trained leaders</li><li>Number of pilot sites</li><li>Observed behavioral changes</li><li>Incident reporting improvements</li><li>Stakeholder participation</li><li>Policy engagement</li><li>Employer adoption</li></ol>
-              <p>Evidence helps LEUSI move from initiative to recognized platform.</p>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-panel" id="p4">
-        <div class="card">
-          <h4>PHASE 4 · POLICY AND SYSTEMIC INFLUENCE</h4>
-          <p>Timeline: 2 to 5 Years</p>
-          <p>Objective: Influence systems and standards.</p>
-          <div class="phase-steps">
-            
-          <div class="phase-step">
-            <button class="step-toggle active" type="button">
-              <span>Step 11. Develop Policy Platform</span>
-              <span>−</span>
-            </button>
-            <div class="step-body active">
-              <ol><li>Construction safety standards</li><li>Municipal safety requirements</li><li>Worker certification systems</li><li>Contractor accountability</li><li>Public procurement safety standards</li><li>Environmental and occupational integration</li><li>Emergency preparedness</li></ol>
-              <p>The policy platform turns field learning into institutional proposals.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 12. Create LEUSI Safety Standard</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Inspired by VCA</li><li>Adapted to local realities</li><li>Multilingual</li><li>Practical</li><li>Measurable</li><li>Employer-relevant</li><li>Worker-centered</li></ol>
-              <p>This becomes the bridge between European expectations and Levant implementation.</p>
-            </div>
-          </div>
-          <div class="phase-step">
-            <button class="step-toggle" type="button">
-              <span>Step 13. Scale Through Partnerships</span>
-              <span>+</span>
-            </button>
-            <div class="step-body">
-              <ol><li>Training partners</li><li>Certification partners</li><li>Employer networks</li><li>Municipal pilots</li><li>NGO collaborations</li><li>Donor support</li><li>Diaspora experts</li></ol>
-              <p>Scaling should protect quality, credibility, and the social mission.</p>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t142">08 · Step-by-Step Organizing Strategy</span></div>
+<h3><span data-i18n="t143">Interactive timeline and stage gates.</span></h3>
+<div class="phase-timeline" id="phaseTimeline">
+<div class="phase-gate active" data-gate="p1"><strong><span data-i18n="t144">0 to 6 Months</span></strong><span><span data-i18n="t145">Foundation and relational organizing</span></span></div>
+<div class="phase-gate" data-gate="p2"><strong><span data-i18n="t146">6 to 12 Months</span></strong><span><span data-i18n="t147">Pilot organizing and leadership development</span></span></div>
+<div class="phase-gate" data-gate="p3"><strong><span data-i18n="t148">12 to 24 Months</span></strong><span><span data-i18n="t149">Power building and public positioning</span></span></div>
+<div class="phase-gate" data-gate="p4"><strong><span data-i18n="t150">2 to 5 Years</span></strong><span><span data-i18n="t151">Policy and systemic influence</span></span></div>
+</div>
+<div class="tabs">
+<div class="tab-buttons">
+<button class="tab-btn active" data-tab="p1"><span data-i18n="t152">Phase 1</span></button>
+<button class="tab-btn" data-tab="p2"><span data-i18n="t153">Phase 2</span></button>
+<button class="tab-btn" data-tab="p3"><span data-i18n="t154">Phase 3</span></button>
+<button class="tab-btn" data-tab="p4"><span data-i18n="t155">Phase 4</span></button>
+</div>
+<div class="tab-panel active" id="p1">
+<div class="card">
+<h4><span data-i18n="t156">PHASE 1 · FOUNDATION AND RELATIONAL ORGANIZING</span></h4>
+<p><span data-i18n="t157">Timeline: 0 to 6 Months</span></p>
+<p><span data-i18n="t158">Objective: Establish trust, build relationships, and ensure legitimacy and organizational clarity.</span></p>
+<div class="phase-steps">
+<div class="phase-step">
+<button class="step-toggle active" type="button">
+<span><span data-i18n="t159">Step 1. Clarify Organizational Structure</span></span>
+<span><span data-i18n="t160">−</span></span>
+</button>
+<div class="step-body active">
+<ol><li><span data-i18n="t161">Stichting structure</span></li><li><span data-i18n="t162">Governance framework</span></li><li><span data-i18n="t163">Advisory board strategy</span></li><li><span data-i18n="t164">Financial model</span></li><li><span data-i18n="t165">Ethical charter</span></li><li><span data-i18n="t166">Transparency policy</span></li><li><span data-i18n="t167">HSSE framework</span></li><li><span data-i18n="t168">Data and reporting systems</span></li></ol>
+<p><span data-i18n="t169">These actions establish institutional legitimacy.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t170">Step 2. Develop Public Narrative Infrastructure</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t172">Founder narrative</span></li><li><span data-i18n="t173">LEUSI manifesto</span></li><li><span data-i18n="t174">Website storytelling structure</span></li><li><span data-i18n="t175">Social media narrative</span></li><li><span data-i18n="t176">Worker stories</span></li><li><span data-i18n="t177">Safety transformation stories</span></li><li><span data-i18n="t178">Visual identity tied to dignity and professionalism</span></li></ol>
+<p><span data-i18n="t179">All communications should reinforce the message: Safety is dignity, accountability, and development.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t180">Step 3. Conduct Relational Meetings</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t181">Workers</span></li><li><span data-i18n="t182">Contractors</span></li><li><span data-i18n="t183">Engineers</span></li><li><span data-i18n="t184">Municipal actors</span></li><li><span data-i18n="t185">NGOs</span></li><li><span data-i18n="t100">Universities</span></li><li><span data-i18n="t186">International professionals</span></li><li><span data-i18n="t187">Diaspora actors</span></li></ol>
+<p><span data-i18n="t188">Goal: Conduct 100 structured relational conversations.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t189">Step 4. Identify Initial Leadership Circle</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t190">Personal connection to safety</span></li><li><span data-i18n="t191">Credibility among peers</span></li><li><span data-i18n="t192">Willingness to learn</span></li><li><span data-i18n="t193">Communication ability</span></li><li><span data-i18n="t194">Moral commitment</span></li><li><span data-i18n="t195">Potential to mobilize others</span></li></ol>
+<p><span data-i18n="t196">Select 10 to 15 people who can grow into LEUSI’s first leadership circle.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-panel" id="p2">
+<div class="card">
+<h4><span data-i18n="t197">PHASE 2 · PILOT ORGANIZING AND LEADERSHIP DEVELOPMENT</span></h4>
+<p><span data-i18n="t198">Timeline: 6 to 12 Months</span></p>
+<p><span data-i18n="t199">Objective: Transition from relationship-building to organized action.</span></p>
+<div class="phase-steps">
+<div class="phase-step">
+<button class="step-toggle active" type="button">
+<span><span data-i18n="t200">Step 5. Launch LEUSI Leadership Academy</span></span>
+<span><span data-i18n="t160">−</span></span>
+</button>
+<div class="step-body active">
+<ol><li><span data-i18n="t201">HSSE fundamentals</span></li><li><span data-i18n="t202">Leadership development</span></li><li><span data-i18n="t203">Public narrative</span></li><li><span data-i18n="t204">Communication</span></li><li><span data-i18n="t205">Incident reporting culture</span></li><li><span data-i18n="t206">Ethical leadership</span></li><li><span data-i18n="t207">Conflict management</span></li><li><span data-i18n="t208">Coaching skills</span></li><li><span data-i18n="t209">Community organizing</span></li><li><span data-i18n="t210">Team accountability</span></li></ol>
+<p><span data-i18n="t211">The academy provides more than technical training. It prepares safety leaders.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t212">Step 6. Build Pilot Action Teams</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t213">One team per pilot site</span></li><li><span data-i18n="t214">Clear roles</span></li><li><span data-i18n="t215">Weekly check-ins</span></li><li><span data-i18n="t216">Safety observation routines</span></li><li><span data-i18n="t217">Incident reflection sessions</span></li><li><span data-i18n="t218">Public learning moments</span></li></ol>
+<p><span data-i18n="t219">Each pilot team should include workers, supervisors, technical advisors, and community supporters.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t220">Step 7. Implement Visible Pilot Projects</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t221">Basic PPE awareness</span></li><li><span data-i18n="t222">Site traffic flow safety</span></li><li><span data-i18n="t223">Emergency response mapping</span></li><li><span data-i18n="t224">Housekeeping campaigns</span></li><li><span data-i18n="t225">Working at height awareness</span></li><li><span data-i18n="t226">Electrical hazard awareness</span></li><li><span data-i18n="t227">Incident reporting practice</span></li><li><span data-i18n="t228">Toolbox talk routines</span></li></ol>
+<p><span data-i18n="t229">Pilot projects must generate visible results and measurable learning.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-panel" id="p3">
+<div class="card">
+<h4><span data-i18n="t230">PHASE 3 · POWER BUILDING AND PUBLIC POSITIONING</span></h4>
+<p><span data-i18n="t231">Timeline: 12 to 24 Months</span></p>
+<p><span data-i18n="t232">Objective: Leverage legitimacy to build influence.</span></p>
+<div class="phase-steps">
+<div class="phase-step">
+<button class="step-toggle active" type="button">
+<span><span data-i18n="t233">Step 8. Build Institutional Alliances</span></span>
+<span><span data-i18n="t160">−</span></span>
+</button>
+<div class="step-body active">
+<ol><li><span data-i18n="t234">Dutch institutions</span></li><li><span data-i18n="t235">Lebanese municipalities</span></li><li><span data-i18n="t100">Universities</span></li><li><span data-i18n="t102">International NGOs</span></li><li><span data-i18n="t236">European safety organizations</span></li><li><span data-i18n="t106">Insurance actors</span></li><li><span data-i18n="t237">Infrastructure companies</span></li><li><span data-i18n="t238">Development agencies</span></li><li><span data-i18n="t239">GCC actors</span></li></ol>
+<p><span data-i18n="t240">Institutional alliances give LEUSI legitimacy, access, and resources.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t241">Step 9. Launch Public Safety Campaigns</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t242">Safety is dignity</span></li><li><span data-i18n="t243">No work without protection</span></li><li><span data-i18n="t244">Every worker returns home</span></li><li><span data-i18n="t245">Safe reconstruction</span></li><li><span data-i18n="t246">European safety mindset for Levant workers</span></li></ol>
+<p><span data-i18n="t247">Campaigns must connect moral urgency with practical action.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t248">Step 10. Publish Impact Evidence</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t249">Number of trained leaders</span></li><li><span data-i18n="t250">Number of pilot sites</span></li><li><span data-i18n="t251">Observed behavioral changes</span></li><li><span data-i18n="t252">Incident reporting improvements</span></li><li><span data-i18n="t253">Stakeholder participation</span></li><li><span data-i18n="t254">Policy engagement</span></li><li><span data-i18n="t255">Employer adoption</span></li></ol>
+<p><span data-i18n="t256">Evidence helps LEUSI move from initiative to recognized platform.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-panel" id="p4">
+<div class="card">
+<h4><span data-i18n="t257">PHASE 4 · POLICY AND SYSTEMIC INFLUENCE</span></h4>
+<p><span data-i18n="t258">Timeline: 2 to 5 Years</span></p>
+<p><span data-i18n="t259">Objective: Influence systems and standards.</span></p>
+<div class="phase-steps">
+<div class="phase-step">
+<button class="step-toggle active" type="button">
+<span><span data-i18n="t260">Step 11. Develop Policy Platform</span></span>
+<span><span data-i18n="t160">−</span></span>
+</button>
+<div class="step-body active">
+<ol><li><span data-i18n="t261">Construction safety standards</span></li><li><span data-i18n="t262">Municipal safety requirements</span></li><li><span data-i18n="t263">Worker certification systems</span></li><li><span data-i18n="t264">Contractor accountability</span></li><li><span data-i18n="t265">Public procurement safety standards</span></li><li><span data-i18n="t266">Environmental and occupational integration</span></li><li><span data-i18n="t267">Emergency preparedness</span></li></ol>
+<p><span data-i18n="t268">The policy platform turns field learning into institutional proposals.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t269">Step 12. Create LEUSI Safety Standard</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t270">Inspired by VCA</span></li><li><span data-i18n="t271">Adapted to local realities</span></li><li><span data-i18n="t272">Multilingual</span></li><li><span data-i18n="t273">Practical</span></li><li><span data-i18n="t274">Measurable</span></li><li><span data-i18n="t275">Employer-relevant</span></li><li><span data-i18n="t276">Worker-centered</span></li></ol>
+<p><span data-i18n="t277">This becomes the bridge between European expectations and Levant implementation.</span></p>
+</div>
+</div>
+<div class="phase-step">
+<button class="step-toggle" type="button">
+<span><span data-i18n="t278">Step 13. Scale Through Partnerships</span></span>
+<span><span data-i18n="t171">+</span></span>
+</button>
+<div class="step-body">
+<ol><li><span data-i18n="t279">Training partners</span></li><li><span data-i18n="t280">Certification partners</span></li><li><span data-i18n="t281">Employer networks</span></li><li><span data-i18n="t282">Municipal pilots</span></li><li><span data-i18n="t283">NGO collaborations</span></li><li><span data-i18n="t284">Donor support</span></li><li><span data-i18n="t285">Diaspora experts</span></li></ol>
+<p><span data-i18n="t286">Scaling should protect quality, credibility, and the social mission.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
 <section class="dark-section">
-  <div class="wrap reveal">
-    <div class="section-label">09 · Leadership Ladder</div>
-    <h3>Leadership must be earned through responsibility and demonstrated commitment.</h3>
-    <div class="ladder">
-      <div class="ladder-step">Level 1<br>Supporters</div>
-      <div class="ladder-step">Level 2<br>Volunteers</div>
-      <div class="ladder-step">Level 3<br>Safety ambassadors</div>
-      <div class="ladder-step">Level 4<br>Team coordinators</div>
-      <div class="ladder-step">Level 5<br>Regional organizers</div>
-      <div class="ladder-step">Level 6<br>Institutional representatives</div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t287">09 · Leadership Ladder</span></div>
+<h3><span data-i18n="t288">Leadership must be earned through responsibility and demonstrated commitment.</span></h3>
+<div class="ladder">
+<div class="ladder-step"><span data-i18n="t289">Level 1</span><br/><span data-i18n="t290">Supporters</span></div>
+<div class="ladder-step"><span data-i18n="t291">Level 2</span><br/><span data-i18n="t292">Volunteers</span></div>
+<div class="ladder-step"><span data-i18n="t293">Level 3</span><br/><span data-i18n="t294">Safety ambassadors</span></div>
+<div class="ladder-step"><span data-i18n="t295">Level 4</span><br/><span data-i18n="t296">Team coordinators</span></div>
+<div class="ladder-step"><span data-i18n="t297">Level 5</span><br/><span data-i18n="t298">Regional organizers</span></div>
+<div class="ladder-step"><span data-i18n="t299">Level 6</span><br/><span data-i18n="t300">Institutional representatives</span></div>
+</div>
+</div>
 </section>
-
 <section class="quote-band alt-two"></section>
-
 <section class="light-section" id="coaching">
-  <div class="wrap reveal">
-    <div class="section-label">10 · Coaching Methodology Inside LEUSI</div>
-    <h3>Coaching turns awareness into leadership practice.</h3>
-    <p>The coaching framework should be integrated throughout the organization.</p>
-    <div class="accordion">
-      <details open><summary>Coaching Principles</summary><ol><li>People are capable of growth.</li><li>Leadership is learned through practice.</li><li>Reflection creates learning.</li><li>Accountability develops ownership.</li><li>Listening builds trust.</li><li>Challenge develops courage.</li></ol></details>
-      <details><summary>Coaching Structure</summary><p>Each leader should:</p><ol><li>Coach others.</li><li>Be coached by others.</li><li>Reflect regularly.</li><li>Receive structured feedback.</li><li>Practice adaptive leadership.</li></ol></details>
-      <details><summary>Suggested Coaching Questions</summary><ol><li>What challenge are you facing?</li><li>Why does this matter to you?</li><li>What assumptions are shaping your response?</li><li>What risks are you avoiding?</li><li>What leadership are you being called to exercise?</li><li>Who else must be involved?</li><li>What small action can you take now?</li></ol></details>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t301">10 · Coaching Methodology Inside LEUSI</span></div>
+<h3><span data-i18n="t302">Coaching turns awareness into leadership practice.</span></h3>
+<p><span data-i18n="t303">The coaching framework should be integrated throughout the organization.</span></p>
+<div class="accordion">
+<details open=""><summary><span data-i18n="t304">Coaching Principles</span></summary><ol><li><span data-i18n="t305">People are capable of growth.</span></li><li><span data-i18n="t306">Leadership is learned through practice.</span></li><li><span data-i18n="t307">Reflection creates learning.</span></li><li><span data-i18n="t308">Accountability develops ownership.</span></li><li><span data-i18n="t309">Listening builds trust.</span></li><li><span data-i18n="t310">Challenge develops courage.</span></li></ol></details>
+<details><summary><span data-i18n="t311">Coaching Structure</span></summary><p><span data-i18n="t312">Each leader should:</span></p><ol><li><span data-i18n="t313">Coach others.</span></li><li><span data-i18n="t314">Be coached by others.</span></li><li><span data-i18n="t315">Reflect regularly.</span></li><li><span data-i18n="t316">Receive structured feedback.</span></li><li><span data-i18n="t317">Practice adaptive leadership.</span></li></ol></details>
+<details><summary><span data-i18n="t318">Suggested Coaching Questions</span></summary><ol><li><span data-i18n="t319">What challenge are you facing?</span></li><li><span data-i18n="t320">Why does this matter to you?</span></li><li><span data-i18n="t321">What assumptions are shaping your response?</span></li><li><span data-i18n="t322">What risks are you avoiding?</span></li><li><span data-i18n="t323">What leadership are you being called to exercise?</span></li><li><span data-i18n="t324">Who else must be involved?</span></li><li><span data-i18n="t325">What small action can you take now?</span></li></ol></details>
+</div>
+</div>
 </section>
-
 <section class="dark-section" id="metrics">
-  <div class="wrap reveal">
-    <div class="section-label">11 · Strategic Metrics</div>
-    <h3>Measuring organizing capacity, operational outcomes, and institutional legitimacy.</h3>
-    <div class="metrics-grid">
-      <div class="metric-card"><h4>Organizing Metrics</h4><ol><li>Number of relational meetings.</li><li>Active volunteer growth.</li><li>Leadership retention.</li><li>Team development.</li><li>Number of trained ambassadors.</li><li>Community participation.</li></ol></div>
-      <div class="metric-card"><h4>Operational Metrics</h4><ol><li>Safety implementation rates.</li><li>Incident reduction.</li><li>Audit scores.</li><li>Reporting frequency.</li><li>Training completion.</li></ol></div>
-      <div class="metric-card"><h4>Institutional Metrics</h4><ol><li>Partnerships established.</li><li>Municipal collaborations.</li><li>Funding secured.</li><li>Policy engagement.</li><li>International recognition.</li></ol></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t326">11 · Strategic Metrics</span></div>
+<h3><span data-i18n="t327">Measuring organizing capacity, operational outcomes, and institutional legitimacy.</span></h3>
+<div class="metrics-grid">
+<div class="metric-card"><h4><span data-i18n="t328">Organizing Metrics</span></h4><ol><li><span data-i18n="t329">Number of relational meetings.</span></li><li><span data-i18n="t330">Active volunteer growth.</span></li><li><span data-i18n="t331">Leadership retention.</span></li><li><span data-i18n="t332">Team development.</span></li><li><span data-i18n="t333">Number of trained ambassadors.</span></li><li><span data-i18n="t334">Community participation.</span></li></ol></div>
+<div class="metric-card"><h4><span data-i18n="t335">Operational Metrics</span></h4><ol><li><span data-i18n="t336">Safety implementation rates.</span></li><li><span data-i18n="t337">Incident reduction.</span></li><li><span data-i18n="t338">Audit scores.</span></li><li><span data-i18n="t339">Reporting frequency.</span></li><li><span data-i18n="t340">Training completion.</span></li></ol></div>
+<div class="metric-card"><h4><span data-i18n="t341">Institutional Metrics</span></h4><ol><li><span data-i18n="t342">Partnerships established.</span></li><li><span data-i18n="t343">Municipal collaborations.</span></li><li><span data-i18n="t344">Funding secured.</span></li><li><span data-i18n="t345">Policy engagement.</span></li><li><span data-i18n="t346">International recognition.</span></li></ol></div>
+</div>
+</div>
 </section>
-
 <section class="light-section">
-  <div class="wrap reveal">
-    <div class="section-label">12 · Risks and Strategic Challenges</div>
-    <h3>Risks must be treated as strategic design questions, not administrative issues.</h3>
-    <div class="grid">
-      <div class="card risk-card"><h4>Key Risks</h4><ol><li>Becoming service-oriented instead of organizing-oriented.</li><li>Overcentralization around founder identity.</li><li>Political capture.</li><li>Dependency on donors.</li><li>Expanding faster than leadership capacity.</li><li>Burnout among organizers.</li><li>Losing trust through a lack of transparency.</li></ol></div>
-      <div class="card risk-card"><h4>Mitigation Strategy</h4><ol><li>Build distributed leadership.</li><li>Develop governance early.</li><li>Maintain ethical transparency.</li><li>Invest continuously in coaching and reflection.</li><li>Prioritize culture over rapid scale.</li><li>Build measurable credibility.</li></ol></div>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t347">12 · Risks and Strategic Challenges</span></div>
+<h3><span data-i18n="t348">Risks must be treated as strategic design questions, not administrative issues.</span></h3>
+<div class="grid">
+<div class="card risk-card"><h4><span data-i18n="t349">Key Risks</span></h4><ol><li><span data-i18n="t350">Becoming service-oriented instead of organizing-oriented.</span></li><li><span data-i18n="t351">Overcentralization around founder identity.</span></li><li><span data-i18n="t352">Political capture.</span></li><li><span data-i18n="t353">Dependency on donors.</span></li><li><span data-i18n="t354">Expanding faster than leadership capacity.</span></li><li><span data-i18n="t355">Burnout among organizers.</span></li><li><span data-i18n="t356">Losing trust through a lack of transparency.</span></li></ol></div>
+<div class="card risk-card"><h4><span data-i18n="t357">Mitigation Strategy</span></h4><ol><li><span data-i18n="t358">Build distributed leadership.</span></li><li><span data-i18n="t359">Develop governance early.</span></li><li><span data-i18n="t360">Maintain ethical transparency.</span></li><li><span data-i18n="t361">Invest continuously in coaching and reflection.</span></li><li><span data-i18n="t362">Prioritize culture over rapid scale.</span></li><li><span data-i18n="t363">Build measurable credibility.</span></li></ol></div>
+</div>
+</div>
 </section>
-
 <section class="dark-section">
-  <div class="wrap reveal">
-    <div class="section-label">13 · LEUSI Long Term Identity</div>
-    <h3>LEUSI should evolve beyond the role of a training institution.</h3>
-    <div class="grid">
-      <div class="card dark-card"><h4>Long-term role</h4><ol><li>A regional HSSE leadership movement</li><li>A civic organizing institution</li><li>A policy and standards platform</li><li>A leadership development academy</li><li>A bridge between Europe and the Levant</li><li>A reconstruction and resilience actor</li><li>A social enterprise ecosystem</li></ol></div>
-    </div>
-    <div class="final-reflection">
-      <div class="section-label">14 · Final Strategic Reflection</div>
-      <p>People act not because they are instructed to act, but because they discover shared purpose, shared responsibility, and shared hope.</p>
-      <p>The success of LEUSI will not depend only on technical safety knowledge. It will depend on whether the organization can build trust, develop leaders, organize relationships, create moral legitimacy, sustain collective action, transform fear into agency, and convert isolated individuals into an organized constituency capable of shaping institutions and culture.</p>
-      <p>The central strategic question for LEUSI is therefore not: “How do we train people?”</p>
-      <p class="final-question">But rather: “How do we develop people into leaders capable of transforming the systems that made unsafe conditions normal in the first place?”</p>
-    </div>
-  </div>
+<div class="wrap reveal">
+<div class="section-label"><span data-i18n="t364">13 · LEUSI Long Term Identity</span></div>
+<h3><span data-i18n="t365">LEUSI should evolve beyond the role of a training institution.</span></h3>
+<div class="grid">
+<div class="card dark-card"><h4><span data-i18n="t366">Long-term role</span></h4><ol><li><span data-i18n="t367">A regional HSSE leadership movement</span></li><li><span data-i18n="t368">A civic organizing institution</span></li><li><span data-i18n="t369">A policy and standards platform</span></li><li><span data-i18n="t370">A leadership development academy</span></li><li><span data-i18n="t371">A bridge between Europe and the Levant</span></li><li><span data-i18n="t372">A reconstruction and resilience actor</span></li><li><span data-i18n="t373">A social enterprise ecosystem</span></li></ol></div>
+</div>
+<div class="final-reflection">
+<div class="section-label"><span data-i18n="t374">14 · Final Strategic Reflection</span></div>
+<p><span data-i18n="t375">People act not because they are instructed to act, but because they discover shared purpose, shared responsibility, and shared hope.</span></p>
+<p><span data-i18n="t376">The success of LEUSI will not depend only on technical safety knowledge. It will depend on whether the organization can build trust, develop leaders, organize relationships, create moral legitimacy, sustain collective action, transform fear into agency, and convert isolated individuals into an organized constituency capable of shaping institutions and culture.</span></p>
+<p><span data-i18n="t377">The central strategic question for LEUSI is therefore not: “How do we train people?”</span></p>
+<p class="final-question"><span data-i18n="t378">But rather: “How do we develop people into leaders capable of transforming the systems that made unsafe conditions normal in the first place?”</span></p>
+</div>
+</div>
 </section>
-
 <section class="cta">
-  <div class="wrap">
-    <h3>Help build a practical safety movement rooted in dignity and measurable impact.</h3>
-    <a href="https://leusi.org">Return to LEUSI</a>
-  </div>
+<div class="wrap">
+<h3><span data-i18n="t379">Help build a practical safety movement rooted in dignity and measurable impact.</span></h3>
+<a href="https://leusi.org"><span data-i18n="t380">Return to LEUSI</span></a>
+</div>
 </section>
-
 <footer>
-  <p>LEUSI · Levant European Safety Initiative · VCA and EU aligned organizing and HSSE leadership framework.</p>
+<p><span data-i18n="t381">LEUSI · Levant European Safety Initiative · VCA and EU aligned organizing and HSSE leadership framework.</span></p>
 </footer>
-
 <script>
 const progress = document.getElementById('progress');
 window.addEventListener('scroll', () => {
@@ -1242,7 +1178,7 @@ document.querySelectorAll('.phase-step').forEach(step => {
       if (parentPanel) {
         parentPanel.querySelectorAll('.step-toggle').forEach(btn => {
           btn.classList.remove('active');
-          const icon = btn.querySelector('span:last-child');
+          const icon = btn.querySelector(':scope > span:last-child');
           if (icon) icon.textContent = '+';
         });
 
@@ -1254,24 +1190,20 @@ document.querySelectorAll('.phase-step').forEach(step => {
       button.classList.add('active');
       body.classList.add('active');
 
-      const icon = button.querySelector('span:last-child');
+      const icon = button.querySelector(':scope > span:last-child');
       if (icon) icon.textContent = '−';
     });
   }
 });
 
 </script>
-  <section id="internal_governance" class="section internal_governance_section">
+<section class="section internal_governance_section" id="internal_governance">
+<div class="section_head">
+<span class="section_kicker"><span data-i18n="t382">Governance and accountability</span></span>
+<h2><span data-i18n="t8">Internal Governance</span></h2>
+<p>
 
-  <div class="section_head">
-
-    <span class="section_kicker">Governance and accountability</span>
-
-    <h2>Internal Governance</h2>
-
-    <p>
-
-      LEUSI is governed as a mission driven Dutch stichting committed to safety,
+      <span data-i18n="t383">LEUSI is governed as a mission driven Dutch stichting committed to safety,
 
       dignity, transparency, and institutional accountability. This internal
 
@@ -1281,21 +1213,16 @@ document.querySelectorAll('.phase-step').forEach(step => {
 
       prevents conflicts of interest, and maintains the integrity of its HSSE
 
-      training and leadership development work.
+      training and leadership development work.</span>
 
     </p>
+</div>
+<div class="governance_card">
+<div class="governance_text">
+<h3><span data-i18n="t384">LEUSI Internal Governance and Policy Framework</span></h3>
+<p>
 
-  </div>
-
-  <div class="governance_card">
-
-    <div class="governance_text">
-
-      <h3>LEUSI Internal Governance and Policy Framework</h3>
-
-      <p>
-
-        The document covers board responsibilities, decision making, financial
+        <span data-i18n="t385">The document covers board responsibilities, decision making, financial
 
         governance, safeguarding, anti corruption, procurement, partnerships,
 
@@ -1303,102 +1230,49 @@ document.querySelectorAll('.phase-step').forEach(step => {
 
         political neutrality, public communication, impact reporting, founder
 
-        dependency, insurance, and the first 90 day governance action plan.
+        dependency, insurance, and the first 90 day governance action plan.</span>
 
       </p>
+<div class="governance_actions">
+<a class="btn_primary" href="leusi_internal_governance.pdf" rel="noopener" target="_blank">
 
-      <div class="governance_actions">
-
-        <a class="btn_primary" href="leusi_internal_governance.pdf" target="_blank" rel="noopener">
-
-          Open PDF
+          <span data-i18n="t386">Open PDF</span>
 
         </a>
+<a class="btn_secondary" download="" href="leusi_internal_governance.pdf">
 
-        <a class="btn_secondary" href="leusi_internal_governance.pdf" download>
-
-          Download PDF
+          <span data-i18n="t387">Download PDF</span>
 
         </a>
-
-      </div>
-
-    </div>
-
-    <div class="governance_preview">
-
-      <iframe
-
-        src="leusi_internal_governance.pdf"
-
-        title="LEUSI Internal Governance and Policy Framework"
-
-        loading="lazy">
-
-      </iframe>
-
-    </div>
-
-  </div>
-
+</div>
+</div>
+<div class="governance_preview">
+<iframe loading="lazy" src="leusi_internal_governance.pdf" title="LEUSI Internal Governance and Policy Framework">
+</iframe>
+</div>
+</div>
 </section>
-
-
 <script>
-(function(){
-  const STORAGE_KEY = 'leusi_site_language';
-  const supported = { en: 'en', ar: 'ar', nl: 'nl' };
-
-  window.googleTranslateElementInit = function(){
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'en,ar,nl',
-      autoDisplay: false
-    }, 'google_translate_element');
-
-    const saved = localStorage.getItem(STORAGE_KEY) || 'en';
-    setTimeout(function(){ applyLanguage(saved); }, 700);
-  };
-
-  function setCookie(name, value) {
-    document.cookie = name + '=' + value + ';path=/;max-age=31536000';
-    document.cookie = name + '=' + value + ';domain=.' + location.hostname + ';path=/;max-age=31536000';
-  }
-
-  function applyLanguage(lang){
-    if(!supported[lang]) lang = 'en';
-    localStorage.setItem(STORAGE_KEY, lang);
-
+(function() {
+  const I18N = {"en": {"t0": "LEUSI", "t1": "Levant European Safety Initiative", "t2": "Identity", "t3": "Theory", "t4": "Power", "t5": "Strategy", "t6": "Metrics", "t7": "Coaching", "t8": "Internal Governance", "t9": "LEUSI Strategic Organizing Framework", "t10": "Safety as dignity, power, and public trust.", "t11": "Public Narrative, Theory of Change, Power Building, Strategy, Tactics, and Coaching Leadership. A practical organizing framework for building safety leadership and institutional accountability across the Levant and MENA region.", "t12": "Explore Strategy →", "t13": "View Theory of Change", "t14": "Public Narrative", "t15": "Power Building", "t16": "Tactics", "t17": "01 · Core Organizing Identity", "t18": "LEUSI Core Organizing Identity", "t19": "Mission", "t20": "LEUSI aims to transform workplace safety culture in the Levant and the MENA Region by developing frontline workers, engineers, contractors, transport workers, and local communities into HSSE leaders. These leaders will advance safer workplaces, strengthen institutional accountability, and promote internationally aligned safety standards.", "t21": "Vision", "t22": "A region where safety is recognized as a core social value, not just a compliance requirement.", "t23": "Organizing Philosophy", "t24": "LEUSI is not solely a training provider or consultancy. This framework positions LEUSI as an organizing institution focused on leadership development. LEUSI empowers individuals to lead change, guided by key principles: building relationships before launching programs; prioritizing leadership development before scaling; organizing people for action rather than simply mobilizing audiences; fostering distributed leadership to reduce reliance on central figures; transforming shared pain into collective action; and building constituency power to influence institutions.", "t25": "The organization should", "t26": "Build relationships before programs.", "t27": "Prioritize leadership development over rapid scaling.", "t28": "Organize people rather than mobilize audiences.", "t29": "Promote distributed leadership instead of centralized dependency.", "t30": "Transform shared pain into collective action.", "t31": "Build constituency power capable of influencing institutions.", "t32": "02 · Theory of Change", "t33": "How LEUSI turns unsafe conditions into organized safety leadership.", "t34": "Unsafe environments persist not only because of technical failures but also because affected individuals lack organized power, leadership capacity, institutional representation, and collective strategic coordination.", "t35": "1 · Identify", "t36": "Affected workers, engineers, contractors, transport workers, and local communities.", "t37": "2 · Develop", "t38": "Credible HSSE leaders through coaching, storytelling, education, structured organizing, and practical safety implementation.", "t39": "3 · Influence", "t40": "Workplace behavior, community expectations, institutions, and responsible partnerships.", "t41": "4 · Normalize", "t42": "Stronger safety standards, international credibility, and long-term societal transformation.", "t43": "03 · Current Situation", "t44": "Workers in the Levant and similar environments often experience:", "t45": "Safety Culture", "t46": "Weak safety culture.", "t47": "Poor HSSE awareness.", "t48": "Limited institutional enforcement.", "t49": "Systemic Pressure", "t50": "Informal labor structures.", "t51": "Political interference and corruption.", "t52": "Lack of accountability mechanisms.", "t53": "Leadership Gap", "t54": "Economic pressures force workers to accept unsafe conditions.", "t55": "Absence of leadership development among frontline workers.", "t56": "This creates", "t57": "Cultural change", "t58": "Organizational change", "t59": "Institutional pressure", "t60": "Policy momentum", "t61": "Economic incentives for compliance", "t62": "International credibility", "t63": "Long-term societal transformation", "t64": "LEUSI Theory of Change", "t65": "If LEUSI identifies affected workers and develops them into credible HSSE leaders through coaching, storytelling, education, structured organizing, and practical safety implementation, these leaders can influence workplace behavior, shift community expectations, pressure institutions, attract responsible international partnerships, and gradually normalize stronger safety standards.", "t66": "04 · The LEUSI Organizing Model", "t67": "The Five Core Practices", "t68": "LEUSI must continuously communicate:", "t69": "Story of Self", "t70": "Why do you personally care about safety, dignity, institutional honesty, and accountability?", "t71": "Story of Us", "t72": "Why workers, communities, engineers, and organizations share this challenge collectively.", "t73": "Story of Now", "t74": "Immediate action is essential due to reconstruction, regional transformation, infrastructure investment, and rising international standards.", "t75": "The narrative must connect on emotional and moral levels, not just technical ones.", "t76": "LEUSI Narrative Positioning", "t77": "LEUSI focuses on accident prevention and broader organizational and societal goals.", "t78": "Protecting human dignity", "t79": "Building trust in institutions", "t80": "Creating internationally employable workers", "t81": "Supporting economic reconstruction", "t82": "Bridging Europe and the Levant", "t83": "Developing ethical leadership", "t84": "Creating safer cities and workplaces", "t85": "05 · Constituency Building", "t86": "Organizing the people directly affected by unsafe systems.", "t87": "Primary Constituency", "t88": "The people directly affected by unsafe systems.", "t89": "Construction workers", "t90": "Electrical workers", "t91": "Transport and logistics operators", "t92": "Site supervisors", "t93": "Small contractors", "t94": "Young engineers", "t95": "Vocational students", "t96": "Municipal workers", "t97": "Informal labor sectors", "t98": "Secondary Constituency", "t99": "People with influence, resources, or institutional legitimacy.", "t100": "Universities", "t101": "Municipalities", "t102": "International NGOs", "t103": "European institutions", "t104": "Energy companies", "t105": "Construction firms", "t106": "Insurance actors", "t107": "Labor advocates", "t108": "Diaspora professionals", "t109": "Dutch and GCC networks", "t110": "06 · Power Analysis", "t111": "Power is the ability to achieve objectives in uncertain conditions.", "t112": "LEUSI should understand power as organized people, organized resources, organized relationships, strategic legitimacy, public trust, institutional access, and narrative influence.", "t113": "Current Power Holders", "t114": "Political actors", "t115": "Ministries", "t116": "Construction elites", "t117": "Informal networks", "t118": "International funders", "t119": "Municipal authorities", "t120": "Engineering syndicates", "t121": "Employers", "t122": "Building", "t123": "LEUSI Initial Power Assets", "t124": "European safety alignment", "t125": "Energy infrastructure experience", "t126": "BP and Shell background", "t127": "HKS organizing framework", "t128": "Policy understanding", "t129": "Cross-cultural positioning", "t130": "Storytelling credibility", "t131": "Moral legitimacy", "t132": "07 · Strategic Goal Structure", "t133": "Strategic goals from legitimacy to systems change.", "t134": "Phase 1 Goal", "t135": "Build legitimacy and relational infrastructure.", "t136": "Phase 2 Goal", "t137": "Develop visible pilot safety leaders and measurable implementation projects.", "t138": "Phase 3 Goal", "t139": "Create institutional partnerships and public recognition.", "t140": "Phase 4 Goal", "t141": "Influence policy, standards, and broader market behavior.", "t142": "08 · Step-by-Step Organizing Strategy", "t143": "Interactive timeline and stage gates.", "t144": "0 to 6 Months", "t145": "Foundation and relational organizing", "t146": "6 to 12 Months", "t147": "Pilot organizing and leadership development", "t148": "12 to 24 Months", "t149": "Power building and public positioning", "t150": "2 to 5 Years", "t151": "Policy and systemic influence", "t152": "Phase 1", "t153": "Phase 2", "t154": "Phase 3", "t155": "Phase 4", "t156": "PHASE 1 · FOUNDATION AND RELATIONAL ORGANIZING", "t157": "Timeline: 0 to 6 Months", "t158": "Objective: Establish trust, build relationships, and ensure legitimacy and organizational clarity.", "t159": "Step 1. Clarify Organizational Structure", "t160": "−", "t161": "Stichting structure", "t162": "Governance framework", "t163": "Advisory board strategy", "t164": "Financial model", "t165": "Ethical charter", "t166": "Transparency policy", "t167": "HSSE framework", "t168": "Data and reporting systems", "t169": "These actions establish institutional legitimacy.", "t170": "Step 2. Develop Public Narrative Infrastructure", "t171": "+", "t172": "Founder narrative", "t173": "LEUSI manifesto", "t174": "Website storytelling structure", "t175": "Social media narrative", "t176": "Worker stories", "t177": "Safety transformation stories", "t178": "Visual identity tied to dignity and professionalism", "t179": "All communications should reinforce the message: Safety is dignity, accountability, and development.", "t180": "Step 3. Conduct Relational Meetings", "t181": "Workers", "t182": "Contractors", "t183": "Engineers", "t184": "Municipal actors", "t185": "NGOs", "t186": "International professionals", "t187": "Diaspora actors", "t188": "Goal: Conduct 100 structured relational conversations.", "t189": "Step 4. Identify Initial Leadership Circle", "t190": "Personal connection to safety", "t191": "Credibility among peers", "t192": "Willingness to learn", "t193": "Communication ability", "t194": "Moral commitment", "t195": "Potential to mobilize others", "t196": "Select 10 to 15 people who can grow into LEUSI’s first leadership circle.", "t197": "PHASE 2 · PILOT ORGANIZING AND LEADERSHIP DEVELOPMENT", "t198": "Timeline: 6 to 12 Months", "t199": "Objective: Transition from relationship-building to organized action.", "t200": "Step 5. Launch LEUSI Leadership Academy", "t201": "HSSE fundamentals", "t202": "Leadership development", "t203": "Public narrative", "t204": "Communication", "t205": "Incident reporting culture", "t206": "Ethical leadership", "t207": "Conflict management", "t208": "Coaching skills", "t209": "Community organizing", "t210": "Team accountability", "t211": "The academy provides more than technical training. It prepares safety leaders.", "t212": "Step 6. Build Pilot Action Teams", "t213": "One team per pilot site", "t214": "Clear roles", "t215": "Weekly check-ins", "t216": "Safety observation routines", "t217": "Incident reflection sessions", "t218": "Public learning moments", "t219": "Each pilot team should include workers, supervisors, technical advisors, and community supporters.", "t220": "Step 7. Implement Visible Pilot Projects", "t221": "Basic PPE awareness", "t222": "Site traffic flow safety", "t223": "Emergency response mapping", "t224": "Housekeeping campaigns", "t225": "Working at height awareness", "t226": "Electrical hazard awareness", "t227": "Incident reporting practice", "t228": "Toolbox talk routines", "t229": "Pilot projects must generate visible results and measurable learning.", "t230": "PHASE 3 · POWER BUILDING AND PUBLIC POSITIONING", "t231": "Timeline: 12 to 24 Months", "t232": "Objective: Leverage legitimacy to build influence.", "t233": "Step 8. Build Institutional Alliances", "t234": "Dutch institutions", "t235": "Lebanese municipalities", "t236": "European safety organizations", "t237": "Infrastructure companies", "t238": "Development agencies", "t239": "GCC actors", "t240": "Institutional alliances give LEUSI legitimacy, access, and resources.", "t241": "Step 9. Launch Public Safety Campaigns", "t242": "Safety is dignity", "t243": "No work without protection", "t244": "Every worker returns home", "t245": "Safe reconstruction", "t246": "European safety mindset for Levant workers", "t247": "Campaigns must connect moral urgency with practical action.", "t248": "Step 10. Publish Impact Evidence", "t249": "Number of trained leaders", "t250": "Number of pilot sites", "t251": "Observed behavioral changes", "t252": "Incident reporting improvements", "t253": "Stakeholder participation", "t254": "Policy engagement", "t255": "Employer adoption", "t256": "Evidence helps LEUSI move from initiative to recognized platform.", "t257": "PHASE 4 · POLICY AND SYSTEMIC INFLUENCE", "t258": "Timeline: 2 to 5 Years", "t259": "Objective: Influence systems and standards.", "t260": "Step 11. Develop Policy Platform", "t261": "Construction safety standards", "t262": "Municipal safety requirements", "t263": "Worker certification systems", "t264": "Contractor accountability", "t265": "Public procurement safety standards", "t266": "Environmental and occupational integration", "t267": "Emergency preparedness", "t268": "The policy platform turns field learning into institutional proposals.", "t269": "Step 12. Create LEUSI Safety Standard", "t270": "Inspired by VCA", "t271": "Adapted to local realities", "t272": "Multilingual", "t273": "Practical", "t274": "Measurable", "t275": "Employer-relevant", "t276": "Worker-centered", "t277": "This becomes the bridge between European expectations and Levant implementation.", "t278": "Step 13. Scale Through Partnerships", "t279": "Training partners", "t280": "Certification partners", "t281": "Employer networks", "t282": "Municipal pilots", "t283": "NGO collaborations", "t284": "Donor support", "t285": "Diaspora experts", "t286": "Scaling should protect quality, credibility, and the social mission.", "t287": "09 · Leadership Ladder", "t288": "Leadership must be earned through responsibility and demonstrated commitment.", "t289": "Level 1", "t290": "Supporters", "t291": "Level 2", "t292": "Volunteers", "t293": "Level 3", "t294": "Safety ambassadors", "t295": "Level 4", "t296": "Team coordinators", "t297": "Level 5", "t298": "Regional organizers", "t299": "Level 6", "t300": "Institutional representatives", "t301": "10 · Coaching Methodology Inside LEUSI", "t302": "Coaching turns awareness into leadership practice.", "t303": "The coaching framework should be integrated throughout the organization.", "t304": "Coaching Principles", "t305": "People are capable of growth.", "t306": "Leadership is learned through practice.", "t307": "Reflection creates learning.", "t308": "Accountability develops ownership.", "t309": "Listening builds trust.", "t310": "Challenge develops courage.", "t311": "Coaching Structure", "t312": "Each leader should:", "t313": "Coach others.", "t314": "Be coached by others.", "t315": "Reflect regularly.", "t316": "Receive structured feedback.", "t317": "Practice adaptive leadership.", "t318": "Suggested Coaching Questions", "t319": "What challenge are you facing?", "t320": "Why does this matter to you?", "t321": "What assumptions are shaping your response?", "t322": "What risks are you avoiding?", "t323": "What leadership are you being called to exercise?", "t324": "Who else must be involved?", "t325": "What small action can you take now?", "t326": "11 · Strategic Metrics", "t327": "Measuring organizing capacity, operational outcomes, and institutional legitimacy.", "t328": "Organizing Metrics", "t329": "Number of relational meetings.", "t330": "Active volunteer growth.", "t331": "Leadership retention.", "t332": "Team development.", "t333": "Number of trained ambassadors.", "t334": "Community participation.", "t335": "Operational Metrics", "t336": "Safety implementation rates.", "t337": "Incident reduction.", "t338": "Audit scores.", "t339": "Reporting frequency.", "t340": "Training completion.", "t341": "Institutional Metrics", "t342": "Partnerships established.", "t343": "Municipal collaborations.", "t344": "Funding secured.", "t345": "Policy engagement.", "t346": "International recognition.", "t347": "12 · Risks and Strategic Challenges", "t348": "Risks must be treated as strategic design questions, not administrative issues.", "t349": "Key Risks", "t350": "Becoming service-oriented instead of organizing-oriented.", "t351": "Overcentralization around founder identity.", "t352": "Political capture.", "t353": "Dependency on donors.", "t354": "Expanding faster than leadership capacity.", "t355": "Burnout among organizers.", "t356": "Losing trust through a lack of transparency.", "t357": "Mitigation Strategy", "t358": "Build distributed leadership.", "t359": "Develop governance early.", "t360": "Maintain ethical transparency.", "t361": "Invest continuously in coaching and reflection.", "t362": "Prioritize culture over rapid scale.", "t363": "Build measurable credibility.", "t364": "13 · LEUSI Long Term Identity", "t365": "LEUSI should evolve beyond the role of a training institution.", "t366": "Long-term role", "t367": "A regional HSSE leadership movement", "t368": "A civic organizing institution", "t369": "A policy and standards platform", "t370": "A leadership development academy", "t371": "A bridge between Europe and the Levant", "t372": "A reconstruction and resilience actor", "t373": "A social enterprise ecosystem", "t374": "14 · Final Strategic Reflection", "t375": "People act not because they are instructed to act, but because they discover shared purpose, shared responsibility, and shared hope.", "t376": "The success of LEUSI will not depend only on technical safety knowledge. It will depend on whether the organization can build trust, develop leaders, organize relationships, create moral legitimacy, sustain collective action, transform fear into agency, and convert isolated individuals into an organized constituency capable of shaping institutions and culture.", "t377": "The central strategic question for LEUSI is therefore not: “How do we train people?”", "t378": "But rather: “How do we develop people into leaders capable of transforming the systems that made unsafe conditions normal in the first place?”", "t379": "Help build a practical safety movement rooted in dignity and measurable impact.", "t380": "Return to LEUSI", "t381": "LEUSI · Levant European Safety Initiative · VCA and EU aligned organizing and HSSE leadership framework.", "t382": "Governance and accountability", "t383": "LEUSI is governed as a mission driven Dutch stichting committed to safety,\n\n      dignity, transparency, and institutional accountability. This internal\n\n      governance framework explains how the organization protects its mission,\n\n      manages risk, safeguards participants, controls financial decisions,\n\n      prevents conflicts of interest, and maintains the integrity of its HSSE\n\n      training and leadership development work.", "t384": "LEUSI Internal Governance and Policy Framework", "t385": "The document covers board responsibilities, decision making, financial\n\n        governance, safeguarding, anti corruption, procurement, partnerships,\n\n        data protection, certification integrity, whistleblowing, risk management,\n\n        political neutrality, public communication, impact reporting, founder\n\n        dependency, insurance, and the first 90 day governance action plan.", "t386": "Open PDF", "t387": "Download PDF"}, "ar": {"t0": "LEUSI", "t1": "مبادرة السلامة الأوروبية المشرقية", "t2": "الهوية", "t3": "النظرية", "t4": "القوة", "t5": "الاستراتيجية", "t6": "المؤشرات", "t7": "التوجيه", "t8": "الحوكمة الداخلية", "t9": "إطار LEUSI الاستراتيجي للتنظيم", "t10": "السلامة ككرامة وقوة وثقة عامة.", "t11": "السرد العام، نظرية التغيير، بناء القوة، الاستراتيجية، التكتيكات، وقيادة التوجيه. إطار تنظيمي عملي لبناء قيادة السلامة والمساءلة المؤسسية في بلاد الشام ومنطقة الشرق الأوسط وشمال أفريقيا.", "t12": "استكشف الاستراتيجية ←", "t13": "عرض نظرية التغيير", "t14": "السرد العام", "t15": "بناء القوة", "t16": "التكتيكات", "t17": "01 · الهوية التنظيمية الأساسية", "t18": "الهوية التنظيمية الأساسية لـ LEUSI", "t19": "الرسالة", "t20": "تهدف LEUSI إلى تحويل ثقافة السلامة في أماكن العمل في بلاد الشام ومنطقة الشرق الأوسط وشمال أفريقيا من خلال تطوير العمال في الصفوف الأمامية والمهندسين والمقاولين وعمال النقل والمجتمعات المحلية ليصبحوا قادة في الصحة والسلامة والأمن والبيئة. وسيساهم هؤلاء القادة في تعزيز أماكن عمل أكثر أماناً، وتقوية المساءلة المؤسسية، ودعم معايير سلامة منسجمة مع المعايير الدولية.", "t21": "الرؤية", "t22": "منطقة تُفهم فيها السلامة كقيمة اجتماعية أساسية، لا كمجرد متطلب امتثال.", "t23": "فلسفة التنظيم", "t24": "LEUSI ليست مجرد جهة تدريب أو استشارات. يضع هذا الإطار LEUSI كمؤسسة تنظيمية تركز على تطوير القيادة. تمكّن LEUSI الأفراد من قيادة التغيير وفق مبادئ أساسية: بناء العلاقات قبل إطلاق البرامج؛ إعطاء الأولوية لتطوير القيادة قبل التوسع؛ تنظيم الناس للعمل بدلاً من مجرد تعبئة الجمهور؛ تعزيز القيادة الموزعة للحد من الاعتماد على شخصيات مركزية؛ تحويل الألم المشترك إلى فعل جماعي؛ وبناء قوة قاعدة قادرة على التأثير في المؤسسات.", "t25": "ينبغي للمنظمة أن", "t26": "تبني العلاقات قبل البرامج.", "t27": "تمنح تطوير القيادة أولوية على التوسع السريع.", "t28": "تنظم الناس بدلاً من تعبئة الجمهور فقط.", "t29": "تعزز القيادة الموزعة بدلاً من الاعتماد المركزي.", "t30": "تحول الألم المشترك إلى فعل جماعي.", "t31": "تبني قوة مجتمعية قادرة على التأثير في المؤسسات.", "t32": "02 · نظرية التغيير", "t33": "كيف تحول LEUSI الظروف غير الآمنة إلى قيادة سلامة منظمة.", "t34": "تستمر البيئات غير الآمنة ليس فقط بسبب الإخفاقات التقنية، بل أيضاً لأن المتأثرين بها يفتقرون إلى القوة المنظمة، والقدرة القيادية، والتمثيل المؤسسي، والتنسيق الاستراتيجي الجماعي.", "t35": "1 · التحديد", "t36": "العمال المتأثرون، المهندسون، المقاولون، عمال النقل، والمجتمعات المحلية.", "t37": "2 · التطوير", "t38": "قادة موثوقون في الصحة والسلامة والأمن والبيئة من خلال التوجيه، والسرد، والتعليم، والتنظيم المنهجي، والتطبيق العملي للسلامة.", "t39": "3 · التأثير", "t40": "سلوك مكان العمل، توقعات المجتمع، المؤسسات، والشراكات المسؤولة.", "t41": "4 · ترسيخ المعيار", "t42": "معايير سلامة أقوى، ومصداقية دولية، وتحول اجتماعي طويل الأمد.", "t43": "03 · الوضع الحالي", "t44": "غالباً ما يواجه العمال في بلاد الشام وبيئات مشابهة ما يلي:", "t45": "ثقافة السلامة", "t46": "ثقافة سلامة ضعيفة.", "t47": "وعي محدود بالصحة والسلامة والأمن والبيئة.", "t48": "تطبيق مؤسسي محدود.", "t49": "ضغوط نظامية", "t50": "هياكل عمل غير رسمية.", "t51": "تدخل سياسي وفساد.", "t52": "غياب آليات المساءلة.", "t53": "فجوة القيادة", "t54": "تجبر الضغوط الاقتصادية العمال على قبول ظروف غير آمنة.", "t55": "غياب تطوير القيادة بين عمال الصفوف الأمامية.", "t56": "ينتج عن ذلك", "t57": "تغيير ثقافي", "t58": "تغيير تنظيمي", "t59": "ضغط مؤسسي", "t60": "زخم سياساتي", "t61": "حوافز اقتصادية للامتثال", "t62": "مصداقية دولية", "t63": "تحول اجتماعي طويل الأمد", "t64": "نظرية التغيير في LEUSI", "t65": "إذا قامت LEUSI بتحديد العمال المتأثرين وتطويرهم إلى قادة موثوقين في الصحة والسلامة والأمن والبيئة عبر التوجيه والسرد والتعليم والتنظيم المنهجي والتطبيق العملي للسلامة، فسيستطيع هؤلاء القادة التأثير في سلوك أماكن العمل، وتغيير توقعات المجتمع، والضغط على المؤسسات، وجذب شراكات دولية مسؤولة، وترسيخ معايير سلامة أقوى تدريجياً.", "t66": "04 · نموذج التنظيم في LEUSI", "t67": "الممارسات الخمس الأساسية", "t68": "يجب على LEUSI أن تتواصل باستمرار حول:", "t69": "قصة الذات", "t70": "لماذا تهتم شخصياً بالسلامة والكرامة والنزاهة المؤسسية والمساءلة؟", "t71": "قصة نحن", "t72": "لماذا يتشارك العمال والمجتمعات والمهندسون والمنظمات هذا التحدي جماعياً.", "t73": "قصة الآن", "t74": "التحرك الفوري ضروري بسبب إعادة الإعمار والتحول الإقليمي والاستثمار في البنية التحتية وارتفاع المعايير الدولية.", "t75": "يجب أن يتصل السرد بالمستوى العاطفي والأخلاقي، وليس بالمستوى التقني فقط.", "t76": "تموضع سرد LEUSI", "t77": "تركز LEUSI على منع الحوادث وعلى أهداف تنظيمية ومجتمعية أوسع.", "t78": "حماية الكرامة الإنسانية", "t79": "بناء الثقة في المؤسسات", "t80": "إعداد عمال قابلين للتوظيف دولياً", "t81": "دعم إعادة الإعمار الاقتصادي", "t82": "ربط أوروبا ببلاد الشام", "t83": "تطوير القيادة الأخلاقية", "t84": "بناء مدن وأماكن عمل أكثر أماناً", "t85": "05 · بناء القاعدة المجتمعية", "t86": "تنظيم الأشخاص المتأثرين مباشرة بالأنظمة غير الآمنة.", "t87": "القاعدة الأساسية", "t88": "الأشخاص المتأثرون مباشرة بالأنظمة غير الآمنة.", "t89": "عمال البناء", "t90": "عمال الكهرباء", "t91": "مشغلو النقل واللوجستيات", "t92": "مشرفو المواقع", "t93": "المقاولون الصغار", "t94": "المهندسون الشباب", "t95": "طلاب التعليم المهني", "t96": "عمال البلديات", "t97": "قطاعات العمل غير الرسمية", "t98": "القاعدة الداعمة", "t99": "أشخاص يمتلكون التأثير أو الموارد أو الشرعية المؤسسية.", "t100": "الجامعات", "t101": "البلديات", "t102": "المنظمات غير الحكومية الدولية", "t103": "المؤسسات الأوروبية", "t104": "شركات الطاقة", "t105": "شركات البناء", "t106": "جهات التأمين", "t107": "مناصرو حقوق العمال", "t108": "مهنيّو الاغتراب", "t109": "الشبكات الهولندية والخليجية", "t110": "06 · تحليل القوة", "t111": "القوة هي القدرة على تحقيق الأهداف في ظروف غير مؤكدة.", "t112": "ينبغي لـ LEUSI أن تفهم القوة باعتبارها أشخاصاً منظمين، وموارد منظمة، وعلاقات منظمة، وشرعية استراتيجية، وثقة عامة، ووصولاً مؤسسياً، وتأثيراً سردياً.", "t113": "أصحاب القوة الحاليون", "t114": "الفاعلون السياسيون", "t115": "الوزارات", "t116": "نخب قطاع البناء", "t117": "الشبكات غير الرسمية", "t118": "الممولون الدوليون", "t119": "السلطات البلدية", "t120": "نقابات المهندسين", "t121": "أصحاب العمل", "t122": "بناء", "t123": "أصول القوة الأولية لدى LEUSI", "t124": "الانسجام مع السلامة الأوروبية", "t125": "خبرة في بنية الطاقة التحتية", "t126": "خلفية في BP وShell", "t127": "إطار التنظيم من كلية هارفارد كينيدي", "t128": "فهم السياسات", "t129": "تموضع عابر للثقافات", "t130": "مصداقية السرد", "t131": "شرعية أخلاقية", "t132": "07 · هيكل الأهداف الاستراتيجية", "t133": "أهداف استراتيجية من الشرعية إلى تغيير الأنظمة.", "t134": "هدف المرحلة الأولى", "t135": "بناء الشرعية والبنية العلائقية.", "t136": "هدف المرحلة الثانية", "t137": "تطوير قادة سلامة تجريبيين ظاهرين ومشاريع تنفيذ قابلة للقياس.", "t138": "هدف المرحلة الثالثة", "t139": "إنشاء شراكات مؤسسية واعتراف عام.", "t140": "هدف المرحلة الرابعة", "t141": "التأثير في السياسات والمعايير وسلوك السوق الأوسع.", "t142": "08 · استراتيجية التنظيم خطوة بخطوة", "t143": "خط زمني تفاعلي وبوابات مراحل.", "t144": "من 0 إلى 6 أشهر", "t145": "التأسيس والتنظيم العلائقي", "t146": "من 6 إلى 12 شهراً", "t147": "التنظيم التجريبي وتطوير القيادة", "t148": "من 12 إلى 24 شهراً", "t149": "بناء القوة والتموضع العام", "t150": "من سنتين إلى 5 سنوات", "t151": "التأثير السياساتي والنظامي", "t152": "المرحلة 1", "t153": "المرحلة 2", "t154": "المرحلة 3", "t155": "المرحلة 4", "t156": "المرحلة 1 · التأسيس والتنظيم العلائقي", "t157": "الجدول الزمني: من 0 إلى 6 أشهر", "t158": "الهدف: ترسيخ الثقة وبناء العلاقات وضمان الشرعية والوضوح التنظيمي.", "t159": "الخطوة 1. توضيح الهيكل التنظيمي", "t160": "−", "t161": "هيكل المؤسسة الهولندية Stichting", "t162": "إطار الحوكمة", "t163": "استراتيجية المجلس الاستشاري", "t164": "النموذج المالي", "t165": "الميثاق الأخلاقي", "t166": "سياسة الشفافية", "t167": "إطار الصحة والسلامة والأمن والبيئة", "t168": "أنظمة البيانات والتقارير", "t169": "تؤسس هذه الإجراءات للشرعية المؤسسية.", "t170": "الخطوة 2. تطوير بنية السرد العام", "t171": "+", "t172": "سرد المؤسس", "t173": "بيان LEUSI", "t174": "هيكل السرد على الموقع", "t175": "سرد وسائل التواصل الاجتماعي", "t176": "قصص العمال", "t177": "قصص تحول السلامة", "t178": "هوية بصرية مرتبطة بالكرامة والمهنية", "t179": "يجب أن تعزز جميع الاتصالات الرسالة التالية: السلامة هي الكرامة والمساءلة والتنمية.", "t180": "الخطوة 3. عقد اجتماعات علائقية", "t181": "العمال", "t182": "المقاولون", "t183": "المهندسون", "t184": "الفاعلون البلديون", "t185": "المنظمات غير الحكومية", "t186": "المهنيون الدوليون", "t187": "فاعلو الاغتراب", "t188": "الهدف: إجراء 100 محادثة علائقية منظمة.", "t189": "الخطوة 4. تحديد دائرة القيادة الأولى", "t190": "ارتباط شخصي بالسلامة", "t191": "مصداقية بين الزملاء", "t192": "استعداد للتعلم", "t193": "قدرة على التواصل", "t194": "التزام أخلاقي", "t195": "قدرة محتملة على تعبئة الآخرين", "t196": "اختيار 10 إلى 15 شخصاً يمكن أن ينموا ليصبحوا دائرة القيادة الأولى في LEUSI.", "t197": "المرحلة 2 · التنظيم التجريبي وتطوير القيادة", "t198": "الجدول الزمني: من 6 إلى 12 شهراً", "t199": "الهدف: الانتقال من بناء العلاقات إلى الفعل المنظم.", "t200": "الخطوة 5. إطلاق أكاديمية LEUSI للقيادة", "t201": "أساسيات الصحة والسلامة والأمن والبيئة", "t202": "تطوير القيادة", "t203": "السرد العام", "t204": "التواصل", "t205": "ثقافة الإبلاغ عن الحوادث", "t206": "القيادة الأخلاقية", "t207": "إدارة النزاعات", "t208": "مهارات التوجيه", "t209": "تنظيم المجتمع", "t210": "مساءلة الفريق", "t211": "تقدم الأكاديمية أكثر من تدريب تقني. إنها تعد قادة سلامة.", "t212": "الخطوة 6. بناء فرق عمل تجريبية", "t213": "فريق واحد لكل موقع تجريبي", "t214": "أدوار واضحة", "t215": "متابعات أسبوعية", "t216": "روتينات مراقبة السلامة", "t217": "جلسات تأمل في الحوادث", "t218": "لحظات تعلم عامة", "t219": "ينبغي أن يضم كل فريق تجريبي عمالاً ومشرفين ومستشارين تقنيين وداعمين من المجتمع.", "t220": "الخطوة 7. تنفيذ مشاريع تجريبية مرئية", "t221": "وعي أساسي بمعدات الوقاية الشخصية", "t222": "سلامة حركة المرور داخل الموقع", "t223": "رسم خرائط الاستجابة للطوارئ", "t224": "حملات ترتيب ونظافة الموقع", "t225": "وعي العمل على الارتفاعات", "t226": "وعي بالمخاطر الكهربائية", "t227": "ممارسة الإبلاغ عن الحوادث", "t228": "روتينات محادثات السلامة القصيرة", "t229": "يجب أن تحقق المشاريع التجريبية نتائج مرئية وتعلماً قابلاً للقياس.", "t230": "المرحلة 3 · بناء القوة والتموضع العام", "t231": "الجدول الزمني: من 12 إلى 24 شهراً", "t232": "الهدف: استخدام الشرعية لبناء التأثير.", "t233": "الخطوة 8. بناء تحالفات مؤسسية", "t234": "المؤسسات الهولندية", "t235": "البلديات اللبنانية", "t236": "منظمات السلامة الأوروبية", "t237": "شركات البنية التحتية", "t238": "وكالات التنمية", "t239": "فاعلو دول مجلس التعاون الخليجي", "t240": "تمنح التحالفات المؤسسية LEUSI الشرعية والوصول والموارد.", "t241": "الخطوة 9. إطلاق حملات سلامة عامة", "t242": "السلامة كرامة", "t243": "لا عمل من دون حماية", "t244": "كل عامل يعود إلى منزله", "t245": "إعادة إعمار آمنة", "t246": "عقلية سلامة أوروبية لعمال بلاد الشام", "t247": "يجب أن تربط الحملات الإلحاح الأخلاقي بالفعل العملي.", "t248": "الخطوة 10. نشر أدلة الأثر", "t249": "عدد القادة المدربين", "t250": "عدد المواقع التجريبية", "t251": "تغيرات سلوكية ملحوظة", "t252": "تحسينات في الإبلاغ عن الحوادث", "t253": "مشاركة أصحاب المصلحة", "t254": "الانخراط السياساتي", "t255": "تبني أصحاب العمل", "t256": "تساعد الأدلة LEUSI على الانتقال من مبادرة إلى منصة معترف بها.", "t257": "المرحلة 4 · التأثير السياساتي والنظامي", "t258": "الجدول الزمني: من سنتين إلى 5 سنوات", "t259": "الهدف: التأثير في الأنظمة والمعايير.", "t260": "الخطوة 11. تطوير منصة سياسات", "t261": "معايير سلامة البناء", "t262": "متطلبات السلامة البلدية", "t263": "أنظمة اعتماد العمال", "t264": "مساءلة المقاولين", "t265": "معايير السلامة في المشتريات العامة", "t266": "دمج الجوانب البيئية والمهنية", "t267": "الاستعداد للطوارئ", "t268": "تحول منصة السياسات التعلم الميداني إلى مقترحات مؤسسية.", "t269": "الخطوة 12. إنشاء معيار السلامة الخاص بـ LEUSI", "t270": "مستوحى من VCA", "t271": "مكيف مع الواقع المحلي", "t272": "متعدد اللغات", "t273": "عملي", "t274": "قابل للقياس", "t275": "مناسب لأصحاب العمل", "t276": "متمحور حول العامل", "t277": "يصبح هذا جسراً بين التوقعات الأوروبية والتطبيق في بلاد الشام.", "t278": "الخطوة 13. التوسع عبر الشراكات", "t279": "شركاء التدريب", "t280": "شركاء الاعتماد", "t281": "شبكات أصحاب العمل", "t282": "تجارب بلدية", "t283": "تعاون مع المنظمات غير الحكومية", "t284": "دعم المانحين", "t285": "خبراء الاغتراب", "t286": "يجب أن يحمي التوسع الجودة والمصداقية والرسالة الاجتماعية.", "t287": "09 · سلم القيادة", "t288": "يجب أن تُكتسب القيادة من خلال المسؤولية والالتزام المثبت.", "t289": "المستوى 1", "t290": "الداعمون", "t291": "المستوى 2", "t292": "المتطوعون", "t293": "المستوى 3", "t294": "سفراء السلامة", "t295": "المستوى 4", "t296": "منسقو الفرق", "t297": "المستوى 5", "t298": "منظمون إقليميون", "t299": "المستوى 6", "t300": "ممثلون مؤسسيون", "t301": "10 · منهجية التوجيه داخل LEUSI", "t302": "يحول التوجيه الوعي إلى ممارسة قيادية.", "t303": "ينبغي دمج إطار التوجيه في جميع أنحاء المنظمة.", "t304": "مبادئ التوجيه", "t305": "الناس قادرون على النمو.", "t306": "تُكتسب القيادة من خلال الممارسة.", "t307": "التأمل يخلق التعلم.", "t308": "المساءلة تطور الشعور بالملكية.", "t309": "الاستماع يبني الثقة.", "t310": "التحدي ينمي الشجاعة.", "t311": "هيكل التوجيه", "t312": "ينبغي لكل قائد أن:", "t313": "يوجه الآخرين.", "t314": "يتلقى التوجيه من الآخرين.", "t315": "يتأمل بانتظام.", "t316": "يتلقى تغذية راجعة منظمة.", "t317": "يمارس القيادة التكيفية.", "t318": "أسئلة توجيه مقترحة", "t319": "ما التحدي الذي تواجهه؟", "t320": "لماذا يهمك هذا؟", "t321": "ما الافتراضات التي تشكل استجابتك؟", "t322": "ما المخاطر التي تتجنبها؟", "t323": "ما نوع القيادة المطلوب منك ممارستها؟", "t324": "من يجب أن يشارك أيضاً؟", "t325": "ما الإجراء الصغير الذي يمكنك اتخاذه الآن؟", "t326": "11 · المؤشرات الاستراتيجية", "t327": "قياس القدرة التنظيمية والنتائج التشغيلية والشرعية المؤسسية.", "t328": "مؤشرات التنظيم", "t329": "عدد الاجتماعات العلائقية.", "t330": "نمو المتطوعين النشطين.", "t331": "الاحتفاظ بالقيادات.", "t332": "تطوير الفرق.", "t333": "عدد السفراء المدربين.", "t334": "مشاركة المجتمع.", "t335": "المؤشرات التشغيلية", "t336": "معدلات تطبيق السلامة.", "t337": "خفض الحوادث.", "t338": "درجات التدقيق.", "t339": "تكرار التقارير.", "t340": "إكمال التدريب.", "t341": "المؤشرات المؤسسية", "t342": "الشراكات المنشأة.", "t343": "التعاونات البلدية.", "t344": "التمويل المؤمّن.", "t345": "الانخراط السياساتي.", "t346": "الاعتراف الدولي.", "t347": "12 · المخاطر والتحديات الاستراتيجية", "t348": "يجب التعامل مع المخاطر كأسئلة تصميم استراتيجية، لا كمسائل إدارية فقط.", "t349": "المخاطر الرئيسية", "t350": "التحول إلى توجه خدمي بدلاً من توجه تنظيمي.", "t351": "المركزية المفرطة حول هوية المؤسس.", "t352": "الاستحواذ السياسي.", "t353": "الاعتماد على المانحين.", "t354": "التوسع أسرع من قدرة القيادة.", "t355": "الإرهاق بين المنظمين.", "t356": "فقدان الثقة بسبب نقص الشفافية.", "t357": "استراتيجية التخفيف", "t358": "بناء قيادة موزعة.", "t359": "تطوير الحوكمة مبكراً.", "t360": "الحفاظ على الشفافية الأخلاقية.", "t361": "الاستثمار المستمر في التوجيه والتأمل.", "t362": "إعطاء الأولوية للثقافة قبل التوسع السريع.", "t363": "بناء مصداقية قابلة للقياس.", "t364": "13 · هوية LEUSI طويلة الأمد", "t365": "ينبغي أن تتطور LEUSI إلى ما هو أبعد من دور مؤسسة تدريب.", "t366": "الدور طويل الأمد", "t367": "حركة إقليمية لقيادة الصحة والسلامة والأمن والبيئة", "t368": "مؤسسة تنظيم مدني", "t369": "منصة للسياسات والمعايير", "t370": "أكاديمية لتطوير القيادة", "t371": "جسر بين أوروبا وبلاد الشام", "t372": "فاعل في إعادة الإعمار والمرونة", "t373": "منظومة مؤسسة اجتماعية", "t374": "14 · تأمل استراتيجي ختامي", "t375": "يتحرك الناس ليس لأنهم أُمروا بالتحرك، بل لأنهم يكتشفون هدفاً مشتركاً ومسؤولية مشتركة وأملاً مشتركاً.", "t376": "لن يعتمد نجاح LEUSI على المعرفة التقنية بالسلامة فقط. بل سيعتمد على قدرة المنظمة على بناء الثقة، وتطوير القادة، وتنظيم العلاقات، وخلق شرعية أخلاقية، واستدامة العمل الجماعي، وتحويل الخوف إلى قدرة على الفعل، وتحويل الأفراد المعزولين إلى قاعدة منظمة قادرة على تشكيل المؤسسات والثقافة.", "t377": "لذلك فإن السؤال الاستراتيجي المركزي لـ LEUSI ليس: «كيف ندرب الناس؟»", "t378": "بل هو: «كيف نطور الناس ليصبحوا قادة قادرين على تغيير الأنظمة التي جعلت الظروف غير الآمنة أمراً عادياً من الأساس؟»", "t379": "ساهم في بناء حركة سلامة عملية متجذرة في الكرامة والأثر القابل للقياس.", "t380": "العودة إلى LEUSI", "t381": "LEUSI · مبادرة السلامة الأوروبية المشرقية · إطار تنظيمي وقيادي للصحة والسلامة والأمن والبيئة متوافق مع VCA والاتحاد الأوروبي.", "t382": "الحوكمة والمساءلة", "t383": "تُدار LEUSI كمؤسسة هولندية ذات رسالة اجتماعية ملتزمة بالسلامة والكرامة والشفافية والمساءلة المؤسسية. يوضح إطار الحوكمة الداخلي هذا كيف تحمي المنظمة رسالتها، وتدير المخاطر، وتصون المشاركين، وتضبط القرارات المالية، وتمنع تضارب المصالح، وتحافظ على نزاهة عملها في التدريب وتطوير القيادة في مجال الصحة والسلامة والأمن والبيئة.", "t384": "إطار الحوكمة والسياسات الداخلية لـ LEUSI", "t385": "تغطي الوثيقة مسؤوليات المجلس، وصنع القرار، والحوكمة المالية، والحماية، ومكافحة الفساد، والمشتريات، والشراكات، وحماية البيانات، ونزاهة الاعتماد، والإبلاغ عن المخالفات، وإدارة المخاطر، والحياد السياسي، والتواصل العام، وتقارير الأثر، والاعتماد على المؤسس، والتأمين، وخطة عمل الحوكمة لأول 90 يوماً.", "t386": "فتح ملف PDF", "t387": "تنزيل ملف PDF"}, "nl": {"t0": "LEUSI", "t1": "Levant European Safety Initiative", "t2": "Identiteit", "t3": "Theorie", "t4": "Macht", "t5": "Strategie", "t6": "Indicatoren", "t7": "Coaching", "t8": "Interne governance", "t9": "LEUSI Strategisch Organisatiekader", "t10": "Veiligheid als waardigheid, macht en publiek vertrouwen.", "t11": "Public narrative, theory of change, machtsopbouw, strategie, tactieken en coachend leiderschap. Een praktisch organisatiekader voor het opbouwen van veiligheidsleiderschap en institutionele verantwoordelijkheid in de Levant en de MENA-regio.", "t12": "Verken de strategie →", "t13": "Bekijk de Theory of Change", "t14": "Public narrative", "t15": "Machtsopbouw", "t16": "Tactieken", "t17": "01 · Kernidentiteit van de organisatie", "t18": "LEUSI kernidentiteit van de organisatie", "t19": "Missie", "t20": "LEUSI wil de veiligheidscultuur op de werkvloer in de Levant en de MENA-regio versterken door eerstelijnswerkers, ingenieurs, aannemers, transportmedewerkers en lokale gemeenschappen te ontwikkelen tot HSSE-leiders. Deze leiders dragen bij aan veiligere werkplekken, sterkere institutionele verantwoordelijkheid en internationaal afgestemde veiligheidsnormen.", "t21": "Visie", "t22": "Een regio waar veiligheid wordt erkend als een centrale sociale waarde, niet alleen als een nalevingseis.", "t23": "Organisatiefilosofie", "t24": "LEUSI is niet alleen een trainingsaanbieder of adviesbureau. Dit kader positioneert LEUSI als een organiserende instelling gericht op leiderschapsontwikkeling. LEUSI stelt mensen in staat verandering te leiden, op basis van kernprincipes: relaties bouwen vóór programma’s; leiderschap ontwikkelen vóór opschalen; mensen organiseren voor actie in plaats van alleen publiek mobiliseren; gedeeld leiderschap stimuleren; gedeelde pijn omzetten in collectieve actie; en achterbanmacht opbouwen om instellingen te beïnvloeden.", "t25": "De organisatie moet", "t26": "Relaties bouwen vóór programma’s.", "t27": "Leiderschapsontwikkeling prioriteren boven snel opschalen.", "t28": "Mensen organiseren in plaats van alleen publiek mobiliseren.", "t29": "Gedeeld leiderschap bevorderen in plaats van centrale afhankelijkheid.", "t30": "Gedeelde pijn omzetten in collectieve actie.", "t31": "Achterbanmacht opbouwen die instellingen kan beïnvloeden.", "t32": "02 · Theory of Change", "t33": "Hoe LEUSI onveilige omstandigheden omzet in georganiseerd veiligheidsleiderschap.", "t34": "Onveilige omgevingen blijven niet alleen bestaan door technische tekortkomingen, maar ook doordat getroffen mensen geen georganiseerde macht, leiderschapscapaciteit, institutionele vertegenwoordiging en gezamenlijke strategische coördinatie hebben.", "t35": "1 · Identificeren", "t36": "Getroffen werknemers, ingenieurs, aannemers, transportmedewerkers en lokale gemeenschappen.", "t37": "2 · Ontwikkelen", "t38": "Geloofwaardige HSSE-leiders via coaching, storytelling, onderwijs, gestructureerd organiseren en praktische veiligheidsimplementatie.", "t39": "3 · Beïnvloeden", "t40": "Werkgedrag, verwachtingen van gemeenschappen, instellingen en verantwoordelijke partnerschappen.", "t41": "4 · Normaliseren", "t42": "Sterkere veiligheidsnormen, internationale geloofwaardigheid en langdurige maatschappelijke transformatie.", "t43": "03 · Huidige situatie", "t44": "Werknemers in de Levant en vergelijkbare omgevingen ervaren vaak:", "t45": "Veiligheidscultuur", "t46": "Zwakke veiligheidscultuur.", "t47": "Beperkt HSSE-bewustzijn.", "t48": "Beperkte institutionele handhaving.", "t49": "Systemische druk", "t50": "Informele arbeidsstructuren.", "t51": "Politieke inmenging en corruptie.", "t52": "Gebrek aan verantwoordingsmechanismen.", "t53": "Leiderschapskloof", "t54": "Economische druk dwingt werknemers om onveilige omstandigheden te accepteren.", "t55": "Gebrek aan leiderschapsontwikkeling bij eerstelijnswerkers.", "t56": "Dit creëert", "t57": "Culturele verandering", "t58": "Organisatorische verandering", "t59": "Institutionele druk", "t60": "Beleidsmomentum", "t61": "Economische prikkels voor naleving", "t62": "Internationale geloofwaardigheid", "t63": "Langdurige maatschappelijke transformatie", "t64": "LEUSI Theory of Change", "t65": "Als LEUSI getroffen werknemers identificeert en hen ontwikkelt tot geloofwaardige HSSE-leiders via coaching, storytelling, onderwijs, gestructureerd organiseren en praktische veiligheidsimplementatie, kunnen deze leiders werkgedrag beïnvloeden, gemeenschapsverwachtingen veranderen, instellingen onder druk zetten, verantwoordelijke internationale partnerschappen aantrekken en geleidelijk sterkere veiligheidsnormen normaliseren.", "t66": "04 · Het LEUSI organisatiemodel", "t67": "De vijf kernpraktijken", "t68": "LEUSI moet voortdurend communiceren:", "t69": "Verhaal van ik", "t70": "Waarom geef jij persoonlijk om veiligheid, waardigheid, institutionele eerlijkheid en verantwoordelijkheid?", "t71": "Verhaal van wij", "t72": "Waarom werknemers, gemeenschappen, ingenieurs en organisaties deze uitdaging samen delen.", "t73": "Verhaal van nu", "t74": "Directe actie is essentieel door wederopbouw, regionale transformatie, infrastructuurinvesteringen en stijgende internationale normen.", "t75": "Het verhaal moet emotioneel en moreel verbinden, niet alleen technisch.", "t76": "Narratieve positionering van LEUSI", "t77": "LEUSI richt zich op ongevallenpreventie en bredere organisatorische en maatschappelijke doelen.", "t78": "Menselijke waardigheid beschermen", "t79": "Vertrouwen in instellingen opbouwen", "t80": "Werknemers internationaal inzetbaar maken", "t81": "Economische wederopbouw ondersteunen", "t82": "Europa en de Levant verbinden", "t83": "Ethisch leiderschap ontwikkelen", "t84": "Veiligere steden en werkplekken creëren", "t85": "05 · Achterbanopbouw", "t86": "De mensen organiseren die direct worden geraakt door onveilige systemen.", "t87": "Primaire achterban", "t88": "De mensen die direct worden geraakt door onveilige systemen.", "t89": "Bouwvakkers", "t90": "Elektriciens", "t91": "Transport- en logistieke medewerkers", "t92": "Site supervisors", "t93": "Kleine aannemers", "t94": "Jonge ingenieurs", "t95": "Mbo-/vakstudenten", "t96": "Gemeentelijke medewerkers", "t97": "Informele arbeidssectoren", "t98": "Secundaire achterban", "t99": "Mensen met invloed, middelen of institutionele legitimiteit.", "t100": "Universiteiten", "t101": "Gemeenten", "t102": "Internationale NGO’s", "t103": "Europese instellingen", "t104": "Energiebedrijven", "t105": "Bouwbedrijven", "t106": "Verzekeringspartijen", "t107": "Arbeidsbelangenbehartigers", "t108": "Diaspora-professionals", "t109": "Nederlandse en GCC-netwerken", "t110": "06 · Machtsanalyse", "t111": "Macht is het vermogen om doelen te bereiken onder onzekere omstandigheden.", "t112": "LEUSI moet macht begrijpen als georganiseerde mensen, georganiseerde middelen, georganiseerde relaties, strategische legitimiteit, publiek vertrouwen, institutionele toegang en narratieve invloed.", "t113": "Huidige machthebbers", "t114": "Politieke actoren", "t115": "Ministeries", "t116": "Bouwelites", "t117": "Informele netwerken", "t118": "Internationale financiers", "t119": "Gemeentelijke autoriteiten", "t120": "Ingenieursorden", "t121": "Werkgevers", "t122": "Opbouw", "t123": "Initiële machtsbronnen van LEUSI", "t124": "Afstemming met Europese veiligheid", "t125": "Ervaring met energie-infrastructuur", "t126": "Achtergrond bij BP en Shell", "t127": "HKS-organisatiekader", "t128": "Beleidsinzicht", "t129": "Cross-culturele positionering", "t130": "Geloofwaardigheid in storytelling", "t131": "Morele legitimiteit", "t132": "07 · Structuur van strategische doelen", "t133": "Strategische doelen van legitimiteit naar systeemverandering.", "t134": "Doel fase 1", "t135": "Legitimiteit en relationele infrastructuur opbouwen.", "t136": "Doel fase 2", "t137": "Zichtbare pilot-veiligheidsleiders en meetbare implementatieprojecten ontwikkelen.", "t138": "Doel fase 3", "t139": "Institutionele partnerschappen en publieke erkenning creëren.", "t140": "Doel fase 4", "t141": "Beleid, normen en breder marktgedrag beïnvloeden.", "t142": "08 · Organisatiestrategie stap voor stap", "t143": "Interactieve tijdlijn en fasepoorten.", "t144": "0 tot 6 maanden", "t145": "Fundering en relationeel organiseren", "t146": "6 tot 12 maanden", "t147": "Pilot-organiseren en leiderschapsontwikkeling", "t148": "12 tot 24 maanden", "t149": "Machtsopbouw en publieke positionering", "t150": "2 tot 5 jaar", "t151": "Beleidsmatige en systemische invloed", "t152": "Fase 1", "t153": "Fase 2", "t154": "Fase 3", "t155": "Fase 4", "t156": "FASE 1 · FUNDATIE EN RELATIONEEL ORGANISEREN", "t157": "Tijdlijn: 0 tot 6 maanden", "t158": "Doel: vertrouwen opbouwen, relaties versterken en legitimiteit en organisatorische helderheid waarborgen.", "t159": "Stap 1. Organisatiestructuur verduidelijken", "t160": "−", "t161": "Stichtingstructuur", "t162": "Governancekader", "t163": "Strategie voor adviesraad", "t164": "Financieel model", "t165": "Ethisch charter", "t166": "Transparantiebeleid", "t167": "HSSE-kader", "t168": "Data- en rapportagesystemen", "t169": "Deze acties creëren institutionele legitimiteit.", "t170": "Stap 2. Public narrative-infrastructuur ontwikkelen", "t171": "+", "t172": "Narratief van de oprichter", "t173": "LEUSI-manifest", "t174": "Storytellingstructuur van de website", "t175": "Socialmedia-narratief", "t176": "Verhalen van werknemers", "t177": "Verhalen over veiligheidstransformatie", "t178": "Visuele identiteit verbonden met waardigheid en professionaliteit", "t179": "Alle communicatie moet de boodschap versterken: veiligheid is waardigheid, verantwoordelijkheid en ontwikkeling.", "t180": "Stap 3. Relationele gesprekken voeren", "t181": "Werknemers", "t182": "Aannemers", "t183": "Ingenieurs", "t184": "Gemeentelijke actoren", "t185": "NGO’s", "t186": "Internationale professionals", "t187": "Diaspora-actoren", "t188": "Doel: 100 gestructureerde relationele gesprekken voeren.", "t189": "Stap 4. Eerste leiderschapscirkel identificeren", "t190": "Persoonlijke verbinding met veiligheid", "t191": "Geloofwaardigheid onder collega’s", "t192": "Bereidheid om te leren", "t193": "Communicatievaardigheid", "t194": "Morele betrokkenheid", "t195": "Potentieel om anderen te mobiliseren", "t196": "Selecteer 10 tot 15 mensen die kunnen doorgroeien tot de eerste leiderschapscirkel van LEUSI.", "t197": "FASE 2 · PILOT-ORGANISEREN EN LEIDERSCHAPSONTWIKKELING", "t198": "Tijdlijn: 6 tot 12 maanden", "t199": "Doel: overstappen van relatieopbouw naar georganiseerde actie.", "t200": "Stap 5. LEUSI Leadership Academy lanceren", "t201": "HSSE-basisprincipes", "t202": "Leiderschapsontwikkeling", "t203": "Public narrative", "t204": "Communicatie", "t205": "Cultuur van incidentmelding", "t206": "Ethisch leiderschap", "t207": "Conflicthantering", "t208": "Coachingsvaardigheden", "t209": "Community organizing", "t210": "Teamverantwoordelijkheid", "t211": "De academie biedt meer dan technische training. Zij bereidt veiligheidsleiders voor.", "t212": "Stap 6. Pilot-actieteams bouwen", "t213": "Eén team per pilotsite", "t214": "Duidelijke rollen", "t215": "Wekelijkse check-ins", "t216": "Routines voor veiligheidsobservatie", "t217": "Reflectiesessies over incidenten", "t218": "Publieke leermomenten", "t219": "Elk pilotteam moet bestaan uit werknemers, supervisors, technische adviseurs en community-supporters.", "t220": "Stap 7. Zichtbare pilotprojecten uitvoeren", "t221": "Basisbewustzijn over PBM", "t222": "Veilige verkeersstromen op de site", "t223": "In kaart brengen van noodrespons", "t224": "Housekeeping-campagnes", "t225": "Bewustzijn rond werken op hoogte", "t226": "Bewustzijn van elektrische gevaren", "t227": "Praktijk van incidentmelding", "t228": "Toolboxmeeting-routines", "t229": "Pilotprojecten moeten zichtbare resultaten en meetbaar leren opleveren.", "t230": "FASE 3 · MACHTSOPBOUW EN PUBLIEKE POSITIONERING", "t231": "Tijdlijn: 12 tot 24 maanden", "t232": "Doel: legitimiteit inzetten om invloed op te bouwen.", "t233": "Stap 8. Institutionele allianties bouwen", "t234": "Nederlandse instellingen", "t235": "Libanese gemeenten", "t236": "Europese veiligheidsorganisaties", "t237": "Infrastructuurbedrijven", "t238": "Ontwikkelingsorganisaties", "t239": "GCC-actoren", "t240": "Institutionele allianties geven LEUSI legitimiteit, toegang en middelen.", "t241": "Stap 9. Publieke veiligheidscampagnes lanceren", "t242": "Veiligheid is waardigheid", "t243": "Geen werk zonder bescherming", "t244": "Elke werknemer keert naar huis terug", "t245": "Veilige wederopbouw", "t246": "Europese veiligheidsmindset voor werknemers in de Levant", "t247": "Campagnes moeten morele urgentie verbinden met praktische actie.", "t248": "Stap 10. Impactbewijs publiceren", "t249": "Aantal getrainde leiders", "t250": "Aantal pilotsites", "t251": "Waargenomen gedragsveranderingen", "t252": "Verbeteringen in incidentmelding", "t253": "Stakeholderparticipatie", "t254": "Beleidsbetrokkenheid", "t255": "Adoptie door werkgevers", "t256": "Bewijs helpt LEUSI om van initiatief naar erkend platform te groeien.", "t257": "FASE 4 · BELEIDSMATIGE EN SYSTEMISCHE INVLOED", "t258": "Tijdlijn: 2 tot 5 jaar", "t259": "Doel: systemen en normen beïnvloeden.", "t260": "Stap 11. Beleidsplatform ontwikkelen", "t261": "Veiligheidsnormen voor de bouw", "t262": "Gemeentelijke veiligheidseisen", "t263": "Certificeringssystemen voor werknemers", "t264": "Verantwoordelijkheid van aannemers", "t265": "Veiligheidsnormen voor publieke aanbestedingen", "t266": "Integratie van milieu en arbeid", "t267": "Noodvoorbereiding", "t268": "Het beleidsplatform vertaalt leren uit het veld naar institutionele voorstellen.", "t269": "Stap 12. LEUSI-veiligheidsstandaard creëren", "t270": "Geïnspireerd door VCA", "t271": "Aangepast aan lokale realiteiten", "t272": "Meertalig", "t273": "Praktisch", "t274": "Meetbaar", "t275": "Relevant voor werkgevers", "t276": "Werknemergericht", "t277": "Dit wordt de brug tussen Europese verwachtingen en implementatie in de Levant.", "t278": "Stap 13. Opschalen via partnerschappen", "t279": "Trainingspartners", "t280": "Certificeringspartners", "t281": "Werkgeversnetwerken", "t282": "Gemeentelijke pilots", "t283": "Samenwerkingen met NGO’s", "t284": "Steun van donoren", "t285": "Diaspora-experts", "t286": "Opschaling moet kwaliteit, geloofwaardigheid en de sociale missie beschermen.", "t287": "09 · Leiderschapsladder", "t288": "Leiderschap moet worden verdiend door verantwoordelijkheid en aantoonbare betrokkenheid.", "t289": "Niveau 1", "t290": "Supporters", "t291": "Niveau 2", "t292": "Vrijwilligers", "t293": "Niveau 3", "t294": "Veiligheidsambassadeurs", "t295": "Niveau 4", "t296": "Teamcoördinatoren", "t297": "Niveau 5", "t298": "Regionale organisatoren", "t299": "Niveau 6", "t300": "Institutionele vertegenwoordigers", "t301": "10 · Coachingmethodologie binnen LEUSI", "t302": "Coaching zet bewustzijn om in leiderschapspraktijk.", "t303": "Het coachingkader moet door de hele organisatie worden geïntegreerd.", "t304": "Coachingsprincipes", "t305": "Mensen zijn in staat om te groeien.", "t306": "Leiderschap wordt geleerd door oefening.", "t307": "Reflectie creëert leren.", "t308": "Verantwoordelijkheid ontwikkelt eigenaarschap.", "t309": "Luisteren bouwt vertrouwen.", "t310": "Uitdaging ontwikkelt moed.", "t311": "Coachingstructuur", "t312": "Elke leider moet:", "t313": "Anderen coachen.", "t314": "Door anderen gecoacht worden.", "t315": "Regelmatig reflecteren.", "t316": "Gestructureerde feedback ontvangen.", "t317": "Adaptief leiderschap oefenen.", "t318": "Voorgestelde coachingsvragen", "t319": "Welke uitdaging ga je aan?", "t320": "Waarom is dit belangrijk voor jou?", "t321": "Welke aannames bepalen je reactie?", "t322": "Welke risico’s vermijd je?", "t323": "Welk leiderschap wordt er van je gevraagd?", "t324": "Wie moet er nog meer betrokken worden?", "t325": "Welke kleine actie kun je nu nemen?", "t326": "11 · Strategische indicatoren", "t327": "Meten van organiserend vermogen, operationele resultaten en institutionele legitimiteit.", "t328": "Organisatie-indicatoren", "t329": "Aantal relationele gesprekken.", "t330": "Groei van actieve vrijwilligers.", "t331": "Behoud van leiderschap.", "t332": "Teamontwikkeling.", "t333": "Aantal getrainde ambassadeurs.", "t334": "Communityparticipatie.", "t335": "Operationele indicatoren", "t336": "Implementatiegraad van veiligheid.", "t337": "Vermindering van incidenten.", "t338": "Auditscores.", "t339": "Rapportagefrequentie.", "t340": "Voltooiing van training.", "t341": "Institutionele indicatoren", "t342": "Opgezette partnerschappen.", "t343": "Gemeentelijke samenwerkingen.", "t344": "Verkregen financiering.", "t345": "Beleidsbetrokkenheid.", "t346": "Internationale erkenning.", "t347": "12 · Risico’s en strategische uitdagingen", "t348": "Risico’s moeten worden behandeld als strategische ontwerpvragen, niet als administratieve kwesties.", "t349": "Belangrijkste risico’s", "t350": "Dienstgericht worden in plaats van organiserend.", "t351": "Overcentralisatie rond de identiteit van de oprichter.", "t352": "Politieke inname.", "t353": "Afhankelijkheid van donoren.", "t354": "Sneller uitbreiden dan de leiderschapscapaciteit.", "t355": "Burn-out onder organisatoren.", "t356": "Vertrouwen verliezen door gebrek aan transparantie.", "t357": "Mitigatiestrategie", "t358": "Gedeeld leiderschap bouwen.", "t359": "Governance vroeg ontwikkelen.", "t360": "Ethische transparantie behouden.", "t361": "Continu investeren in coaching en reflectie.", "t362": "Cultuur prioriteren boven snelle schaal.", "t363": "Meetbare geloofwaardigheid opbouwen.", "t364": "13 · Lange-termijnidentiteit van LEUSI", "t365": "LEUSI moet zich ontwikkelen voorbij de rol van trainingsinstituut.", "t366": "Lange-termijnrol", "t367": "Een regionale HSSE-leiderschapsbeweging", "t368": "Een civiele organiserende instelling", "t369": "Een platform voor beleid en normen", "t370": "Een academie voor leiderschapsontwikkeling", "t371": "Een brug tussen Europa en de Levant", "t372": "Een actor in wederopbouw en veerkracht", "t373": "Een ecosysteem van sociale ondernemingen", "t374": "14 · Laatste strategische reflectie", "t375": "Mensen handelen niet omdat ze daartoe opdracht krijgen, maar omdat ze een gedeeld doel, gedeelde verantwoordelijkheid en gedeelde hoop ontdekken.", "t376": "Het succes van LEUSI hangt niet alleen af van technische veiligheidskennis. Het hangt af van de vraag of de organisatie vertrouwen kan bouwen, leiders kan ontwikkelen, relaties kan organiseren, morele legitimiteit kan creëren, collectieve actie kan volhouden, angst kan omzetten in handelingsvermogen en geïsoleerde individuen kan omvormen tot een georganiseerde achterban die instellingen en cultuur kan beïnvloeden.", "t377": "De centrale strategische vraag voor LEUSI is daarom niet: “Hoe trainen we mensen?”", "t378": "Maar eerder: “Hoe ontwikkelen we mensen tot leiders die de systemen kunnen veranderen die onveilige omstandigheden in de eerste plaats normaal maakten?”", "t379": "Help een praktische veiligheidsbeweging op te bouwen, geworteld in waardigheid en meetbare impact.", "t380": "Terug naar LEUSI", "t381": "LEUSI · Levant European Safety Initiative · VCA- en EU-afgestemd organisatie- en HSSE-leiderschapskader.", "t382": "Governance en verantwoordelijkheid", "t383": "LEUSI wordt bestuurd als een missiegedreven Nederlandse stichting die zich inzet voor veiligheid, waardigheid, transparantie en institutionele verantwoordelijkheid. Dit interne governancekader legt uit hoe de organisatie haar missie beschermt, risico’s beheerst, deelnemers beschermt, financiële besluiten controleert, belangenconflicten voorkomt en de integriteit van haar HSSE-training en leiderschapsontwikkeling bewaakt.", "t384": "LEUSI Intern Governance- en Beleidskader", "t385": "Het document behandelt bestuursverantwoordelijkheden, besluitvorming, financiële governance, safeguarding, anticorruptie, inkoop, partnerschappen, gegevensbescherming, certificeringsintegriteit, klokkenluiden, risicomanagement, politieke neutraliteit, publieke communicatie, impactrapportage, afhankelijkheid van de oprichter, verzekeringen en het governance-actieplan voor de eerste 90 dagen.", "t386": "PDF openen", "t387": "PDF downloaden"}};
+  const storageKey = 'leusi-framework-language';
+  function setLanguage(lang) {
+    const dict = I18N[lang] || I18N.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.body.classList.toggle('lang-ar', lang === 'ar');
-
-    document.querySelectorAll('[data-leusi-lang]').forEach(function(btn){
-      btn.classList.toggle('active', btn.dataset.leusiLang === lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
-
-    if(lang === 'en'){
-      setCookie('googtrans', '/en/en');
-    } else {
-      setCookie('googtrans', '/en/' + lang);
-    }
-
-    const combo = document.querySelector('.goog-te-combo');
-    if(combo){
-      combo.value = lang === 'en' ? 'en' : lang;
-      combo.dispatchEvent(new Event('change'));
-    }
+    localStorage.setItem(storageKey, lang);
   }
-
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('[data-leusi-lang]');
-    if(!btn) return;
-    applyLanguage(btn.dataset.leusiLang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { setLanguage(btn.getAttribute('data-lang')); });
   });
-
-  window.LEUSI_SET_LANGUAGE = applyLanguage;
+  setLanguage(localStorage.getItem(storageKey) || 'en');
 })();
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</body>
+</script></body>
 </html>
