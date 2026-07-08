@@ -1,1 +1,1945 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Werkwoordentrainer — Energie & CCUS Consultancy Nederlands</title>
+<style>
+:root{
+  --bg:#0f1420; --panel:#1a2233; --panel2:#232e45; --line:#31405e;
+  --text:#e8edf7; --muted:#93a1bd; --accent:#ffb547; --accent2:#4fc3f7;
+  --green:#5ad07a; --red:#ef6a6a; --purple:#b48cf2;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
+.app{max-width:1060px;margin:0 auto;padding:18px 16px 90px}
+header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+header h1{font-size:1.35rem;letter-spacing:.3px}
+header h1 span{color:var(--accent)}
+.xpbox{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:8px 14px;font-size:.85rem;color:var(--muted)}
+.xpbox b{color:var(--accent);font-size:1rem}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+nav button{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:.86rem;transition:.15s}
+nav button:hover{color:var(--text);border-color:var(--accent2)}
+nav button.active{background:var(--accent);color:#1a1206;border-color:var(--accent);font-weight:600}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+.card h2{font-size:1.1rem;margin-bottom:10px;color:var(--accent2)}
+.card h3{font-size:.98rem;margin:12px 0 6px;color:var(--accent)}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;transition:.15s}
+.tile:hover{border-color:var(--accent2);transform:translateY(-2px)}
+.tile h4{font-size:.95rem;margin-bottom:4px}
+.tile .cnt{color:var(--muted);font-size:.78rem}
+.tile .bar{height:6px;background:#131a2a;border-radius:3px;margin-top:8px;overflow:hidden}
+.tile .bar i{display:block;height:100%;background:var(--green);border-radius:3px}
+.pill{display:inline-block;background:#131a2a;border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:2px 10px;font-size:.72rem;margin-right:6px}
+.btn{background:var(--accent);color:#1a1206;border:none;padding:11px 20px;border-radius:10px;font-size:.92rem;font-weight:600;cursor:pointer;transition:.15s}
+.btn:hover{filter:brightness(1.1)}
+.btn.sec{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.btn.small{padding:7px 13px;font-size:.82rem}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.flash{background:var(--panel2);border:2px solid var(--line);border-radius:var(--radius);min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:26px;cursor:pointer;transition:.15s}
+.flash:hover{border-color:var(--accent2)}
+.flash .big{font-size:1.9rem;font-weight:700;margin-bottom:8px}
+.flash .type{color:var(--purple);font-size:.8rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.flash .detail{text-align:left;font-size:.9rem;line-height:1.65;max-width:640px}
+.flash .detail b{color:var(--accent2)}
+.nl{color:var(--accent);font-style:italic}
+.opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--text);padding:12px 15px;border-radius:10px;margin:7px 0;cursor:pointer;font-size:.92rem;transition:.12s}
+.opt:hover{border-color:var(--accent2)}
+.opt.correct{background:#173524;border-color:var(--green)}
+.opt.wrong{background:#3a1d1d;border-color:var(--red)}
+.feedback{margin-top:10px;padding:12px 15px;border-radius:10px;font-size:.88rem;line-height:1.55;display:none}
+.feedback.ok{background:#173524;border:1px solid var(--green);display:block}
+.feedback.no{background:#3a1d1d;border:1px solid var(--red);display:block}
+.progressline{height:8px;background:#131a2a;border-radius:4px;margin:10px 0;overflow:hidden}
+.progressline i{display:block;height:100%;background:var(--accent2);border-radius:4px;transition:.3s}
+.dialog{background:var(--panel2);border-left:3px solid var(--accent2);padding:12px 15px;border-radius:0 10px 10px 0;margin:8px 0;font-size:.92rem;line-height:1.6}
+.dialog.you{border-left-color:var(--accent)}
+.dialog .who{font-size:.74rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px}
+.wordrow{border-bottom:1px solid var(--line);padding:13px 4px}
+.wordrow:last-child{border:none}
+.wordrow .head{display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:8px}
+.wordrow .head b{font-size:1rem}
+.wordrow .head .en{color:var(--muted);font-size:.85rem;text-align:right}
+.wordrow .body{display:none;margin-top:10px;font-size:.88rem;line-height:1.7;color:#c9d3e8}
+.wordrow .body b{color:var(--accent2)}
+.wordrow.open .body{display:block}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.stat .num{font-size:1.6rem;font-weight:700;color:var(--accent)}
+.stat .lbl{font-size:.75rem;color:var(--muted);margin-top:3px}
+.lvlrow{display:flex;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:8px 0;cursor:pointer;transition:.15s}
+.lvlrow:hover{border-color:var(--accent2)}
+.lvlrow .n{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#1a1206;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.lvlrow.locked .n{background:var(--line);color:var(--muted)}
+.lvlrow .t b{display:block;font-size:.94rem}
+.lvlrow .t span{font-size:.8rem;color:var(--muted)}
+textarea{width:100%;background:#131a2a;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:12px;font-size:.92rem;font-family:inherit;min-height:110px;margin:8px 0;resize:vertical}
+.model{background:#131a2a;border:1px dashed var(--line);border-radius:10px;padding:13px 15px;margin-top:8px;font-size:.89rem;line-height:1.65;display:none}
+.model.show{display:block}
+.badge{display:inline-block;background:var(--purple);color:#150b26;font-weight:700;border-radius:8px;padding:2px 9px;font-size:.75rem;margin-left:6px}
+input[type=text]{background:#131a2a;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 13px;font-size:.92rem;width:100%;max-width:420px}
+.hidden{display:none!important}
+@media(max-width:640px){.flash .big{font-size:1.4rem}.card{padding:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <h1>⚡ Werkwoorden<span>trainer</span> <span style="font-size:.75rem;color:var(--muted);font-weight:400">· Energie & CCUS Consultancy Nederlands</span></h1>
+  <div class="xpbox">XP: <b id="xp">0</b> · Streak: <b id="streak">0</b>🔥 · Niveau: <b id="rank">Starter</b></div>
+</header>
+<nav id="nav">
+  <button data-v="home" class="active">🏠 Dashboard</button>
+  <button data-v="bank">📚 Woordenbank</button>
+  <button data-v="flash">🃏 Flashcards</button>
+  <button data-v="quiz">✅ Kies het woord</button>
+  <button data-v="battle">⚔️ Woordduel</button>
+  <button data-v="drill">✍️ Schrijfdrills</button>
+  <button data-v="meeting">🎭 Vergadersimulatie</button>
+  <button data-v="mission">🚀 CCUS-missies</button>
+  <button data-v="daily">📅 Dagmissie</button>
+</nav>
+<main id="main"></main>
+</div>
+<script>
+// Chunk 1: CHANGE & TRANSITION + ENERGY/CCUS
+// Fields: n=Dutch, t=type(ww/zn/bn/bw/vast), c=category, e=English, f=forms/conjugation,
+// s=simple example (NL|EN), p=professional example (NL|EN), w=workplace phrase, m=common mistake, h=memory hook
+window.VDATA = window.VDATA || [];
+window.VDATA.push(
+{n:"veranderen",t:"ww",c:"change",e:"to change",f:"verandert, veranderde, is/heeft veranderd",
+s:"De markt verandert snel.|The market is changing fast.",
+p:"De energiemarkt is de afgelopen vijf jaar ingrijpend veranderd.|The energy market has changed drastically over the past five years.",
+w:"veranderende omstandigheden — changing circumstances",
+m:"Spelling: 'veraanderen' is wrong — one 'a': ver-AN-deren. Use 'is veranderd' for a state change, 'heeft veranderd' when there is an object.",
+h:"ver + ander = 'become other'. Something becomes an ander (other) thing."},
+{n:"de verandering",t:"zn",c:"change",e:"change (noun)",f:"de verandering, pl. veranderingen",
+s:"Deze verandering was nodig.|This change was necessary.",
+p:"Ingrijpende veranderingen in het energiesysteem vragen om een andere houding van netbeheerders.|Drastic changes in the energy system demand a different attitude from grid operators.",
+w:"ingrijpende veranderingen ondergaan — to undergo drastic changes",
+m:"Not 'veraanderingen'. Plural is regular: veranderingen.",
+h:"The noun of veranderen — the 'becoming-other'."},
+{n:"de verschuiving",t:"zn",c:"change",e:"shift (gradual change)",f:"de verschuiving, pl. verschuivingen; verb: verschuiven (verschoof, verschoven)",
+s:"Er is een verschuiving in de vraag.|There is a shift in demand.",
+p:"We zien een duidelijke verschuiving van fossiel naar duurzaam in de projectportefeuille.|We see a clear shift from fossil to sustainable in the project portfolio.",
+w:"een verschuiving richting duurzaamheid — a shift towards sustainability",
+m:"verschuiving = gradual shift; verandering = change in general. A deadline that moves also 'verschuift'.",
+h:"schuiven = to slide. A ver-SCHUIVING is a slow slide, not a jump."},
+{n:"vervagen",t:"ww",c:"change",e:"to fade, to blur",f:"vervaagt, vervaagde, is vervaagd",
+s:"De grens vervaagt langzaam.|The boundary is slowly fading.",
+p:"De grenzen tussen netbeheerder, producent en afnemer vervagen in het nieuwe energiesysteem.|The boundaries between grid operator, producer and consumer are blurring in the new energy system.",
+w:"grenzen vervagen — boundaries blur",
+m:"Intransitive with 'zijn': 'de grens is vervaagd', not 'heeft vervaagd'.",
+h:"vaag = vague. Ver-VAAG-en: to become vague."},
+{n:"de overgang",t:"zn",c:"change",e:"transition",f:"de overgang, pl. overgangen",
+s:"De overgang verliep soepel.|The transition went smoothly.",
+p:"De overgang naar een CO2-neutraal energiesysteem vraagt om forse investeringen in infrastructuur.|The transition to a carbon-neutral energy system requires major investments in infrastructure.",
+w:"de overgang naar duurzame energie — the transition to sustainable energy",
+m:"'Energietransitie' is the standard sector term; 'overgang' is the general word.",
+h:"over + gang = the 'walk across' from old to new."},
+{n:"overgaan",t:"ww",c:"change",e:"to switch/proceed to (overgaan tot/op)",f:"gaat over, ging over, is overgegaan (separable)",
+s:"We gaan over op een nieuw systeem.|We are switching to a new system.",
+p:"Veel industriële partijen gingen over tot elektrificatie van hun processen.|Many industrial players proceeded to electrify their processes.",
+w:"overgaan tot actie — to proceed to action",
+m:"Separable: 'we gaan vandaag over', NOT 'we overgaan vandaag'. 'Overgaan tot' = proceed to (formal); 'overgaan op' = switch to.",
+h:"Go (gaan) over to the other side."},
+{n:"ondergaan",t:"ww",c:"change",e:"to undergo",f:"ondergaat, onderging, heeft ondergaan (inseparable!)",
+s:"Het bedrijf ondergaat een reorganisatie.|The company is undergoing a reorganisation.",
+p:"De sector heeft de afgelopen tien jaar een fundamentele transformatie ondergaan.|The sector has undergone a fundamental transformation over the past ten years.",
+w:"een transformatie ondergaan — to undergo a transformation",
+m:"Inseparable: 'het bedrijf ondergaat', never 'gaat onder' (that means 'to sink/go down'!). 'Het bedrijf gaat onder' = the company goes bankrupt.",
+h:"onderGAAN (stress on gaan) = undergo; ONDERgaan (stress on onder) = go under/sink. Stress saves companies."},
+{n:"bewegen",t:"ww",c:"change",e:"to move (also: to shift position/opinion)",f:"beweegt, bewoog, heeft bewogen",
+s:"De markt beweegt voortdurend.|The market moves constantly.",
+p:"De sector beweegt in de richting van geïntegreerde energieoplossingen.|The sector is moving towards integrated energy solutions.",
+w:"meebewegen met de klant — to move along with the client",
+m:"Strong verb: bewoog/bewogen, not 'beweegde'.",
+h:"Think 'be-WAY-gen' — being on the way, in motion."},
+{n:"ingrijpend",t:"bn",c:"change",e:"drastic, far-reaching",f:"ingrijpend, ingrijpende; from ingrijpen (to intervene)",
+s:"Dat is een ingrijpende beslissing.|That is a drastic decision.",
+p:"Netcongestie vraagt om ingrijpende maatregelen van zowel netbeheerders als overheden.|Grid congestion demands far-reaching measures from both grid operators and governments.",
+w:"ingrijpende gevolgen — far-reaching consequences",
+m:"Spelling: ingrIJpend (ij, not i): from 'grijpen' (to grip). 'Ingripende' is wrong.",
+h:"in + grijpen = it GRIPS deep into the system."},
+{n:"onafwendbaar",t:"bn",c:"change",e:"inevitable, unavoidable",f:"onafwendbaar, onafwendbare",
+s:"De verandering is onafwendbaar.|The change is inevitable.",
+p:"De energietransitie is onafwendbaar; de vraag is alleen in welk tempo zij zich voltrekt.|The energy transition is inevitable; the only question is at what pace it unfolds.",
+w:"een onafwendbare ontwikkeling — an inevitable development",
+m:"Don't confuse with 'onvermijdelijk' (synonym, more common). Both work; onafwendbaar is more formal/dramatic.",
+h:"af-wenden = to turn away. On-af-wend-baar: you cannot turn it away."},
+{n:"toekomstbestendig",t:"bn",c:"change",e:"future-proof",f:"toekomstbestendig, toekomstbestendige",
+s:"We willen een toekomstbestendig plan.|We want a future-proof plan.",
+p:"Onze opdracht is het ontwerpen van een toekomstbestendig elektriciteitsnet.|Our assignment is designing a future-proof electricity grid.",
+w:"toekomstbestendige infrastructuur — future-proof infrastructure",
+m:"Spelling: toekomstbestenDIG (not 'bestending'). bestendig = resistant/durable.",
+h:"toekomst (future) + bestendig (resistant) = resistant to the future."},
+{n:"verouderd",t:"bn",c:"change",e:"outdated, obsolete",f:"verouderd, verouderde",
+s:"Deze software is verouderd.|This software is outdated.",
+p:"Grote delen van het net zijn verouderd en niet berekend op decentrale opwek.|Large parts of the grid are outdated and not designed for decentralised generation.",
+w:"verouderde infrastructuur — outdated infrastructure",
+m:"verouderd (outdated) ≠ ouderwets (old-fashioned in style). Infrastructure is verouderd, a tie is ouderwets.",
+h:"ver-OUDER-d: it has 'become old' (oud)."},
+{n:"hedendaags",t:"bn",c:"change",e:"contemporary, present-day",f:"hedendaags, hedendaagse",
+s:"De hedendaagse consument wil keuzevrijheid.|Today's consumer wants freedom of choice.",
+p:"Hedendaagse vraagstukken zoals netcongestie vragen om multidisciplinaire oplossingen.|Present-day issues such as grid congestion demand multidisciplinary solutions.",
+w:"de hedendaagse praktijk — current practice",
+m:"Formal/written word. In speech, 'huidige' (current) is more natural.",
+h:"heden (today) + daags (days) = of today's days."},
+{n:"tegenwoordig",t:"bw",c:"change",e:"nowadays",f:"adverb (also adj.: current)",
+s:"Tegenwoordig werkt iedereen hybride.|Nowadays everyone works hybrid.",
+p:"Tegenwoordig verwachten opdrachtgevers dat duurzaamheid integraal onderdeel is van elk ontwerp.|Nowadays clients expect sustainability to be an integral part of every design.",
+w:"tegenwoordig is het gebruikelijk dat... — nowadays it is common that...",
+m:"Don't confuse with 'momenteel' (at the moment). Tegenwoordig = these days (era), momenteel = right now.",
+h:"tegen + woordig — 'against the present word': what's said these days."},
+{n:"inmiddels",t:"bw",c:"change",e:"by now, meanwhile",f:"adverb",
+s:"Het rapport is inmiddels af.|The report is finished by now.",
+p:"Inmiddels hebben meer dan tienduizend bedrijven een aanvraag voor een netaansluiting lopen.|By now, more than ten thousand companies have a grid connection application pending.",
+w:"inmiddels is duidelijk geworden dat... — by now it has become clear that...",
+m:"Not the same as 'ondertussen' (in the meantime, while something else happens). Inmiddels looks at the current state.",
+h:"in + middel(s) — in the middle of time passing, we've arrived here."},
+{n:"toenemen",t:"ww",c:"change",e:"to increase",f:"neemt toe, nam toe, is toegenomen (separable)",
+s:"De vraag neemt toe.|Demand is increasing.",
+p:"De vraag naar netcapaciteit neemt sneller toe dan het net kan worden uitgebreid.|Demand for grid capacity is increasing faster than the grid can be expanded.",
+w:"in toenemende mate — increasingly",
+m:"Separable: 'de druk neemt toe'. Perfect with zijn: 'is toegenomen'. Opposite: afnemen.",
+h:"'take towards' — the quantity takes more onto itself."},
+{n:"afnemen",t:"ww",c:"change",e:"to decrease; also: to purchase/take delivery",f:"neemt af, nam af, is/heeft afgenomen (separable)",
+s:"De kosten nemen af.|Costs are decreasing.",
+p:"Grote industriële klanten willen elektriciteit flexibel kunnen afnemen.|Large industrial clients want to be able to purchase electricity flexibly.",
+w:"stroom afnemen van het net — to draw power from the grid",
+m:"Two meanings! 'De vraag neemt af' (decreases, with zijn) vs 'wij nemen stroom af' (we purchase power, with hebben). In energy work you need both.",
+h:"'take away/off' — either quantity is taken away (decrease) or YOU take it off the shelf (purchase)."},
+{n:"inhalen",t:"ww",c:"change",e:"to overtake, to catch up",f:"haalt in, haalde in, heeft ingehaald (separable)",
+s:"De concurrent heeft ons ingehaald.|The competitor has overtaken us.",
+p:"Organisaties die niet investeren in kennis worden door de werkelijkheid ingehaald.|Organisations that don't invest in knowledge get overtaken by reality.",
+w:"door de tijd ingehaald — overtaken by time (made obsolete)",
+m:"'Achterstand inhalen' = catch UP; 'iemand inhalen' = overtake. Context decides.",
+h:"haal (fetch) + in: you fetch yourself IN front of the other."},
+{n:"de omstandigheden",t:"zn",c:"change",e:"circumstances",f:"de omstandigheid, pl. omstandigheden",
+s:"Onder deze omstandigheden lukt het niet.|Under these circumstances it won't work.",
+p:"Adviseurs moeten kunnen schakelen onder snel veranderende marktomstandigheden.|Consultants must be able to adapt under rapidly changing market conditions.",
+w:"onder de gegeven omstandigheden — under the given circumstances",
+m:"Almost always plural in professional use. 'Onder' is the preposition, not 'in'.",
+h:"om-stand: what STANDS AROUND you — your surroundings."},
+{n:"de netcongestie",t:"zn",c:"energy",e:"grid congestion",f:"de netcongestie (no plural in practice)",
+s:"Netcongestie is een groot probleem.|Grid congestion is a big problem.",
+p:"Door netcongestie kunnen nieuwe bedrijventerreinen jarenlang geen aansluiting krijgen.|Due to grid congestion, new business parks can go years without a connection.",
+w:"congestiemanagement — congestion management",
+m:"Pronounce: net-con-GES-tie [–stie like 'stee']. The everyday synonym is 'een vol stroomnet'.",
+h:"Your file's title! Congestion = file (traffic jam) on the elektriciteitsnet."},
+{n:"de netbeheerder",t:"zn",c:"energy",e:"grid operator (DSO/TSO)",f:"de netbeheerder, pl. netbeheerders",
+s:"De netbeheerder plant de aansluiting.|The grid operator schedules the connection.",
+p:"We stemmen de fasering van het project af met de regionale netbeheerder.|We align the project phasing with the regional grid operator.",
+w:"in overleg met de netbeheerder — in consultation with the grid operator",
+m:"TenneT = landelijke netbeheerder (TSO); Liander/Enexis/Stedin = regionale netbeheerders (DSOs). Don't say 'netwerkbeheerder' (that's IT).",
+h:"beheerder = manager/steward. The one who 'beheert' (manages) the net."},
+{n:"het vermogen",t:"zn",c:"energy",e:"1) power/capacity (MW) 2) ability 3) wealth",f:"het vermogen, pl. vermogens",
+s:"De installatie heeft een vermogen van 2 MW.|The installation has a capacity of 2 MW.",
+p:"Het opgestelde vermogen aan zonne-energie is sneller gegroeid dan het net aankan.|Installed solar capacity has grown faster than the grid can handle.",
+w:"het vermogen om te schakelen — the ability to switch gears",
+m:"Three meanings! In energy: MW capacity. In HR-speak: capability ('het vermogen om...'). Spelling: verMOGEN, not 'vemogen'.",
+h:"From 'mogen/kunnen' — what a thing or person is CAPABLE of. In energy, capability = megawatts."},
+{n:"de systeemintegratie",t:"zn",c:"energy",e:"system integration",f:"de systeemintegratie",
+s:"Systeemintegratie is de volgende stap.|System integration is the next step.",
+p:"Systeemintegratie — het slim koppelen van elektriciteit, warmte en waterstof — is essentieel om netcongestie te verlichten.|System integration — smartly coupling electricity, heat and hydrogen — is essential to relieve grid congestion.",
+w:"integrale systeemoplossingen — integral system solutions",
+m:"One word in Dutch: systeemintegratie, no space.",
+h:"The second word in your document title — pair it mentally with netcongestie: the problem and the solution direction."},
+{n:"de energietransitie",t:"zn",c:"energy",e:"energy transition",f:"de energietransitie",
+s:"De energietransitie raakt iedereen.|The energy transition affects everyone.",
+p:"De energietransitie vraagt om een verdubbeling van de netcapaciteit richting 2040.|The energy transition requires a doubling of grid capacity towards 2040.",
+w:"de opgave van de energietransitie — the challenge of the energy transition",
+m:"'De opgave' (the task/challenge) is THE Dutch policy word that goes with it.",
+h:"You work in it — anchor word for the whole category."},
+{n:"afvangen",t:"ww",c:"energy",e:"to capture (CO2)",f:"vangt af, ving af, heeft afgevangen (separable)",
+s:"De fabriek vangt CO2 af.|The factory captures CO2.",
+p:"Bij dit cluster wordt jaarlijks twee megaton CO2 afgevangen en opgeslagen onder de Noordzee.|At this cluster, two megatonnes of CO2 are captured annually and stored under the North Sea.",
+w:"CO2-afvang en -opslag (CCS) — carbon capture and storage",
+m:"Separable: 'we vangen CO2 af'. The noun is 'de afvang'.",
+h:"vangen = to catch. You catch the CO2 'af' (off) the flue gas — like catching a ball before it lands."},
+{n:"opslaan",t:"ww",c:"energy",e:"to store",f:"slaat op, sloeg op, heeft opgeslagen (separable)",
+s:"We slaan de data op.|We store the data.",
+p:"De afgevangen CO2 wordt opgeslagen in lege gasvelden op zee.|The captured CO2 is stored in empty offshore gas fields.",
+w:"ondergrondse opslag — underground storage",
+m:"Separable: 'we slaan het op'. Noun: de opslag. Same verb for saving files and storing CO2.",
+h:"slaan = to strike; think of 'striking' goods into a warehouse. Ctrl+S = opslaan."},
+{n:"uitstoten",t:"ww",c:"energy",e:"to emit",f:"stoot uit, stootte uit, heeft uitgestoten (separable)",
+s:"De fabriek stoot minder CO2 uit.|The factory emits less CO2.",
+p:"De installatie stoot jaarlijks circa één megaton CO2 uit; afvang is hier kosteneffectief.|The installation emits about one megatonne of CO2 annually; capture is cost-effective here.",
+w:"de CO2-uitstoot reduceren — to reduce CO2 emissions",
+m:"Noun = de uitstoot (not 'de emissie' in everyday Dutch, though 'emissies' is used in policy texts).",
+h:"stoten = to push/thrust. The chimney PUSHES it OUT."},
+{n:"verduurzamen",t:"ww",c:"energy",e:"to make (more) sustainable",f:"verduurzaamt, verduurzaamde, heeft verduurzaamd",
+s:"We verduurzamen ons kantoor.|We are making our office more sustainable.",
+p:"De industrie moet verduurzamen zonder dat de leveringszekerheid in gevaar komt.|Industry must decarbonise without endangering security of supply.",
+w:"de verduurzamingsopgave — the sustainability challenge",
+m:"A verb English doesn't have! Don't translate word-for-word; it means 'to make sustainable / decarbonise'.",
+h:"duurzaam (sustainable) wrapped in ver-...-en = 'to make sustainable'. Classic Dutch verb-forge."},
+{n:"aansluiten",t:"ww",c:"energy",e:"to connect (to the grid); to align with",f:"sluit aan, sloot aan, heeft aangesloten (separable)",
+s:"Wanneer wordt het pand aangesloten?|When will the building be connected?",
+p:"Nieuwe zonneparken kunnen pas in 2029 worden aangesloten op het regionale net.|New solar farms can only be connected to the regional grid in 2029.",
+w:"de netaansluiting — the grid connection; aansluiten bij — to align with",
+m:"Two uses: 'aansluiten op het net' (physical) and 'aansluiten bij de wensen van de klant' (align with). Both essential.",
+h:"sluiten = to close. You CLOSE the circuit onto (aan) the grid."},
+{n:"de regelgevingsomgeving",t:"zn",c:"energy",e:"regulatory environment",f:"de regelgevingsomgeving; also: het regelgevend kader",
+s:"De regelgevingsomgeving is complex.|The regulatory environment is complex.",
+p:"De regelgevingsomgeving voor CO2-opslag verschilt sterk per lidstaat.|The regulatory environment for CO2 storage differs strongly per member state.",
+w:"wet- en regelgeving — laws and regulations",
+m:"In practice Dutch professionals often say 'het regelgevend kader' or 'wet- en regelgeving'.",
+h:"regelgeving (rule-giving) + omgeving (surroundings) = the rules that surround you."},
+{n:"het beleid",t:"zn",c:"energy",e:"policy",f:"het beleid (no plural); beleid uitvoeren = to implement policy",
+s:"Het beleid is duidelijk.|The policy is clear.",
+p:"Wij ondersteunen provincies bij het uitvoeren van het klimaatbeleid.|We support provinces in implementing climate policy.",
+w:"beleid uitvoeren / beleid maken — to implement / make policy",
+m:"HET beleid, never 'de'. No plural: 'policies' = beleidsmaatregelen or beleidslijnen.",
+h:"be-LEID: from leiden (to lead) — how leadership is laid down on paper."},
+{n:"de overheid",t:"zn",c:"energy",e:"government (public authorities)",f:"de overheid, pl. overheden",
+s:"De overheid stelt subsidies beschikbaar.|The government makes subsidies available.",
+p:"Voor dit project werken we samen met verschillende overheden: het Rijk, de provincie en gemeenten.|For this project we cooperate with several authorities: central government, the province and municipalities.",
+w:"de rijksoverheid — central government; decentrale overheden — regional/local authorities",
+m:"'De overheid' = the state apparatus in general; 'het kabinet' = the cabinet; 'de regering' = the government (political).",
+h:"over + heid: the entity 'over' you — the authority above."},
+{n:"de provincie",t:"zn",c:"energy",e:"province (regional government)",f:"de provincie, pl. provincies",
+s:"De provincie verleent de vergunning.|The province grants the permit.",
+p:"De provincies spelen een sleutelrol bij het inpassen van energie-infrastructuur.|The provinces play a key role in integrating energy infrastructure.",
+w:"provinciaal beleid — provincial policy",
+m:"In NL the provincie is often the permit authority (bevoegd gezag) for large energy projects — a key stakeholder, not a detail.",
+h:"12 provinces, 12 stakeholders."},
+{n:"de subsidie",t:"zn",c:"energy",e:"subsidy, grant",f:"de subsidie, pl. subsidies",
+s:"We hebben subsidie aangevraagd.|We applied for a grant.",
+p:"De businesscase voor CO2-afvang steunt in Nederland grotendeels op de SDE++-subsidie.|The business case for carbon capture in the Netherlands largely rests on the SDE++ subsidy.",
+w:"subsidie aanvragen / verlenen / afstemmen — to apply for / grant / align subsidies",
+m:"Your list had 'Greve' for grants — the Dutch word you want is 'subsidie'. EU grants are often 'subsidies' or 'financiering'.",
+h:"Same as English 'subsidy' — easy win."},
+{n:"de noodzaak",t:"zn",c:"energy",e:"necessity",f:"de noodzaak (no common plural)",
+s:"De noodzaak is duidelijk.|The necessity is clear.",
+p:"De noodzaak van netverzwaring wordt door alle partijen erkend.|The necessity of grid reinforcement is acknowledged by all parties.",
+w:"de noodzaak onderschrijven — to endorse the necessity",
+m:"Adjective = noodzakelijk. 'Er is noodzaak toe' is stiff; 'het is noodzakelijk' flows better.",
+h:"nood (emergency) + zaak (matter) = a matter of emergency."},
+{n:"de aanleiding",t:"zn",c:"energy",e:"reason, immediate cause, occasion",f:"de aanleiding, pl. aanleidingen",
+s:"Wat was de aanleiding voor dit gesprek?|What prompted this conversation?",
+p:"De aanleiding voor dit onderzoek is de toenemende druk op het regionale elektriciteitsnet.|The reason for this study is the increasing pressure on the regional electricity grid.",
+w:"naar aanleiding van (n.a.v.) — further to / in response to",
+m:"THE standard opening of every Dutch report chapter 1: 'Aanleiding'. 'Naar aanleiding van uw e-mail...' is the classic email opener.",
+h:"aan + leiding: what LEADS you TO the action. Report chapter 1!"},
+{n:"de uitdaging",t:"zn",c:"energy",e:"challenge",f:"de uitdaging, pl. uitdagingen",
+s:"Dit project is een mooie uitdaging.|This project is a nice challenge.",
+p:"De grootste uitdaging is het tijdig realiseren van de benodigde netcapaciteit.|The biggest challenge is realising the required grid capacity in time.",
+w:"voor een uitdaging staan — to face a challenge",
+m:"Verb = uitdagen (to challenge). Dutch professionals also say 'opgave' for a big societal task.",
+h:"uit + dagen: something that 'calls you out' (dares you)."},
+{n:"oneindig",t:"bn",c:"energy",e:"infinite, endless",f:"oneindig, oneindige",
+s:"De mogelijkheden zijn niet oneindig.|The possibilities are not infinite.",
+p:"De capaciteit van het net is niet oneindig; keuzes in volgorde zijn onvermijdelijk.|Grid capacity is not infinite; choices about sequence are unavoidable.",
+w:"niet oneindig — not unlimited (classic understatement in negotiations)",
+m:"'Oneindig veel' = infinitely many. Note the double meaning in meetings: 'ons budget is niet oneindig' = polite for 'no'.",
+h:"on + einde (end) + ig: without an end."},
+{n:"wetenschappelijk",t:"bn",c:"energy",e:"scientific",f:"wetenschappelijk, wetenschappelijke",
+s:"Dat is wetenschappelijk bewezen.|That is scientifically proven.",
+p:"Ons advies is gebaseerd op wetenschappelijke inzichten én praktijkervaring.|Our advice is based on scientific insights as well as practical experience.",
+w:"wetenschappelijk onderbouwd — scientifically substantiated",
+m:"Spelling: weTENschappelijk (from 'weten', to know) — 'werenschappelijk' is a typo in your list.",
+h:"weten (to know) + schap = 'knowledge-ship'. Science is the ship of knowing."},
+{n:"het behandelplan",t:"zn",c:"energy",e:"treatment plan (used metaphorically: action plan)",f:"het behandelplan, pl. behandelplannen",
+s:"De arts stelt een behandelplan op.|The doctor draws up a treatment plan.",
+p:"Zoals een arts een behandelplan opstelt, stellen wij per knelpunt een maatregelenpakket samen.|Just as a doctor draws up a treatment plan, we compose a package of measures per bottleneck.",
+w:"een plan van aanpak opstellen — to draw up an action plan (the standard consultancy term)",
+m:"In consultancy, the normal term is 'plan van aanpak' (PvA). Behandelplan appears in texts as a medical metaphor.",
+h:"behandelen = to treat. The consultant as grid doctor."},
+{n:"de aannemer",t:"zn",c:"energy",e:"contractor",f:"de aannemer, pl. aannemers",
+s:"De aannemer start volgende maand.|The contractor starts next month.",
+p:"Netbeheerders en aannemers kampen beiden met een tekort aan technisch personeel.|Grid operators and contractors both struggle with a shortage of technical staff.",
+w:"de hoofdaannemer / onderaannemer — main / subcontractor",
+m:"From 'aannemen' (to accept [work]). An EPC-bedrijf ≈ EPC contractor for large industrial projects.",
+h:"The one who 'takes on' (aanneemt) the job."},
+{n:"het EPC-bedrijf",t:"zn",c:"energy",e:"EPC company (engineering, procurement & construction)",f:"het EPC-bedrijf, pl. EPC-bedrijven",
+s:"Het EPC-bedrijf bouwt de installatie.|The EPC company builds the installation.",
+p:"Voor de afvanginstallatie contracteert de opdrachtgever één EPC-bedrijf dat ontwerp, inkoop en bouw verzorgt.|For the capture plant, the client contracts one EPC company handling design, procurement and construction.",
+w:"een EPC-contract aanbesteden — to tender an EPC contract",
+m:"Say 'ee-pee-see'. With hyphen: EPC-bedrijf, EPC-contract.",
+h:"From your notes — the party you'll negotiate with on CCUS delivery."},
+{n:"de verkoop",t:"zn",c:"energy",e:"sales",f:"de verkoop; verb: verkopen (verkocht, heeft verkocht)",
+s:"De verkoop loopt goed.|Sales are going well.",
+p:"De verkoop van adviesdiensten vraagt om aantoonbare toegevoegde waarde.|Selling advisory services requires demonstrable added value.",
+w:"acquisitie — business development (the consultancy word for winning work)",
+m:"In consultancy, 'verkoop' sounds transactional; professionals say 'acquisitie' or 'commercie'.",
+h:"ver-KOOP: kopen = buy, verkopen = 'away-buy' = sell."},
+{n:"de leverancier",t:"zn",c:"energy",e:"supplier, vendor",f:"de leverancier, pl. leveranciers",
+s:"We zoeken een nieuwe leverancier.|We are looking for a new supplier.",
+p:"Een adviseur die alleen rapporten oplevert, wordt gezien als leverancier — niet als partner.|A consultant who only delivers reports is seen as a vendor — not as a partner.",
+w:"van leverancier naar partner — from vendor to partner (classic consultancy ambition)",
+m:"From 'leveren' (to deliver). The vendor/partner distinction is the core theme of your source text!",
+h:"the one who LEVERt (delivers). Aspire to be the sparringpartner, not the leverancier."}
+);
+// Chunk 2: ADVISING A CLIENT + CHALLENGING ASSUMPTIONS
+window.VDATA = window.VDATA || [];
+window.VDATA.push(
+{n:"adviseren",t:"ww",c:"advise",e:"to advise",f:"adviseert, adviseerde, heeft geadviseerd",
+s:"Ik adviseer u te wachten.|I advise you to wait.",
+p:"Wij adviseren de opdrachtgever om de aanbesteding in twee fasen op te knippen.|We advise the client to split the tender into two phases.",
+w:"gevraagd en ongevraagd adviseren — to give solicited and unsolicited advice",
+m:"'Adviseren om te + infinitive' or 'adviseren dat...'. Note: 'advies geven aan iemand' but 'iemand adviseren' (no aan).",
+h:"Your core job, your core verb."},
+{n:"fungeren",t:"ww",c:"advise",e:"to act/serve as",f:"fungeert, fungeerde, heeft gefungeerd; always with 'als'",
+s:"Hij fungeert als voorzitter.|He acts as chairman.",
+p:"Wij fungeren als sparringpartner voor de directie bij strategische keuzes.|We act as a sparring partner for the board on strategic choices.",
+w:"fungeren als klankbord — to act as a sounding board",
+m:"Always 'fungeren ALS'. Don't confuse with 'functioneren' (to function/perform).",
+h:"Think 'function as' — fungeren als."},
+{n:"de sparringpartner",t:"zn",c:"advise",e:"sparring partner (trusted advisor)",f:"de sparringpartner, pl. sparringpartners",
+s:"Ik zoek een sparringpartner voor dit idee.|I'm looking for a sparring partner for this idea.",
+p:"De klant zoekt geen rapportenschrijver, maar een sparringpartner die durft tegen te spreken.|The client isn't looking for a report writer, but a sparring partner who dares to push back.",
+w:"als sparringpartner fungeren — to serve as sparring partner",
+m:"English loanword, but very common in Dutch consultancy. One word.",
+h:"Boxing metaphor: you train WITH the client, you don't fight them."},
+{n:"inschakelen",t:"ww",c:"advise",e:"to call in, engage (an expert)",f:"schakelt in, schakelde in, heeft ingeschakeld (separable)",
+s:"We schakelen een expert in.|We are calling in an expert.",
+p:"De provincie heeft ons ingeschakeld om de subsidieafstemming met Brussel te begeleiden.|The province engaged us to guide the subsidy alignment with Brussels.",
+w:"externe expertise inschakelen — to bring in external expertise",
+m:"Separable: 'wij schakelen u in'. Passive is common: 'worden ingeschakeld voor...'.",
+h:"schakelen = to switch. The client flips YOUR switch ON."},
+{n:"de aanpak",t:"zn",c:"advise",e:"approach (way of tackling)",f:"de aanpak (no plural); verb: aanpakken",
+s:"Onze aanpak werkt.|Our approach works.",
+p:"Onze aanpak bestaat uit drie stappen: analyse, ontwerp en implementatie.|Our approach consists of three steps: analysis, design and implementation.",
+w:"het plan van aanpak (PvA) — the project plan",
+m:"'De aanpak' = how you tackle it; 'de benadering' = the angle/philosophy. A proposal always has a chapter 'Aanpak'.",
+h:"aan-pakken = to grab onto. How you GRAB the problem."},
+{n:"de benadering",t:"zn",c:"advise",e:"approach (perspective, way of viewing)",f:"de benadering, pl. benaderingen; verb: benaderen",
+s:"Dat is een praktische benadering.|That is a practical approach.",
+p:"Een integrale benadering van het energiesysteem levert meer op dan losse deeloplossingen.|An integral approach to the energy system yields more than separate partial solutions.",
+w:"een integrale benadering — an integral approach",
+m:"benaderen also = to approach a person: 'mag ik u benaderen?' (may I contact you?).",
+h:"be-NADER-en: nader = nearer. How you come NEAR the problem."},
+{n:"de dienstverlening",t:"zn",c:"advise",e:"service provision, services",f:"de dienstverlening (no plural)",
+s:"Onze dienstverlening is breed.|Our services are broad.",
+p:"We verschuiven onze dienstverlening van losse rapporten naar langdurige begeleiding.|We are shifting our services from stand-alone reports to long-term support.",
+w:"zakelijke dienstverlening — professional services (the sector)",
+m:"Spelling: dienstverlening (not 'dienstlening' — your list's typo). dienst + verlenen (to render).",
+h:"dienst (service) + verlening (granting): the granting of services."},
+{n:"de klantvraag",t:"zn",c:"advise",e:"client demand / the client's question",f:"de klantvraag, pl. klantvragen",
+s:"Wat is de echte klantvraag?|What is the real client question?",
+p:"Achter de geformuleerde klantvraag zit vaak een dieperliggend vraagstuk.|Behind the stated client question there is often a deeper underlying issue.",
+w:"de vraag achter de vraag — the question behind the question",
+m:"Classic consultancy wisdom: never take the klantvraag at face value; find 'de vraag achter de vraag'.",
+h:"klant + vraag. Your job starts where this word ends."},
+{n:"de klantbediening",t:"zn",c:"advise",e:"client service (how you serve clients)",f:"de klantbediening (no plural)",
+s:"De klantbediening kan beter.|Client service can improve.",
+p:"Digitalisering verandert de klantbediening van adviesbureaus fundamenteel.|Digitalisation is fundamentally changing how consultancies serve their clients.",
+w:"de klantbediening versterken — to strengthen client service",
+m:"bedienen = to serve/operate. Klantbediening = the serving model, not customer support ('klantenservice').",
+h:"You BEDIEN (serve/operate) the client relationship like an installation."},
+{n:"het vraagstuk",t:"zn",c:"advise",e:"issue, complex problem",f:"het vraagstuk, pl. vraagstukken",
+s:"Dit is een lastig vraagstuk.|This is a tricky issue.",
+p:"Netcongestie is geen technisch vraagstuk alleen, maar ook een verdelingsvraagstuk.|Grid congestion is not just a technical issue but also a distribution issue.",
+w:"een maatschappelijk vraagstuk — a societal issue",
+m:"HET vraagstuk. Heavier than 'probleem' — a vraagstuk deserves a study; a probleem needs a fix.",
+h:"vraag (question) + stuk (piece): a chunky piece of question."},
+{n:"voorzien",t:"ww",c:"advise",e:"1) voorzien van = provide with 2) voorzien in = meet (a need) 3) foresee",f:"voorziet, voorzag, heeft voorzien (inseparable)",
+s:"Het rapport is voorzien van een samenvatting.|The report is provided with a summary.",
+p:"Dit advies voorziet in een duidelijke behoefte bij regionale overheden.|This advice meets a clear need among regional authorities.",
+w:"in een behoefte voorzien — to meet a need; iets voorzien van — to equip something with",
+m:"Preposition changes meaning! voorzien VAN = supply with; voorzien IN = fulfil; ik voorzie problemen = I foresee problems.",
+h:"voor + zien = 'see ahead': you foresee the need, then provide for it."},
+{n:"de invalshoek",t:"zn",c:"advise",e:"angle, perspective",f:"de invalshoek, pl. invalshoeken",
+s:"Bekijk het vanuit een andere invalshoek.|Look at it from a different angle.",
+p:"Wij combineren een technische, financiële en bestuurlijke invalshoek in één advies.|We combine a technical, financial and governance angle in one advice.",
+w:"vanuit verschillende invalshoeken — from different angles",
+m:"Literally 'angle of incidence' (physics). Plural: invalshoeken.",
+h:"inval (incidence/idea) + hoek (angle/corner): the corner your light falls in from."},
+{n:"het inzicht",t:"zn",c:"advise",e:"insight",f:"het inzicht, pl. inzichten",
+s:"Dat geeft nieuw inzicht.|That provides new insight.",
+p:"Ons onderzoek levert inzicht op in de werkelijke belasting van het net.|Our study provides insight into the actual load on the grid.",
+w:"inzicht bieden/geven in — to provide insight into",
+m:"HET inzicht. Preposition: inzicht IN iets (not 'van').",
+h:"in + zicht = 'in-sight'. Free cognate!"},
+{n:"de vakkennis",t:"zn",c:"advise",e:"professional/technical expertise",f:"de vakkennis (no plural)",
+s:"Zijn vakkennis is indrukwekkend.|His expertise is impressive.",
+p:"Vakkennis alleen is niet genoeg; de klant verwacht ook begrip van zijn bestuurlijke context.|Expertise alone is not enough; the client also expects understanding of their governance context.",
+w:"erkende vakkennis — recognised expertise",
+m:"vak = trade/discipline. Compare: vakgebied (field), vakman (craftsman), vakjargon.",
+h:"Your VAK (subject) + kennis (knowledge)."},
+{n:"het vakgebied",t:"zn",c:"advise",e:"field, discipline",f:"het vakgebied, pl. vakgebieden",
+s:"Dit valt buiten mijn vakgebied.|This is outside my field.",
+p:"CCUS is een relatief jong vakgebied op het snijvlak van techniek, beleid en financiering.|CCUS is a relatively young discipline at the intersection of technology, policy and finance.",
+w:"binnen/buiten mijn vakgebied — inside/outside my field",
+m:"HET vakgebied.",
+h:"vak + gebied (territory): the territory of your trade."},
+{n:"het snijvlak",t:"zn",c:"advise",e:"intersection, interface (where fields meet)",f:"het snijvlak, pl. snijvlakken",
+s:"Ik werk op het snijvlak van techniek en beleid.|I work at the intersection of technology and policy.",
+p:"De interessantste vraagstukken liggen op het snijvlak van energie, infrastructuur en regelgeving.|The most interesting issues lie at the intersection of energy, infrastructure and regulation.",
+w:"op het snijvlak van X en Y — at the interface of X and Y",
+m:"Your list translated it as 'cutting edge' — false friend! Cutting edge = 'geavanceerd/toonaangevend'. Snijvlak = intersection.",
+h:"snijden (to cut) + vlak (plane): where two planes CUT each other. Perfect for describing your own profile!"},
+{n:"de toegevoegde waarde",t:"vast",c:"advise",e:"added value",f:"de toegevoegde waarde; verb: waarde toevoegen",
+s:"Wat is onze toegevoegde waarde?|What is our added value?",
+p:"Onze toegevoegde waarde zit in het verbinden van technische kennis met bestuurlijke besluitvorming.|Our added value lies in connecting technical knowledge with governance decision-making.",
+w:"aantoonbare toegevoegde waarde — demonstrable added value",
+m:"Fixed expression. 'Waarde toevoegen' is the verb form: 'waar voegen wij waarde toe?'",
+h:"toevoegen = to add. The consultant's existential question."},
+{n:"de instantie",t:"zn",c:"advise",e:"body, agency, authority",f:"de instantie, pl. instanties; also: in eerste instantie = at first",
+s:"Welke instantie gaat hierover?|Which body is in charge of this?",
+p:"In eerste instantie leek het een technisch probleem; bij nader inzien bleek regelgeving de bottleneck.|At first it seemed a technical problem; on closer inspection regulation turned out to be the bottleneck.",
+w:"in eerste instantie — initially; de bevoegde instantie — the competent authority",
+m:"Two uses: the noun (agency) and the fixed phrase 'in eerste instantie' (at first). Both frequent.",
+h:"'instance': the first instance of your analysis is rarely the final one."},
+{n:"de instelling",t:"zn",c:"advise",e:"1) institution 2) attitude/mindset 3) setting",f:"de instelling, pl. instellingen",
+s:"Zij heeft een goede instelling.|She has a good attitude.",
+p:"Kennisinstellingen en adviesbureaus werken steeds vaker samen aan energievraagstukken.|Knowledge institutions and consultancies increasingly collaborate on energy issues.",
+w:"een financiële instelling — a financial institution; de juiste instelling — the right mindset",
+m:"Three meanings: institution (bank, university), mindset, and device setting. Context decides.",
+h:"instellen = to set/adjust. An institution is 'set up'; a mindset is how YOU are set."},
+{n:"prikkelen",t:"ww",c:"challenge",e:"to stimulate, provoke (thought)",f:"prikkelt, prikkelde, heeft geprikkeld",
+s:"Die vraag prikkelt mij.|That question intrigues me.",
+p:"Een goede adviseur prikkelt de klant om verder te kijken dan de oorspronkelijke vraag.|A good consultant provokes the client to look beyond the original question.",
+w:"prikkelende vragen stellen — to ask thought-provoking questions",
+m:"Positive provocation! 'Provoceren' is negative; 'prikkelen' stimulates.",
+h:"prikken = to prick. Tiny needle-pricks that wake up the client's thinking."},
+{n:"uitdiepen",t:"ww",c:"challenge",e:"to explore in depth, deepen (analysis)",f:"diept uit, diepte uit, heeft uitgediept (separable)",
+s:"Dit onderwerp wil ik uitdiepen.|I want to explore this topic in depth.",
+p:"In fase twee wordt het voorkeursalternatief verder uitgediept.|In phase two, the preferred alternative is explored in more depth.",
+w:"een vraagstuk uitdiepen — to dig deeper into an issue",
+m:"Separable: 'we diepen dit uit'. Don't confuse with 'verdiepen' (zich verdiepen in = immerse oneself in).",
+h:"diep = deep. You dig the analysis-hole deeper OUT."},
+{n:"diepgaand",t:"bn",c:"challenge",e:"in-depth, thorough",f:"diepgaand, diepgaande",
+s:"We voeren een diepgaand gesprek.|We are having an in-depth conversation.",
+p:"Een diepgaande analyse van de netdata bracht de werkelijke knelpunten aan het licht.|An in-depth analysis of the grid data revealed the real bottlenecks.",
+w:"een diepgaande analyse — an in-depth analysis",
+m:"diepgaand (adjective) vs de diepgang (noun, depth). 'Een diepgaand onderzoek' but 'het onderzoek mist diepgang'.",
+h:"deep-going. English almost has it."},
+{n:"de diepgang",t:"zn",c:"challenge",e:"depth (of analysis); draught (ship)",f:"de diepgang (no plural)",
+s:"Het rapport mist diepgang.|The report lacks depth.",
+p:"De klant waardeerde vooral de combinatie van tempo en diepgang in ons advies.|The client especially appreciated the combination of speed and depth in our advice.",
+w:"diepgang bieden — to offer depth",
+m:"Also a ship's draught — fitting for offshore CCUS work. 'Meer diepgang' = go deeper.",
+h:"How deep your ship (analysis) sits in the water."},
+{n:"beschouwen",t:"ww",c:"challenge",e:"to consider, regard",f:"beschouwt, beschouwde, heeft beschouwd",
+s:"Ik beschouw dit als een kans.|I consider this an opportunity.",
+p:"Netcongestie moet worden beschouwd als een systeemvraagstuk, niet als een lokaal incident.|Grid congestion must be regarded as a system issue, not a local incident.",
+w:"beschouwen als — to regard as",
+m:"'Beschouwen als' (not 'beschouwen zoals'). Formal register — good for reports.",
+h:"be-SCHOUW-en: schouwen = to view. To 'be-view' something thoroughly."},
+{n:"buiten beschouwing laten",t:"vast",c:"challenge",e:"to leave out of consideration",f:"laat buiten beschouwing, liet, heeft gelaten",
+s:"Dat laten we even buiten beschouwing.|Let's leave that aside for now.",
+p:"Kosten van netverzwaring zijn in deze eerste raming buiten beschouwing gelaten.|Grid reinforcement costs have been left out of this first estimate.",
+w:"iets buiten beschouwing laten — to disregard something (explicitly)",
+m:"Fixed expression, very common in reports to scope out topics. Passive: 'wordt buiten beschouwing gelaten'.",
+h:"You LEAVE it OUTSIDE the viewing room (beschouwing)."},
+{n:"afzetten tegen",t:"vast",c:"challenge",e:"to set against, contrast with",f:"zet af tegen, zette af, heeft afgezet (separable)",
+s:"Zet de kosten af tegen de baten.|Set the costs against the benefits.",
+p:"De verwachte opbrengsten zijn afgezet tegen de investeringen in netinfrastructuur.|The expected revenues are set against the investments in grid infrastructure.",
+w:"X afgezet tegen Y — X compared against Y",
+m:"'Afzetten' alone also means to drop someone off, or to rip someone off (!). The 'tegen' makes it analytical.",
+h:"You SET one thing OFF against the other on a scale."},
+{n:"vergelijken",t:"ww",c:"challenge",e:"to compare",f:"vergelijkt, vergeleek, heeft vergeleken",
+s:"Vergelijk deze twee opties.|Compare these two options.",
+p:"We vergelijken drie tracéalternatieven op kosten, doorlooptijd en omgevingsimpact.|We compare three route alternatives on cost, lead time and environmental impact.",
+w:"in vergelijking met — in comparison with",
+m:"Strong verb: vergeleek/vergeleken. 'Vergeleken met' = compared to.",
+h:"ver-GELIJK-en: gelijk = equal. Checking how equal things are."},
+{n:"verrijken",t:"ww",c:"challenge",e:"to enrich",f:"verrijkt, verrijkte, heeft verrijkt",
+s:"Deze ervaring verrijkt je.|This experience enriches you.",
+p:"We verrijken onze modellen met praktijkdata van netbeheerders.|We enrich our models with real-world data from grid operators.",
+w:"het advies verrijken met praktijkkennis — to enrich the advice with practical knowledge",
+m:"'Zich verrijken' (reflexive) = to enrich yourself — negative (corruption)! Use it transitively: iets verrijken.",
+h:"rijk = rich. To make richer."},
+{n:"de gedachte",t:"zn",c:"challenge",e:"thought, idea",f:"de gedachte, pl. gedachten/gedachtes",
+s:"Dat is een interessante gedachte.|That is an interesting thought.",
+p:"De achterliggende gedachte is dat flexibiliteit goedkoper is dan netverzwaring.|The underlying idea is that flexibility is cheaper than grid reinforcement.",
+w:"de achterliggende gedachte — the underlying idea",
+m:"'De gedachte erachter' / 'de achterliggende gedachte' is how you explain rationale in Dutch.",
+h:"ge-DACHT-e: from denken/dacht. A thing that was thought."},
+{n:"het gedachtegoed",t:"zn",c:"challenge",e:"body of thought, philosophy",f:"het gedachtegoed (no plural)",
+s:"Ik deel dat gedachtegoed.|I share that philosophy.",
+p:"Het gedachtegoed van integraal programmeren wint terrein bij overheden en netbeheerders.|The philosophy of integrated programming is gaining ground among authorities and grid operators.",
+w:"het gedachtegoed uitdragen — to propagate the philosophy",
+m:"HET gedachtegoed, one word, no plural. Bigger than one gedachte: a whole school of thought.",
+h:"gedachte + goed (goods): your intellectual estate."},
+{n:"onontgonnen",t:"bn",c:"challenge",e:"unexplored, untapped",f:"onontgonnen (invariable before noun: onontgonnen terrein)",
+s:"Dit is onontgonnen terrein.|This is unexplored territory.",
+p:"Warmtenetten op industriële restwarmte zijn voor veel gemeenten nog onontgonnen terrein.|Heat networks using industrial waste heat are still uncharted territory for many municipalities.",
+w:"onontgonnen terrein/gebied — uncharted territory",
+m:"From 'ontginnen' (to cultivate wasteland). Nearly always with 'terrein' or 'gebied'.",
+h:"un-un-mined: land nobody has dug yet — like early CCUS markets."},
+{n:"aangrenzend",t:"bn",c:"challenge",e:"adjacent, neighbouring",f:"aangrenzend, aangrenzende",
+s:"We huren de aangrenzende ruimte.|We rent the adjacent space.",
+p:"Vanuit netstudies groeide onze praktijk naar aangrenzende vakgebieden zoals waterstof en warmte.|From grid studies our practice grew into adjacent fields such as hydrogen and heat.",
+w:"aangrenzende vakgebieden/markten — adjacent disciplines/markets",
+m:"grens = border. 'Aangrenzend aan' = bordering on.",
+h:"at-the-border-ing: sharing a grens (border)."},
+{n:"oorspronkelijk",t:"bn",c:"challenge",e:"original(ly)",f:"oorspronkelijk, oorspronkelijke",
+s:"Het oorspronkelijke plan was anders.|The original plan was different.",
+p:"De oorspronkelijke klantvraag betrof alleen de aansluiting, maar het werkelijke vraagstuk bleek breder.|The original client question concerned only the connection, but the real issue turned out broader.",
+w:"de oorspronkelijke scope — the original scope",
+m:"de oorsprong = the origin. As adverb: 'oorspronkelijk wilden we...' = originally we wanted...",
+h:"oor-SPRONG: the first 'spring' (jump) of the idea."},
+{n:"dergelijke",t:"bn",c:"challenge",e:"such, similar",f:"dergelijk, dergelijke; en dergelijke (e.d.) = and the like",
+s:"Dergelijke fouten zijn te voorkomen.|Such errors are preventable.",
+p:"Dergelijke vraagstukken vragen om samenwerking tussen netbeheerder, overheid en industrie.|Such issues require cooperation between grid operator, government and industry.",
+w:"en dergelijke (e.d.) — and the like; iets dergelijks — something like that",
+m:"'Dergelijke' refers back to something just mentioned — formal alternative to 'zulke'.",
+h:"der-GELIJK-e: gelijk = alike. Things of that likeness."},
+{n:"zodanig",t:"bn",c:"challenge",e:"such, in such a way",f:"zodanig, zodanige; als zodanig = as such",
+s:"Het plan is zodanig aangepast dat iedereen akkoord is.|The plan was adjusted such that everyone agrees.",
+p:"De regeling is zodanig vormgegeven dat kleinere partijen ook kunnen deelnemen.|The scheme is designed in such a way that smaller parties can also participate.",
+w:"zodanig dat... — in such a way that...; als zodanig — as such",
+m:"Formal. 'Zodanig dat' introduces the intended effect — great for design rationale in reports.",
+h:"zo + danig = 'so-ish': to THAT degree/manner."},
+{n:"gevarieerd",t:"bn",c:"challenge",e:"varied, diverse",f:"gevarieerd, gevarieerde; comparative: gevarieerder",
+s:"Mijn werk is heel gevarieerd.|My work is very varied.",
+p:"Een gevarieerder klantenbestand maakt onze praktijk minder conjunctuurgevoelig.|A more varied client base makes our practice less sensitive to economic cycles.",
+w:"een gevarieerd takenpakket — a varied set of tasks (interview vocabulary!)",
+m:"Spelling: gevarieerd (double e before -rd).",
+h:"'varied' with a Dutch past-participle jacket (ge-...-d)."},
+{n:"de verzameling",t:"zn",c:"challenge",e:"collection, set",f:"de verzameling, pl. verzamelingen; verb: verzamelen",
+s:"Het is een losse verzameling ideeën.|It is a loose collection of ideas.",
+p:"Een advies is meer dan een verzameling analyses; het is een samenhangend verhaal.|An advice is more than a collection of analyses; it is a coherent story.",
+w:"data verzamelen — to collect data",
+m:"'Een verzameling losse maatregelen' is the classic critique of incoherent policy — useful phrase!",
+h:"ver-ZAMEL-en: to gather together (zamelen ~ 'assemble')."},
+{n:"de volgorde",t:"zn",c:"challenge",e:"order, sequence",f:"de volgorde, pl. volgordes",
+s:"De volgorde van de stappen is belangrijk.|The order of the steps matters.",
+p:"Bij netcongestie draait alles om volgorde: wie krijgt wanneer capaciteit?|With grid congestion everything revolves around sequence: who gets capacity when?",
+w:"in de juiste volgorde — in the right order; de volgorde bepalen — to determine the sequence",
+m:"'Sequencing' from your list = 'de volgorde bepalen' or 'fasering'. Volg-orde: the order of following.",
+h:"volgen (follow) + orde (order): the order in which things follow."},
+{n:"de fasering",t:"zn",c:"challenge",e:"phasing",f:"de fasering, pl. faseringen; verb: faseren",
+s:"De fasering staat in het plan.|The phasing is in the plan.",
+p:"Een slimme fasering voorkomt dat de netaansluiting het kritieke pad wordt.|Smart phasing prevents the grid connection from becoming the critical path.",
+w:"de fasering van het project — the project phasing",
+m:"Verb: faseren ('we faseren de uitrol'). 'Gefaseerd invoeren' = to introduce in phases.",
+h:"fase (phase) + -ering: turning phases into a plan."},
+{n:"het onderwerp",t:"zn",c:"challenge",e:"topic, subject",f:"het onderwerp, pl. onderwerpen",
+s:"Dat is een gevoelig onderwerp.|That is a sensitive topic.",
+p:"Netcongestie is inmiddels een vast onderwerp op de bestuurlijke agenda.|Grid congestion is by now a fixed topic on the governance agenda.",
+w:"het onderwerp aansnijden — to broach the subject",
+m:"HET onderwerp. 'Een onderwerp aansnijden' (cut into) = raise a topic.",
+h:"onder + werp (throw): what is 'thrown under' discussion — same logic as Latin 'subject'."}
+);
+// Chunk 3: RISKS & UNCERTAINTY + PROJECT DELIVERY
+window.VDATA = window.VDATA || [];
+window.VDATA.push(
+{n:"beperken",t:"ww",c:"risk",e:"to limit, restrict",f:"beperkt, beperkte, heeft beperkt",
+s:"We moeten de kosten beperken.|We must limit the costs.",
+p:"Congestiemanagement kan de schade beperken, maar lost het capaciteitstekort niet op.|Congestion management can limit the damage but doesn't solve the capacity shortage.",
+w:"risico's beperken — to mitigate risks; zich beperken tot — to confine oneself to",
+m:"'Zich beperken tot' = limit oneself to: 'dit advies beperkt zich tot de netaspecten'. Adjective: beperkt (limited).",
+h:"perk = enclosed bed/boundary (as in 'binnen de perken'). You fence the risk in."},
+{n:"beperkt",t:"bn",c:"risk",e:"limited",f:"beperkt, beperkte",
+s:"We hebben beperkte tijd.|We have limited time.",
+p:"De transportcapaciteit is de komende jaren slechts beperkt beschikbaar.|Transport capacity will be only limitedly available in the coming years.",
+w:"in beperkte mate — to a limited extent",
+m:"'Slechts beperkt' = only to a limited degree — softer than 'niet' and very Dutch.",
+h:"Past participle of beperken used as adjective."},
+{n:"tekortschieten",t:"ww",c:"risk",e:"to fall short, be inadequate",f:"schiet tekort, schoot tekort, is tekortgeschoten (separable)",
+s:"Het budget schiet tekort.|The budget falls short.",
+p:"Wanneer kennis van de bestuurlijke context ontbreekt, schiet zelfs het beste technische advies tekort.|When knowledge of the governance context is missing, even the best technical advice falls short.",
+w:"tekortschieten in — to fall short in",
+m:"Separable, perfect with zijn: 'is tekortgeschoten'. Noun: het tekort (deficit, shortage).",
+h:"schieten (shoot) + tekort (too short): the arrow lands short of the target."},
+{n:"de blinde vlek",t:"vast",c:"risk",e:"blind spot",f:"de blinde vlek, pl. blinde vlekken",
+s:"Iedereen heeft blinde vlekken.|Everyone has blind spots.",
+p:"Een externe adviseur helpt de organisatie haar blinde vlekken te zien.|An external consultant helps the organisation see its blind spots.",
+w:"blinde vlekken blootleggen — to expose blind spots",
+m:"DE vlek. 'Blootleggen' (lay bare) is the natural verb with it.",
+h:"Identical metaphor to English — free phrase."},
+{n:"het hiaat",t:"zn",c:"risk",e:"gap, lacuna",f:"het hiaat, pl. hiaten",
+s:"Er zitten hiaten in de data.|There are gaps in the data.",
+p:"De audit legde hiaten bloot in de kennisborging van het projectteam.|The audit exposed gaps in the project team's knowledge management.",
+w:"hiaten in kennis/regelgeving — gaps in knowledge/regulation",
+m:"HET hiaat, plural hiaten. More formal than 'gat' (hole) or 'leemte'.",
+h:"From Latin 'hiatus' — same as English."},
+{n:"de onzekerheid",t:"zn",c:"risk",e:"uncertainty",f:"de onzekerheid, pl. onzekerheden",
+s:"Er is veel onzekerheid over de planning.|There is much uncertainty about the schedule.",
+p:"We maken de onzekerheden expliciet met scenario's in plaats van één puntschatting.|We make the uncertainties explicit with scenarios instead of a single point estimate.",
+w:"omgaan met onzekerheden — dealing with uncertainties",
+m:"'Omgaan met onzekerheden' is a core consultancy competence phrase — use it in interviews.",
+h:"on + zeker (sure) + heid: un-sure-ness."},
+{n:"de spanning",t:"zn",c:"risk",e:"tension; voltage (!)",f:"de spanning, pl. spanningen",
+s:"Er staat spanning op de relatie.|There is tension in the relationship.",
+p:"Er bestaat spanning tussen snelheid van uitvoering en zorgvuldigheid van besluitvorming.|There is tension between speed of delivery and diligence of decision-making.",
+w:"het spanningsveld tussen X en Y — the field of tension between X and Y",
+m:"In your sector, spanning is ALSO voltage (hoogspanning = high voltage). 'Spanningsveld' = area of conflicting interests.",
+h:"One word for organisational tension AND grid voltage — the perfect energy-consultant pun."},
+{n:"voldoen",t:"ww",c:"risk",e:"voldoen aan = to meet, comply with; to suffice",f:"voldoet, voldeed, heeft voldaan",
+s:"Het ontwerp voldoet aan de eisen.|The design meets the requirements.",
+p:"De installatie moet voldoen aan de nieuwste veiligheidsnormen voor CO2-transport.|The installation must comply with the latest safety standards for CO2 transport.",
+w:"voldoen aan de eisen/normen — to meet the requirements/standards",
+m:"Always 'voldoen AAN'. 'Voldoende' = sufficient/a pass grade. 'Voldaan' also = satisfied/paid.",
+h:"vol + doen: to DO it FULLY — completely meet what's asked."},
+{n:"de randvoorwaarde",t:"zn",c:"risk",e:"precondition, boundary condition",f:"de randvoorwaarde, pl. randvoorwaarden",
+s:"Budget is een harde randvoorwaarde.|Budget is a hard constraint.",
+p:"Tijdige netverzwaring is een randvoorwaarde voor de groei van het industriecluster.|Timely grid reinforcement is a precondition for the industrial cluster's growth.",
+w:"binnen de randvoorwaarden blijven — to stay within the constraints",
+m:"rand (edge) + voorwaarde (condition): conditions at the edges of your solution space. Very common in Dutch project language.",
+h:"The guardrails (rand = edge) around your project."},
+{n:"afhankelijk",t:"bn",c:"risk",e:"dependent (on)",f:"afhankelijk van; noun: de afhankelijkheid",
+s:"Dat is afhankelijk van het weer.|That depends on the weather.",
+p:"De planning is sterk afhankelijk van de doorlooptijd van de vergunningprocedure.|The schedule strongly depends on the lead time of the permit procedure.",
+w:"afhankelijk van — depending on; afhankelijkheden in de planning — dependencies in the schedule",
+m:"Always with VAN. Opposite: onafhankelijk (independent) — which is what your list meant with 'Ontvanglijk'.",
+h:"af-HANG-elijk: it HANGS off (van) something else."},
+{n:"onafhankelijk",t:"bn",c:"risk",e:"independent",f:"onafhankelijk, onafhankelijke",
+s:"We geven een onafhankelijk oordeel.|We give an independent judgment.",
+p:"Als onafhankelijk adviseur kunnen wij alle opties eerlijk tegen elkaar afzetten.|As an independent consultant we can weigh all options fairly against each other.",
+w:"een onafhankelijk advies/oordeel — an independent advice/judgment",
+m:"Correction from your list: 'Ontvanglijk' isn't a Dutch word; 'independent' = onafhankelijk.",
+h:"NOT hanging off anyone — free to judge."},
+{n:"het misverstand",t:"zn",c:"risk",e:"misunderstanding",f:"het misverstand, pl. misverstanden",
+s:"Dat berust op een misverstand.|That is based on a misunderstanding.",
+p:"Om misverstanden te voorkomen leggen we alle afspraken schriftelijk vast.|To prevent misunderstandings we record all agreements in writing.",
+w:"voor alle duidelijkheid, om misverstanden te voorkomen... — for clarity, to avoid misunderstandings...",
+m:"HET misverstand. 'Berusten op een misverstand' = be based on a misunderstanding — elegant way to defuse conflict.",
+h:"mis + verstand (understanding): a missed understanding."},
+{n:"de verbazing",t:"zn",c:"risk",e:"surprise, amazement",f:"de verbazing; verb: (zich) verbazen",
+s:"Tot mijn verbazing was iedereen akkoord.|To my surprise everyone agreed.",
+p:"Tot onze verbazing bleek de netbeheerder al een studie te hebben uitgevoerd.|To our surprise, the grid operator turned out to have already carried out a study.",
+w:"tot mijn/onze verbazing — to my/our surprise",
+m:"'Het verbaast me dat...' = I'm surprised that... Reflexive: 'ik verbaas me over...'.",
+h:"'ver-BAAS-ing' — surprise so big even the baas (boss) noticed."},
+{n:"constateren",t:"ww",c:"risk",e:"to observe, establish (a fact)",f:"constateert, constateerde, heeft geconstateerd",
+s:"Ik constateer dat we het oneens zijn.|I note that we disagree.",
+p:"We constateren dat de aangevraagde capaciteit de beschikbare capaciteit ruim overschrijdt.|We observe that the requested capacity far exceeds the available capacity.",
+w:"we constateren dat... — we note/find that... (neutral, factual)",
+m:"Powerful meeting verb: states a fact without blame. Softer than 'vaststellen', harder than 'opmerken'.",
+h:"Con-STAT-eren: you STATE the status."},
+{n:"afstraffen",t:"ww",c:"risk",e:"to punish (harshly), penalise",f:"straft af, strafte af, heeft afgestraft (separable)",
+s:"Fouten worden hier afgestraft.|Mistakes are punished here.",
+p:"Bedrijven die duurzaamheid alleen als marketing gebruiken, worden door de markt afgestraft.|Companies that use sustainability only as marketing get punished by the market.",
+w:"door de markt/kiezer afgestraft worden — to be punished by the market/voters",
+m:"Separable; nearly always passive in professional use: 'worden afgestraft'.",
+h:"straf = punishment. The market hands out the straf."},
+{n:"keihard",t:"bn",c:"risk",e:"rock-hard, ruthless; undeniable",f:"keihard, keiharde",
+s:"Dat is een keiharde deadline.|That is a hard deadline.",
+p:"De cijfers zijn keihard: zonder extra capaciteit stagneert de regionale economie.|The figures are undeniable: without extra capacity the regional economy stalls.",
+w:"keiharde cijfers/eisen — hard figures/demands",
+m:"kei = boulder. Informal-but-accepted intensifier; in formal reports write 'harde cijfers'.",
+h:"Hard as a KEI (boulder)."},
+{n:"het risico",t:"zn",c:"risk",e:"risk",f:"het risico, pl. risico's",
+s:"Dat risico nemen we niet.|We won't take that risk.",
+p:"Het grootste risico voor de planning is de beschikbaarheid van netcapaciteit.|The biggest risk to the schedule is the availability of grid capacity.",
+w:"risico's in kaart brengen / beheersen — to map / control risks",
+m:"HET risico, plural risico's (apostrophe!). 'In kaart brengen' = to map out — essential phrase.",
+h:"Same as English. Focus on the phrases around it."},
+{n:"uitvoeren",t:"ww",c:"deliver",e:"to execute, carry out, implement",f:"voert uit, voerde uit, heeft uitgevoerd (separable)",
+s:"Wie voert het plan uit?|Who executes the plan?",
+p:"Het onderzoek is uitgevoerd in opdracht van de provincie.|The study was carried out on behalf of the province.",
+w:"beleid uitvoeren — to implement policy; de uitvoering — implementation/delivery",
+m:"Separable: 'we voeren het uit'. 'De uitvoering' is THE Dutch policy word for the delivery phase — 'van beleid naar uitvoering'.",
+h:"voeren = to lead/carry. You CARRY the plan OUT of the paper into reality."},
+{n:"het uitvoeringsniveau",t:"zn",c:"deliver",e:"execution/implementation level",f:"het uitvoeringsniveau, pl. -niveaus",
+s:"Het gesprek blijft te abstract; we missen het uitvoeringsniveau.|The conversation stays too abstract; we're missing the implementation level.",
+p:"Wij vertalen strategische ambities naar het uitvoeringsniveau: concrete projecten, budgetten en planningen.|We translate strategic ambitions to the implementation level: concrete projects, budgets and schedules.",
+w:"op uitvoeringsniveau — at the implementation level",
+m:"The strategy/uitvoering divide is a huge Dutch policy theme. Position yourself as the bridge.",
+h:"Where plans stop being PowerPoint and become concrete."},
+{n:"opleveren",t:"ww",c:"deliver",e:"1) to deliver (a completed work) 2) to yield",f:"levert op, leverde op, heeft opgeleverd (separable)",
+s:"Wat levert dit op?|What does this yield?",
+p:"Het opgeleverde rapport werd goed ontvangen, maar de klant miste een implementatieparagraaf.|The delivered report was well received, but the client missed an implementation section.",
+w:"de oplevering — handover/completion (of works); resultaat opleveren — to yield results",
+m:"Two meanings: construction handover ('de woning wordt opgeleverd') and yielding ('dat levert niets op' = that achieves nothing).",
+h:"leveren (deliver) + op (up): you deliver it UP, finished."},
+{n:"aanbesteden",t:"ww",c:"deliver",e:"to put out to tender",f:"besteedt aan, besteedde aan, heeft aanbesteed (separable)",
+s:"De gemeente besteedt het werk aan.|The municipality tenders the work.",
+p:"De aanleg van de CO2-leiding wordt Europees aanbesteed.|The construction of the CO2 pipeline is tendered at European level.",
+w:"de aanbesteding — the tender (procedure); Europees aanbesteden — EU public procurement",
+m:"'De aanbesteding winnen' = win the tender. 'Inschrijven op een aanbesteding' = bid for a tender.",
+h:"besteden = to spend. The government 'spends onto' the market."},
+{n:"de opdracht",t:"zn",c:"deliver",e:"assignment, contract, commission",f:"de opdracht, pl. opdrachten",
+s:"We hebben de opdracht gekregen.|We got the assignment.",
+p:"In opdracht van de netbeheerder onderzoeken wij flexibele aansluitcontracten.|Commissioned by the grid operator, we are studying flexible connection contracts.",
+w:"in opdracht van — commissioned by; de opdrachtgever — the client/principal",
+m:"Learn the pair: opdrachtgever (client) / opdrachtnemer (contractor). 'In opdracht van' opens countless Dutch reports.",
+h:"op + dracht (from dragen, carry): a task CARRIED onto you."},
+{n:"koppelen",t:"ww",c:"deliver",e:"to link, couple",f:"koppelt, koppelde, heeft gekoppeld",
+s:"We koppelen de systemen.|We link the systems.",
+p:"Door zon, opslag en laadinfrastructuur te koppelen, blijft het bedrijventerrein binnen zijn contractcapaciteit.|By coupling solar, storage and charging infrastructure, the business park stays within its contracted capacity.",
+w:"gekoppeld aan — linked to; terugkoppelen — to report back (!)",
+m:"'Terugkoppelen' = give feedback / report back: 'ik koppel het maandag terug' — indispensable meeting verb.",
+h:"koppel = couple. Bonus: TERUGkoppelen = feed BACK."},
+{n:"inzetten",t:"ww",c:"deliver",e:"to deploy, use; inzetten op = to bet/focus on",f:"zet in, zette in, heeft ingezet (separable)",
+s:"We zetten twee adviseurs in.|We deploy two consultants.",
+p:"De provincie zet vol in op batterijopslag om congestie te verlichten.|The province is betting heavily on battery storage to relieve congestion.",
+w:"inzetten op — to commit to/bet on; de inzet — commitment/stake",
+m:"'Inzetten OP iets' = strategically bet on. 'De inzet' = both 'the stakes' and 'the effort'.",
+h:"zetten (set) + in: you SET resources INTO the game — chips on the table."},
+{n:"gericht",t:"bn",c:"deliver",e:"targeted, focused; gericht op = aimed at",f:"gericht, gerichte; from richten (to aim)",
+s:"We nemen gerichte maatregelen.|We take targeted measures.",
+p:"Ons advies is gericht op maatregelen die binnen twee jaar effect hebben.|Our advice is aimed at measures that take effect within two years.",
+w:"gericht op — aimed at; doelgericht — goal-oriented; klantgericht — client-focused",
+m:"The -gericht suffix is productive: resultaatgericht, oplossingsgericht — CV gold.",
+h:"richten = to aim. Gericht = aimed, like a well-pointed arrow."},
+{n:"de kostenbesparing",t:"zn",c:"deliver",e:"cost saving",f:"de kostenbesparing, pl. kostenbesparingen",
+s:"Dit levert een flinke kostenbesparing op.|This yields a substantial cost saving.",
+p:"Slim combineren van netaansluitingen levert een structurele kostenbesparing op.|Smartly combining grid connections yields a structural cost saving.",
+w:"besparen op — to save on; een besparing realiseren — to realise a saving",
+m:"Spelling: kostenbesparing (with -n-). Verb: besparen.",
+h:"kosten + besparing (sparing = saving): sparing the costs."},
+{n:"de uitbreiding",t:"zn",c:"deliver",e:"expansion, extension",f:"de uitbreiding, pl. uitbreidingen; verb: uitbreiden",
+s:"De uitbreiding is gepland voor volgend jaar.|The expansion is planned for next year.",
+p:"De uitbreiding van het hoogspanningsnet vergt tien tot vijftien jaar doorlooptijd.|Expanding the high-voltage grid takes ten to fifteen years of lead time.",
+w:"netuitbreiding — grid expansion; uitbreiden naar — to expand into",
+m:"Verb is separable: 'we breiden uit', 'heeft uitgebreid'. 'Uitgebreid' also = extensive!",
+h:"breed = broad. Making it broader OUT-ward."},
+{n:"de overkapping",t:"zn",c:"deliver",e:"canopy, roofed structure",f:"de overkapping, pl. overkappingen",
+s:"De fietsen staan onder een overkapping.|The bikes are under a canopy.",
+p:"Een zonnepanelen-overkapping boven het parkeerterrein combineert opwek met dubbel ruimtegebruik.|A solar canopy above the car park combines generation with dual land use.",
+w:"een overkapping met zonnepanelen — a solar carport/canopy",
+m:"kap = roof/hood. Solar carports are a hot netcongestie-era topic.",
+h:"over + kap: a cap OVER something."},
+{n:"samenstellen",t:"ww",c:"deliver",e:"to compose, put together",f:"stelt samen, stelde samen, heeft samengesteld (separable)",
+s:"We stellen een team samen.|We are putting together a team.",
+p:"Voor deze opdracht is een multidisciplinair team samengesteld met energie- en omgevingsexpertise.|A multidisciplinary team was assembled for this assignment with energy and environmental expertise.",
+w:"een pakket maatregelen samenstellen — to compose a package of measures",
+m:"Separable: 'stelt samen'. 'De samenstelling' = the composition.",
+h:"samen (together) + stellen (place): placing pieces together."},
+{n:"de onderdelen",t:"zn",c:"deliver",e:"parts, components",f:"het onderdeel, pl. onderdelen",
+s:"Het plan bestaat uit drie onderdelen.|The plan consists of three parts.",
+p:"Kritieke onderdelen zoals transformatoren hebben levertijden van meerdere jaren.|Critical components such as transformers have delivery times of several years.",
+w:"integraal onderdeel van — an integral part of",
+m:"HET onderdeel. 'Onderdeel uitmaken van' = to be part of (formal).",
+h:"onder + deel (part): a sub-part."},
+{n:"kleinschalig",t:"bn",c:"deliver",e:"small-scale",f:"kleinschalig, kleinschalige; opposite: grootschalig",
+s:"We beginnen kleinschalig.|We start small-scale.",
+p:"Kleinschalige pilots leveren de inzichten op waarmee grootschalige uitrol kan worden ontworpen.|Small-scale pilots yield the insights with which large-scale roll-out can be designed.",
+w:"kleinschalige pilots / grootschalige uitrol — small-scale pilots / large-scale roll-out",
+m:"Pair it with grootschalig. 'Schaal' = scale; opschalen = to scale up.",
+h:"klein + schaal + ig: small-scale-ish. Bonus verb: opschalen."},
+{n:"het voorbeeld",t:"zn",c:"deliver",e:"example",f:"het voorbeeld, pl. voorbeelden",
+s:"Geef eens een voorbeeld.|Give an example.",
+p:"Dit project geldt als voorbeeld voor andere industrieclusters.|This project serves as an example for other industrial clusters.",
+w:"bijvoorbeeld — for example; als voorbeeld dienen — to serve as an example",
+m:"HET voorbeeld. 'Bij wijze van voorbeeld' = by way of example (formal).",
+h:"voor + beeld (image): an image held BEFORE you."},
+{n:"de afsluiting",t:"zn",c:"deliver",e:"closure, conclusion",f:"de afsluiting, pl. afsluitingen; verb: afsluiten",
+s:"Ter afsluiting wil ik iedereen bedanken.|In closing, I want to thank everyone.",
+p:"Ter afsluiting vatten we de belangrijkste aanbevelingen kort samen.|In closing, we briefly summarise the main recommendations.",
+w:"ter afsluiting — in closing; een project afsluiten — to close a project",
+m:"'Ter afsluiting' is the standard way to open your final remarks in presentations.",
+h:"af + sluiten (close): closing it OFF. Your presentation's last slide."},
+{n:"eenvoudig",t:"bn",c:"deliver",e:"simple",f:"eenvoudig, eenvoudige; adverb: eenvoudigweg = simply",
+s:"De oplossing is eenvoudig.|The solution is simple.",
+p:"Er bestaat geen eenvoudige oplossing voor netcongestie; het is een kwestie van én-én.|There is no simple solution to grid congestion; it's a matter of both-and.",
+w:"eenvoudigweg — simply/plainly: 'dat is eenvoudigweg te duur'",
+m:"'Eenvoudigweg' adds bluntness: 'dat kan eenvoudigweg niet' = that's simply impossible.",
+h:"een + voud = one-fold. Simple = single-folded; complex = many-folded (meervoudig)."},
+{n:"de omgeving",t:"zn",c:"deliver",e:"environment, surroundings (incl. stakeholders around a project)",f:"de omgeving, pl. omgevingen",
+s:"Het kantoor staat in een groene omgeving.|The office is in green surroundings.",
+p:"Vroegtijdig contact met de omgeving voorkomt bezwaren in de vergunningsfase.|Early contact with local stakeholders prevents objections in the permit phase.",
+w:"omgevingsmanagement — stakeholder/environment management; de Omgevingswet — the Environment and Planning Act",
+m:"In Dutch infrastructure, 'de omgeving' = the community & stakeholders around your project — a profession in itself (omgevingsmanager).",
+h:"om (around) + geving: what is 'given around' you."},
+{n:"het communicatieplan",t:"zn",c:"deliver",e:"communication plan",f:"het communicatieplan, pl. -plannen",
+s:"Het communicatieplan is klaar.|The communication plan is ready.",
+p:"Het communicatieplan beschrijft per doelgroep de boodschap, de timing en het kanaal.|The communication plan describes message, timing and channel per target group.",
+w:"een communicatieplan opstellen — to draw up a communication plan",
+m:"One word in Dutch (no space): communicatieplan.",
+h:"Straightforward compound — note it's HET plan."}
+);
+// Chunk 4: REPORTING PROGRESS + RECOMMENDATIONS & EMPHASIS
+window.VDATA = window.VDATA || [];
+window.VDATA.push(
+{n:"de voortgangsrapportage",t:"zn",c:"report",e:"progress report",f:"de voortgangsrapportage, pl. -rapportages",
+s:"De voortgangsrapportage is af.|The progress report is finished.",
+p:"Wezenlijke risico's blijven vaak buiten beeld omdat voortgangsrapportages alle aandacht opslokken.|Essential risks often stay out of sight because progress reports swallow all attention.",
+w:"de voortgang bewaken — to monitor progress",
+m:"voortgang (progress) + rapportage. 'De voortgang' itself: 'hoe staat het met de voortgang?'",
+h:"voort (onward) + gang (going): the onward-going, reported."},
+{n:"verlopen",t:"ww",c:"report",e:"to proceed, go (of a process); to expire",f:"verloopt, verliep, is verlopen",
+s:"Het project verloopt volgens plan.|The project is proceeding according to plan.",
+p:"De vergunningsprocedure verloopt trager dan voorzien.|The permit procedure is proceeding more slowly than anticipated.",
+w:"volgens plan/schema verlopen — to go according to plan/schedule",
+m:"Also: 'mijn paspoort is verlopen' = expired. THE verb for status updates: 'alles verloopt voorspoedig'.",
+h:"ver + lopen (walk): how the process WALKS along."},
+{n:"de oogst",t:"zn",c:"report",e:"harvest, yield (also figurative)",f:"de oogst; verb: oogsten",
+s:"De oogst van de workshop was mager.|The harvest of the workshop was meagre.",
+p:"De oogst van tien jaar adviseren: een netwerk, diepgaande kennis en aantoonbare resultaten.|The harvest of ten years of consulting: a network, deep knowledge and demonstrable results.",
+w:"de oogst binnenhalen — to bring in the harvest; wat is de oogst van deze sessie? — what did this session yield?",
+m:"Great meeting-closer: 'wat is de oogst van vandaag?' Also verb: successen oogsten.",
+h:"Farm imagery: what you reap after the work."},
+{n:"overhouden",t:"ww",c:"report",e:"to have left (over), retain",f:"houdt over, hield over, heeft overgehouden (separable)",
+s:"We houden budget over.|We have budget left over.",
+p:"Na aftrek van alle kosten houdt het project een bescheiden positief saldo over.|After deducting all costs, the project retains a modest positive balance.",
+w:"er iets aan overhouden — to gain something from it",
+m:"'Daar houden we een goede relatie aan over' = we gain a good relationship from it — nice closing line.",
+h:"houden (keep) + over: what you KEEP OVER at the end."},
+{n:"opslokken",t:"ww",c:"report",e:"to swallow up, absorb (time/money/attention)",f:"slokt op, slokte op, heeft opgeslokt (separable)",
+s:"Dit project slokt al mijn tijd op.|This project swallows all my time.",
+p:"De waan van de dag slokt de aandacht op die nodig is voor strategische keuzes.|The issues of the day swallow the attention needed for strategic choices.",
+w:"tijd/aandacht/budget opslokken — to swallow time/attention/budget",
+m:"slok = a gulp. Vivid, slightly informal — fine in meetings, use 'in beslag nemen' in formal reports.",
+h:"The project takes a big SLOK (gulp) of your agenda."},
+{n:"de omzet",t:"zn",c:"report",e:"turnover, revenue",f:"de omzet, pl. omzetten",
+s:"De omzet groeit dit jaar.|Revenue is growing this year.",
+p:"De adviespraktijk realiseerde vorig jaar een omzetgroei van twaalf procent.|The advisory practice realised twelve percent revenue growth last year.",
+w:"omzet draaien — to generate revenue; de omzetgroei — revenue growth",
+m:"omzet = revenue; winst = profit. Don't mix them up in front of a CFO.",
+h:"om + zetten: money 'turned over'. Same image as English 'turnover'."},
+{n:"vertonen",t:"ww",c:"report",e:"to show, display, exhibit",f:"vertoont, vertoonde, heeft vertoond",
+s:"De cijfers vertonen een stijgende lijn.|The figures show an upward trend.",
+p:"Het elektriciteitsverbruik vertoont sinds 2020 een structureel stijgende lijn.|Electricity consumption has shown a structurally rising trend since 2020.",
+w:"een stijgende/dalende lijn vertonen — to show a rising/falling trend",
+m:"Formal 'to show' for data and behaviour: 'gedrag vertonen', 'gebreken vertonen' (show defects).",
+h:"ver + tonen (show). The chart SHOWS its pattern."},
+{n:"nagenoeg",t:"bw",c:"report",e:"virtually, almost",f:"adverb",
+s:"Het werk is nagenoeg af.|The work is virtually done.",
+p:"De beschikbare transportcapaciteit in de regio is nagenoeg volledig vergeven.|The available transport capacity in the region has been virtually fully allocated.",
+w:"nagenoeg volledig/gelijk/onmogelijk — virtually complete/equal/impossible",
+m:"More formal than 'bijna'. Perfect for reports: 'nagenoeg alle stakeholders'.",
+h:"na + genoeg — 'near enough' to complete."},
+{n:"aanzienlijk",t:"bn",c:"report",e:"considerable, substantial",f:"aanzienlijk, aanzienlijke",
+s:"Dat scheelt aanzienlijk in de kosten.|That makes a considerable difference in costs.",
+p:"De wachttijd voor een grootverbruikersaansluiting is aanzienlijk opgelopen.|The waiting time for a large-consumer connection has increased considerably.",
+w:"een aanzienlijk deel/verschil/bedrag — a considerable part/difference/amount",
+m:"Formal upgrade of 'flink/behoorlijk'. As adverb: 'aanzienlijk duurder'.",
+h:"aanzien = prestige/regard: big enough to be SEEN and regarded."},
+{n:"verreweg",t:"bw",c:"report",e:"by far",f:"adverb; always with superlative",
+s:"Dit is verreweg de beste optie.|This is by far the best option.",
+p:"Netverzwaring is verreweg de duurste maatregel, maar ook de meest structurele.|Grid reinforcement is by far the most expensive measure, but also the most structural.",
+w:"verreweg de grootste/belangrijkste — by far the largest/most important",
+m:"Only with superlatives: 'verreweg de beste', never 'verreweg beter'.",
+h:"ver + weg: the rest is FAR AWAY behind."},
+{n:"feitelijk",t:"bn",c:"report",e:"factual; in fact, effectively",f:"feitelijk, feitelijke",
+s:"Feitelijk klopt dat niet.|Factually, that's not correct.",
+p:"Feitelijk is het net in deze regio al drie jaar vol.|Effectively, the grid in this region has been full for three years.",
+w:"de feitelijke situatie — the actual situation; feitelijk onjuist — factually incorrect",
+m:"'Feitelijk' as adverb = 'in effect / actually'. 'Feitelijk onjuist' is the polite hammer in discussions.",
+h:"feit = fact. Fact-ly."},
+{n:"daadwerkelijk",t:"bn",c:"report",e:"actual(ly), real(ly)",f:"daadwerkelijk, daadwerkelijke",
+s:"Is dat daadwerkelijk gebeurd?|Did that actually happen?",
+p:"Het daadwerkelijke verbruik ligt vaak lager dan de gecontracteerde capaciteit.|Actual consumption is often lower than the contracted capacity.",
+w:"daadwerkelijk gebruik vs. gecontracteerde capaciteit — actual use vs contracted capacity",
+m:"daad (deed) + werkelijk (real): real-in-deeds, not just on paper. Key netcongestie argument!",
+h:"What happens in DEEDS (daden), not in words."},
+{n:"de berichtgeving",t:"zn",c:"report",e:"(media) coverage, reporting",f:"de berichtgeving (no plural)",
+s:"De berichtgeving was negatief.|The coverage was negative.",
+p:"De berichtgeving over netcongestie heeft het onderwerp hoog op de politieke agenda gezet.|Media coverage of grid congestion has put the topic high on the political agenda.",
+w:"de berichtgeving in de media — media coverage",
+m:"bericht (message/news item) + geving. Not 'rapportage' (that's your own reporting).",
+h:"The GIVING of BERICHTEN (news messages) — what the press does."},
+{n:"benadrukken",t:"ww",c:"recommend",e:"to emphasise, stress",f:"benadrukt, benadrukte, heeft benadrukt",
+s:"Ik wil dit punt benadrukken.|I want to stress this point.",
+p:"Wij benadrukken dat uitstel van de investering de risico's alleen maar vergroot.|We stress that postponing the investment only increases the risks.",
+w:"ik wil graag benadrukken dat... — I would like to emphasise that...",
+m:"No ge- in perfect (be- prefix): 'heeft benadrukt'. Synonym: onderstrepen (underline).",
+h:"be + NADRUK (emphasis): to put the nadruk on it."},
+{n:"de nadruk",t:"zn",c:"recommend",e:"emphasis, stress",f:"de nadruk; de nadruk leggen op = to emphasise",
+s:"De nadruk ligt op veiligheid.|The emphasis is on safety.",
+p:"In fase één ligt de nadruk op het wegnemen van de grootste knelpunten.|In phase one the emphasis is on removing the biggest bottlenecks.",
+w:"de nadruk leggen op — to put emphasis on; met nadruk — emphatically",
+m:"Two patterns: 'de nadruk LEGGEN op' (you) and 'de nadruk LIGT op' (the situation). leggen/liggen trap!",
+h:"na + druk (pressure): extra pressure ON the point."},
+{n:"aanbevelen",t:"ww",c:"recommend",e:"to recommend",f:"beveelt aan, beval aan, heeft aanbevolen (separable)",
+s:"Ik beveel deze aanpak aan.|I recommend this approach.",
+p:"Wij bevelen aan om eerst een haalbaarheidsstudie uit te voeren.|We recommend carrying out a feasibility study first.",
+w:"de aanbeveling — the recommendation; van harte aanbevolen — highly recommended",
+m:"Strong AND separable: beval aan / aanbevolen. Report chapter: 'Conclusies en aanbevelingen'.",
+h:"bevelen = to command. A recommendation is a polite command."},
+{n:"overtuigen",t:"ww",c:"recommend",e:"to convince",f:"overtuigt, overtuigde, heeft overtuigd (inseparable)",
+s:"Je hebt me overtuigd.|You've convinced me.",
+p:"Met een sluitende businesscase overtuigen we de raad van bestuur.|With a solid business case we convince the executive board.",
+w:"overtuigend — convincing; de overtuiging — conviction; overtuigd van — convinced of",
+m:"Inseparable: 'ik overtuig hem', never 'ik tuig hem over' ('tuigen' alone doesn't exist this way — your list's 'tuigend' was a fragment of overTUIGend).",
+h:"Whoever has the best TUIG (gear/tackle) wins the argument."},
+{n:"gewenst",t:"bn",c:"recommend",e:"desired",f:"gewenst, gewenste; from wensen",
+s:"Wat is de gewenste situatie?|What is the desired situation?",
+p:"We brengen eerst de huidige situatie in kaart en definiëren daarna de gewenste situatie.|We first map the current situation and then define the desired situation.",
+w:"de gewenste situatie vs. de huidige situatie — target vs current state (IST/SOLL)",
+m:"Consultancy classic: huidig → gewenst, and your advice is the bridge. 'Ongewenst' = undesirable.",
+h:"ge-WENS-t: what is wished (gewenst) for."},
+{n:"uiteindelijk",t:"bw",c:"recommend",e:"eventually, ultimately",f:"adverb/adjective",
+s:"Uiteindelijk is iedereen akkoord gegaan.|Eventually everyone agreed.",
+p:"Uiteindelijk bepaalt niet de techniek maar het maatschappelijk draagvlak het tempo van de transitie.|Ultimately it's not technology but public support that determines the pace of the transition.",
+w:"uiteindelijk gaat het erom dat... — ultimately what matters is that...",
+m:"'Uiteindelijk gaat het erom dat...' is a strong way to land your key message.",
+h:"uit + einde (end) + lijk: at the very end of the road."},
+{n:"vooral",t:"bw",c:"recommend",e:"especially, above all",f:"adverb",
+s:"Let vooral op de planning.|Pay attention especially to the schedule.",
+p:"De congestieproblematiek raakt vooral nieuwe bedrijven die een zware aansluiting nodig hebben.|The congestion problem especially affects new companies needing a heavy connection.",
+w:"vooral omdat... — especially because...; ga vooral door — do continue",
+m:"'Ga vooral je gang' = by all means, go ahead. Softener AND intensifier depending on context.",
+h:"voor + al: BEFORE all others."},
+{n:"wezenlijk",t:"bn",c:"recommend",e:"essential, fundamental",f:"wezenlijk, wezenlijke",
+s:"Er is een wezenlijk verschil.|There is a fundamental difference.",
+p:"Een wezenlijke vraag blijft onderbelicht: wie betaalt de maatschappelijke kosten van congestie?|An essential question remains underexposed: who pays the societal costs of congestion?",
+w:"van wezenlijk belang — of essential importance; een wezenlijk verschil — a fundamental difference",
+m:"From 'het wezen' (the essence/being). Stronger and more formal than 'belangrijk'.",
+h:"wezen = essence. Touching the very BEING of the matter."},
+{n:"ondergeschikt",t:"bn",c:"recommend",e:"subordinate, of secondary importance",f:"ondergeschikt (aan)",
+s:"Kosten zijn hier ondergeschikt aan veiligheid.|Costs are secondary to safety here.",
+p:"De vorm van het rapport is ondergeschikt aan de kwaliteit van het advies.|The report's form is subordinate to the quality of the advice.",
+w:"van ondergeschikt belang — of minor importance",
+m:"With AAN: 'ondergeschikt aan'. Opposite concept: doorslaggevend (decisive).",
+h:"onder + geschikt: ranked (geschikt) UNDER something else."},
+{n:"de kern",t:"zn",c:"recommend",e:"the core, essence",f:"de kern, pl. kernen",
+s:"Dat is de kern van het probleem.|That is the core of the problem.",
+p:"De kern van ons advies: reserveer capaciteit voor functies met de grootste maatschappelijke waarde.|The core of our advice: reserve capacity for functions with the greatest societal value.",
+w:"in de kern — in essence; tot de kern komen — to get to the point",
+m:"'Om tot de kern te komen...' = to get to the heart of it — excellent meeting phrase. Also: kernenergie = nuclear!",
+h:"kern = kernel/core. Same word family as English 'kernel'."},
+{n:"bewust",t:"bn",c:"recommend",e:"conscious, deliberate; aware",f:"bewust, bewuste; zich bewust zijn van",
+s:"Dat was een bewuste keuze.|That was a deliberate choice.",
+p:"We kiezen er bewust voor om eerst de quick wins te realiseren.|We deliberately choose to realise the quick wins first.",
+w:"zich bewust zijn van — to be aware of; een bewuste keuze — a deliberate choice",
+m:"Reflexive for awareness: 'ik ben me ervan bewust dat...' (I am aware that...) — polished meeting Dutch.",
+h:"be + WUST (from weten/wist): what you know you're doing."},
+{n:"het bewustzijn",t:"zn",c:"recommend",e:"awareness, consciousness",f:"het bewustzijn (no plural)",
+s:"Het bewustzijn groeit.|Awareness is growing.",
+p:"Het bewustzijn dat netcapaciteit schaars is, is bij bedrijven sterk toegenomen.|Awareness that grid capacity is scarce has strongly increased among companies.",
+w:"het bewustzijn vergroten — to raise awareness",
+m:"HET bewustzijn. 'Awareness raising' = bewustwording (the process).",
+h:"bewust + zijn (being): the state of being aware."},
+{n:"stevig",t:"bn",c:"recommend",e:"firm, robust, solid",f:"stevig, stevige",
+s:"We voeren een stevig gesprek.|We're having a firm conversation.",
+p:"Er ligt een stevige ambitie: een klimaatneutraal cluster in 2040.|There is a firm ambition: a climate-neutral cluster by 2040.",
+w:"een stevige onderbouwing — a solid substantiation; een stevig gesprek — a tough conversation",
+m:"'Een stevig gesprek' is the Dutch euphemism for a confrontational talk. 'Stevige kritiek' = strong criticism.",
+h:"Say it with a firm handshake: STEVIG."},
+{n:"uiteraard",t:"bw",c:"recommend",e:"of course, naturally",f:"adverb",
+s:"Uiteraard helpen we u daarbij.|Of course we'll help you with that.",
+p:"Uiteraard stemmen we de planning vooraf met alle betrokken partijen af.|Naturally, we align the schedule with all parties involved beforehand.",
+w:"uiteraard — the professional 'natuurlijk'",
+m:"More formal than 'natuurlijk'; safe in any client setting. Don't overuse — once per email.",
+h:"uit + de + aard (nature): 'out of the nature' of things."},
+{n:"eenmaal",t:"bw",c:"recommend",e:"once; simply (in 'nu eenmaal')",f:"adverb",
+s:"Dat is nu eenmaal zo.|That's simply the way it is.",
+p:"Als de capaciteit eenmaal is vergeven, komt die pas bij contractwijzigingen weer vrij.|Once the capacity has been allocated, it only becomes available again upon contract changes.",
+w:"eenmaal ... dan — once ... then; dat is nu eenmaal zo — that's just how it is",
+m:"Two uses: 'eenmaal binnen' (once inside) and the resigned 'nu eenmaal' (that's just how it is). The latter defuses discussions.",
+h:"een + maal (one time): one-time → 'once that happens...'"},
+{n:"het vaandel",t:"zn",c:"recommend",e:"banner; hoog in het vaandel hebben = to hold in high regard",f:"het vaandel, pl. vaandels",
+s:"Kwaliteit staat bij ons hoog in het vaandel.|We hold quality in high regard.",
+p:"Zorgvuldige omgang met stakeholderbelangen staat bij ons hoog in het vaandel.|Careful handling of stakeholder interests is a core value for us.",
+w:"hoog in het vaandel hebben/staan — to be a core value",
+m:"Only used in this fixed expression nowadays. Interview essential: 'wat staat bij u hoog in het vaandel?'",
+h:"A vaandel is a military banner: your values waving on the flag you march under."},
+{n:"omwille van",t:"vast",c:"recommend",e:"for the sake of",f:"fixed preposition phrase",
+s:"Omwille van de tijd ga ik snel verder.|For the sake of time I'll move on quickly.",
+p:"Omwille van de leveringszekerheid houden we een reservecapaciteit aan.|For the sake of security of supply we maintain a reserve capacity.",
+w:"omwille van de duidelijkheid/tijd — for clarity's/time's sake",
+m:"Fixed: 'omwille VAN'. More elegant than 'vanwege' when citing a value or principle.",
+h:"om + wille (will): for the WILL of something."},
+{n:"oftewel",t:"bw",c:"recommend",e:"in other words, a.k.a.",f:"conjunction",
+s:"CCS, oftewel CO2-afvang en -opslag.|CCS, in other words carbon capture and storage.",
+p:"We kijken naar 'non-firm ATO's', oftewel flexibele transportcontracten.|We're looking at 'non-firm ATOs', in other words flexible transport contracts.",
+w:"X, oftewel Y — X, i.e. Y",
+m:"One word! Perfect for translating jargon to your audience — the consultant's bridge word.",
+h:"of + te + wel: 'or as well (said)'."},
+{n:"bovengenoemd",t:"bn",c:"recommend",e:"above-mentioned",f:"bovengenoemd, bovengenoemde",
+s:"Bovengenoemde punten zijn besproken.|The above-mentioned points were discussed.",
+p:"Bovengenoemde maatregelen vergen een investering van circa twee miljoen euro.|The above-mentioned measures require an investment of about two million euros.",
+w:"bovengenoemde punten/maatregelen — the above points/measures",
+m:"Written language only. In speech say 'de punten die ik net noemde'.",
+h:"boven (above) + genoemd (named): named above."},
+{n:"eveneens",t:"bw",c:"recommend",e:"likewise, also (formal)",f:"adverb",
+s:"Dat geldt eveneens voor ons.|That likewise applies to us.",
+p:"De industrie is eveneens gebaat bij een voorspelbaar investeringsklimaat.|Industry likewise benefits from a predictable investment climate.",
+w:"dit geldt eveneens voor... — this equally applies to...",
+m:"Formal 'ook'. Use in reports; in speech 'ook' is fine.",
+h:"even + eens: 'equally so'."},
+{n:"waarop",t:"bw",c:"recommend",e:"on which, whereupon",f:"relative adverb (waar + op)",
+s:"De manier waarop hij werkt, bevalt me.|The way in which he works pleases me.",
+p:"De wijze waarop capaciteit wordt verdeeld, ligt politiek gevoelig.|The way in which capacity is allocated is politically sensitive.",
+w:"de manier/wijze waarop — the way in which",
+m:"Dutch merges preposition + 'which': op welke → waarop, van welke → waarvan. 'De manier waarop' is the pattern to master.",
+h:"waar (where) + op (on): 'where-on'. Old English had it too: whereupon."}
+);
+// Chunk 5: ALIGNING STAKEHOLDERS + NEGOTIATING SOLUTIONS
+window.VDATA = window.VDATA || [];
+window.VDATA.push(
+{n:"afstemmen",t:"ww",c:"align",e:"to align, coordinate (with)",f:"stemt af, stemde af, heeft afgestemd (separable)",
+s:"Laten we onze agenda's afstemmen.|Let's align our calendars.",
+p:"We stemmen de subsidieaanvraag af met zowel RVO als de Europese Commissie.|We coordinate the subsidy application with both RVO and the European Commission.",
+w:"de stakeholderafstemming — stakeholder alignment; afstemmen op — to tailor to",
+m:"afstemmen MET iemand (coordinate with a person), afstemmen OP iets (tune to a need). 'De afstemming' = the alignment.",
+h:"stemmen = to tune (an instrument). You tune your plans to each other until they harmonise."},
+{n:"samenwerken",t:"ww",c:"align",e:"to collaborate, work together",f:"werkt samen, werkte samen, heeft samengewerkt (separable)",
+s:"We werken goed samen.|We work well together.",
+p:"Netbeheerders, provincies en industrie werken samen in regionale energieboards.|Grid operators, provinces and industry collaborate in regional energy boards.",
+w:"de samenwerking — the collaboration; samenwerken aan — to work together on",
+m:"One concept, separable verb: 'wij werken samen'. Noun: samenwerking. Your list had 'samen werken' (two words) — as a verb it's one word.",
+h:"samen (together) + werken (work). The most Dutch value there is: polderen!"},
+{n:"betrekken",t:"ww",c:"align",e:"to involve",f:"betrekt, betrok, heeft betrokken",
+s:"We betrekken het team bij het besluit.|We involve the team in the decision.",
+p:"Door de omgeving vroegtijdig te betrekken, verloopt de vergunningsfase soepeler.|By involving local stakeholders early, the permit phase runs more smoothly.",
+w:"betrekken bij — to involve in; de betrokkenheid — involvement/commitment",
+m:"'Betrekken BIJ' (not 'in'). Betrokken = involved AND committed: 'een betrokken adviseur' is a compliment.",
+h:"trekken = to pull. You PULL people toward (be-) the table."},
+{n:"betrokken",t:"bn",c:"align",e:"involved; committed, engaged",f:"betrokken (bij)",
+s:"Zij is zeer betrokken bij het project.|She is very committed to the project.",
+p:"Alle betrokken partijen onderschrijven de noodzaak van een gezamenlijke aanpak.|All parties involved endorse the necessity of a joint approach.",
+w:"de betrokken partijen — the parties involved; nauw betrokken bij — closely involved in",
+m:"Double duty: 'de betrokken partijen' (involved) vs 'een betrokken collega' (dedicated). Both flattering.",
+h:"Pulled-in people are committed people."},
+{n:"meenemen",t:"ww",c:"align",e:"to take along; to incorporate (a point)",f:"neemt mee, nam mee, heeft meegenomen (separable)",
+s:"Ik neem je feedback mee.|I'll take your feedback on board.",
+p:"We nemen de zienswijzen van de omgeving mee in het definitieve ontwerp.|We incorporate the stakeholders' views into the final design.",
+w:"we nemen het mee — we'll take it on board (the most Dutch meeting phrase ever)",
+m:"Warning: 'we nemen het mee' is ALSO the classic polite brush-off. Say WHAT you'll do with the input to be credible.",
+h:"You literally 'take it with' you — into the next version, or into oblivion."},
+{n:"de verbinding",t:"zn",c:"align",e:"connection (also human/relational)",f:"de verbinding, pl. verbindingen; verb: verbinden",
+s:"De verbinding is verbroken.|The connection was lost.",
+p:"Onze kracht zit in de verbinding tussen technische inhoud en bestuurlijke besluitvorming.|Our strength lies in connecting technical content with governance decision-making.",
+w:"verbinding maken met — to connect with; de verbindende schakel — the connecting link",
+m:"Hot word in Dutch org-speak: 'in verbinding staan met de omgeving'. Verb: verbinden (verbond, verbonden).",
+h:"binden = to bind. What binds parties together."},
+{n:"vertrouwd",t:"bn",c:"align",e:"trusted; familiar",f:"vertrouwd, vertrouwde; vertrouwd met = familiar with",
+s:"Ik ben vertrouwd met deze software.|I am familiar with this software.",
+p:"Als vertrouwde adviseur worden we al in de verkennende fase aan tafel gevraagd.|As a trusted advisor we get invited to the table as early as the exploratory phase.",
+w:"een vertrouwde adviseur — a trusted advisor; vertrouwd raken met — to become familiar with",
+m:"vertrouwd MET = familiar with; vertrouwd (alone) = trusted. Het vertrouwen = trust — the currency of consultancy.",
+h:"trouw = loyal/faithful. Trust grows from loyalty."},
+{n:"het draagvlak",t:"zn",c:"align",e:"(public/stakeholder) support, buy-in",f:"het draagvlak (no plural)",
+s:"Er is weinig draagvlak voor dit plan.|There is little support for this plan.",
+p:"Zonder maatschappelijk draagvlak loopt zelfs een technisch perfect project vast.|Without public support, even a technically perfect project gets stuck.",
+w:"draagvlak creëren/vergroten — to create/increase buy-in",
+m:"Untranslatable Dutch policy word — literally 'carrying surface'. HET draagvlak. If you learn ONE stakeholder word, learn this.",
+h:"dragen = to carry. The surface that CARRIES your project: the people who support it."},
+{n:"de omgang",t:"zn",c:"align",e:"dealing with, interaction",f:"de omgang (met); verb: omgaan met",
+s:"De omgang met collega's is prettig.|Interaction with colleagues is pleasant.",
+p:"Zorgvuldige omgang met vertrouwelijke marktinformatie is voor ons vanzelfsprekend.|Careful handling of confidential market information is self-evident for us.",
+w:"omgaan met onzekerheid/weerstand — to deal with uncertainty/resistance",
+m:"Verb pattern: 'omgaan MET'. 'Hoe gaat u om met...?' is a guaranteed interview question format.",
+h:"om + gang: how you 'walk around' with people and issues."},
+{n:"de betrekking",t:"zn",c:"align",e:"relation; position (job); met betrekking tot = regarding",f:"de betrekking, pl. betrekkingen",
+s:"Met betrekking tot uw vraag: ja, dat kan.|Regarding your question: yes, that's possible.",
+p:"Met betrekking tot de fasering stellen wij een aanpassing voor.|With regard to the phasing, we propose an adjustment.",
+w:"met betrekking tot (m.b.t.) — with regard to; betrekking hebben op — to relate to",
+m:"'M.b.t.' is everywhere in Dutch business email. 'Betrekking hebben op' = to concern: 'dit heeft betrekking op fase 2'.",
+h:"The formal cousin of 'over'. Same root as betrekken."},
+{n:"de geloofwaardigheid",t:"zn",c:"align",e:"credibility",f:"de geloofwaardigheid (no plural)",
+s:"Zijn geloofwaardigheid staat op het spel.|His credibility is at stake.",
+p:"Wie duurzaamheid predikt maar er niet naar handelt, verliest geloofwaardigheid.|Those who preach sustainability but don't act on it lose credibility.",
+w:"geloofwaardigheid opbouwen/verliezen — to build/lose credibility",
+m:"geloof (belief) + waardig (worthy) + heid: worthy-of-belief-ness. Adjective: geloofwaardig.",
+h:"Are you WORTHY of being BELIEVED?"},
+{n:"erkennen",t:"ww",c:"align",e:"to acknowledge, recognise",f:"erkent, erkende, heeft erkend",
+s:"Ik erken mijn fout.|I acknowledge my mistake.",
+p:"De netbeheerder erkent het probleem, maar kan op korte termijn weinig doen.|The grid operator acknowledges the problem but can do little in the short term.",
+w:"een erkend expert — a recognised expert; erkennen dat — to admit that",
+m:"erkennen = acknowledge (a fact/status); herkennen = recognise (identify visually). Classic mix-up!",
+h:"'ik ERken het probleem' (admit it exists) vs 'ik HERken het probleem' (I've seen it before)."},
+{n:"waarderen",t:"ww",c:"align",e:"to appreciate, value",f:"waardeert, waardeerde, heeft gewaardeerd",
+s:"Ik waardeer je inzet.|I appreciate your effort.",
+p:"Klanten waarderen vooral dat we ons advies durven bij te stellen als feiten daarom vragen.|Clients especially appreciate that we dare to adjust our advice when the facts demand it.",
+w:"zeer gewaardeerd — much appreciated; de waardering — the appreciation",
+m:"'Dat wordt gewaardeerd' = that is appreciated — understated Dutch praise. Also: 'een woning waarderen' = to appraise.",
+h:"waarde = value. To assign value to."},
+{n:"de houding",t:"zn",c:"align",e:"attitude, posture",f:"de houding, pl. houdingen",
+s:"Zijn houding is constructief.|His attitude is constructive.",
+p:"De transitie vraagt van netbeheerders een andere houding: van volgend naar sturend.|The transition demands a different attitude from grid operators: from following to steering.",
+w:"een afwachtende/proactieve houding — a wait-and-see/proactive attitude",
+m:"'Een afwachtende houding aannemen' = adopt a wait-and-see attitude — the thing consultants always advise against.",
+h:"houden = to hold. How you HOLD yourself."},
+{n:"onderling",t:"bn",c:"align",e:"mutual, among themselves",f:"onderling, onderlinge",
+s:"Ze verdelen het werk onderling.|They divide the work among themselves.",
+p:"De onderlinge afhankelijkheden tussen de deelprojecten zijn in kaart gebracht.|The mutual dependencies between the sub-projects have been mapped.",
+w:"onderlinge afstemming/afhankelijkheden — mutual coordination/dependencies",
+m:"'Onderling regelen' = sort out among yourselves — how Dutch teams prefer to solve things.",
+h:"onder (among) + ling: happening 'among' the group."},
+{n:"leidinggeven",t:"ww",c:"align",e:"to lead, manage (people)",f:"geeft leiding, gaf leiding, heeft leidinggegeven (aan)",
+s:"Zij geeft leiding aan het team.|She leads the team.",
+p:"Ik heb leidinggegeven aan een multidisciplinair projectteam van acht adviseurs.|I led a multidisciplinary project team of eight consultants.",
+w:"de leidinggevende — the manager; leidinggeven aan — to manage",
+m:"With AAN: 'leidinggeven aan een team'. CV form: 'leidinggevende ervaring'.",
+h:"Literally 'to GIVE LEADing'. You give direction, they walk."},
+{n:"verantwoordelijk",t:"bn",c:"align",e:"responsible",f:"verantwoordelijk (voor); noun: de verantwoordelijkheid",
+s:"Wie is hiervoor verantwoordelijk?|Who is responsible for this?",
+p:"De provincie is als bevoegd gezag verantwoordelijk voor de vergunningverlening.|As competent authority, the province is responsible for granting permits.",
+w:"verantwoordelijkheid dragen/nemen — to bear/take responsibility",
+m:"verantwoordelijk VOOR. Related gem: 'verantwoorden' = to justify/account for ('zich verantwoorden voor keuzes').",
+h:"ant-WOORD inside: being responsible = having to ANSWER for it."},
+{n:"benutten",t:"ww",c:"negotiate",e:"to utilise (to full advantage)",f:"benut, benutte, heeft benut",
+s:"We benutten elke kans.|We seize every opportunity.",
+p:"Met slimme sturing kan de bestaande netcapaciteit veel beter worden benut.|With smart control, existing grid capacity can be utilised much better.",
+w:"kansen/capaciteit benutten — to seize opportunities / utilise capacity",
+m:"benutten = use to full advantage; gebruiken = neutral use. 'De restcapaciteit benutten' is THE congestion-management verb.",
+h:"Squeeze every NUT of value out of it: be-NUT-ten."},
+{n:"verlangen",t:"ww",c:"negotiate",e:"to demand, require; to long for",f:"verlangt, verlangde, heeft verlangd",
+s:"De klant verlangt snelheid.|The client demands speed.",
+p:"Van adviseurs wordt tegenwoordig verlangd dat zij ook de implementatie begeleiden.|Nowadays consultants are expected to also support implementation.",
+w:"er wordt van ons verlangd dat... — we are expected to...",
+m:"Two meanings: formal 'demand' (er wordt verlangd dat) and romantic 'long for' (verlangen naar). Business = the first.",
+h:"ver-LANG-en: a LONG-stretched want — so strong it becomes a demand."},
+{n:"de bijdrage",t:"zn",c:"negotiate",e:"contribution",f:"de bijdrage, pl. bijdragen; een bijdrage leveren = to contribute",
+s:"Iedereen levert een bijdrage.|Everyone contributes.",
+p:"Met dit project leveren we een concrete bijdrage aan de klimaatdoelen van 2030.|With this project we make a concrete contribution to the 2030 climate targets.",
+w:"een bijdrage leveren aan — to contribute to",
+m:"The verb is LEVEREN (not 'maken' or 'doen'): een bijdrage leveren. Interview must-have!",
+h:"bij (alongside) + dragen (carry): you carry your part alongside."},
+{n:"vrijblijvend",t:"bn",c:"negotiate",e:"non-committal, without obligation",f:"vrijblijvend, vrijblijvende",
+s:"Dit gesprek is geheel vrijblijvend.|This conversation is entirely without obligation.",
+p:"Onze aanbevelingen zijn niet vrijblijvend: we spreken concrete acties en deadlines af.|Our recommendations are not non-committal: we agree concrete actions and deadlines.",
+w:"niet vrijblijvend — binding/with commitment; een vrijblijvende offerte — a no-obligation quote",
+m:"Key consultancy critique: 'het bleef te vrijblijvend' = nothing was binding, nothing happened. Negation = commitment.",
+h:"vrij (free) + blijven (stay): everyone stays free — and nothing gets done."},
+{n:"de kracht",t:"zn",c:"negotiate",e:"strength, power",f:"de kracht, pl. krachten",
+s:"Samenwerken is onze kracht.|Collaboration is our strength.",
+p:"De kracht van dit consortium zit in de combinatie van lokale kennis en internationale ervaring.|The strength of this consortium lies in combining local knowledge and international experience.",
+w:"de kracht zit in... — the strength lies in...; op eigen kracht — under one's own steam",
+m:"Interview question: 'wat is uw kracht?' Prepare this sentence pattern! Krachten bundelen = join forces.",
+h:"Related to English 'craft': your power is your craft."},
+{n:"de doelgroep",t:"zn",c:"negotiate",e:"target group, audience",f:"de doelgroep, pl. doelgroepen",
+s:"Wie is de doelgroep van dit rapport?|Who is the target audience of this report?",
+p:"Per doelgroep — bestuurders, techniek, omgeving — kiezen we een eigen boodschap en toon.|For each audience — executives, engineers, community — we choose a distinct message and tone.",
+w:"afgestemd op de doelgroep — tailored to the audience",
+m:"doel (goal) + groep. Core communication-plan vocabulary.",
+h:"The GROUP you AIM (doel) your message at."},
+{n:"enerzijds / anderzijds",t:"vast",c:"negotiate",e:"on the one hand / on the other hand",f:"fixed pair",
+s:"Enerzijds is het duur, anderzijds levert het veel op.|On the one hand it's expensive, on the other it yields a lot.",
+p:"Enerzijds wil de regio groeien, anderzijds is er simpelweg geen netcapaciteit beschikbaar.|On the one hand the region wants to grow, on the other there is simply no grid capacity available.",
+w:"enerzijds..., anderzijds... — weighing two sides like a true consultant",
+m:"Use as a PAIR. Follow with your own position, or you sound indecisive — the famous 'tweebenige adviseur' trap.",
+h:"ener-ZIJDE (side) / ander-ZIJDE: one side, other side."},
+{n:"de zaak",t:"zn",c:"negotiate",e:"matter, case, business",f:"de zaak, pl. zaken; zakelijk = businesslike",
+s:"Laten we ter zake komen.|Let's get down to business.",
+p:"We houden de zakelijke afspraken en de inhoudelijke discussie bewust gescheiden.|We deliberately keep the commercial agreements and the substantive discussion separate.",
+w:"ter zake komen — to get to the point; zakendoen — to do business; zakelijke dienstverlening — professional services",
+m:"'Zaken' covers business, affairs, matters. 'Ter zake' = to the point; 'ter zake kundig' = competent.",
+h:"One little word, whole business world: zaak → zakelijk → zakendoen."},
+{n:"de gebeurtenis",t:"zn",c:"negotiate",e:"event, occurrence",f:"de gebeurtenis, pl. gebeurtenissen; verb: gebeuren",
+s:"Het was een bijzondere gebeurtenis.|It was a special event.",
+p:"Recente gebeurtenissen op de energiemarkt onderstrepen het belang van leveringszekerheid.|Recent events on the energy market underline the importance of security of supply.",
+w:"recente gebeurtenissen — recent events; naar aanleiding van gebeurtenissen — following events",
+m:"Double s in plural: gebeurtenissen. From gebeuren (to happen).",
+h:"What has ge-BEUR-ed (happened), packaged as a noun."},
+{n:"het verleden",t:"zn",c:"negotiate",e:"the past",f:"het verleden (no plural)",
+s:"In het verleden deden we dat anders.|In the past we did that differently.",
+p:"In het verleden behaalde resultaten bieden geen garantie voor de toekomst — ook niet in netplanning.|Past results are no guarantee for the future — not in grid planning either.",
+w:"in het verleden — in the past; een verleden hebben in — to have a background in",
+m:"'Een verleden hebben in de energiesector' = to have a background in energy — CV phrase.",
+h:"ver-LEDEN: what has 'passed by' (leden ~ gone)."},
+{n:"de aandacht",t:"zn",c:"negotiate",e:"attention",f:"de aandacht (no plural)",
+s:"Mag ik uw aandacht?|May I have your attention?",
+p:"Het onderwerp krijgt inmiddels volop bestuurlijke aandacht.|The topic is by now receiving plenty of executive attention.",
+w:"aandacht vragen voor — to draw attention to; aandacht besteden aan — to pay attention to",
+m:"Two verbs: 'aandacht besteden AAN' (pay) and 'aandacht vragen VOOR' (request). 'Onder de aandacht brengen' = bring to attention.",
+h:"aan + dacht (thought): your thought AIMED at something."},
+{n:"waardevol",t:"bn",c:"negotiate",e:"valuable",f:"waardevol, waardevolle",
+s:"Dat is een waardevolle suggestie.|That is a valuable suggestion.",
+p:"De sessie leverde waardevolle inzichten op voor de vervolgfase.|The session yielded valuable insights for the next phase.",
+w:"waardevolle inzichten/input — valuable insights/input",
+m:"Spelling: waardevol (one word, double l only when inflected: waardevolle).",
+h:"waarde (value) + vol (full): full of value."},
+{n:"dankbaar",t:"bn",c:"negotiate",e:"grateful; rewarding",f:"dankbaar, dankbare",
+s:"Ik ben u zeer dankbaar.|I am very grateful to you.",
+p:"We maken dankbaar gebruik van de meetdata die de netbeheerder beschikbaar stelde.|We gratefully use the measurement data the grid operator made available.",
+w:"dankbaar gebruikmaken van — to make grateful use of; een dankbaar onderwerp — a rewarding topic",
+m:"'Een dankbare taak' = a rewarding task. 'Dankbaar gebruikmaken van' is elegant acknowledgment in reports.",
+h:"dank (thanks) + baar (-able): thank-able."},
+{n:"beschikbaar",t:"bn",c:"negotiate",e:"available",f:"beschikbaar, beschikbare",
+s:"Bent u morgen beschikbaar?|Are you available tomorrow?",
+p:"De beschikbare transportcapaciteit is voor de komende jaren volledig vergeven.|The available transport capacity has been fully allocated for the coming years.",
+w:"beschikbaar stellen — to make available; de beschikbaarheid — availability",
+m:"'Beschikbaar stellen' = make available (active offer). Noun trio: beschikbaar / beschikbaarheid / beschikking.",
+h:"beschikken over = have at your disposal → beschik-BAAR = disposable-to-you."},
+{n:"de beschikking",t:"zn",c:"negotiate",e:"1) disposal (tot je beschikking) 2) formal decision/decree",f:"de beschikking, pl. beschikkingen",
+s:"Ik sta tot uw beschikking.|I am at your disposal.",
+p:"Adviseurs hebben tegenwoordig de beschikking over realtime netdata.|Consultants nowadays have real-time grid data at their disposal.",
+w:"de beschikking hebben over — to have at one's disposal; een subsidiebeschikking — a subsidy award decision",
+m:"Two meanings! 'Tot je beschikking' = at your disposal; but a 'beschikking' from RVO = the formal subsidy decision document.",
+h:"Your list's 'toegenomen beschikking' = increased access to resources. Also the paper that says your subsidy is granted!"},
+{n:"de oplossing",t:"zn",c:"negotiate",e:"solution",f:"de oplossing, pl. oplossingen; verb: oplossen",
+s:"Er is altijd een oplossing.|There is always a solution.",
+p:"Wij denken in oplossingen, maar benoemen ook eerlijk wat niet kan.|We think in solutions, but also honestly name what is not possible.",
+w:"oplossingsrichtingen — solution directions (love this consultancy word); een oplossing aandragen — to propose a solution",
+m:"'Oplossingsrichting' = direction of solution — the humble-professional way to present options before choosing.",
+h:"op + lossen (loosen): untying the knot."},
+{n:"aanvullen",t:"ww",c:"negotiate",e:"to supplement, complement, add to",f:"vult aan, vulde aan, heeft aangevuld (separable)",
+s:"Wil je me aanvullen als ik iets vergeet?|Will you add to what I say if I forget something?",
+p:"Onze modelanalyse is aangevuld met interviews met netbeheerders en grootverbruikers.|Our model analysis was supplemented with interviews with grid operators and large consumers.",
+w:"aanvullend onderzoek — additional research; ter aanvulling — in addition",
+m:"'Mag ik daar iets op aanvullen?' — polite way to add a point in meetings. Aanvullend = complementary.",
+h:"vullen = to fill. You FILL UP what's missing."},
+{n:"algemeen",t:"bn",c:"negotiate",e:"general",f:"algemeen, algemene; in het algemeen = in general",
+s:"In het algemeen klopt dat.|In general that's correct.",
+p:"Het algemene beeld: de vraag groeit overal, maar de knelpunten verschillen per regio.|The general picture: demand grows everywhere, but bottlenecks differ per region.",
+w:"in het algemeen — in general; algemeen belang — public interest",
+m:"'Het algemeen belang' (public interest) is the trump card in Dutch infrastructure debates.",
+h:"al + gemeen (common): common to all."},
+{n:"inhoudelijk",t:"bn",c:"negotiate",e:"substantive, content-related",f:"inhoudelijk, inhoudelijke",
+s:"Ik heb een inhoudelijke vraag.|I have a substantive question.",
+p:"We scheiden het inhoudelijke gesprek van de discussie over budget en planning.|We separate the substantive conversation from the discussion about budget and schedule.",
+w:"inhoudelijk sterk — strong on content; inhoudelijke diepgang — substantive depth",
+m:"No English equivalent! 'De inhoud' = the content; inhoudelijk = concerning-the-content. THE word to praise expertise: 'inhoudelijk ijzersterk'.",
+h:"in + houd (hold): what the report HOLDS INside — the substance."},
+{n:"breed maar coherent",t:"vast",c:"negotiate",e:"broad but coherent",f:"fixed phrase (breed / coherent)",
+s:"Ons aanbod is breed maar coherent.|Our offering is broad but coherent.",
+p:"We positioneren de praktijk als breed maar coherent: veel disciplines, één verhaal.|We position the practice as broad but coherent: many disciplines, one story.",
+w:"een samenhangend aanbod — a coherent offering",
+m:"'Samenhangend' is the more Dutch word for coherent; 'coherent' works too. Breed ↔ smal (narrow).",
+h:"From your notes — the portfolio ideal: wide shelf, one story."}
+);
+// Chunk 6: INTERVIEWS & MOTIVATION + WRITING/CONNECTING WORDS
+window.VDATA = window.VDATA || [];
+window.VDATA.push(
+{n:"onderscheiden",t:"ww",c:"interview",e:"to distinguish; zich onderscheiden = to stand out",f:"onderscheidt, onderscheidde, heeft onderscheiden (inseparable)",
+s:"We onderscheiden drie fasen.|We distinguish three phases.",
+p:"Wij onderscheiden ons door implementatiekracht: we blijven tot het werkt.|We distinguish ourselves through implementation strength: we stay until it works.",
+w:"zich onderscheiden van — to stand out from; het onderscheidend vermogen — the distinctive capability",
+m:"'Onderscheidend vermogen' = what makes you unique — proposal and interview gold. Note -dt: 'hij onderscheidt'.",
+h:"onder + scheiden (separate): to set apart from the rest."},
+{n:"de drijfveer",t:"zn",c:"interview",e:"motivation, driving force",f:"de drijfveer, pl. drijfveren",
+s:"Wat zijn je drijfveren?|What are your motivations?",
+p:"Mijn belangrijkste drijfveer is bijdragen aan een betaalbare en haalbare energietransitie.|My main motivation is contributing to an affordable and feasible energy transition.",
+w:"intrinsieke drijfveren — intrinsic motivations",
+m:"drijven (drive) + veer (spring): the spring that drives you. THE Dutch interview question: 'wat zijn uw drijfveren?' Prepare 3!",
+h:"The (drijf)VEER — a coiled spring — pushing you forward every morning."},
+{n:"de zingeving",t:"zn",c:"interview",e:"meaning, sense of purpose",f:"de zingeving (no plural)",
+s:"Zingeving is belangrijk in werk.|Purpose matters in work.",
+p:"Voor veel jonge professionals weegt zingeving inmiddels zwaarder dan salaris.|For many young professionals, purpose now outweighs salary.",
+w:"zingeving vinden in — to find purpose in",
+m:"zin (meaning) + geving (giving): the giving-of-meaning. Untranslatable in one English word.",
+h:"What GIVES your work ZIN (sense)? The word taps into a deep Dutch work-culture value."},
+{n:"ervaren",t:"ww",c:"interview",e:"to experience; (adj.) experienced",f:"ervaart, ervoer/ervaarde, heeft ervaren",
+s:"Hoe ervaart u de samenwerking?|How do you experience the collaboration?",
+p:"Klanten ervaren de energietransitie vooral als een stapeling van verplichtingen.|Clients experience the energy transition mainly as a pile-up of obligations.",
+w:"een ervaren adviseur — an experienced consultant; de ervaring leert dat... — experience teaches that...",
+m:"Verb AND adjective. 'Hoe ervaart u...?' is the perfect client-empathy question. Noun: de ervaring.",
+h:"er-VAREN: varen = to sail. Experience = what you gather by sailing around."},
+{n:"het meesterschap",t:"zn",c:"interview",e:"mastery, craftsmanship",f:"het meesterschap (no plural)",
+s:"Meesterschap vergt jaren oefening.|Mastery takes years of practice.",
+p:"Vakmanschap wordt meesterschap wanneer kennis, ervaring en oordeelsvermogen samenkomen.|Craftsmanship becomes mastery when knowledge, experience and judgment converge.",
+w:"vakmanschap is meesterschap — the classic Dutch slogan (Grolsch!)",
+m:"meester (master) + schap. Cluster: vakmanschap → meesterschap → oordeelsvermogen (judgment).",
+h:"The famous beer slogan 'Vakmanschap is Meesterschap' — Dutch people will smile if you quote it."},
+{n:"overleven",t:"ww",c:"interview",e:"to survive",f:"overleeft, overleefde, heeft overleefd (inseparable)",
+s:"Het bedrijf heeft de crisis overleefd.|The company survived the crisis.",
+p:"Adviesbureaus die niet investeren in energie-expertise, zullen deze marktverschuiving niet overleven.|Consultancies that don't invest in energy expertise will not survive this market shift.",
+w:"overleven in een krappe markt — to survive in a tight market",
+m:"Inseparable: 'overleefde', 'heeft overleefd' (no ge-).",
+h:"over + leven: to LIVE OVER/beyond the crisis."},
+{n:"ethisch",t:"bn",c:"interview",e:"ethical",f:"ethisch, ethische",
+s:"Dat is een ethische kwestie.|That is an ethical question.",
+p:"Adviseurs maken ethische afwegingen: adviseren we wat kan, of wat hoort?|Consultants make ethical trade-offs: do we advise what's possible, or what's right?",
+w:"ethisch handelen — to act ethically; een ethische afweging — an ethical trade-off",
+m:"Spelling: ethisch (no 'h' after t... actually: e-t-h-i-s-c-h). Noun: de ethiek.",
+h:"Same Greek root as English 'ethics'."},
+{n:"het bankenschandaal",t:"zn",c:"interview",e:"banking scandal",f:"het schandaal, pl. schandalen; bankenschandalen",
+s:"Het schandaal schaadde het vertrouwen.|The scandal damaged trust.",
+p:"Na de bankenschandalen worden bedrijven harder afgestraft op niet-ethisch gedrag.|After the banking scandals, companies are punished more harshly for unethical behaviour.",
+w:"het vertrouwen herstellen — to restore trust",
+m:"From your source text: the context where 'afgestraft' and 'ethisch' appeared. HET schandaal.",
+h:"scandal → schandaal: nearly free."},
+{n:"gevraagd",t:"bn",c:"interview",e:"in demand; asked",f:"gevraagd, gevraagde; from vragen",
+s:"Deze expertise is zeer gevraagd.|This expertise is in high demand.",
+p:"Specialisten die techniek én bestuur begrijpen, zijn momenteel bijzonder gevraagd.|Specialists who understand both technology and governance are currently in high demand.",
+w:"gevraagd en ongevraagd advies — solicited and unsolicited advice",
+m:"'Zeer gevraagd zijn' = to be in demand — nice way to describe your own market value, subtly.",
+h:"So often ge-VRAAGd (asked for) that being asked became your trait."},
+{n:"de verbazing wekken",t:"vast",c:"interview",e:"to cause surprise",f:"wekt, wekte, heeft gewekt",
+s:"Dat wekte verbazing.|That caused surprise.",
+p:"Het wekte verbazing dat de businesscase zonder subsidie al sluitend was.|It caused surprise that the business case was viable even without subsidy.",
+w:"de indruk wekken — to give the impression; verwachtingen wekken — to raise expectations",
+m:"'Wekken' (awaken) pairs with: verbazing, indruk, verwachtingen, vertrouwen. Collocation goldmine.",
+h:"wekken = to wake. You WAKE emotions in your audience."},
+{n:"schetsen",t:"ww",c:"write",e:"to sketch, outline",f:"schetst, schetste, heeft geschetst",
+s:"Ik schets even de context.|Let me briefly sketch the context.",
+p:"Ik schets eerst de aanleiding, daarna de opgave en tot slot onze aanpak.|I'll first outline the background, then the challenge, and finally our approach.",
+w:"de context/hoofdlijnen schetsen — to outline the context/main lines",
+m:"THE presentation opener: 'laat ik eerst de context schetsen'. Noun: de schets (sketch).",
+h:"Cognate of 'sketch'. You draw the picture in rough lines first."},
+{n:"de doorvertaling",t:"zn",c:"write",e:"translation into practice, cascading down",f:"de doorvertaling; verb: doorvertalen (separable)",
+s:"De doorvertaling naar de praktijk ontbreekt.|The translation into practice is missing.",
+p:"De doorvertaling van strategie naar concrete projecten is waar de meeste plannen stranden.|The translation of strategy into concrete projects is where most plans run aground.",
+w:"doorvertalen naar de praktijk — to translate into practice",
+m:"Consultancy jargon, beloved and mocked. Verb: 'we vertalen het beleid door naar maatregelen'.",
+h:"vertalen (translate) + door (through/onward): pushing the translation down the chain."},
+{n:"de vertaalslag",t:"zn",c:"write",e:"translation step (making something usable)",f:"de vertaalslag, pl. vertaalslagen",
+s:"Er is nog een vertaalslag nodig.|Another translation step is needed.",
+p:"De vertaalslag van modeluitkomsten naar bestuurlijke keuzes is onze kerncompetentie.|Translating model outcomes into governance choices is our core competence.",
+w:"een vertaalslag maken — to make the translation (from abstract to concrete)",
+m:"vertaal + slag (strike/move): 'de vertaalslag maken' — sister of doorvertaling. Both scream 'consultant'.",
+h:"One SLAG (swing of the hammer) that turns jargon into decisions."},
+{n:"voortvloeien",t:"ww",c:"write",e:"to result/flow from",f:"vloeit voort, vloeide voort, is voortgevloeid (uit)",
+s:"Hieruit vloeien acties voort.|Actions flow from this.",
+p:"De aanbevelingen vloeien rechtstreeks voort uit de knelpuntenanalyse.|The recommendations flow directly from the bottleneck analysis.",
+w:"voortvloeien uit — to ensue from; de daaruit voortvloeiende acties — the resulting actions",
+m:"Formal report connector. Always with UIT. Perfect with zijn: 'is voortgevloeid'.",
+h:"vloeien = to flow. Conclusions FLOW FORTH from analysis like water."},
+{n:"gekoppeld aan",t:"vast",c:"write",e:"linked to, coupled with",f:"from koppelen",
+s:"De bonus is gekoppeld aan het resultaat.|The bonus is linked to the result.",
+p:"Elke aanbeveling is gekoppeld aan een eigenaar en een deadline.|Each recommendation is linked to an owner and a deadline.",
+w:"gekoppeld aan — tied to; ontkoppelen — to decouple",
+m:"Report pattern: recommendation + owner + deadline = niet vrijblijvend.",
+h:"See koppelen — here as the glue phrase in reports."},
+{n:"opstellen",t:"ww",c:"write",e:"to draw up, draft",f:"stelt op, stelde op, heeft opgesteld (separable)",
+s:"Ik stel een concept op.|I'm drafting a version.",
+p:"Wij stellen samen met de netbeheerder een afwegingskader op voor capaciteitstoewijzing.|Together with the grid operator we draw up an assessment framework for capacity allocation.",
+w:"een plan/rapport/advies opstellen — to draw up a plan/report/advice",
+m:"THE document-production verb. Also: 'zich opstellen als' = to position oneself as ('constructief opstellen').",
+h:"stellen (place) + op: you SET the text UP on paper."},
+{n:"vastleggen",t:"ww",c:"write",e:"to record, lay down (in writing)",f:"legt vast, legde vast, heeft vastgelegd (separable)",
+s:"We leggen de afspraken vast.|We record the agreements.",
+p:"De afspraken over fasering en financiering worden vastgelegd in een bestuursovereenkomst.|The agreements on phasing and financing are laid down in an administrative agreement.",
+w:"schriftelijk vastleggen — to record in writing; afspraken vastleggen — to formalise agreements",
+m:"vast (firm) + leggen (lay): to LAY it down FIRMLY. After every meeting: 'zullen we dat even vastleggen?'",
+h:"Nail the agreement to the table so it can't walk away."},
+{n:"toelichten",t:"ww",c:"write",e:"to explain, clarify",f:"licht toe, lichtte toe, heeft toegelicht (separable)",
+s:"Kunt u dat toelichten?|Can you elaborate on that?",
+p:"In hoofdstuk drie lichten we de gehanteerde uitgangspunten toe.|In chapter three we explain the assumptions used.",
+w:"de toelichting — the explanation/clarification; nader toelichten — to explain further",
+m:"'Kunt u dat toelichten?' — the politest way to probe in Dutch meetings. Beats 'wat bedoel je?'",
+h:"licht (light) + toe: you shine LIGHT onto it."},
+{n:"onderbouwen",t:"ww",c:"write",e:"to substantiate, underpin",f:"onderbouwt, onderbouwde, heeft onderbouwd (inseparable)",
+s:"Kun je dat onderbouwen?|Can you substantiate that?",
+p:"Het investeringsvoorstel is onderbouwd met scenario's en gevoeligheidsanalyses.|The investment proposal is substantiated with scenarios and sensitivity analyses.",
+w:"een goed onderbouwd advies — a well-substantiated advice; de onderbouwing — the substantiation",
+m:"Inseparable. The quality bar for every Dutch advice: 'is dit voldoende onderbouwd?'",
+h:"bouwen (build) + onder (under): building the foundation UNDER your claim."},
+{n:"toezeggen",t:"ww",c:"write",e:"to promise, commit to",f:"zegt toe, zegde toe, heeft toegezegd (separable)",
+s:"Dat kan ik niet toezeggen.|I can't promise that.",
+p:"De netbeheerder heeft toegezegd de studie voor de zomer af te ronden.|The grid operator committed to completing the study before summer.",
+w:"de toezegging — the commitment; een harde toezegging — a firm commitment",
+m:"Softer than a contract, harder than an intention. 'Kunt u dat toezeggen?' pins people down politely.",
+h:"zeggen (say) + toe (towards): saying it TOWARDS the future — a spoken IOU."},
+{n:"afronden",t:"ww",c:"write",e:"to complete, wrap up; to round (numbers)",f:"rondt af, rondde af, heeft afgerond (separable)",
+s:"We ronden het project deze maand af.|We're wrapping up the project this month.",
+p:"Fase één is afgerond; de resultaten zijn gedeeld met de stuurgroep.|Phase one has been completed; the results were shared with the steering group.",
+w:"ter afronding — to wrap up; afronden op hele euro's — round to whole euros",
+m:"Both 'finish' and 'round off numbers'. 'Kunnen we afronden?' = polite meeting-ending signal.",
+h:"rond (round) + af: making the thing ROUND and done — no loose ends."},
+{n:"terugkomen op",t:"vast",c:"write",e:"to come back to, revisit",f:"komt terug op, kwam terug op, is teruggekomen op",
+s:"Ik kom hier later op terug.|I'll come back to this later.",
+p:"Ik kom graag nog even terug op uw vraag over de kostenverdeling.|I'd like to come back to your question about the cost allocation.",
+w:"om terug te komen op... — to get back to...; ergens op terugkomen — revisit (or retract!)",
+m:"'Ik kom erop terug' = I'll get back to you — the promise you MUST keep. 'Terugkomen op een besluit' = reverse a decision!",
+h:"COME BACK onto the topic — your parking-lot verb for meetings."},
+{n:"voorstellen",t:"ww",c:"write",e:"to propose; to introduce; zich voorstellen = imagine/introduce oneself",f:"stelt voor, stelde voor, heeft voorgesteld (separable)",
+s:"Ik stel voor dat we beginnen.|I propose we begin.",
+p:"Wij stellen voor de aanbesteding op te knippen in twee percelen.|We propose splitting the tender into two lots.",
+w:"het voorstel — the proposal; mag ik me even voorstellen? — may I introduce myself?",
+m:"Three uses: propose (ik stel voor), introduce (zich voorstellen), imagine (stel je voor!). All separable.",
+h:"stellen (place) + voor (before): you PLACE the idea BEFORE the group."},
+{n:"bepalen",t:"ww",c:"write",e:"to determine, define",f:"bepaalt, bepaalde, heeft bepaald",
+s:"Wie bepaalt de agenda?|Who sets the agenda?",
+p:"De beschikbare netcapaciteit bepaalt in de praktijk het tempo van gebiedsontwikkeling.|In practice, available grid capacity determines the pace of area development.",
+w:"bepalend voor — decisive for; een bepaalde volgorde — a certain order",
+m:"'Bepaald' as adjective = 'certain/particular' (een bepaalde aanpak); 'bepalend' = decisive.",
+h:"palen = poles. You drive the POLES into the ground that mark the boundary."},
+{n:"gelden",t:"ww",c:"write",e:"to apply, be valid",f:"geldt, gold, heeft gegolden",
+s:"Die regel geldt hier niet.|That rule doesn't apply here.",
+p:"Voor grootverbruikers geldt een wachtlijst van enkele jaren.|A waiting list of several years applies to large consumers.",
+w:"dit geldt ook voor... — this also applies to...; geldend beleid — applicable policy",
+m:"Impersonal use is everywhere: 'er geldt...', 'hetzelfde geldt voor...'. Strong verb: gold/gegolden.",
+h:"geld = money: what 'gilds/counts' — valid like legal tender."},
+{n:"blijken",t:"ww",c:"write",e:"to turn out, prove to be",f:"blijkt, bleek, is gebleken",
+s:"Het bleek een misverstand.|It turned out to be a misunderstanding.",
+p:"Uit de netstudie blijkt dat verzwaring pas in 2031 gereed kan zijn.|The grid study shows that reinforcement can only be ready by 2031.",
+w:"uit onderzoek blijkt dat... — research shows that...; naar blijkt — as it turns out",
+m:"THE evidence verb of Dutch reports: 'uit X blijkt dat Y'. Perfect with zijn: 'is gebleken'.",
+h:"Facts BLIJK (become visible) like light through a crack — 'blijken' is showing-by-evidence."},
+{n:"benoemen",t:"ww",c:"write",e:"to name explicitly, call out; to appoint",f:"benoemt, benoemde, heeft benoemd",
+s:"Laten we het probleem gewoon benoemen.|Let's just name the problem.",
+p:"We benoemen expliciet welke risico's voor rekening van de opdrachtgever blijven.|We explicitly name which risks remain with the client.",
+w:"expliciet benoemen — to name explicitly; benoemd worden tot — to be appointed as",
+m:"Meeting hero verb: 'ik wil even benoemen dat...' = let me note that... Also: appointed ('benoemd tot directeur').",
+h:"be + NOEM (name): to put a NAME on the elephant in the room."},
+{n:"toetsen",t:"ww",c:"write",e:"to test, check against criteria",f:"toetst, toetste, heeft getoetst",
+s:"We toetsen het plan aan de eisen.|We check the plan against the requirements.",
+p:"Het voorstel wordt getoetst aan het afwegingskader van de provincie.|The proposal is tested against the province's assessment framework.",
+w:"toetsen aan — to check against; het toetsingskader — the assessment framework",
+m:"toetsen AAN criteria. In school context 'de toets' = exam; in policy = assessment.",
+h:"Tap-tap-testing (toets = also 'keyboard key'): checking each criterion, key by key."},
+{n:"realiseren",t:"ww",c:"write",e:"to realise (build/achieve); zich realiseren = to realise (understand)",f:"realiseert, realiseerde, heeft gerealiseerd",
+s:"We realiseren ons dat het krap is.|We realise it's tight.",
+p:"De verzwaring van het station moet uiterlijk 2029 zijn gerealiseerd.|The substation reinforcement must be completed by 2029 at the latest.",
+w:"een besparing/project realiseren — to achieve a saving / deliver a project",
+m:"Without 'zich' = build/achieve; with 'zich' = become aware. 'Ik realiseer me dat...' (not 'ik realiseer dat...').",
+h:"Make it REAL — with zich: make it real in your head."},
+{n:"begeleiden",t:"ww",c:"write",e:"to guide, support (a process)",f:"begeleidt, begeleidde, heeft begeleid",
+s:"Wij begeleiden het proces.|We guide the process.",
+p:"We begeleiden de opdrachtgever van subsidieaanvraag tot definitief investeringsbesluit.|We guide the client from subsidy application to final investment decision.",
+w:"procesbegeleiding — process facilitation; de begeleiding — the guidance",
+m:"'Begeleiden' is what modern consultants sell instead of reports: guidance through the journey.",
+h:"be + GELEIDE (escort): walking ALONGSIDE the client — same root as 'leiden' (lead)."},
+{n:"verduidelijken",t:"ww",c:"write",e:"to clarify",f:"verduidelijkt, verduidelijkte, heeft verduidelijkt",
+s:"Kunt u dat verduidelijken?|Could you clarify that?",
+p:"Ter verduidelijking: deze raming is exclusief de kosten van netverzwaring.|For clarification: this estimate excludes grid reinforcement costs.",
+w:"ter verduidelijking — for clarity; een verduidelijkende vraag — a clarifying question",
+m:"'Mag ik een verduidelijkende vraag stellen?' = may I ask a clarifying question — smoothest interruption in Dutch.",
+h:"ver + DUIDELIJK (clear) + en: to make clear-er."},
+{n:"aantonen",t:"ww",c:"write",e:"to demonstrate, prove",f:"toont aan, toonde aan, heeft aangetoond (separable)",
+s:"De cijfers tonen het aan.|The figures prove it.",
+p:"De pilot heeft aangetoond dat slimme sturing de piekbelasting met vijftien procent verlaagt.|The pilot demonstrated that smart control reduces peak load by fifteen percent.",
+w:"aantoonbaar — demonstrable; aantoonbare resultaten — proven results",
+m:"aantonen = prove with evidence; tonen = merely show. 'Aantoonbaar' is the credibility word for CVs and proposals.",
+h:"TONEN (show) + AAN: showing it onto the table, evidence down."},
+{n:"overeind blijven",t:"vast",c:"challenge",e:"to hold up, remain standing (of arguments/conclusions)",f:"blijft overeind, bleef overeind, is overeind gebleven",
+s:"Dat argument blijft niet overeind.|That argument doesn't hold up.",
+p:"Van de oorspronkelijke aannames blijft na toetsing slechts de helft overeind.|After testing, only half of the original assumptions still hold.",
+w:"de conclusie blijft overeind — the conclusion still stands",
+m:"'Overeind houden' = keep alive/defend ('een stelling overeind houden'). Literally: upright.",
+h:"eind = end; over-EIND = up on its end — an argument standing upright after attack."},
+{n:"betekenisvol",t:"bn",c:"interview",e:"meaningful",f:"betekenisvol, betekenisvolle",
+s:"Het was een betekenisvol gesprek.|It was a meaningful conversation.",
+p:"Professionals zoeken betekenisvol werk: projecten die er maatschappelijk toe doen.|Professionals seek meaningful work: projects that matter to society.",
+w:"betekenisvol werk — meaningful work; een betekenisvolle bijdrage — a meaningful contribution",
+m:"betekenis (meaning) + vol (full). Sister of zingeving — pair them in interview answers.",
+h:"Full (vol) of betekenis (meaning). What zingeving produces."},
+{n:"beheersen",t:"ww",c:"write",e:"to control, master",f:"beheerst, beheerste, heeft beheerst",
+s:"Zij beheerst drie talen.|She masters three languages.",
+p:"Met een strakke risicoparagraaf houden we de projectrisico's beheersbaar.|With a tight risk section we keep the project risks manageable.",
+w:"risicobeheersing — risk control; de Nederlandse taal beheersen — to master Dutch",
+m:"Your goal in one verb: 'ik beheers het Nederlands op professioneel niveau.' Also: risico's beheersen.",
+h:"beheersen = to be the HEER (lord/master) over something."}
+);
+// ============ CONFIG ============
+const CATS = {
+  change:{label:"Verandering & transitie",icon:"🔄",desc:"Discussing change, transition and market shifts"},
+  energy:{label:"Energie, net & CCUS",icon:"⚡",desc:"Explaining grid congestion, CCUS and decarbonisation"},
+  advise:{label:"De klant adviseren",icon:"🧭",desc:"Advising clients, positioning your expertise"},
+  challenge:{label:"Aannames uitdagen & verdiepen",icon:"🔍",desc:"Challenging assumptions, deepening analysis"},
+  risk:{label:"Risico's & onzekerheid",icon:"⚠️",desc:"Explaining risks, constraints and uncertainty"},
+  deliver:{label:"Projectuitvoering",icon:"🏗️",desc:"Managing delivery, tenders, phasing"},
+  report:{label:"Voortgang rapporteren",icon:"📈",desc:"Reporting progress, trends and results"},
+  recommend:{label:"Aanbevelen & benadrukken",icon:"🎯",desc:"Making recommendations, emphasising key points"},
+  align:{label:"Stakeholders verbinden",icon:"🤝",desc:"Aligning stakeholders, building draagvlak"},
+  negotiate:{label:"Onderhandelen & waarde",icon:"💼",desc:"Negotiating solutions, articulating value"},
+  interview:{label:"Sollicitatie & drijfveren",icon:"🎤",desc:"Job interviews, motivation, standing out"},
+  write:{label:"Rapporteren & vergaderen",icon:"✍️",desc:"Report-writing and meeting verbs"}
+};
+const RANKS=[[0,"Starter"],[100,"Junior Adviseur"],[250,"Adviseur"],[500,"Senior Adviseur"],[900,"Principal"],[1500,"Partner"]];
+const SRS_DAYS=[0,1,2,4,7,15,30];
+const SPEAK_T={change:"Beschrijf hardop (30 sec) hoe de energiemarkt verandert, met",energy:"Leg hardop aan een niet-technische bestuurder uit wat dit betekent, met",advise:"Pitch hardop je adviesaanpak aan een nieuwe klant, met",challenge:"Stel hardop een kritische vraag in een projectoverleg, met",risk:"Leg hardop een projectrisico uit aan de stuurgroep, met",deliver:"Geef hardop een update over de uitvoering, met",report:"Presenteer hardop de voortgang van deze maand, met",recommend:"Formuleer hardop je belangrijkste aanbeveling, met",align:"Overtuig hardop een sceptische wethouder, met",negotiate:"Onderhandel hardop over scope en budget, met",interview:"Beantwoord hardop de interviewvraag 'vertel eens over jezelf', met",write:"Vat hardop een vergadering samen, met"};
+const WRITE_T={change:"Schrijf 2 zinnen voor een rapport over de energietransitie met",energy:"Schrijf 2 zinnen voor een adviesnota over netcongestie met",advise:"Schrijf de openingsalinea van een offerte met",challenge:"Schrijf een kritische reviewopmerking met",risk:"Schrijf 2 zinnen voor een risicoparagraaf met",deliver:"Schrijf een projectupdate-e-mail (3 zinnen) met",report:"Schrijf 2 zinnen voortgangsrapportage met",recommend:"Schrijf een aanbeveling voor een managementsamenvatting met",align:"Schrijf 2 zinnen voor een stakeholderbrief met",negotiate:"Schrijf 2 zinnen voor een onderhandelingsmail met",interview:"Schrijf 2 zinnen voor je motivatiebrief met",write:"Schrijf 2 zinnen actielijst na een overleg met"};
 
+// ============ STATE ============
+let S={xp:0,streak:0,lastDay:"",srs:{},dailyDone:"",meetDone:{},missDone:{}};
+try{const raw=localStorage.getItem("wwtrainer");if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem("wwtrainer",JSON.stringify(S));}catch(e){}}
+function today(){return new Date().toISOString().slice(0,10);}
+function touchStreak(){const t=today();if(S.lastDay===t)return;const y=new Date(Date.now()-864e5).toISOString().slice(0,10);S.streak=(S.lastDay===y)?S.streak+1:1;S.lastDay=t;save();}
+function addXP(n){S.xp+=n;touchStreak();save();paintHeader();}
+function paintHeader(){document.getElementById("xp").textContent=S.xp;document.getElementById("streak").textContent=S.streak;let r=RANKS[0][1];for(const[t,n]of RANKS)if(S.xp>=t)r=n;document.getElementById("rank").textContent=r;}
+const D=window.VDATA;
+const byCat={};D.forEach(w=>{(byCat[w.c]=byCat[w.c]||[]).push(w);});
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function nlEn(s){const i=s.indexOf("|");return[s.slice(0,i),s.slice(i+1)];}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+// ============ ROUTER ============
+const main=document.getElementById("main");
+document.getElementById("nav").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");VIEWS[b.dataset.v]();
+});
+function go(v){document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.v===v));VIEWS[v]();}
+
+// ============ WORD DETAIL ============
+function detailHTML(w){
+  const[sn,se]=nlEn(w.s),[pn,pe]=nlEn(w.p);
+  return `<b>Betekenis:</b> ${esc(w.e)}<br>
+  <b>Vormen:</b> ${esc(w.f)}<br>
+  <b>Voorbeeld:</b> <span class="nl">${esc(sn)}</span> — ${esc(se)}<br>
+  <b>Professioneel:</b> <span class="nl">${esc(pn)}</span> — ${esc(pe)}<br>
+  <b>Werkfrase:</b> ${esc(w.w)}<br>
+  <b>⚠️ Let op:</b> ${esc(w.m)}<br>
+  <b>🧠 Geheugensteun:</b> ${esc(w.h)}<br>
+  <b>🎤 Spreekopdracht:</b> ${SPEAK_T[w.c]} <span class="nl">${esc(w.n)}</span>.<br>
+  <b>✍️ Schrijfopdracht:</b> ${WRITE_T[w.c]} <span class="nl">${esc(w.n)}</span>.`;
+}
+
+// ============ VIEWS ============
+const VIEWS={};
+
+VIEWS.home=()=>{
+  const due=dueWords().length;
+  main.innerHTML=`
+  <div class="card"><h2>Jouw leertraject</h2>
+  <div class="statgrid">
+    <div class="stat"><div class="num">${D.length}</div><div class="lbl">woorden totaal</div></div>
+    <div class="stat"><div class="num">${Object.keys(S.srs).length}</div><div class="lbl">in training</div></div>
+    <div class="stat"><div class="num">${due}</div><div class="lbl">nu te herhalen</div></div>
+    <div class="stat"><div class="num">${Object.values(S.srs).filter(x=>x.box>=4).length}</div><div class="lbl">bijna meester</div></div>
+  </div>
+  <div class="lvlrow" onclick="go('flash')"><div class="n">1</div><div class="t"><b>Begrijp de woorden</b><span>Flashcards met spaced repetition — betekenis, vormen, geheugensteuntjes</span></div></div>
+  <div class="lvlrow" onclick="go('quiz')"><div class="n">2</div><div class="t"><b>Gebruik ze in correcte zinnen</b><span>Kies-het-juiste-woord & invuloefeningen met echte werkzinnen</span></div></div>
+  <div class="lvlrow" onclick="go('drill')"><div class="n">3</div><div class="t"><b>Professionele communicatie</b><span>E-mails, rapportzinnen en transformatiedrills met modelantwoorden</span></div></div>
+  <div class="lvlrow" onclick="go('meeting')"><div class="n">4</div><div class="t"><b>Onder druk presteren</b><span>Vergader-, stakeholder- en sollicitatiesimulaties met keuzes</span></div></div>
+  <div class="lvlrow" onclick="go('mission')"><div class="n">5</div><div class="t"><b>Meesterschap: casussimulaties</b><span>Complete CCUS- en netcongestie-adviesmissies</span></div></div>
+  </div>
+  <div class="card"><h2>Woordcategorieën <span class="muted">(op communicatiedoel)</span></h2><div class="grid">${
+    Object.entries(CATS).map(([id,c])=>{
+      const ws=byCat[id]||[];const mastered=ws.filter(w=>S.srs[w.n]&&S.srs[w.n].box>=4).length;
+      return `<div class="tile" onclick="openCat('${id}')"><h4>${c.icon} ${c.label}</h4><div class="cnt">${ws.length} woorden · ${c.desc}</div><div class="bar"><i style="width:${ws.length?Math.round(100*mastered/ws.length):0}%"></i></div></div>`;
+    }).join("")
+  }</div></div>`;
+};
+window.openCat=id=>{go("bank");document.getElementById("catsel").value=id;renderBank();};
+
+VIEWS.bank=()=>{
+  main.innerHTML=`<div class="card"><h2>📚 Woordenbank</h2>
+  <div class="row"><select id="catsel" style="background:#131a2a;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px"><option value="all">Alle categorieën</option>${Object.entries(CATS).map(([id,c])=>`<option value="${id}">${c.icon} ${c.label}</option>`).join("")}</select>
+  <input type="text" id="q" placeholder="Zoek een woord…"></div>
+  <div id="banklist"></div></div>`;
+  document.getElementById("catsel").onchange=renderBank;
+  document.getElementById("q").oninput=renderBank;
+  renderBank();
+};
+window.renderBank=()=>{
+  const cat=document.getElementById("catsel").value,q=(document.getElementById("q").value||"").toLowerCase();
+  let ws=cat==="all"?D:byCat[cat]||[];
+  if(q)ws=ws.filter(w=>w.n.toLowerCase().includes(q)||w.e.toLowerCase().includes(q));
+  document.getElementById("banklist").innerHTML=ws.map((w,i)=>`
+   <div class="wordrow" id="wr${i}"><div class="head" onclick="document.getElementById('wr${i}').classList.toggle('open')">
+   <span><b>${esc(w.n)}</b> <span class="pill">${w.t}</span></span><span class="en">${esc(w.e)}</span></div>
+   <div class="body">${detailHTML(w)}</div></div>`).join("")||"<p class='muted' style='margin-top:10px'>Geen resultaten.</p>";
+};
+
+// ============ FLASHCARDS (SRS) ============
+function dueWords(){const t=today();return D.filter(w=>{const r=S.srs[w.n];return!r||r.due<=t;});}
+let fc={queue:[],idx:0,flipped:false,mode:"due"};
+VIEWS.flash=()=>{
+  main.innerHTML=`<div class="card"><h2>🃏 Flashcards · Level 1</h2>
+  <p class="muted">Spaced repetition: woorden komen terug op het juiste moment. Klik op de kaart om te draaien.</p>
+  <div class="row" style="margin:10px 0">
+    <button class="btn small" onclick="startFlash('due')">Te herhalen (${dueWords().length})</button>
+    <select id="fcat" style="background:#131a2a;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">${Object.entries(CATS).map(([id,c])=>`<option value="${id}">${c.icon} ${c.label}</option>`).join("")}</select>
+    <button class="btn small sec" onclick="startFlash(document.getElementById('fcat').value)">Oefen categorie</button>
+  </div><div id="fcarea"></div></div>`;
+  startFlash("due");
+};
+window.startFlash=mode=>{
+  fc.mode=mode;fc.idx=0;fc.flipped=false;
+  fc.queue=shuffle(mode==="due"?dueWords():byCat[mode]||[]).slice(0,20);
+  paintFlash();
+};
+function paintFlash(){
+  const a=document.getElementById("fcarea");if(!a)return;
+  if(!fc.queue.length){a.innerHTML="<p class='muted'>🎉 Niets te herhalen. Kies een categorie of kom morgen terug.</p>";return;}
+  if(fc.idx>=fc.queue.length){a.innerHTML=`<p class='muted'>✅ Sessie klaar — ${fc.queue.length} kaarten geoefend.</p><button class="btn" onclick="startFlash(fc.mode)">Nog een ronde</button>`;return;}
+  const w=fc.queue[fc.idx];
+  a.innerHTML=`<div class="progressline"><i style="width:${Math.round(100*fc.idx/fc.queue.length)}%"></i></div>
+  <div class="flash" onclick="flipFC()">${fc.flipped?
+    `<div class="detail">${detailHTML(w)}</div>`:
+    `<div class="type">${w.t} · ${CATS[w.c].icon} ${CATS[w.c].label}</div><div class="big">${esc(w.n)}</div><p class="muted">Wat betekent dit? Hoe vervoeg je het? Klik om te draaien.</p>`}
+  </div>
+  ${fc.flipped?`<div class="row" style="margin-top:10px">
+    <button class="btn sec" onclick="gradeFC(0)">😵 Opnieuw</button>
+    <button class="btn sec" onclick="gradeFC(1)">🙂 Goed (+2 XP)</button>
+    <button class="btn" onclick="gradeFC(2)">😎 Makkelijk (+2 XP)</button></div>`:""}`;
+}
+window.flipFC=()=>{fc.flipped=!fc.flipped;paintFlash();};
+window.gradeFC=g=>{
+  const w=fc.queue[fc.idx];const r=S.srs[w.n]||{box:0,due:today()};
+  r.box=g===0?1:Math.min(r.box+(g===2?2:1),6);
+  const d=new Date(Date.now()+SRS_DAYS[r.box]*864e5);r.due=d.toISOString().slice(0,10);
+  S.srs[w.n]=r;if(g>0)addXP(2);save();
+  fc.idx++;fc.flipped=false;paintFlash();
+};
+
+// ============ QUIZ ============
+let qz={q:null,score:0,n:0};
+VIEWS.quiz=()=>{
+  main.innerHTML=`<div class="card"><h2>✅ Kies het juiste woord · Level 2</h2>
+  <p class="muted">Echte werkzinnen uit energie- en adviespraktijk. Kies het woord dat past.</p>
+  <p class="muted" id="qscore"></p><div id="qarea"></div></div>`;
+  nextQuiz();
+};
+function makeCloze(w){
+  const[pn,pe]=nlEn(w.p);
+  const head=w.n.replace(/^(de|het)\s+/,"");
+  const cands=[head,...w.f.split(/[,;()\/]/).map(x=>x.trim()).filter(x=>x&&!x.includes(" ")&&x.length>3)];
+  const words=pn.split(/\s+/);
+  for(let i=0;i<words.length;i++){
+    const clean=words[i].replace(/[.,;:!?'"]/g,"").toLowerCase();
+    for(const c of cands){
+      if(clean===c.toLowerCase()||(clean.length>4&&c.length>4&&clean.startsWith(c.slice(0,Math.min(c.length,6)).toLowerCase()))){
+        const blanked=words.slice();const answer=words[i].replace(/[.,;:!?'"]/g,"");
+        blanked[i]=words[i].replace(answer,"_____");
+        return{sentence:blanked.join(" "),answer,en:pe};
+      }
+    }
+  }
+  return null;
+}
+function nextQuiz(){
+  const w=pick(D);
+  const cloze=Math.random()<0.6?makeCloze(w):null;
+  const pool=shuffle(D.filter(x=>x.t===w.t&&x.n!==w.n)).slice(0,3);
+  if(cloze){
+    const opts=shuffle([{t:cloze.answer,ok:true},...pool.map(p=>{const c2=makeCloze(p);return{t:c2?c2.answer:p.n.replace(/^(de|het)\s+/,""),ok:false};})]);
+    qz.q={w,type:"cloze",cloze,opts};
+  }else{
+    const opts=shuffle([{t:w.n,ok:true},...pool.map(p=>({t:p.n,ok:false}))]);
+    qz.q={w,type:"mean",opts};
+  }
+  paintQuiz();
+}
+function paintQuiz(){
+  const{w,type,cloze,opts}=qz.q;
+  document.getElementById("qscore").textContent=qz.n?`Score: ${qz.score}/${qz.n}`:"";
+  document.getElementById("qarea").innerHTML=`
+  <h3>${type==="cloze"?"Vul in:":"Welk woord betekent: <i>"+esc(w.e)+"</i>?"}</h3>
+  ${type==="cloze"?`<p style="font-size:1.05rem;line-height:1.6" class="nl">${esc(cloze.sentence)}</p><p class="muted">${esc(cloze.en)}</p>`:""}
+  ${opts.map((o,i)=>`<button class="opt" id="opt${i}" onclick="ansQuiz(${i})">${esc(o.t)}</button>`).join("")}
+  <div class="feedback" id="qfb"></div><div id="qnext"></div>`;
+}
+window.ansQuiz=i=>{
+  const{opts,w}=qz.q;qz.n++;
+  opts.forEach((o,j)=>{const b=document.getElementById("opt"+j);b.disabled=true;if(o.ok)b.classList.add("correct");else if(j===i)b.classList.add("wrong");});
+  const fb=document.getElementById("qfb");
+  if(opts[i].ok){qz.score++;addXP(3);fb.className="feedback ok";fb.innerHTML=`✔ Juist! <b>${esc(w.n)}</b> — ${esc(w.e)}.<br>🧠 ${esc(w.h)}`;}
+  else{fb.className="feedback no";fb.innerHTML=`✘ Het juiste antwoord: <b>${esc(w.n)}</b> — ${esc(w.e)}.<br>⚠️ ${esc(w.m)}`;}
+  document.getElementById("qnext").innerHTML=`<button class="btn" style="margin-top:10px" onclick="nextQuiz()">Volgende →</button>`;
+};
+
+// ============ BATTLE (confusables) ============
+const BATTLES=[
+{s:"Het bedrijf ___ momenteel een ingrijpende reorganisatie.",a:"ondergaat",b:"gaat onder",x:"onderGAAT (inseparable) = undergoes. 'Gaat onder' = sinks/goes bankrupt — a fatal mix-up in a boardroom!"},
+{s:"Ik ___ het probleem: het is ons eigen proces.",a:"erken",b:"herken",x:"erkennen = acknowledge/admit; herkennen = recognise visually. Admitting fault = erkennen."},
+{s:"We moeten de restcapaciteit van het net slimmer ___.",a:"benutten",b:"gebruiken",x:"Both mean 'use', but benutten = use to full advantage — the professional choice for capacity and opportunities."},
+{s:"Dit advies ___ in een duidelijke behoefte bij gemeenten.",a:"voorziet",b:"voorziet van",x:"voorzien IN een behoefte = meet a need; voorzien VAN = equip with. The preposition changes everything."},
+{s:"De nadruk ___ in fase één op de grootste knelpunten.",a:"ligt",b:"legt",x:"De nadruk LIGT op (it lies) — you as actor LEGT de nadruk op. Classic leggen/liggen trap."},
+{s:"De vraag naar netcapaciteit is sterk ___.",a:"toegenomen",b:"toegevoegd",x:"toenemen = increase; toevoegen = add. 'De vraag is toegenomen' — increased."},
+{s:"Wanneer wordt het rapport ___?",a:"opgeleverd",b:"overgeleverd",x:"opleveren = deliver a finished product; overleveren = hand down (tradition) or surrender someone."},
+{s:"De provincie heeft ons ___ om de subsidieaanvraag te begeleiden.",a:"ingeschakeld",b:"aangeschakeld",x:"inschakelen = engage/call in an expert. 'Aanschakelen' isn't standard Dutch — 'inschakelen' also means switching on."},
+{s:"Uit de netstudie ___ dat verzwaring pas in 2031 gereed is.",a:"blijkt",b:"lijkt",x:"blijken = proven by evidence; lijken = seems. Reports run on 'uit X blijkt dat...'."},
+{s:"Kunt u die keuze nader ___?",a:"toelichten",b:"verlichten",x:"toelichten = explain/clarify; verlichten = relieve (burden) or illuminate. Ask people to toelichten."},
+{s:"We ___ ons dat de planning krap is.",a:"realiseren",b:"realiseren zonder 'ons'",x:"zich realiseren = become aware. Without 'zich', realiseren = to build/achieve something."},
+{s:"De afspraken worden schriftelijk ___.",a:"vastgelegd",b:"vastgehouden",x:"vastleggen = record in writing; vasthouden = hold on to. Minutes are vastgelegd."},
+{s:"Onze aanbevelingen zijn niet ___: elke actie heeft een eigenaar en deadline.",a:"vrijblijvend",b:"vrijwillig",x:"vrijblijvend = non-committal; vrijwillig = voluntary. Strong advice is 'niet vrijblijvend'."},
+{s:"Grote industriële klanten willen stroom flexibel kunnen ___.",a:"afnemen",b:"afhalen",x:"afnemen = purchase/draw (power); afhalen = pick up (a parcel or pizza). Don't collect electricity at the counter."},
+{s:"Ik wil graag ___ dat de deadline hard is.",a:"benadrukken",b:"bedrukken",x:"benadrukken = emphasise; bedrukken = print on / make sad (bedrukt = gloomy)."},
+{s:"Het projectteam is zorgvuldig ___.",a:"samengesteld",b:"samengevat",x:"samenstellen = compose/assemble (a team); samenvatten = summarise (a text)."},
+{s:"De kosten zijn ___ tegen de verwachte baten.",a:"afgezet",b:"opgezet",x:"afzetten tegen = contrast against; opzetten = set up. Analysis contrasts; projects get set up."},
+{s:"Deze expertise is momenteel zeer ___.",a:"gevraagd",b:"gevragen",x:"'Gevraagd' is the correct past participle of vragen. 'Gevragen' doesn't exist."},
+{s:"We ___ de zienswijzen van bewoners mee in het ontwerp.",a:"nemen",b:"brengen",x:"meenemen = take on board (input). 'Meebrengen' = bring along (things to a meeting)."},
+{s:"Het gesprek bleef te abstract; we misten het ___.",a:"uitvoeringsniveau",b:"uitvoeringsgehalte",x:"uitvoeringsniveau = implementation level, the standard term for 'where plans become concrete'."},
+{s:"De grenzen tussen producent en afnemer ___ in het nieuwe energiesysteem.",a:"vervagen",b:"vervallen",x:"vervagen = blur/fade; vervallen = expire/lapse (deadlines, rights) or decay (buildings)."},
+{s:"Met wie moeten we dit ___ voordat we publiceren?",a:"afstemmen",b:"afspreken",x:"afstemmen = coordinate/align content; afspreken = agree/arrange (a meeting or deal)."},
+{s:"De netbeheerder heeft ___ de studie voor de zomer af te ronden.",a:"toegezegd",b:"toegezien",x:"toezeggen = commit/promise; toezien op = supervise. A commitment is een toezegging."},
+{s:"CCS, ___ CO2-afvang en -opslag, is essentieel voor de industrie.",a:"oftewel",b:"ofwel",x:"oftewel = 'in other words' (introduces a synonym); ofwel = 'either' (ofwel A, ofwel B)."}];
+let bt={idx:0,order:[]};
+VIEWS.battle=()=>{
+  bt.order=shuffle(BATTLES.map((_,i)=>i));bt.idx=0;
+  main.innerHTML=`<div class="card"><h2>⚔️ Woordduel · verwarringstest</h2>
+  <p class="muted">Twee woorden vechten om één zin. Kies de winnaar. Dit zijn precies de fouten die niet-moedertaalsprekers (en Nederlanders!) maken.</p>
+  <div id="btarea"></div></div>`;
+  paintBattle();
+};
+function paintBattle(){
+  const a=document.getElementById("btarea");
+  if(bt.idx>=bt.order.length){a.innerHTML=`<p class='muted'>🏆 Duel voltooid!</p><button class="btn" onclick="VIEWS.battle()">Opnieuw</button>`;return;}
+  const q=BATTLES[bt.order[bt.idx]];
+  const opts=shuffle([{t:q.a,ok:true},{t:q.b,ok:false}]);
+  a.innerHTML=`<div class="progressline"><i style="width:${Math.round(100*bt.idx/bt.order.length)}%"></i></div>
+  <h3>Ronde ${bt.idx+1}/${bt.order.length}</h3>
+  <p style="font-size:1.05rem;line-height:1.6" class="nl">${esc(q.s)}</p>
+  ${opts.map((o,i)=>`<button class="opt" id="bopt${i}" onclick="ansBattle(${i},${o.ok})">${esc(o.t)}</button>`).join("")}
+  <div class="feedback" id="bfb"></div><div id="bnext"></div>`;
+  window._bopts=opts;window._bq=q;
+}
+window.ansBattle=(i,ok)=>{
+  window._bopts.forEach((o,j)=>{const b=document.getElementById("bopt"+j);b.disabled=true;if(o.ok)b.classList.add("correct");else if(j===i)b.classList.add("wrong");});
+  const fb=document.getElementById("bfb");
+  if(ok){addXP(5);fb.className="feedback ok";fb.innerHTML="✔ +5 XP · "+esc(window._bq.x);}
+  else{fb.className="feedback no";fb.innerHTML="✘ "+esc(window._bq.x);}
+  document.getElementById("bnext").innerHTML=`<button class="btn" style="margin-top:10px" onclick="bt.idx++;paintBattle()">Volgende ronde →</button>`;
+};
+
+// ============ WRITING DRILLS ============
+const DRILLS=[
+{t:"E-mail: slecht nieuws over de planning",task:"Schrijf een e-mail (4–6 zinnen) aan je opdrachtgever: de netaansluiting van het project is 18 maanden vertraagd door netcongestie. Gebruik minstens: <b>constateren, benadrukken, afstemmen, voorstellen, beperken</b>.",
+model:"Geachte heer De Vries,<br><br>Naar aanleiding van ons overleg met de netbeheerder moet ik helaas iets vervelends melden. We constateren dat de aansluiting van het project door netcongestie circa achttien maanden later wordt gerealiseerd dan gepland. Ik wil benadrukken dat dit een regionaal capaciteitsprobleem is en geen projectfout. Om de gevolgen te beperken, stellen wij voor de fasering aan te passen en het batterijalternatief uit te werken. Graag stemmen we de vervolgstappen volgende week met u af.<br><br>Met vriendelijke groet,"},
+{t:"Rapportzin-transformatie: van spreektaal naar rapporttaal",task:"Herschrijf professioneel: 1) 'Het net is gewoon vol, dus nieuwe bedrijven hebben pech.' 2) 'We denken dat batterijen misschien wel zouden kunnen helpen.' 3) 'Iedereen vindt er wat anders van.'",
+model:"1) De beschikbare transportcapaciteit is nagenoeg volledig vergeven; nieuwe grootverbruikers kunnen op korte termijn niet worden aangesloten.<br>2) Uit onze analyse blijkt dat batterijopslag de piekbelasting aanzienlijk kan beperken.<br>3) De standpunten van de betrokken partijen lopen uiteen; aanvullende stakeholderafstemming is gewenst."},
+{t:"Managementsamenvatting: CCUS-advies",task:"Schrijf 4 zinnen managementsamenvatting voor een CCUS-haalbaarheidsstudie. Gebruik minstens: <b>blijken, aanbevelen, randvoorwaarde, voortvloeien, onderbouwen</b>.",
+model:"Uit de haalbaarheidsstudie blijkt dat CO2-afvang bij dit cluster technisch en economisch haalbaar is. Een tijdige subsidiebeschikking en voldoende transportcapaciteit zijn daarbij harde randvoorwaarden. Wij bevelen aan om parallel aan de vergunningprocedure de aanbesteding van het EPC-contract voor te bereiden. De vervolgacties die uit dit advies voortvloeien, zijn onderbouwd in hoofdstuk 6 en gekoppeld aan eigenaren en deadlines."},
+{t:"Stakeholderbrief: draagvlak bouwen",task:"Schrijf 4–5 zinnen aan omwonenden over een nieuwe hoogspanningsverbinding. Gebruik minstens: <b>betrekken, toelichten, meenemen, zorgvuldig (de omgang met), uitnodigen</b>.",
+model:"Graag betrekken wij u vroegtijdig bij de plannen voor de nieuwe hoogspanningsverbinding. Tijdens de informatieavond op 12 maart lichten we de tracéalternatieven toe. Uw zienswijzen nemen we mee in het definitieve ontwerp. Zorgvuldige omgang met de belangen van omwonenden staat bij ons hoog in het vaandel. Wij nodigen u van harte uit om mee te denken."},
+{t:"Voortgangsrapportage: maandupdate",task:"Schrijf een korte maandupdate (4 zinnen) voor de stuurgroep van een netverzwaringsproject. Gebruik minstens: <b>verlopen, afronden, aantonen, terugkomen op</b>.",
+model:"De uitvoering verloopt grotendeels volgens planning. Werkpakket 2 (vergunningen) is deze maand afgerond. De pilot met slimme sturing heeft aangetoond dat de piekbelasting met vijftien procent kan worden verlaagd. In het volgende overleg komen we terug op de kostenverdeling tussen de partners."},
+{t:"Offertetekst: jezelf onderscheiden",task:"Schrijf de slotalinea van een offerte (3–4 zinnen). Gebruik minstens: <b>onderscheiden (zich), toegevoegde waarde, begeleiden, niet vrijblijvend</b>.",
+model:"Wij onderscheiden ons door de combinatie van diepgaande netkennis en bestuurlijke ervaring. Onze toegevoegde waarde zit in de vertaalslag van analyse naar uitvoering. We begeleiden u van eerste verkenning tot definitief investeringsbesluit. Onze aanpak is daarbij niet vrijblijvend: elke aanbeveling koppelen we aan concrete acties en deadlines."},
+{t:"Sollicitatie: motivatie-alinea",task:"Schrijf 4 zinnen motivatiebrief voor een rol als energieadviseur. Gebruik minstens: <b>drijfveer, bijdrage leveren, snijvlak, ervaring</b>.",
+model:"Mijn belangrijkste drijfveer is een concrete bijdrage leveren aan een haalbare en betaalbare energietransitie. Ik werk graag op het snijvlak van techniek, beleid en financiering. Mijn ervaring met CCUS-projecten en stakeholderafstemming sluit direct aan bij deze rol. Graag licht ik mijn motivatie toe in een persoonlijk gesprek."},
+{t:"Vergaderzinnen: tegengas geven",task:"Formuleer 3 beleefde maar stevige interventies: 1) je twijfelt aan een aanname, 2) je wil een risico op tafel leggen, 3) je wil een besluit forceren. Gebruik: <b>onderbouwen, benoemen, toezeggen</b>.",
+model:"1) Interessant voorstel — kunt u de aanname over de doorlooptijd nader onderbouwen?<br>2) Ik wil hier expliciet een risico benoemen: zonder tijdige netaansluiting schuift de hele businesscase.<br>3) Kunnen we vandaag toezeggen wie dit oppakt en wanneer het gereed is? Anders blijft het vrijblijvend."}];
+VIEWS.drill=()=>{
+  main.innerHTML=`<div class="card"><h2>✍️ Schrijfdrills · Level 3</h2>
+  <p class="muted">Schrijf je antwoord, vergelijk daarna met het modelantwoord. Zelf schrijven vóór het kijken = 3× beter onthouden.</p></div>`+
+  DRILLS.map((d,i)=>`<div class="card"><h3>${i+1}. ${d.t}</h3><p class="muted">${d.task}</p>
+  <textarea placeholder="Schrijf hier je Nederlandse tekst…"></textarea>
+  <button class="btn small sec" onclick="this.nextElementSibling.classList.toggle('show');addXP(10)">Toon modelantwoord (+10 XP)</button>
+  <div class="model">${d.model}</div></div>`).join("");
+};
+
+// ============ MEETING SIMULATIONS ============
+const MEETINGS=[
+{id:"m1",title:"🔌 Klantgesprek: de aansluiting is vertraagd",intro:"Je bent adviseur. Je klant (directeur van een logistiek bedrijf) hoort net dat zijn nieuwe distributiecentrum pas over 3 jaar een zware netaansluiting krijgt. Hij is boos.",
+steps:[
+{npc:"Directeur: 'Drie jaar?! We hebben al grond gekocht! Hoe kan dit — dit is toch júllie werk?'",
+opts:[
+{t:"'Ik begrijp uw frustratie volledig. Laat ik eerst de feiten schetsen: de regionale netcapaciteit is nagenoeg volledig vergeven. Dat is een marktbreed probleem, geen projectfout.'",best:true,fb:"Sterk: erkennen van emotie + 'de feiten schetsen' + 'nagenoeg volledig vergeven' — kalm, feitelijk, professioneel."},
+{t:"'Tja, dat is nu eenmaal zo. De netbeheerder bepaalt de volgorde.'",best:false,fb:"'Dat is nu eenmaal zo' is hier fataal passief — je klinkt vrijblijvend en afschuivend. Eerst empathie, dan feiten."},
+{t:"'Dat heeft u verkeerd begrepen, wij gaan niet over aansluitingen.'",best:false,fb:"Technisch waar, relationeel rampzalig. Nooit openen met 'u heeft het verkeerd begrepen'."}]},
+{npc:"Directeur: 'Feiten, feiten... Ik wil oplossingen. Wat gaan we dóen?'",
+opts:[
+{t:"'Er zijn drie oplossingsrichtingen: de bestaande capaciteit slimmer benutten, batterijopslag inzetten, en de fasering van uw uitbreiding aanpassen. Ik stel voor dat we die deze week uitwerken.'",best:true,fb:"Perfect: 'oplossingsrichtingen', 'benutten', 'inzetten', 'fasering' + een concreet voorstel met deadline."},
+{t:"'We nemen het mee en komen erop terug.'",best:false,fb:"De beruchte lege frase! Zonder concreet vervolg klinkt 'we nemen het mee' als een afwimpeling."},
+{t:"'U zou kunnen overwegen om eventueel misschien naar alternatieven te kijken.'",best:false,fb:"Te veel verzachters ('zou kunnen', 'eventueel', 'misschien') — je advies verdampt. Wees stellig: 'ik stel voor'."}]},
+{npc:"Directeur: 'En wie betaalt die batterijen? Dat gaat toch weer ten koste van mij.'",
+opts:[
+{t:"'Deels klopt dat. Enerzijds vergt het een investering, anderzijds beperkt u ermee het risico dat uw hele planning drie jaar schuift. Die afweging zetten we voor u op papier, inclusief subsidiemogelijkheden.'",best:true,fb:"Uitstekend: eerlijk erkennen ('deels klopt dat'), enerzijds/anderzijds, 'beperkt het risico', en een concreet product."},
+{t:"'Nee hoor, dat valt wel mee.'",best:false,fb:"Wegwuiven ondermijnt je geloofwaardigheid. Erken de kosten en zet ze af tegen de baten."},
+{t:"'Daar ga ik niet over, dat moet u met de netbeheerder bespreken.'",best:false,fb:"Alweer afschuiven. De klant huurt jou om dit soort vragen te beantwoorden — fungeer als sparringpartner."}]}]},
+{id:"m2",title:"🏛️ Stuurgroep: provincie & netbeheerder tegenover elkaar",intro:"Je begeleidt een stuurgroep. De provincie wil dat een nieuw bedrijventerrein voorrang krijgt; de netbeheerder wijst op de wachtrij. De sfeer is gespannen.",
+steps:[
+{npc:"Gedeputeerde: 'Dit terrein is cruciaal voor de regionale economie. Ik verwacht gewoon dat het wordt aangesloten. Punt.'",
+opts:[
+{t:"'Ik constateer dat er twee legitieme belangen botsen: regionale groei en een eerlijke wachtrij. Zullen we eerst het afwegingskader benoemen voordat we over individuele gevallen spreken?'",best:true,fb:"'Ik constateer' de-escaleert, en je tilt het gesprek naar het afwegingskader — klassiek goed procesbegeleiderschap."},
+{t:"'De regels zijn de regels, de netbeheerder kan niets doen.'",best:false,fb:"Je maakt jezelf overbodig én kiest partij. Benoem het spanningsveld in plaats van een kant te kiezen."},
+{t:"'Punt genoteerd. Volgende agendapunt.'",best:false,fb:"Conflictvermijding lost niets op — het conflict komt terug, groter."}]},
+{npc:"Netbeheerder: 'Wij mógen niet eens voorrang geven. Non-discriminatie is wettelijk vastgelegd.'",
+opts:[
+{t:"'Klopt, dat kader geldt. Tegelijk biedt de nieuwe regelgeving ruimte om maatschappelijke prioriteiten mee te wegen. Ik stel voor dat wij die ruimte in kaart brengen en volgende maand terugkoppelen.'",best:true,fb:"Je erkent het wettelijk kader ('dat kader geldt'), opent perspectief én maakt het concreet met 'terugkoppelen'."},
+{t:"'Wetten kunnen worden aangepast, dat is politiek.'",best:false,fb:"Te makkelijk en buiten je rol — de doorlooptijd van wetswijziging helpt deze casus niet."},
+{t:"'Dan houdt het hier dus op.'",best:false,fb:"Een adviseur die 'dan houdt het op' zegt, wordt niet teruggevraagd. Zoek de ruimte binnen het kader."}]},
+{npc:"Gedeputeerde: 'Mooi. Maar ik wil geen vrijblijvend praatstuk. Wat krijg ik precies?'",
+opts:[
+{t:"'Een concreet afwegingskader, getoetst aan de regelgeving, met per knelpunt een maatregelenpakket. Niet vrijblijvend: elke actie gekoppeld aan een eigenaar en een datum. Oplevering: 15 mei.'",best:true,fb:"Muziek in bestuurlijke oren: 'getoetst aan', 'maatregelenpakket', 'niet vrijblijvend', 'gekoppeld aan', harde datum."},
+{t:"'Een uitgebreid rapport van zo'n tachtig pagina's.'",best:false,fb:"Niemand vroeg om pagina's. Beschrijf waarde en bruikbaarheid, geen omvang."},
+{t:"'Dat hangt af van hoe het loopt.'",best:false,fb:"Precies het vrijblijvende antwoord waar ze bang voor was."}]}]},
+{id:"m3",title:"🎤 Sollicitatiegesprek: senior adviseur energie",intro:"Je solliciteert bij een adviesbureau op een rol in energie-infrastructuur en CCUS. Tegenover je: een partner en een senior adviseur.",
+steps:[
+{npc:"Partner: 'Vertel eens — wat zijn uw belangrijkste drijfveren?'",
+opts:[
+{t:"'Mijn belangrijkste drijfveer is een concrete bijdrage leveren aan de energietransitie. Ik werk graag op het snijvlak van techniek, beleid en uitvoering — precies waar netcongestie en CCUS spelen.'",best:true,fb:"Sterk: 'drijfveer', 'bijdrage leveren', 'snijvlak' — en direct gekoppeld aan hun praktijk."},
+{t:"'Ik zoek vooral een goed salaris en een leaseauto.'",best:false,fb:"Eerlijk, maar dit beantwoordt de vraag naar intrinsieke motivatie niet. Bewaar arbeidsvoorwaarden voor later."},
+{t:"'Tja, gewoon... interessant werk doen?'",best:false,fb:"'Gewoon' en een vraagteken — te vaag. Bereid drie concrete drijfveren voor."}]},
+{npc:"Senior: 'Hoe gaat u om met een klant die uw advies naast zich neerlegt?'",
+opts:[
+{t:"'Dat is uiteindelijk zijn goed recht. Ik toets eerst of ik het probleem goed heb begrepen, licht mijn onderbouwing nader toe, en benoem expliciet de risico's van het alternatief. Daarna leg ik de keuze vast, zodat die niet vrijblijvend blijft.'",best:true,fb:"Volwassen antwoord: toetsen, toelichten, benoemen, vastleggen — respect voor de klant én ruggengraat."},
+{t:"'Dan dring ik aan tot hij het toch doet.'",best:false,fb:"Drammen ondermijnt de relatie. Overtuigen doe je met onderbouwing, niet met volume."},
+{t:"'Dan is dat zijn probleem, ik heb mijn werk gedaan.'",best:false,fb:"Een leverancier zegt dit. Een sparringpartner blijft betrokken bij het resultaat."}]},
+{npc:"Partner: 'Waarmee onderscheidt u zich van de tien andere kandidaten?'",
+opts:[
+{t:"'Ik combineer inhoudelijke diepgang op netcongestie en CCUS met ervaring in bestuurlijke afstemming. Die vertaalslag — van techniek naar besluitvorming — is precies waar ik mij onderscheid.'",best:true,fb:"'Inhoudelijke diepgang', 'vertaalslag', 'onderscheiden' — je gebruikt de taal van hun eigen offertes."},
+{t:"'Ik ben een harde werker en een teamspeler.'",best:false,fb:"Zegt iedereen. Onderscheidend vermogen vraagt om iets specifieks en aantoonbaars."},
+{t:"'Geen idee, dat moet u beoordelen.'",best:false,fb:"Bescheidenheid is mooi, maar dit is de kans om je kracht te benoemen. Bereid deze vraag altijd voor."}]}]}];
+VIEWS.meeting=()=>{
+  main.innerHTML=`<div class="card"><h2>🎭 Vergadersimulatie · Level 4</h2>
+  <p class="muted">Kies wat jij zou zeggen. Beste keuze = +5 XP. Let op de vetgedrukte feedback: dáár zit de taal-les.</p></div>`+
+  MEETINGS.map(m=>`<div class="card"><h3>${m.title} ${S.meetDone[m.id]?'<span class="badge">voltooid</span>':''}</h3>
+  <p class="muted">${m.intro}</p><button class="btn small" onclick="startMeet('${m.id}')">Start gesprek</button>
+  <div id="meet_${m.id}"></div></div>`).join("");
+};
+window.startMeet=id=>{const m=MEETINGS.find(x=>x.id===id);m._step=0;paintMeet(m);};
+function paintMeet(m){
+  const box=document.getElementById("meet_"+m.id);
+  if(m._step>=m.steps.length){S.meetDone[m.id]=true;save();box.innerHTML+=`<div class="feedback ok" style="display:block;margin-top:10px">🎉 Gesprek voltooid! Herhaal het morgen — dan pas beklijft het.</div>`;return;}
+  const st=m.steps[m._step];
+  const opts=shuffle(st.opts.map((o,i)=>({...o,i})));
+  box.innerHTML=`<div class="dialog"><div class="who">Gesprekspartner</div>${esc(st.npc)}</div>
+  <p class="muted" style="margin:6px 0">Jouw reactie:</p>
+  ${opts.map((o,k)=>`<button class="opt" id="mo${k}" onclick="ansMeet('${m.id}',${k})">${esc(o.t)}</button>`).join("")}
+  <div class="feedback" id="mfb_${m.id}"></div><div id="mnext_${m.id}"></div>`;
+  m._opts=opts;
+}
+window.ansMeet=(id,k)=>{
+  const m=MEETINGS.find(x=>x.id===id);const o=m._opts[k];
+  m._opts.forEach((x,j)=>{const b=document.getElementById("mo"+j);b.disabled=true;if(x.best)b.classList.add("correct");else if(j===k)b.classList.add("wrong");});
+  const fb=document.getElementById("mfb_"+id);
+  fb.className="feedback "+(o.best?"ok":"no");fb.innerHTML=(o.best?"✔ +5 XP · ":"✘ ")+esc(o.fb);
+  if(o.best)addXP(5);else addXP(1);
+  document.getElementById("mnext_"+id).innerHTML=`<button class="btn small" style="margin-top:8px" onclick="const m=MEETINGS.find(x=>x.id==='${id}');m._step++;paintMeet(m)">Verder →</button>`;
+};
+
+// ============ CCUS MISSIONS ============
+const MISSIONS=[
+{id:"c1",title:"🏭 Missie: CCUS-haalbaarheidsadvies voor een industriecluster",
+brief:"Een chemiecluster in Zeeland stoot jaarlijks 1,2 Mton CO2 uit. De directie wil weten of afvang en opslag haalbaar is. Jij leidt het adviestraject. Doorloop de missie — elke stap traint andere taal.",
+steps:[
+{q:"Stap 1 — De kick-off. Je opent het gesprek met de directie. Wat is de sterkste opening?",
+opts:[{t:"'Laat ik eerst de aanleiding schetsen: de CO2-heffing loopt op en uw concurrenten investeren al in afvang. De noodzaak is dus zowel financieel als strategisch.'",ok:true,fb:"'De aanleiding schetsen' + 'de noodzaak' — precies hoe een Nederlands adviesgesprek opent."},
+{t:"'Wij hebben een mooie PowerPoint met 60 slides voorbereid.'",ok:false,fb:"Niemand is ooit overtuigd door het aantal slides. Open met aanleiding en noodzaak."},
+{t:"'CCS is supercool, jullie moeten het gewoon doen.'",ok:false,fb:"Enthousiasme zonder onderbouwing is vrijblijvend gepraat."}]},
+{q:"Stap 2 — De CFO vraagt: 'Wat zijn de belangrijkste randvoorwaarden voor een sluitende businesscase?' Kies het beste antwoord.",
+opts:[{t:"'Drie harde randvoorwaarden: een SDE++-beschikking, gegarandeerde transportcapaciteit naar het opslagveld, en een EPC-contract met beheersbare risico's.'",ok:true,fb:"Randvoorwaarden, beschikking, beheersbaar — de heilige drie-eenheid van CCUS-advies."},
+{t:"'Vooral veel geluk en een beetje geduld.'",ok:false,fb:"De CFO belt morgen een ander bureau."},
+{t:"'Dat zoeken we later wel uit.'",ok:false,fb:"'Later' bestaat niet in een kick-off met een CFO."}]},
+{q:"Stap 3 — De omgevingsmanager waarschuwt voor weerstand bij omwonenden tegen de CO2-leiding. Wat adviseer je?",
+opts:[{t:"'Betrek de omgeving vroegtijdig, licht de veiligheidsstudies actief toe en neem zienswijzen aantoonbaar mee in het tracéontwerp. Draagvlak bouw je vóór de vergunningsfase, niet erna.'",ok:true,fb:"betrekken, toelichten, meenemen, draagvlak — het complete stakeholder-vocabulaire in één advies."},
+{t:"'Gewoon doorzetten, die bezwaren waaien wel over.'",ok:false,fb:"Bezwaren waaien niet over; ze worden beroepsprocedures bij de Raad van State."},
+{t:"'Dan stoppen we het project maar.'",ok:false,fb:"Van weerstand schrikken is geen advies. Weerstand is een ontwerpvariabele."}]},
+{q:"Stap 4 — Eindrapport. Welke slotzin maakt je advies 'niet vrijblijvend'?",
+opts:[{t:"'Elke aanbeveling is gekoppeld aan een eigenaar, een deadline en een go/no-go-moment; de eerstvolgende beslissing ligt op 1 september bij de directie.'",ok:true,fb:"Gekoppeld aan eigenaar + deadline + beslismoment = advies dat tot uitvoering komt."},
+{t:"'Wij wensen u veel succes met de vervolgstappen.'",ok:false,fb:"Aardig, maar dit is precies het vrijblijvende rapport dat in een la verdwijnt."},
+{t:"'Voor vragen zijn wij altijd bereikbaar.'",ok:false,fb:"Bereikbaarheid is geen borging. Leg de vervolgacties vast."}]}]},
+{id:"c2",title:"⚡ Missie: netcongestie-strategie voor een provincie",
+brief:"De provincie vraagt jouw team om een strategie: 40+ bedrijven wachten op een aansluiting, de wachtrij groeit. Adviseer — en let op je woordkeus.",
+steps:[
+{q:"Stap 1 — Analyse. Welke formulering hoort in jouw rapport?",
+opts:[{t:"'Uit de netstudie blijkt dat het daadwerkelijke verbruik circa dertig procent lager ligt dan de gecontracteerde capaciteit; hier ligt onbenutte ruimte.'",ok:true,fb:"'Uit ... blijkt', 'daadwerkelijk verbruik', 'onbenutte ruimte' — rapporttaal op niveau."},
+{t:"'Het net is hartstikke vol en dat is best wel een probleem.'",ok:false,fb:"'Hartstikke' en 'best wel' horen bij de koffieautomaat, niet in het rapport."},
+{t:"'Waarschijnlijk valt het allemaal wel mee.'",ok:false,fb:"Zonder onderbouwing is dit hoop, geen analyse."}]},
+{q:"Stap 2 — De gedeputeerde wil één zin voor het persbericht. Welke?",
+opts:[{t:"'De provincie zet vol in op het slimmer benutten van het bestaande net, zodat bedrijven eerder kunnen worden aangesloten.'",ok:true,fb:"'Inzetten op' + 'benutten' + concreet resultaat — perfecte bestuurlijke quote."},
+{t:"'De situatie is complex en vraagt om nader onderzoek naar diverse aspecten.'",ok:false,fb:"Bestuurlijke watten. Zegt niets, belooft niets, niemand citeert het."},
+{t:"'Het is de schuld van de netbeheerder.'",ok:false,fb:"Zwartepieten in een persbericht — samenwerking daarna: onmogelijk."}]},
+{q:"Stap 3 — Een wethouder vraagt of zijn bedrijventerrein 'even voorrang' kan krijgen. Jouw antwoord?",
+opts:[{t:"'Dat begrijp ik, maar de capaciteit wordt volgens een wettelijk kader verdeeld. Wat wél kan: de aanvraag optimaliseren en flexibele contractvormen benutten. Dat werk ik graag met u uit.'",ok:true,fb:"Begrip + kader + 'wat wél kan' — de gouden adviseursformule."},
+{t:"'Voor u regelen we dat wel even.'",ok:false,fb:"Toezeggingen doen die je niet kunt waarmaken kost je je geloofwaardigheid — en die komt te voet en gaat te paard."},
+{t:"'Nee. Volgende vraag.'",ok:false,fb:"Correct inhoudelijk, dodelijk relationeel. Bied altijd het handelingsperspectief."}]},
+{q:"Stap 4 — Slotpresentatie. Hoe rond je af?",
+opts:[{t:"'Ter afsluiting: de opgave is fors, maar met deze fasering en dit maatregelenpakket is zij beheersbaar. De oogst van vandaag: drie besluiten, drie eigenaren, drie data.'",ok:true,fb:"'Ter afsluiting', 'de opgave', 'beheersbaar', 'de oogst' — je klinkt als een partner, niet als een junior."},
+{t:"'Dat was het. Zijn er nog vragen?'",ok:false,fb:"Een gemiste kans: vat samen, benoem de oogst en de vervolgstappen."},
+{t:"'Sorry dat het wat lang duurde.'",ok:false,fb:"Nooit eindigen met een excuus — eindig met de kern."}]}]}];
+VIEWS.mission=()=>{
+  main.innerHTML=`<div class="card"><h2>🚀 CCUS- & netcongestiemissies · Level 5</h2>
+  <p class="muted">Realistische casussimulaties. Elke goede keuze: +10 XP.</p></div>`+
+  MISSIONS.map(m=>`<div class="card"><h3>${m.title} ${S.missDone[m.id]?'<span class="badge">voltooid</span>':''}</h3>
+  <p class="muted">${m.brief}</p><button class="btn small" onclick="startMiss('${m.id}')">Start missie</button>
+  <div id="miss_${m.id}"></div></div>`).join("");
+};
+window.startMiss=id=>{const m=MISSIONS.find(x=>x.id===id);m._step=0;paintMiss(m);};
+function paintMiss(m){
+  const box=document.getElementById("miss_"+m.id);
+  if(m._step>=m.steps.length){S.missDone[m.id]=true;save();box.innerHTML+=`<div class="feedback ok" style="display:block;margin-top:10px">🏆 Missie voltooid! Schrijf nu als bonus zelf de managementsamenvatting (zie Schrijfdrills).</div>`;return;}
+  const st=m.steps[m._step];const opts=shuffle(st.opts);
+  box.innerHTML=`<h3 style="margin-top:14px">${esc(st.q)}</h3>
+  ${opts.map((o,k)=>`<button class="opt" id="so${k}" onclick="ansMiss('${m.id}',${k})">${esc(o.t)}</button>`).join("")}
+  <div class="feedback" id="sfb_${m.id}"></div><div id="snext_${m.id}"></div>`;
+  m._opts=opts;
+}
+window.ansMiss=(id,k)=>{
+  const m=MISSIONS.find(x=>x.id===id);const o=m._opts[k];
+  m._opts.forEach((x,j)=>{const b=document.getElementById("so"+j);b.disabled=true;if(x.ok)b.classList.add("correct");else if(j===k)b.classList.add("wrong");});
+  const fb=document.getElementById("sfb_"+id);
+  fb.className="feedback "+(o.ok?"ok":"no");fb.innerHTML=(o.ok?"✔ +10 XP · ":"✘ ")+esc(o.fb);
+  if(o.ok)addXP(10);
+  document.getElementById("snext_"+id).innerHTML=`<button class="btn small" style="margin-top:8px" onclick="const m=MISSIONS.find(x=>x.id==='${id}');m._step++;paintMiss(m)">Verder →</button>`;
+};
+
+// ============ DAILY MISSION ============
+VIEWS.daily=()=>{
+  const seed=today();let h=0;for(const c of seed)h=(h*31+c.charCodeAt(0))>>>0;
+  const w1=D[h%D.length],w2=D[(h*7+3)%D.length],w3=D[(h*13+5)%D.length];
+  const done=S.dailyDone===seed;
+  main.innerHTML=`<div class="card"><h2>📅 Dagmissie — ${seed} ${done?'<span class="badge">voltooid</span>':''}</h2>
+  <p class="muted">Tien minuten per dag verslaat drie uur per maand. Vandaag draait om deze drie woorden:</p>
+  ${[w1,w2,w3].map(w=>`<div class="wordrow open"><div class="head"><span><b>${esc(w.n)}</b> <span class="pill">${w.t}</span></span><span class="en">${esc(w.e)}</span></div><div class="body">${detailHTML(w)}</div></div>`).join("")}
+  <h3>Jouw missie van vandaag</h3>
+  <p class="muted">1. 🃏 Doe je flashcards (tab Flashcards → 'Te herhalen').<br>
+  2. 🎤 <b>Spreek</b>: neem jezelf 60 seconden op (telefoon) terwijl je een projectupdate geeft met alle drie de woorden.<br>
+  3. ✍️ <b>Schrijf</b> hieronder één professionele e-mailzin per woord.<br>
+  4. ⚔️ Speel één rondje Woordduel.</p>
+  <textarea placeholder="Zin 1 met ${esc(w1.n)}…&#10;Zin 2 met ${esc(w2.n)}…&#10;Zin 3 met ${esc(w3.n)}…"></textarea>
+  <button class="btn" ${done?"disabled":""} onclick="S.dailyDone='${seed}';save();addXP(15);VIEWS.daily()">Missie voltooid (+15 XP)</button>
+  </div>`;
+};
+
+// ============ INIT ============
+paintHeader();VIEWS.home();
+</script>
+</body>
+</html>
